@@ -1,0 +1,52 @@
+name: Build Project on Trigger
+
+on:
+  workflow_dispatch: { }
+defaults:
+  run:
+    shell: bash
+    
+jobs:
+  buildForWindowsBasedPlatforms:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: [ self-hosted, Windows ]
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+        buildMethod:
+          - CustomBuild.BuildForWindows
+        unityPath:
+          - '"C:\Program Files\Unity\Editor\2023.2.14f1\Editor\Unity.exe"'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          clean: false
+          submodules: recursive
+
+      - name: Run Build
+        run: |
+          ${{ matrix.unityPath }} -batchmode -quit -projectPath . -buildTarget ${{matrix.targetPlatform}} -executeMethod ${{ matrix.buildMethod }} -logFile -
+
+      - name: Upload App
+        uses: actions/upload-artifact@v3
+        with:
+          name: DevelopmentBuild
+          path: Builds/Development/
+          retention-days: 7
+          
+on: workflow_dispatch
+jobs:
+  Build:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        clean: false
+        path: PlatformWindows
+
+    - name: WindowsBuild
+      run: /Applications/Unity/Hub/Editor/2023.2.14f1/Unity.app/Contents/MacOS/Unity -batchmode -quit -logFile -projectPath ./PlatformWindows -executeMethod Build.BuildReleaseWindows -nographics -logFile
+    
