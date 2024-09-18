@@ -9,7 +9,7 @@ defaults:
 jobs:
   buildForWindowsBasedPlatforms:
     name: Build for ${{ matrix.targetPlatform }}
-    runs-on: [ self-hosted, Windows ]
+    runs-on: [self-hosted, windows, x64]
     strategy:
       fail-fast: false
       matrix:
