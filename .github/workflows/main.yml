@@ -20,7 +20,7 @@ jobs:
         unityPath:
           - '"C:\Program Files\Unity\Editor\2023.2.14f1\Editor\Unity.exe"'
         localProjectPath:
-          - '"C:\Users\Corraine\Documents\HAL\[011]GradExhibit\MS_Project"'
+          - '"C:\Users\Corraine\Documents\HAL\[011]GradExhibit\MS_Project\MS_Project"'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,7 +29,7 @@ jobs:
 
       - name: Run Build
         run: |
-          ${{ matrix.unityPath }} -batchmode -quit -projectPath ${{ matrix.localProjectPath }} -buildTarget ${{matrix.targetPlatform}} -executeMethod ${{ matrix.buildMethod }} -logFile -
+          ${{ matrix.unityPath }} -batchmode -quit -projectPath ${{ matrix.localProjectPath }} -executeMethod ${{ matrix.buildMethod }} -nographics -logFile
 
       - name: Upload App
         uses: actions/upload-artifact@v3
