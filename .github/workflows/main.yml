@@ -39,6 +39,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: DevelopmentBuild
-          path: "C:\Users\${{ matrix.localProjectPath }}\Builds\*"
+          path: |
+            "C:\Users\${{ matrix.localProjectPath }}\Builds\*"
           retention-days: 7
           
