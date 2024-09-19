@@ -4,7 +4,7 @@ on:
   workflow_dispatch: { }
 defaults:
   run:
-    shell: bash
+    shell: cmd
     
 jobs:
   buildForWindowsBasedPlatforms:
@@ -13,29 +13,32 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        targetPlatform:
-          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+        targetPlatform: [ 'StandaloneWindows64' ] # Build a Windows 64-bit standalone.
         buildMethod:
           - CustomBuild.BuildForWindows
-        unityPath:
-          - '"C:\Program Files\Unity\Editor\2023.2.14f1\Editor\Unity.exe"'
+        unityVersion: [ '2023.2.14f1' ]
         localProjectPath:
-          - '"C:\Users\Corraine\Documents\HAL\[011]GradExhibit\MS_Project\MS_Project"'
+          - 'Corraine\Documents\HAL\[011]GradExhibit\MS_Project\MS_Project'
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v3
         with:
           clean: false
           submodules: recursive
-
-      - name: Run Build
-        shell: bash
+          
+      - name: Setup Unity
         run: |
-          ${{ matrix.unityPath }} -batchmode -quit -projectPath ${{ matrix.localProjectPath }} -executeMethod ${{ matrix.buildMethod }} -nographics -logFile
+        echo "Setting up Unity"
+        set PATH=%PATH%;C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor
 
+      - name: Build Project
+        run: |
+          set LOG_FILE="C:\Users\${{ matrix.localProjectPath }}\Builds\build-${{ github.run_id }}-${{ github.event.head_commit.timestamp }}.log"
+          "C:\Program Files\Unity\Hub\Editor\${{ matrix.unityVersion }}\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\${{ matrix.localProjectPath }}" -executeMethod ${{ matrix.buildMethod }} -nographics -logFile %LOG_FILE% -buildTarget ${{ matrix.targetPlatform }}
       - name: Upload App
         uses: actions/upload-artifact@v3
         with:
           name: DevelopmentBuild
-          path: Builds/Development/
+          path: "C:\Users\${{ matrix.localProjectPath }}\Builds\*"
           retention-days: 7
           
