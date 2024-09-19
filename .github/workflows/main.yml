@@ -34,7 +34,7 @@ jobs:
       - name: Build Project
         run: |
           set LOG_FILE="C:\Users\${{ matrix.localProjectPath }}\Builds\build-${{ github.run_id }}-${{ github.event.head_commit.timestamp }}.log"
-          "C:\Program Files\Unity\Hub\Editor\${{ matrix.unityVersion }}\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\${{ matrix.localProjectPath }}" -executeMethod ${{ matrix.buildMethod }} -nographics -logFile %LOG_FILE% -buildTarget ${{ matrix.targetPlatform }}
+          "C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\${{ matrix.localProjectPath }}" -executeMethod ${{ matrix.buildMethod }} -nographics -logFile %LOG_FILE% -buildTarget ${{ matrix.targetPlatform }}
       - name: Upload App
         uses: actions/upload-artifact@v3
         with:
