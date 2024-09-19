@@ -28,8 +28,8 @@ jobs:
           
       - name: Setup Unity
         run: |
-        echo "Setting up Unity"
-        set PATH=%PATH%;C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor
+          echo "Setting up Unity"
+          set PATH=%PATH%;C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor
 
       - name: Build Project
         run: |
