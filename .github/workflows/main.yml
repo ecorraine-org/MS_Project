@@ -28,6 +28,7 @@ jobs:
           submodules: recursive
 
       - name: Run Build
+        shell: bash
         run: |
           ${{ matrix.unityPath }} -batchmode -quit -projectPath ${{ matrix.localProjectPath }} -executeMethod ${{ matrix.buildMethod }} -nographics -logFile
 
