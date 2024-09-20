@@ -50,7 +50,7 @@ jobs:
     steps:
       - name: List Build Directory
         run:  |
-          Get-ChildItem -Path "C:\Users\${{ matrix.localProjectPath }}\Build\Windows\*
+          Get-ChildItem -Path "C:\Users\${{ matrix.localProjectPath }}\Build\Windows\*"
 
       - name: Compress Build Files
         run: |
