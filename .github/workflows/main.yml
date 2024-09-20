@@ -1,45 +1,76 @@
 name: Build Project on Trigger
-
 on:
   workflow_dispatch: { }
 defaults:
   run:
-    shell: cmd
+    shell: powershell
     
 jobs:
-  buildForWindowsBasedPlatforms:
-    name: Build for ${{ matrix.targetPlatform }}
+  buildApplication:
+    name: Build Application
     runs-on: [ self-hosted, Windows, x64 ]
     strategy:
       fail-fast: false
       matrix:
-        targetPlatform: [ 'StandaloneWindows64' ] # Build a Windows 64-bit standalone.
+        localProjectPath:
+          - 'Corraine\Documents\HAL\GradExhibit\MS_Project\MS_Project'
+        unityVersion: [ '2023.2.14f1' ]
+        targetPlatform: [ 'StandaloneWindows64' ]
         buildMethod:
           - CustomBuild.BuildForWindows
-        unityVersion: [ '2023.2.14f1' ]
-        localProjectPath:
-          - 'Corraine\Documents\HAL\[011]GradExhibit\MS_Project\MS_Project'
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           clean: false
           submodules: recursive
           
       - name: Setup Unity
         run: |
-          echo "Setting up Unity"
-          set PATH=%PATH%;C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor
+          Write-Host "Setting up Unity"
+          $env:PATH += ";C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor"
 
       - name: Build Project
         run: |
-          set LOG_FILE="C:\Users\${{ matrix.localProjectPath }}\Build\Logs\build-${{ github.run_id }}-${{ github.event.head_commit.timestamp }}.log"
-          "C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\${{ matrix.localProjectPath }}" -executeMethod ${{ matrix.buildMethod }} -nographics -logFile %LOG_FILE% -buildTarget ${{ matrix.targetPlatform }}
+          $logFile = "C:\Users\${{ matrix.localProjectPath }}\Build\Logs\build-${{ github.run_id }}.log"
+          & "C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\${{ matrix.localProjectPath }}" -executeMethod ${{ matrix.buildMethod }} -nographics -logFile $logFile -buildTarget ${{ matrix.targetPlatform }}
+
+  compressFiles:
+    needs: buildApplication
+    name: Compress Files
+    runs-on: [ self-hosted, Windows, x64 ]
+    strategy:
+      fail-fast: false
+      matrix:
+        localProjectPath:
+          - 'Corraine\Documents\HAL\GradExhibit\MS_Project\MS_Project'
+        localDestPath:
+          - 'Corraine\Documents\HAL\GradExhibit'
+        targetPlatform: [ 'StandaloneWindows64' ]
+    steps:
+      - name: List Build Directory
+        run:  |
+          Get-ChildItem -Path "C:\Users\${{ matrix.localProjectPath }}\Build\Windows\*
+
+      - name: Compress Build Files
+        run: |
+          $zipFile = "C:\Users\${{ matrix.localDestPath }}\Build\Build-${{ github.run_id }}.zip"
+          Compress-Archive -Path "C:\Users\${{ matrix.localProjectPath }}\Build\Windows\*" -DestinationPath $zipFile
+
+  uploadFiles:
+    needs: [ buildApplication, compressFiles ]
+    name: Upload Files
+    runs-on: [ self-hosted, Windows, x64 ]
+    strategy:
+      fail-fast: false
+      matrix:
+        localDestPath:
+          - 'Corraine\Documents\HAL\GradExhibit'
+    steps:
       - name: Upload App
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: DevelopmentBuild
-          path: |
-            "C:\Users\${{ matrix.localProjectPath }}\Build\Windows\*"
+          name: DevelopmentBuild-${{ github.run_id }}
+          path: C:\Users\${{ matrix.localDestPath }}\Build\Build-${{ github.run_id }}.zip
           retention-days: 7
           
