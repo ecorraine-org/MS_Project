@@ -15,7 +15,7 @@ public class StatusManager : MonoBehaviour, ILife
 
     protected virtual void Awake()
     {
-        currentHealth = statusData.MaxHealth;
+        currentHealth = statusData.maxHealth;
     }
 
     public virtual void TakeDamage(float _damage)
