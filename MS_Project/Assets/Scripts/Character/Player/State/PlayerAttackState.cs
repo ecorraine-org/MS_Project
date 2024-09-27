@@ -17,6 +17,7 @@ public class PlayerAttackState : PlayerState
         Debug.Log("AttackState");//test
 
         Attack();
+        spriteAnim.Play("Attack");
     }
 
     public override void Tick()
@@ -24,9 +25,13 @@ public class PlayerAttackState : PlayerState
         //ダメージチェック
         playerController.StateManager.CheckHit();
 
-        //test
-        //アイドルへ遷移
-        playerController.StateManager.TransitionState(StateType.Idle);
+        // Debug.Log("Time" + spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
+        //アニメーション終了、アイドルへ遷移
+        if (spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+        {
+            playerController.StateManager.TransitionState(StateType.Idle);
+        }
     }
 
     public override void FixedTick()
@@ -50,7 +55,12 @@ public class PlayerAttackState : PlayerState
 
         Debug.Log("controller Attack");
         Collider[] hitColliders = Physics.OverlapBox(attackAreaPos, attackSize / 2, UnityEngine.Quaternion.identity, enemyLayer);
+
+
+        if (hitColliders.Length <= 0) return;
+
         Debug.Log("当たり判定" + hitColliders[0]);//test
+
         foreach (Collider hitCollider in hitColliders)
         {
             hitCollider.GetComponentInChildren<ILife>().TakeDamage(attackDamage);

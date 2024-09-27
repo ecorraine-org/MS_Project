@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
   m_Name: EnemyStatusData
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  maxHealth: 100
   velocity: 1
+  chaseDistance: 3
+  attackDistance: 0.8
