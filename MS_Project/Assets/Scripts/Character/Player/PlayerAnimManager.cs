@@ -14,7 +14,7 @@ public class PlayerAnimManager : MonoBehaviour
 
     void Attack()
     {
-        playerController.Attack();
+        // playerController.Attack();
 
     }
 }

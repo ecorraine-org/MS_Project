@@ -11,15 +11,20 @@ public class PlayerIdleState : PlayerState
     {
         base.Init(_playerController);
 
-        //   inputManager.BindWalk(ExecuteWalk);
-        //  inputManager.BindAction(inputManager.InputControls.GamePlay.Walk, ExecuteWalk);
+        // inputManager.BindAction(inputManager.InputControls.GamePlay.Attack, ExecuteAttack);
 
     }
+
+
 
     public override void Tick()
     {
         //ダメージチェック
         playerController.StateManager.CheckHit();
+
+        //攻撃へ遷移
+        bool isAttack = inputManager.GetAttackTrigger();
+        if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
 
         //アニメーション設定
         playerController.SetWalkAnimation();
@@ -41,10 +46,8 @@ public class PlayerIdleState : PlayerState
 
     public override void Exit()
     {
-        //   inputManager.UnBindWalk(ExecuteWalk);
-        //  inputManager.UnBindWalk();
 
-        // inputManager.UnBindAction(inputManager.InputControls.GamePlay.Walk);
+        // inputManager.UnBindAction(inputManager.InputControls.GamePlay.Attack);
     }
 
 

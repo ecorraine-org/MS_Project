@@ -14,16 +14,16 @@ public class PlayerWalkState : PlayerState
         base.Init(_playerController);
 
 
-
-
-        // inputManager.BindAction(inputManager.InputControls.GamePlay.Walk, ExecuteWalk);
     }
-
 
     public override void Tick()
     {
         //ダメージチェック
         playerController.StateManager.CheckHit();
+
+        //攻撃へ遷移
+        bool isAttack = inputManager.GetAttackTrigger();
+        if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
 
         //方向取得
         inputDirec = inputManager.GetMoveDirec();
@@ -54,6 +54,6 @@ public class PlayerWalkState : PlayerState
 
     public override void Exit()
     {
-        //inputManager.UnBindAction(inputManager.InputControls.GamePlay.Walk);
+
     }
 }

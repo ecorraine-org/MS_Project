@@ -50,12 +50,7 @@ public class PlayerController : MonoBehaviour
     // ï˚å¸äpìxÇÃËáíl
     private const float angleThreshold = 22.5f;
 
-    //çUåÇtest
-    public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
-    UnityEngine.Vector3 attackAreaPos;
-    public UnityEngine.Vector3 offsetPos;
-    public float attackDamage;
-    public LayerMask enemyLayer;
+
 
     void Awake()
     {
@@ -164,34 +159,6 @@ public class PlayerController : MonoBehaviour
         //    //thisRigidbody.AddForce(UnityEngine.Vector3.up * jumpForce, ForceMode.Impulse);
         //    thisRigidbody.velocity += new UnityEngine.Vector3(0f, jumpForce, 0f);
         //}
-    }
-
-    //attack test
-    public void Attack()
-    {
-        attackAreaPos = transform.position;
-
-        //ç∂âEîΩì]Ç©
-        offsetPos.x = spriteRenderer.flipX ? -Mathf.Abs(offsetPos.x) : Mathf.Abs(offsetPos.x);
-
-        attackAreaPos += offsetPos;
-
-        Debug.Log("controller Attack");
-        Collider[] hitColliders = Physics.OverlapBox(attackAreaPos, attackSize / 2, UnityEngine.Quaternion.identity, enemyLayer);
-        Debug.Log("ìñÇΩÇËîªíË" + hitColliders[0]);//test
-        foreach (Collider hitCollider in hitColliders)
-        {
-            hitCollider.GetComponentInChildren<ILife>().TakeDamage(attackDamage);
-        }
-    }
-
-    /// <summary>
-    /// ï`âÊtest
-    /// </summary>
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(attackAreaPos, attackSize);
     }
 
     /// <summary>
