@@ -13,4 +13,9 @@ public class ProtoEnemyStatusManager : StatusManager
         base.Awake();
 
     }
+
+    public new EnemyStatusData StatusData
+    {
+        get => (EnemyStatusData)statusData;
+    }
 }

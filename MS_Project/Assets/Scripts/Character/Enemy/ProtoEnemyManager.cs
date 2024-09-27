@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class ProtoEnemyManager : MonoBehaviour
 {
+    [SerializeField, Header("ステータスマネージャー")]
+    ProtoEnemyStatusManager statusManager;
+
     public UnityEvent<Vector3> OnMovementInput;
 
     public UnityEvent OnAttack;
@@ -12,22 +15,16 @@ public class ProtoEnemyManager : MonoBehaviour
     [SerializeField, Header("プレイヤー")]
     Transform player;
 
-    [SerializeField, Header("追跡距離")]
-    float chaseDistance = 3f;
-
-    [SerializeField, Header("攻撃距離")]
-    float attackDistance = 0.8f;
-
     private void Update()
     {
         if (player == null) return;
 
         float distance = Vector3.Distance(player.position, transform.position);
 
-        if (distance < chaseDistance)
+        if (distance < statusManager.StatusData.chaseDistance)
         {
 
-            if (distance <= attackDistance)
+            if (distance <= statusManager.StatusData.attackDistance)
             {
                 OnMovementInput?.Invoke(Vector3.zero);
                 //攻撃
