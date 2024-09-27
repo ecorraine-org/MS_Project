@@ -11,12 +11,15 @@ public abstract class PlayerState : MonoBehaviour
     protected PlayerInputManager inputManager;
 
     protected PlayerController playerController;
+
     protected PlayerStateManager playerStateManager;
     // protected PlayerStatusManager playerStatusManager;
 
     protected Rigidbody rb;
 
     protected Animator spriteAnim;
+
+    protected SpriteRenderer spriteRenderer;
 
     protected Transform mainCamera;
 
@@ -36,6 +39,8 @@ public abstract class PlayerState : MonoBehaviour
         rb = playerController.RigidBody;
 
         spriteAnim = playerController.SpriteAnim;
+
+        spriteRenderer = playerController.SpriteRenderer;
 
         mainCamera = playerController.MainCamera;
     }

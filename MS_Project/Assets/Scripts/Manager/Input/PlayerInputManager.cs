@@ -92,6 +92,15 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
         return inputControls.GamePlay.Walk.ReadValue<Vector2>();
     }
 
+    /// <summary>
+    /// 攻撃入力(トリガー)を取得
+    /// </summary>
+    public bool GetAttackTrigger()
+    {
+        return inputControls.GamePlay.Attack.triggered;
+    }
+
+
     public InputControls InputControls
     {
         get { return inputControls; }
