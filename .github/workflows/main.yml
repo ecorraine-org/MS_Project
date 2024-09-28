@@ -54,12 +54,12 @@ jobs:
           Write-Host "Checking on build directory for files..."
           $Files = @(Get-ChildItem -Path "C:\Users\$env:PROJECT_PATH\Build\Windows\*")
           if ($Files.length -eq 0) {
+            Write-Host "No files found to compress in the specified directory."
+          }
+          else {
             Write-Host "Files found. Starting to compress files..."
             $zipFile = "C:\Users\$env:LOCAL_PATH\Build\Build-$Date.zip"
             Compress-Archive -Path "C:\Users\$env:PROJECT_PATH\Build\Windows\*" -DestinationPath $zipFile -Force
-          }
-          else {
-            Write-Host "No files found to compress in the specified directory."
           }
 
   uploadFiles:
