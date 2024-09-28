@@ -1,6 +1,17 @@
 name: Build Project on Trigger
+
 on:
   workflow_dispatch: { }
+  push:
+    branches:
+      - main
+
+env:
+  TARGET_PLATFORM: "StandaloneWindows64"
+  UNITY_VERSION: "2023.2.14f1"
+  LOCAL_PATH: 'Corraine\Documents\HAL\GradExhibit\'
+  PROJECT_PATH: 'Corraine\Documents\HAL\GradExhibit\MS_Project\MS_Project'
+
 defaults:
   run:
     shell: powershell
@@ -12,10 +23,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        localProjectPath:
-          - 'Corraine\Documents\HAL\GradExhibit\MS_Project\MS_Project'
-        unityVersion: [ '2023.2.14f1' ]
-        targetPlatform: [ 'StandaloneWindows64' ]
         buildMethod:
           - CustomBuild.BuildForWindows
     steps:
@@ -25,15 +32,14 @@ jobs:
           clean: false
           submodules: recursive
           
-      - name: Setup Unity
+      - name: Setup Unity and Build
         run: |
-          Write-Host "Setting up Unity"
-          $env:PATH += ";C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor"
-
-      - name: Build Project
-        run: |
-          $logFile = "C:\Users\${{ matrix.localProjectPath }}\Build\Logs\build-${{ github.run_id }}.log"
-          & "C:\Program Files\Unity\Editor\${{ matrix.unityVersion }}\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\${{ matrix.localProjectPath }}" -executeMethod ${{ matrix.buildMethod }} -nographics -logFile $logFile -buildTarget ${{ matrix.targetPlatform }}
+          $Date = Get-Date -Format yyMMdd
+          Write-Host "Locating Unity..."
+          $unityPath = "C:\Program Files\Unity\Editor\$env:UNITY_VERSION\Editor\Unity.exe"
+          Write-Host "Attempting to Build Project..."
+          $logFile = "C:\Users\$env:PROJECT_PATH\Build\Logs\build-$Date.log"
+          & $unityPath -batchmode -quit -projectPath "C:\Users\$env:PROJECT_PATH" -executeMethod ${{ matrix.buildMethod }} -nographics -logFile $logFile -buildTarget $env:TARGET_PLATFORM
 
   compressFiles:
     needs: buildApplication
@@ -41,21 +47,20 @@ jobs:
     runs-on: [ self-hosted, Windows, x64 ]
     strategy:
       fail-fast: false
-      matrix:
-        localProjectPath:
-          - 'Corraine\Documents\HAL\GradExhibit\MS_Project\MS_Project'
-        localDestPath:
-          - 'Corraine\Documents\HAL\GradExhibit'
-        targetPlatform: [ 'StandaloneWindows64' ]
     steps:
-      - name: List Build Directory
+      - name: Check Build Directory and Compress Files
         run:  |
-          Get-ChildItem -Path "C:\Users\${{ matrix.localProjectPath }}\Build\Windows\*"
-
-      - name: Compress Build Files
-        run: |
-          $zipFile = "C:\Users\${{ matrix.localDestPath }}\Build\Build-${{ github.run_id }}.zip"
-          Compress-Archive -Path "C:\Users\${{ matrix.localProjectPath }}\Build\Windows\*" -DestinationPath $zipFile
+          $Date = Get-Date -Format yyMMdd
+          Write-Host "Checking on build directory for files..."
+          $Files = @(Get-ChildItem -Path "C:\Users\$env:PROJECT_PATH\Build\Windows\*")
+          if ($Files.length -eq 0) {
+            Write-Host "Files found. Starting to compress files..."
+            $zipFile = "C:\Users\$env:LOCAL_PATH\Build\Build-$Date.zip"
+            Compress-Archive -Path "C:\Users\$env:PROJECT_PATH\Build\Windows\*" -DestinationPath $zipFile -Force
+          }
+          else {
+            Write-Host "No files found to compress in the specified directory."
+          }
 
   uploadFiles:
     needs: [ buildApplication, compressFiles ]
@@ -63,14 +68,16 @@ jobs:
     runs-on: [ self-hosted, Windows, x64 ]
     strategy:
       fail-fast: false
-      matrix:
-        localDestPath:
-          - 'Corraine\Documents\HAL\GradExhibit'
     steps:
+      - name: Set Date to Environment
+        run: |
+          $Date = Get-Date -Format yyMMdd
+          echo "BUILD_DATE=$Date"  | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
+
       - name: Upload App
         uses: actions/upload-artifact@v4
         with:
-          name: DevelopmentBuild-${{ github.run_id }}
-          path: C:\Users\${{ matrix.localDestPath }}\Build\Build-${{ github.run_id }}.zip
+          name: DevelopmentBuild-${{ env.BUILD_DATE }}
+          path: C:\Users\$env:LOCAL_PATH\Build\Build-${{ env.BUILD_DATE }}.zip
           retention-days: 7
           
