@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerState
 {
-    //“ü—Í•ûŒü
+    //å…¥åŠ›æ–¹å‘
     UnityEngine.Vector2 inputDirec;
 
     public override void Init(PlayerController _playerController)
@@ -19,19 +19,19 @@ public class PlayerIdleState : PlayerState
 
     public override void Tick()
     {
-        //ƒ_ƒ[ƒWƒ`ƒFƒbƒN
+        //ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒã‚§ãƒƒã‚¯
         playerController.StateManager.CheckHit();
 
-        //UŒ‚‚Ö‘JˆÚ
+        //æ”»æ’ƒã¸é·ç§»
         bool isAttack = inputManager.GetAttackTrigger();
         if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“Ý’è
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š
         playerController.SetWalkAnimation();
 
         inputDirec = inputManager.GetMoveDirec();
 
-        //ˆÚ“®‚Ö‘JˆÚ
+        //ç§»å‹•ã¸é·ç§»
         if (inputDirec.magnitude > 0)
             playerController.StateManager.TransitionState(StateType.Walk);
 

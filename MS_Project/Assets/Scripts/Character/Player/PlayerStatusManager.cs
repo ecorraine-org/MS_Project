@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒ^ƒX‚ðŠÇ—‚·‚éƒrƒwƒCƒrƒA
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç®¡ç†ã™ã‚‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢
 /// </summary>
 public class PlayerStatusManager : StatusManager
 {

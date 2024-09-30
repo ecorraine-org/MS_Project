@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// プレイヤーのアニメーションイベントを管理するビヘイビア
+/// </summary>
 public class PlayerAnimManager : MonoBehaviour
 {
-    //PlayerController�̎Q��
+    //PlayerControllerの参照
     PlayerController playerController;
 
     public void Init(PlayerController _playerController)
