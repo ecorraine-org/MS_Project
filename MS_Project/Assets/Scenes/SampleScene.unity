@@ -119,6 +119,33 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &43246237 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+  m_PrefabInstance: {fileID: 562080001}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &43246238
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43246237}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9d5f83bc7ff90494785b3227ca6834da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &400909848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8143523743651954739, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
@@ -261,6 +288,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5ff3f654c00054d93323bc760f26d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &562080001
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2678509
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.000021219254
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.4247952
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: m_Name
+      value: virus_2.0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 43246238}
+  m_SourcePrefab: {fileID: 100100000, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,3 +764,4 @@ SceneRoots:
   - {fileID: 1330872482}
   - {fileID: 420848544}
   - {fileID: 952027044}
+  - {fileID: 562080001}
