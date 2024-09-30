@@ -19,7 +19,29 @@ public class HitDetectionCamera : MonoBehaviour
     //プレイヤーの攻撃を行うタイミングはTick=Update関数
     //それを補正するためFixedUpdate内で補正を行う。
     //用意するColliderの内訳を詳細に記述する。
+
+    //----------------
+    // メンバ変数
+    //----------------
+    private Transform player; //プレイヤーの座標
+
+    //画面内に存在するEnemyレイヤーの複数の敵座標
+    //private List<Enemy> enemies = new List<Enemy>();
+    private Camera mainCamera; //メインカメラ
+
+    [Header("Debug ")]
+    public bool showDebugVisuals = true; //デバッグ表示
+    public bool enable2DDetection = true; //2D検出の有効化
+    public bool enable3DDetection = true; //3D検出の有効化
+    public bool enableBlendedDetection = true; //ブレンド検出の有効化
     
+    //デバッグのColliderの色の設定
+    public Color debugColor = Color.red;
+    public Color debugColor2D = Color.green;
+    public Color debugColor3D = Color.blue;
+    public Color debugColorBlended = Color.yellow;
+
+
 
     // Start is called before the first frame update
     void Start()
