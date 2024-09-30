@@ -509,6 +509,7 @@ GameObject:
   - component: {fileID: 2740001481906123692}
   - component: {fileID: 8469728801098781021}
   - component: {fileID: 1387272161391414000}
+  - component: {fileID: 3452593541282707586}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -623,9 +624,22 @@ MonoBehaviour:
   statusManager: {fileID: 2584761046635776466}
   stateManager: {fileID: 2304777744165196105}
   animManager: {fileID: 9057627101419881283}
+  attackCollider: {fileID: 3452593541282707586}
   jumpForce: 3
   terrainLayer:
     serializedVersion: 2
     m_Bits: 0
   groundCheck: {fileID: 0}
   isGrounded: 0
+--- !u!114 &3452593541282707586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8836845501146020627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: decf8e94694e7874e83b8412f934948f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

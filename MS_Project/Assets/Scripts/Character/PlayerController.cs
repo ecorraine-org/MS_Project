@@ -19,10 +19,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("アニメーションマネージャー")]
     PlayerAnimManager animManager;
 
+    [SerializeField, Header("アタックコライダーマネージャー")]
+    AttackColliderManager attackCollider;
+
     Rigidbody thisRigidbody;
 
-    // UnityEngine.Vector2 moveInput;
-    //public float moveSpeed = 1;
     public float jumpForce = 3;
 
     public LayerMask terrainLayer;
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour
     //ダメージ受けるかどうか
     bool isHit;
 
-    // 方向角度の閾値
+    // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
 
 
@@ -83,7 +84,6 @@ public class PlayerController : MonoBehaviour
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
     }
 
-    // Update is called once per frame
     void Update()
     {
         //moveInput.x = Input.GetAxis("Horizontal");
@@ -161,13 +161,6 @@ public class PlayerController : MonoBehaviour
         //}
     }
 
-    /// <summary>
-    /// 攻撃イベントtest
-    /// </summary>
-    private void OnAttackPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        spriteAnim.Play("PlayerAttack");
-    }
 
     /// <summary>
     /// 入力方向で現在の方向を八方向のいずれかに設定する
@@ -176,6 +169,7 @@ public class PlayerController : MonoBehaviour
     {
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
 
+        //入力方向の角度計算
         float angle = Mathf.Atan2(inputDirec.y, inputDirec.x) * Mathf.Rad2Deg;
         if (angle >= -angleThreshold && angle < angleThreshold)
         {
@@ -219,6 +213,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 現在の方向で歩きのアニメーションを設定する
+    /// </summary>
     public void SetWalkAnimation()
     {
         spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
@@ -264,6 +261,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// 攻撃イベント
+    /// </summary>
+    //private void OnAttackPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    //{
+    //    spriteAnim.Play("PlayerAttack");
+    //}
+
     #region Getter&Setter 
 
     public bool IsHit
@@ -275,6 +281,11 @@ public class PlayerController : MonoBehaviour
     public PlayerStateManager StateManager
     {
         get => this.stateManager;
+    }
+
+    public AttackColliderManager AttackCollider
+    {
+        get => this.attackCollider;
     }
 
     public Animator SpriteAnim
