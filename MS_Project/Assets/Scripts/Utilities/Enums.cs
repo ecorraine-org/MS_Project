@@ -1,5 +1,5 @@
 /// <summary>
-/// Œü‚«•ûŒü
+/// å‘ãæ–¹å‘
 /// </summary>
 public enum Direction
 {
@@ -11,4 +11,13 @@ public enum Direction
     UpRight,
     DownLeft,
     DownRight
+}
+
+/// <summary>
+/// ã‚ªãƒãƒãƒˆãƒšç¨®é¡
+/// </summary>
+public enum OnomatoType {
+    None,
+    A,
+    B
 }
