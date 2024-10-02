@@ -225,10 +225,12 @@ public class PlayerController : MonoBehaviour
         switch (currentDirec)
         {
             case Direction.Right:
+                spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkRight");
                 break;
 
             case Direction.UpRight:
+                spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkUpRight");
                 break;
 
@@ -237,17 +239,15 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case Direction.UpLeft:
-                spriteRenderer.flipX = true;
+
                 spriteAnim.Play("WalkUpRight");
                 break;
 
             case Direction.Left:
-                spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkRight");
                 break;
 
             case Direction.DownLeft:
-                spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkDownRight");
                 break;
 
@@ -256,6 +256,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case Direction.DownRight:
+                spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkDownRight");
                 break;
         }

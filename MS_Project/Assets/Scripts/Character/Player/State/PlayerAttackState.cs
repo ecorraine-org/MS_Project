@@ -11,9 +11,6 @@ public class PlayerAttackState : PlayerState
     public float attackDamage;
     public LayerMask enemyLayer;
 
-    // [SerializeField, Header("コライダーマネージャー")]
-    // AttackColliderManager colliderManager; //test
-
     public override void Init(PlayerController _playerController)
     {
         base.Init(_playerController);
@@ -58,7 +55,7 @@ public class PlayerAttackState : PlayerState
         attackAreaPos += offsetPos;
 
         //コライダーの検出
-        playerController.AttackCollider.DetectColliders(attackAreaPos, offsetPos, attackSize, attackDamage, enemyLayer);
+        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, attackDamage, enemyLayer);
 
     }
 

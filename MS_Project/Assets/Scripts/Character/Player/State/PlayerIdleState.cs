@@ -26,6 +26,14 @@ public class PlayerIdleState : PlayerState
         bool isAttack = inputManager.GetAttackTrigger();
         if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
 
+        //捕食へ遷移
+        bool isEat = inputManager.GetEatTrigger();
+        if (isEat) playerController.StateManager.TransitionState(StateType.Eat);
+
+        //スキルへ遷移
+        bool isSkill = inputManager.GetSkillTrigger();
+        if (isSkill) playerController.StateManager.TransitionState(StateType.Skill);
+
         //アニメーション設定
         playerController.SetWalkAnimation();
 

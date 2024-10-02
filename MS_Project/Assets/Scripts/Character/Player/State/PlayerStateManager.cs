@@ -14,7 +14,7 @@ public enum StateType
     Attack,         //攻撃
     Skill,          //技能(スキル)
     FinishSkill,    //奥義(必殺技)
-    Eat,            //暴食(食べる)
+    Eat,            //捕食(食べる)
     ModeChange,     //切替(モードチェンジ)
     Dodge           //回避
 
@@ -31,11 +31,17 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField, Header("アイドル状態ビヘイビア")]
     PlayerIdleState idleState;
 
+    [SerializeField, Header("スキル状態ビヘイビア")]
+    PlayerSkillState skillState;
+
     //[SerializeField, Header("被ダメージ状態ビヘイビア")]
     //HitState hitState;
 
     //[SerializeField, Header("死ぬ状態ビヘイビア")]
     //DeadState deadState;
+
+    [SerializeField, Header("捕食状態ビヘイビア")]
+    PlayerEatState eatState;
 
     [SerializeField, Header("移動状態ビヘイビア")]
     PlayerWalkState walkState;
@@ -64,7 +70,8 @@ public class PlayerStateManager : MonoBehaviour
         //要素追加
         dicStates.Add(StateType.Idle, idleState);
         //dicStates.Add(StateType.Hit, hitState);
-        //dicStates.Add(StateType.BlownAway, blownAwayState);
+        dicStates.Add(StateType.Eat, eatState);
+        dicStates.Add(StateType.Skill, skillState);
         //dicStates.Add(StateType.Dead, deadState);
         dicStates.Add(StateType.Walk, walkState);
         dicStates.Add(StateType.Attack, attackState);
