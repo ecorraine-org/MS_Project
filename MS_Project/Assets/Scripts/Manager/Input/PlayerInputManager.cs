@@ -100,6 +100,22 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
         return inputControls.GamePlay.Attack.triggered;
     }
 
+    /// <summary>
+    /// 捕食入力を取得
+    /// </summary>
+    public bool GetEatTrigger()
+    {
+        return inputControls.GamePlay.Eat.triggered;
+    }
+
+    /// <summary>
+    /// スキル入力を取得
+    /// </summary>
+    public bool GetSkillTrigger()
+    {
+        return inputControls.GamePlay.Skill.triggered;
+    }
+
 
     public InputControls InputControls
     {
