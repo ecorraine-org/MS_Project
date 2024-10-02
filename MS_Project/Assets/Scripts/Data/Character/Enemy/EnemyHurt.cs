@@ -20,7 +20,8 @@ public class EnemyHurt : MonoBehaviour
     {
         //‚Ô‚Â‚©‚Á‚½‚Æ‚«‚Ìˆ—
         if (collision.gameObject.CompareTag("Player")) {
-            Destroy(this.gameObject);
+            Debug.Log("“–‚½‚Á‚Ä‚é!!!!!!!!!!!!!!!!!!!!!!");
+            //Destroy(this.gameObject);
         }
     }
 
