@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// シングルトンベースビヘイビア
+/// 繧ｷ繝ｳ繧ｰ繝ｫ繝医Φ繝吶�ｼ繧ｹ繝薙�倥う繝薙い
 /// </summary>
 public abstract class SingletonBaseBehavior<T> : MonoBehaviour
     where T : Component

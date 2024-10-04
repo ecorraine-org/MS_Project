@@ -7,19 +7,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    // ƒCƒ“ƒvƒbƒgƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚¤ãƒ³ãƒ—ãƒƒãƒˆã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     protected PlayerInputManager inputManager;
 
-    [SerializeField, Header("ƒXƒe[ƒ^ƒXƒ}ƒl[ƒWƒƒ[")]
+    [SerializeField, Header("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼")]
     PlayerStatusManager statusManager;
 
-    [SerializeField, Header("ƒXƒe[ƒgƒ}ƒl[ƒWƒƒ[")]
+    [SerializeField, Header("ã‚¹ãƒ†ãƒ¼ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼")]
     PlayerStateManager stateManager;
 
-    [SerializeField, Header("ƒAƒjƒ[ƒVƒ‡ƒ“ƒ}ƒl[ƒWƒƒ[")]
+    [SerializeField, Header("ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼")]
     PlayerAnimManager animManager;
 
-    [SerializeField, Header("ƒAƒ^ƒbƒNƒRƒ‰ƒCƒ_[ƒ}ƒl[ƒWƒƒ[")]
+    [SerializeField, Header("ã‚¢ã‚¿ãƒƒã‚¯ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼")]
     AttackColliderManager attackCollider;
 
     Rigidbody thisRigidbody;
@@ -39,30 +39,30 @@ public class PlayerController : MonoBehaviour
     // 
     private Transform mainCamera;
 
-    //“ü—Í•ûŒü
+    //å…¥åŠ›æ–¹å‘
     UnityEngine.Vector2 inputDirec;
 
-    //Œ»İ‚ÌŒü‚«
+    //ç¾åœ¨ã®å‘ã
     Direction currentDirec = Direction.Down;
 
-    //ƒ_ƒ[ƒWó‚¯‚é‚©‚Ç‚¤‚©
+    //ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘ã‚‹ã‹ã©ã†ã‹
     bool isHit;
 
-    // “ü—Í•ûŒüŠp“x‚Ìè‡’l
+    // å…¥åŠ›æ–¹å‘è§’åº¦ã®é–¾å€¤
     private const float angleThreshold = 22.5f;
 
-    [SerializeField, Header("ƒ‚[ƒh")]
+    [SerializeField, Header("ãƒ¢ãƒ¼ãƒ‰")]
     PlayerMode mode = PlayerMode.None;
 
     private void OnEnable()
     {
-        //ƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh‚·‚é
+        //ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹
         OnomatoManager.OnModeChangeEvent += ModeChange;
     }
 
     private void OnDisable()
     {
-        //ƒoƒCƒ“ƒh‚ğ‰ğœ‚·‚é
+        //ãƒã‚¤ãƒ³ãƒ‰ã‚’è§£é™¤ã™ã‚‹
         OnomatoManager.OnModeChangeEvent -= ModeChange;
     }
 
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
         spriteAnim = sprite.GetComponent<Animator>();
 
-        //ˆË‘¶«’“ü
+        //ä¾å­˜æ€§æ³¨å…¥
         stateManager.Init(this);
         animManager.Init(this);
     }
@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ‚[ƒhƒ`ƒFƒ“ƒW
+    /// ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸
     /// </summary>
     private void ModeChange(PlayerMode _mode)
     {
@@ -183,13 +183,13 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// “ü—Í•ûŒü‚ÅŒ»İ‚Ì•ûŒü‚ğ”ª•ûŒü‚Ì‚¢‚¸‚ê‚©‚Éİ’è‚·‚é
+    /// å…¥åŠ›æ–¹å‘ã§ç¾åœ¨ã®æ–¹å‘ã‚’å…«æ–¹å‘ã®ã„ãšã‚Œã‹ã«è¨­å®šã™ã‚‹
     /// </summary>
     public void SetEightDirection()
     {
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
 
-        //“ü—Í•ûŒü‚ÌŠp“xŒvZ
+        //å…¥åŠ›æ–¹å‘ã®è§’åº¦è¨ˆç®—
         float angle = Mathf.Atan2(inputDirec.y, inputDirec.x) * Mathf.Rad2Deg;
         if (angle >= -angleThreshold && angle < angleThreshold)
         {
@@ -234,7 +234,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Œ»İ‚Ì•ûŒü‚Å•à‚«‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğİ’è‚·‚é
+    /// ç¾åœ¨ã®æ–¹å‘ã§æ­©ãã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¨­å®šã™ã‚‹
     /// </summary>
     public void SetWalkAnimation()
     {
@@ -284,7 +284,7 @@ public class PlayerController : MonoBehaviour
 
 
     /// <summary>
-    /// UŒ‚ƒCƒxƒ“ƒg
+    /// æ”»æ’ƒã‚¤ãƒ™ãƒ³ãƒˆ
     /// </summary>
     //private void OnAttackPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
     //{
