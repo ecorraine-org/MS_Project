@@ -22,6 +22,13 @@ public class PlayerEatState : PlayerState
 
     public override void Tick()
     {
+        //モードチェンジへ遷移
+        //条件:①遷移先状態は今のと違う
+        //②特定のオノマトペを食べる
+        //if ()
+        //{
+        //    playerController.StateManager.TransitionState(StateType.ModeChange);
+        //}
 
         //アニメーション終了、アイドルへ遷移
         if (spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)

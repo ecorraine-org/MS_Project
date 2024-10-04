@@ -49,6 +49,9 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField, Header("攻撃状態ビヘイビア")]
     PlayerAttackState attackState;
 
+    [SerializeField, Header("モードチェンジ状態ビヘイビア")]
+    PlayerModeChangeState modeChangeState;
+
     //今のステート種類
     StateType currentStateType;
 
@@ -75,6 +78,7 @@ public class PlayerStateManager : MonoBehaviour
         //dicStates.Add(StateType.Dead, deadState);
         dicStates.Add(StateType.Walk, walkState);
         dicStates.Add(StateType.Attack, attackState);
+        dicStates.Add(StateType.ModeChange, modeChangeState);
         //dicStates.Add(StateType.CombatStance, combatStanceState);
         //dicStates.Add(StateType.Stun, stunState);
 
