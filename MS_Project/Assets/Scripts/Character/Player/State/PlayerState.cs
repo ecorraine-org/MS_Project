@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒg‚ÌeƒNƒ‰ƒX
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®è¦ªã‚¯ãƒ©ã‚¹
 /// </summary>
 public abstract class PlayerState : MonoBehaviour
 {
-    // ƒCƒ“ƒvƒbƒgƒ}ƒl[ƒWƒƒ[ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     protected PlayerInputManager inputManager;
 
     protected PlayerController playerController;
@@ -24,13 +24,13 @@ public abstract class PlayerState : MonoBehaviour
     protected Transform mainCamera;
 
     /// <summary>
-    ///ƒXƒe[ƒg‚Ì‰Šú‰»ˆ—
+    ///ã‚¹ãƒ†ãƒ¼ãƒˆã®åˆæœŸåŒ–å‡¦ç†
     /// </summary>
     public virtual void Init(PlayerController _playerController)
     {
         inputManager = PlayerInputManager.Instance;
 
-        //ƒ}ƒl[ƒWƒƒ[æ“¾
+        //ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å–å¾—
         playerController = _playerController;
 
         playerStateManager = playerController.StateManager;
@@ -46,17 +46,17 @@ public abstract class PlayerState : MonoBehaviour
     }
 
     /// <summary>
-    ///ƒXƒe[ƒg‚ÌXVˆ—
+    ///ã‚¹ãƒ†ãƒ¼ãƒˆã®æ›´æ–°å‡¦ç†
     /// </summary>
     public abstract void Tick();
 
     /// <summary>
-    ///ƒXƒe[ƒg‚ÌXVˆ—
+    ///ã‚¹ãƒ†ãƒ¼ãƒˆã®æ›´æ–°å‡¦ç†
     /// </summary>
     public abstract void FixedTick();
 
     /// <summary>
-    ///ƒXƒe[ƒg‚ÌI—¹ˆ—
+    ///ã‚¹ãƒ†ãƒ¼ãƒˆã®çµ‚äº†å‡¦ç†
     /// </summary>
     public abstract void Exit();
 }

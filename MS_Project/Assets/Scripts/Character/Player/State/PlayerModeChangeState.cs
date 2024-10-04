@@ -7,15 +7,15 @@ public class PlayerModeChangeState : PlayerState
     public override void Init(PlayerController _playerController)
     {
         base.Init(_playerController);
-        Debug.Log("Ø‘ÖƒXƒe[ƒg");
+        Debug.Log("åˆ‡æ›¿ã‚¹ãƒ†ãƒ¼ãƒˆ");
 
-        //ƒ‚[ƒhƒ`ƒFƒ“ƒWˆ—
+        //ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸å‡¦ç†
         playerController.Mode = PlayerMode.Sword;
     }
 
     public override void Tick()
     {
-        //ƒAƒCƒhƒ‹‚Ö‘JˆÚ
+        //ã‚¢ã‚¤ãƒ‰ãƒ«ã¸é·ç§»
         playerController.StateManager.TransitionState(StateType.Idle);
 
     }

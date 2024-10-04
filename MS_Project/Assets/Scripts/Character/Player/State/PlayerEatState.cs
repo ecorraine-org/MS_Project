@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerEatState : PlayerState
 {
-    //•ßHtest
+    //æ•é£Ÿtest
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     UnityEngine.Vector3 attackAreaPos;
     public UnityEngine.Vector3 offsetPos;
@@ -14,7 +14,7 @@ public class PlayerEatState : PlayerState
     public override void Init(PlayerController _playerController)
     {
         base.Init(_playerController);
-        Debug.Log("•ßHƒXƒe[ƒg");
+        Debug.Log("æ•é£Ÿã‚¹ãƒ†ãƒ¼ãƒˆ");
 
         Attack();
         spriteAnim.Play("Attack");
@@ -22,15 +22,15 @@ public class PlayerEatState : PlayerState
 
     public override void Tick()
     {
-        //ƒ‚[ƒhƒ`ƒFƒ“ƒW‚Ö‘JˆÚ
-        //ğŒ:‡@‘JˆÚæó‘Ô‚Í¡‚Ì‚Æˆá‚¤
-        //‡A“Á’è‚ÌƒIƒmƒ}ƒgƒy‚ğH‚×‚é
+        //ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸ã¸é·ç§»
+        //æ¡ä»¶:â‘ é·ç§»å…ˆçŠ¶æ…‹ã¯ä»Šã®ã¨é•ã†
+        //â‘¡ç‰¹å®šã®ã‚ªãƒãƒãƒˆãƒšã‚’é£Ÿã¹ã‚‹
         //if ()
         //{
         //    playerController.StateManager.TransitionState(StateType.ModeChange);
         //}
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“I—¹AƒAƒCƒhƒ‹‚Ö‘JˆÚ
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†ã€ã‚¢ã‚¤ãƒ‰ãƒ«ã¸é·ç§»
         if (spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
         {
             playerController.StateManager.TransitionState(StateType.Idle);
@@ -52,18 +52,18 @@ public class PlayerEatState : PlayerState
 
         attackAreaPos = transform.position;
 
-        //¶‰E”½“]‚©
+        //å·¦å³åè»¢ã‹
         offsetPos.x = spriteRenderer.flipX ? Mathf.Abs(offsetPos.x) : -Mathf.Abs(offsetPos.x);
 
         attackAreaPos += offsetPos;
 
-        //ƒRƒ‰ƒCƒ_[‚ÌŒŸo
+        //ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®æ¤œå‡º
         playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, attackDamage, onomatoLayer);
 
     }
 
     /// <summary>
-    /// •`‰ætest
+    /// æç”»test
     /// </summary>
     private void OnDrawGizmosSelected()
     {

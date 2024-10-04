@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Character/Enemy/EnemyStatusData", order = 1)]
 public class EnemyStatusData : CharaStatusData
 {
-    [Header("’ÇÕ‚É‚È‚é‹——£")]
+    [Header("è¿½è·¡ã«ãªã‚‹è·é›¢")]
     public  float chaseDistance = 3f;
 
-    [Header("UŒ‚‚Å‚«‚é‹——£")]
+    [Header("æ”»æ’ƒã§ãã‚‹è·é›¢")]
     public float attackDistance = 0.8f;
 }

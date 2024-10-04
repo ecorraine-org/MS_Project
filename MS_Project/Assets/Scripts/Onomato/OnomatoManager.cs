@@ -4,31 +4,31 @@ using UnityEngine;
 
 public class OnomatoManager : MonoBehaviour
 {
-    // ƒ‚[ƒhƒ`ƒFƒ“ƒWƒCƒxƒ“ƒg‚ÌƒfƒŠƒQ[ƒg’è‹`
+    // ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸ã‚¤ãƒ™ãƒ³ãƒˆã®ãƒ‡ãƒªã‚²ãƒ¼ãƒˆå®šç¾©
     public delegate void OnomatoEventHandler(PlayerMode mode);
 
-    //  ƒ‚[ƒhƒ`ƒFƒ“ƒW‚ÌƒCƒxƒ“ƒg’è‹`
+    //  ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸ã®ã‚¤ãƒ™ãƒ³ãƒˆå®šç¾©
     public static event OnomatoEventHandler OnModeChangeEvent;
 
     private void OnEnable()
     {
-        //ƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh‚·‚é
+        //ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹
         AttackColliderManager.OnOnomatoEvent += Absorb;
     }
 
     private void OnDisable()
     {
-        //ƒoƒCƒ“ƒh‚ğ‰ğœ‚·‚é
+        //ãƒã‚¤ãƒ³ãƒ‰ã‚’è§£é™¤ã™ã‚‹
         AttackColliderManager.OnOnomatoEvent -= Absorb;
     }
 
     /// <summary>
-    /// H‚×‚ç‚ê‚éˆ—
+    /// é£Ÿã¹ã‚‰ã‚Œã‚‹å‡¦ç†
     /// </summary>
     private void Absorb()
     {
-        Debug.Log("OnomatoManager:ƒCƒxƒ“ƒg‚ğóMAƒ‚[ƒhƒ`ƒFƒ“ƒW");
-        //ƒ‚[ƒhƒ`ƒFƒ“ƒW‚ÌƒCƒxƒ“ƒg‘—M
+        Debug.Log("OnomatoManager:ã‚¤ãƒ™ãƒ³ãƒˆã‚’å—ä¿¡ã€ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸");
+        //ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸ã®ã‚¤ãƒ™ãƒ³ãƒˆé€ä¿¡
         OnModeChangeEvent?.Invoke(PlayerMode.Sword);
     }
 }

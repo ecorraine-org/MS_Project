@@ -6,7 +6,7 @@ public class PlayerWalkState : PlayerState
 {
 
 
-    //“ü—Í•ûŒü
+    //å…¥åŠ›æ–¹å‘
     UnityEngine.Vector2 inputDirec;
 
     public override void Init(PlayerController _playerController)
@@ -18,42 +18,42 @@ public class PlayerWalkState : PlayerState
 
     public override void Tick()
     {
-        //ƒ_ƒ[ƒWƒ`ƒFƒbƒN
+        //ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒã‚§ãƒƒã‚¯
         playerController.StateManager.CheckHit();
 
-        //UŒ‚‚Ö‘JˆÚ
+        //æ”»æ’ƒã¸é·ç§»
         bool isAttack = inputManager.GetAttackTrigger();
         if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
 
-        //•ßH‚Ö‘JˆÚ
+        //æ•é£Ÿã¸é·ç§»
         bool isEat = inputManager.GetEatTrigger();
         if (isEat) playerController.StateManager.TransitionState(StateType.Eat);
 
-        //ƒXƒLƒ‹‚Ö‘JˆÚ
+        //ã‚¹ã‚­ãƒ«ã¸é·ç§»
         bool isSkill = inputManager.GetSkillTrigger();
         if (isSkill) playerController.StateManager.TransitionState(StateType.Skill);
 
-        //•ûŒüæ“¾
+        //æ–¹å‘å–å¾—
         inputDirec = inputManager.GetMoveDirec();
 
-        //ƒAƒCƒhƒ‹‚Ö‘JˆÚ
+        //ã‚¢ã‚¤ãƒ‰ãƒ«ã¸é·ç§»
         if (inputDirec.magnitude <= 0)
         {
             playerController.StateManager.TransitionState(StateType.Idle);
             return;
         }
 
-        //•ûŒüİ’è
+        //æ–¹å‘è¨­å®š
         playerController.SetEightDirection();
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“İ’è
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š
         playerController.SetWalkAnimation();
 
     }
 
     public override void FixedTick()
     {
-        //ˆÚ“®‘¬“xæ“¾
+        //ç§»å‹•é€Ÿåº¦å–å¾—
         PlayerStatusManager PlayerStatusManager = playerController.StatusManager;
         float moveSpeed = PlayerStatusManager.StatusData.velocity;
 

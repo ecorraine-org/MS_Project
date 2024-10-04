@@ -7,7 +7,7 @@ public class PlayerSkillState : PlayerState
     public override void Init(PlayerController _playerController)
     {
         base.Init(_playerController);
-        Debug.Log("ƒXƒLƒ‹ƒXƒe[ƒg");
+        Debug.Log("ã‚¹ã‚­ãƒ«ã‚¹ãƒ†ãƒ¼ãƒˆ");
     }
 
     public override void Tick()

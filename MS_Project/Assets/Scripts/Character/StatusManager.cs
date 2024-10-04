@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒLƒƒƒ‰ƒNƒ^[‚ÌƒXƒe[ƒ^ƒX‚ðŠÇ—‚·‚éƒrƒwƒCƒrƒA
+/// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç®¡ç†ã™ã‚‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢
 /// </summary>
 public class StatusManager : MonoBehaviour, ILife
 {
-    [SerializeField, Header("ƒXƒe[ƒ^ƒXƒf[ƒ^")]
+    [SerializeField, Header("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ‡ãƒ¼ã‚¿")]
     protected CharaStatusData statusData;
 
-    [SerializeField, Header("‘Ì—Í")]
+    [SerializeField, Header("ä½“åŠ›")]
     float currentHealth;
 
     protected virtual void Awake()
@@ -25,7 +25,7 @@ public class StatusManager : MonoBehaviour, ILife
 
         if (currentHealth <= 0)
         {
-            //Ž€–S
+            //æ­»äº¡
 
         }
     }

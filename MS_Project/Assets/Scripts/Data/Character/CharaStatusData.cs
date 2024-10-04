@@ -8,6 +8,6 @@ public class CharaStatusData : ScriptableObject
     [Header("HP")]
     public float maxHealth = 100.0f;
 
-    [Header("ˆÚ“®‘¬“x")]
+    [Header("ç§»å‹•é€Ÿåº¦")]
     public float velocity = 1.0f;
 }

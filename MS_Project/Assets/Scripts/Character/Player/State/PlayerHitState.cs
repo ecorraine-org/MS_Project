@@ -7,7 +7,7 @@ public class PlayerHitState : PlayerState
     public override void Init(PlayerController _playerController)
     {
         base.Init(_playerController);
-        Debug.Log("”íŒ‚ƒXƒe[ƒg");
+        Debug.Log("è¢«æ’ƒã‚¹ãƒ†ãƒ¼ãƒˆ");
     }
 
     public override void Tick()

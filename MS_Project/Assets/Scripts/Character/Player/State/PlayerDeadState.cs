@@ -7,7 +7,7 @@ public class PlayerDeadState : PlayerState
     public override void Init(PlayerController _playerController)
     {
         base.Init(_playerController);
-        Debug.Log("€–SƒXƒe[ƒg");
+        Debug.Log("æ­»äº¡ã‚¹ãƒ†ãƒ¼ãƒˆ");
     }
 
     public override void Tick()

@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class AttackColliderManager : MonoBehaviour
 {
-    // ƒIƒmƒ}ƒgƒyƒCƒxƒ“ƒg‚ÌƒfƒŠƒQ[ƒg’è‹`
+    // ã‚ªãƒãƒãƒˆãƒšã‚¤ãƒ™ãƒ³ãƒˆã®ãƒ‡ãƒªã‚²ãƒ¼ãƒˆå®šç¾©
     public delegate void OnomatoEventHandler();
 
-    // ƒIƒmƒ}ƒgƒy‚ÌƒCƒxƒ“ƒg’è‹`
+    // ã‚ªãƒãƒãƒˆãƒšã®ã‚¤ãƒ™ãƒ³ãƒˆå®šç¾©
     public static event OnomatoEventHandler OnOnomatoEvent;
 
     Collider[] hitColliders;
 
     /// <summary>
-    /// ƒRƒ‰ƒCƒ_[‚ÌŒŸo‚ğs‚¢A‘ÎÛ‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
+    /// ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®æ¤œå‡ºã‚’è¡Œã„ã€å¯¾è±¡ã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
     /// </summary>
     public void DetectColliders(Vector3 _pos, Vector3 _size, float _damage, LayerMask _targetLayer)
     {
@@ -32,14 +32,14 @@ public class AttackColliderManager : MonoBehaviour
                 life.TakeDamage(_damage);
             }
 
-            //‰¼‚ÌƒIƒmƒ}ƒgƒyˆ—
+            //ä»®ã®ã‚ªãƒãƒãƒˆãƒšå‡¦ç†
             if (hitCollider.gameObject.layer == omomatoLayer)
             {
-                Debug.Log("ColliderManager:ƒIƒmƒ}ƒgƒy ƒCƒxƒ“ƒg ‘—M");
+                Debug.Log("ColliderManager:ã‚ªãƒãƒãƒˆãƒš ã‚¤ãƒ™ãƒ³ãƒˆ é€ä¿¡");
 
                 //Destroy(hitCollider.gameObject);
 
-                //ƒIƒmƒ}ƒgƒy‚ÌƒCƒxƒ“ƒgˆ—
+                //ã‚ªãƒãƒãƒˆãƒšã®ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†
                 OnOnomatoEvent?.Invoke();
             }
         }
