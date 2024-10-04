@@ -25,6 +25,14 @@ public class PlayerWalkState : PlayerState
         bool isAttack = inputManager.GetAttackTrigger();
         if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
 
+        //•ßH‚Ö‘JˆÚ
+        bool isEat = inputManager.GetEatTrigger();
+        if (isEat) playerController.StateManager.TransitionState(StateType.Eat);
+
+        //ƒXƒLƒ‹‚Ö‘JˆÚ
+        bool isSkill = inputManager.GetSkillTrigger();
+        if (isSkill) playerController.StateManager.TransitionState(StateType.Skill);
+
         //•ûŒüæ“¾
         inputDirec = inputManager.GetMoveDirec();
 
