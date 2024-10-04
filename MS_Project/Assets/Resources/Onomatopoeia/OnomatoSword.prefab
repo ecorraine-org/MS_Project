@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1803074113795015536}
-  - component: {fileID: 6588497362819437872}
   - component: {fileID: -3616118106274782403}
   - component: {fileID: 5145218551030366244}
   - component: {fileID: 792566756607139086}
   m_Layer: 7
-  m_Name: OnomatoItem
+  m_Name: OnomatoSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,18 +38,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6588497362819437872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915221731898776878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7de19be80f55d2646b852a6c59e142b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &-3616118106274782403
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -136,7 +123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30C9\u30F3"
+  m_text: "\u30B9\u30D1\u30C3\n\u30B6\u30B7\u30E5\u30C3\n\u30D6\u30B7\u30E5\u30C3\n\u30B5\u30AF\u30C3\n\u30AD\u30A3\u30F3\n\u30B7\u30E5\u30F3\n\u30AC\u30AD\u30F3\n\u30BA\u30D0\u30C3"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae7b9fda3ab60dd4daa8dd15ec041d0a, type: 2}
   m_sharedMaterial: {fileID: -706621465798954468, guid: ae7b9fda3ab60dd4daa8dd15ec041d0a, type: 2}

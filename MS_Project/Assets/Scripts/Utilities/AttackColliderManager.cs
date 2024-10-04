@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class AttackColliderManager : MonoBehaviour
 {
+    // オノマトペイベントのデリゲート定義
+    public delegate void OnomatoEventHandler();
+
+    // オノマトペのイベント定義
+    public static event OnomatoEventHandler OnOnomatoEvent;
+
     Collider[] hitColliders;
 
     /// <summary>
@@ -29,9 +35,12 @@ public class AttackColliderManager : MonoBehaviour
             //仮のオノマトペ処理
             if (hitCollider.gameObject.layer == omomatoLayer)
             {
-                Debug.Log("ONOMATOPE ");
-                //メッセージ
-                Destroy(hitCollider.gameObject);
+                Debug.Log("ColliderManager:オノマトペ イベント 送信");
+
+                //Destroy(hitCollider.gameObject);
+
+                //オノマトペのイベント処理
+                OnOnomatoEvent?.Invoke();
             }
         }
     }

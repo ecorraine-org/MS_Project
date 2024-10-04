@@ -34,11 +34,11 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField, Header("スキル状態ビヘイビア")]
     PlayerSkillState skillState;
 
-    //[SerializeField, Header("被ダメージ状態ビヘイビア")]
-    //HitState hitState;
+    [SerializeField, Header("被撃状態ビヘイビア")]
+    PlayerHitState hitState;
 
-    //[SerializeField, Header("死ぬ状態ビヘイビア")]
-    //DeadState deadState;
+    [SerializeField, Header("死ぬ状態ビヘイビア")]
+    PlayerDeadState deadState;
 
     [SerializeField, Header("捕食状態ビヘイビア")]
     PlayerEatState eatState;
@@ -48,6 +48,9 @@ public class PlayerStateManager : MonoBehaviour
 
     [SerializeField, Header("攻撃状態ビヘイビア")]
     PlayerAttackState attackState;
+
+    [SerializeField, Header("モードチェンジ状態ビヘイビア")]
+    PlayerModeChangeState modeChangeState;
 
     //今のステート種類
     StateType currentStateType;
@@ -69,12 +72,13 @@ public class PlayerStateManager : MonoBehaviour
 
         //要素追加
         dicStates.Add(StateType.Idle, idleState);
-        //dicStates.Add(StateType.Hit, hitState);
+        dicStates.Add(StateType.Hit, hitState);
         dicStates.Add(StateType.Eat, eatState);
         dicStates.Add(StateType.Skill, skillState);
-        //dicStates.Add(StateType.Dead, deadState);
+        dicStates.Add(StateType.Dead, deadState);
         dicStates.Add(StateType.Walk, walkState);
         dicStates.Add(StateType.Attack, attackState);
+        dicStates.Add(StateType.ModeChange, modeChangeState);
         //dicStates.Add(StateType.CombatStance, combatStanceState);
         //dicStates.Add(StateType.Stun, stunState);
 
@@ -157,17 +161,17 @@ public class PlayerStateManager : MonoBehaviour
     ///<summary>
     ///死亡状態チェック
     ///</summary>
-    //public bool CheckDeath()
-    //{
-    //    if (playerController.EnemyStatusManager.LifeBehavior.GetLife() <= 0)
-    //    {
-    //        TransitionState(StateType.Dead);
+    public bool CheckDeath()
+    {
+        if (playerController.StatusManager.Health <= 0)
+        {
+            TransitionState(StateType.Dead);
 
-    //        return true;
-    //    }
+            return true;
+        }
 
-    //    return false;
-    //}
+        return false;
+    }
 
     #region Getter&Setter 
 
