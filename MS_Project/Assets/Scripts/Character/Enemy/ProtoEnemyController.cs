@@ -42,7 +42,7 @@ public class ProtoEnemyController : MonoBehaviour
     {
         if (isAttack)
         {
-            Debug.Log("“GUŒ‚");
+            //  Debug.Log("“GUŒ‚");
             isAttack = false;
             StartCoroutine(nameof(AttackCoroutine));
         }
