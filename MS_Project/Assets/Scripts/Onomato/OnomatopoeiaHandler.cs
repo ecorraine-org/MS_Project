@@ -8,24 +8,24 @@ public class OnomatopoeiaHandler : MonoBehaviour
     protected OnomatoData onomatoData;
 
     [Header("生成情報")]
-        [Tooltip("最大生成数")]
-        public int iMaxParticles = 5;
-        [Tooltip("生成数/毎秒")]
-        public float fEmissionRate = 1;
-        [Tooltip("生命周期")]
-        public float fParticleLifetime = 5f;
-        [Tooltip("初期速度")]
-        public float fStartSpeed = 5f;
-        [Tooltip("生成方向")]
-        public Vector3 emissionDirection = Vector3.up;
-        [Tooltip("オノマトペ")]
-        public GameObject particlePrefab;
-        [Tooltip("飛び出す停止時間")]
-        public float stopTime = 1f;
-        [Tooltip("最大距離")]
-        public float stopDistance = 2f;
-        private List<Onomatopoeia> particles = new List<Onomatopoeia>();  // 生成されたオノマトペを格納する配列
-        private float emissionTimer = 0;
+    [Tooltip("最大生成数")]
+    public int iMaxParticles = 5;
+    [Tooltip("生成数/毎秒")]
+    public float fEmissionRate = 1;
+    [Tooltip("生命周期")]
+    public float fParticleLifetime = 5f;
+    [Tooltip("初期速度")]
+    public float fStartSpeed = 5f;
+    [Tooltip("生成方向")]
+    public Vector3 emissionDirection = Vector3.up;
+    [Tooltip("オノマトペ")]
+    public GameObject particlePrefab;
+    [Tooltip("飛び出す停止時間")]
+    public float stopTime = 1f;
+    [Tooltip("最大距離")]
+    public float stopDistance = 2f;
+    private List<Onomatopoeia> particles = new List<Onomatopoeia>();  // 生成されたオノマトペを格納する配列
+    private float emissionTimer = 0;
 
     private class Onomatopoeia
     {
