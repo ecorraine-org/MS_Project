@@ -44,6 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34927aa32eba2c8469dae66aff3e8515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSize: {x: 2, y: 2, z: 1}
+  offsetPos: {x: 1, y: 0, z: 0}
+  attackDamage: 3
+  onomatoLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &4375533910119988606
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +566,7 @@ GameObject:
   - component: {fileID: 3452593541282707586}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

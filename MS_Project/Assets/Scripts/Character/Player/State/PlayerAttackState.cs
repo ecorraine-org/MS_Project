@@ -50,7 +50,7 @@ public class PlayerAttackState : PlayerState
         attackAreaPos = transform.position;
 
         //左右反転か
-        offsetPos.x = spriteRenderer.flipX ? -Mathf.Abs(offsetPos.x) : Mathf.Abs(offsetPos.x);
+        offsetPos.x = spriteRenderer.flipX ? Mathf.Abs(offsetPos.x) : -Mathf.Abs(offsetPos.x);
 
         attackAreaPos += offsetPos;
 
