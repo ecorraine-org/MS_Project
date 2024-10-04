@@ -29,7 +29,8 @@ public class ProtoEnemyController : MonoBehaviour
     {
         if (MovementInput.magnitude > 0.1f && currentSpeed >= 0)
         {
-            rb.velocity = MovementInput * currentSpeed;
+            rb.velocity = MovementInput * currentSpeed;//前に進む
+            this.transform.LookAt(this.transform.position + rb.velocity);//進行方向に向く
         }
         else
         {
