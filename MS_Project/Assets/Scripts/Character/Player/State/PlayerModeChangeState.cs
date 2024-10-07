@@ -10,7 +10,7 @@ public class PlayerModeChangeState : PlayerState
         Debug.Log("切替ステート");
 
         //モードチェンジ処理
-        playerController.Mode = PlayerMode.Sword;
+        playerModeManager.Mode = PlayerMode.Sword;
     }
 
     public override void Tick()

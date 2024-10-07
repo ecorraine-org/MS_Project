@@ -26,7 +26,7 @@ public class PlayerEatState : PlayerState
         eatingDirec = new Vector3(inputDirec.x, 0, inputDirec.y);
 
         Attack();
-        spriteAnim.Play("Attack");
+        spriteAnim.Play("Eat");
     }
 
     public override void Tick()

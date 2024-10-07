@@ -19,6 +19,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("アニメーションマネージャー")]
     PlayerAnimManager animManager;
 
+    [SerializeField, Header("モードマネージャー")]
+    PlayerModeManager modeManager;
+
     [SerializeField, Header("アタックコライダーマネージャー")]
     AttackColliderManager attackCollider;
 
@@ -51,20 +54,6 @@ public class PlayerController : MonoBehaviour
     // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
 
-    [SerializeField, Header("モード")]
-    PlayerMode mode = PlayerMode.None;
-
-    private void OnEnable()
-    {
-        //イベントをバインドする
-        OnomatoManager.OnModeChangeEvent += ModeChange;
-    }
-
-    private void OnDisable()
-    {
-        //バインドを解除する
-        OnomatoManager.OnModeChangeEvent -= ModeChange;
-    }
 
     void Awake()
     {
@@ -87,6 +76,7 @@ public class PlayerController : MonoBehaviour
         //依存性注入
         stateManager.Init(this);
         animManager.Init(this);
+        modeManager.Init(this);
     }
 
     void Start()
@@ -174,13 +164,7 @@ public class PlayerController : MonoBehaviour
         //}
     }
 
-    /// <summary>
-    /// モードチェンジ
-    /// </summary>
-    private void ModeChange(PlayerMode _mode)
-    {
-        mode = _mode;
-    }
+
 
     /// <summary>
     /// 入力方向で現在の方向を八方向のいずれかに設定する
@@ -309,6 +293,11 @@ public class PlayerController : MonoBehaviour
         get => this.attackCollider;
     }
 
+    public PlayerModeManager ModeManager
+    {
+        get => this.modeManager;
+    }
+
     public Animator SpriteAnim
     {
         get => this.spriteAnim;
@@ -340,11 +329,7 @@ public class PlayerController : MonoBehaviour
         get => this.thisRigidbody;
     }
 
-    public PlayerMode Mode
-    {
-        get => this.mode;
-        set { this.mode = value; }
-    }
+
 
     #endregion
 }
