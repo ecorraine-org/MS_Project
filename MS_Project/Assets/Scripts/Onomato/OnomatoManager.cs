@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class OnomatoManager : MonoBehaviour
 {
-    // モードチェンジイベントのデリゲート定義
+    //  モードチェンジのイベント
     public delegate void OnomatoEventHandler(PlayerMode mode);
-
-    //  モードチェンジのイベント定義
     public static event OnomatoEventHandler OnModeChangeEvent;
+
+    // 暴走ゲージを溜めるイベント
+    public delegate void FrenzyEventHandler(float amount);
+    public static event FrenzyEventHandler OnIncreaseFrenzyEvent;
 
     private void OnEnable()
     {
@@ -30,5 +32,9 @@ public class OnomatoManager : MonoBehaviour
         Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
         //モードチェンジのイベント送信
         OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
+
+        //暴走ゲージを溜めるイベント送信
+        OnIncreaseFrenzyEvent?.Invoke(5.0f);
+
     }
 }

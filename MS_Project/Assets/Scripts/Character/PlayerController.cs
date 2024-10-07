@@ -54,6 +54,38 @@ public class PlayerController : MonoBehaviour
     // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
 
+    //暴走
+    //****************
+    [SerializeField, Header("暴走ゲージ")]
+    float frenzyGauge = 0;
+
+    [SerializeField, Header("暴走ゲージ最大値")]
+    float maxFrenzyGauge = 20;
+
+    //デフォルトのサイズ
+    UnityEngine.Vector3 defaultSize;
+
+    float frenzyTimer = 0;
+
+    [SerializeField, Header("暴走時間(秒)")]
+    float frenzyTime = 5;
+
+    //暴走しているか
+    bool isFrenzy = false;
+    //****************
+
+
+    private void OnEnable()
+    {
+        //イベントをバインドする
+        OnomatoManager.OnIncreaseFrenzyEvent += IncreaseFrenzy;
+    }
+
+    private void OnDisable()
+    {
+        //バインドを解除する
+        OnomatoManager.OnIncreaseFrenzyEvent -= IncreaseFrenzy;
+    }
 
     void Awake()
     {
@@ -73,6 +105,8 @@ public class PlayerController : MonoBehaviour
 
         spriteAnim = sprite.GetComponent<Animator>();
 
+        defaultSize = transform.localScale;
+
         //依存性注入
         stateManager.Init(this);
         animManager.Init(this);
@@ -89,56 +123,28 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //moveInput.x = Input.GetAxis("Horizontal");
-        //moveInput.y = Input.GetAxis("Vertical");
-        //moveInput.Normalize();
-        //if (Debug.isDebugBuild)
-        //    Debug.Log("Movement: " + moveInput);
+        //暴走の仮処理
+        if (frenzyGauge >= maxFrenzyGauge)
+        {
+            frenzyGauge = 0;
+            transform.localScale = 2 * defaultSize;
 
+            frenzyTimer = frenzyTime;
+            isFrenzy = true;
+        }
 
-        //spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
+        if (frenzyTimer > 0 && isFrenzy)
+        {
+            frenzyTimer -= Time.deltaTime;
+        }
 
-        //if (thisRigidbody.velocity.magnitude > 0)
-        //{
-        //    spriteRenderer.flipX = false;
-        //    if (CurrentDirection() == Direction.Up)
-        //    {
-        //        spriteAnim.Play("WalkUp");
-        //    }
-        //    else if (CurrentDirection() == Direction.Down)
-        //    {
-        //        spriteAnim.Play("WalkDown");
-        //    }
-        //    else if (CurrentDirection() == Direction.Left)
-        //    {
-        //        spriteRenderer.flipX = true;
-        //        spriteAnim.Play("WalkRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.Right)
-        //    {
-        //        spriteAnim.Play("WalkRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.UpLeft)
-        //    {
-        //        spriteRenderer.flipX = true;
-        //        spriteAnim.Play("WalkUpRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.UpRight)
-        //    {
-        //        spriteAnim.Play("WalkUpRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.DownLeft)
-        //    {
-        //        spriteRenderer.flipX = true;
-        //        spriteAnim.Play("WalkDownRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.DownRight)
-        //    {
-        //        spriteAnim.Play("WalkDownRight");
-        //    }
-        //}
+        //暴走終了
+        if (frenzyTimer <= 0 && isFrenzy)
+        {
+            transform.localScale = defaultSize;
+            isFrenzy = false;
+        }
 
-        //transform.forward = mainCamera.forward;
     }
 
     private void FixedUpdate()
@@ -274,6 +280,14 @@ public class PlayerController : MonoBehaviour
     //{
     //    spriteAnim.Play("PlayerAttack");
     //}
+
+    /// <summary>
+    /// 暴走ゲージを溜める
+    /// </summary>
+    private void IncreaseFrenzy(float _amount)
+    {
+        frenzyGauge += _amount;
+    }
 
     #region Getter&Setter 
 
