@@ -29,6 +29,6 @@ public class OnomatoManager : MonoBehaviour
     {
         Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
         //モードチェンジのイベント送信
-        OnModeChangeEvent?.Invoke(PlayerMode.Sword);
+        OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
     }
 }

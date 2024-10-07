@@ -17,7 +17,22 @@ public class PlayerAttackState : PlayerState
         Debug.Log("AttackState");//test
 
         Attack();
-        spriteAnim.Play("Attack");
+
+        switch (playerModeManager.Mode)
+        {
+            case PlayerMode.None:
+                spriteAnim.Play("Attack");
+                break;
+            case PlayerMode.Sword:
+                spriteAnim.Play("Attack");
+                break;
+            case PlayerMode.Hammer:
+                spriteAnim.Play("HammerAttack");
+                break;
+            default:
+                break;
+        }
+
     }
 
     public override void Tick()

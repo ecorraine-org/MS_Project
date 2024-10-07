@@ -259,6 +259,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8143523743651954739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5470282390498924968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4089351063618231514}
+  - component: {fileID: 8698715986294293726}
+  m_Layer: 0
+  m_Name: Mode
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4089351063618231514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5470282390498924968}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8143523743651954739}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8698715986294293726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5470282390498924968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c284bde37da7c8479028bad0e88bd1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 1
 --- !u!1 &5757435390140318096
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSize: {x: 1, y: 0.5, z: 0.5}
-  offsetPos: {x: 0.5, y: 0, z: 0}
+  offsetPos: {x: 0.5, y: 0.3, z: 0}
   attackDamage: 3
   enemyLayer:
     serializedVersion: 2
@@ -619,6 +664,7 @@ Transform:
   - {fileID: 3460765242601414972}
   - {fileID: 1044981118679733027}
   - {fileID: 4671244650443874225}
+  - {fileID: 4089351063618231514}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3489175230929265989
@@ -708,6 +754,7 @@ MonoBehaviour:
   statusManager: {fileID: 2584761046635776466}
   stateManager: {fileID: 2304777744165196105}
   animManager: {fileID: 9057627101419881283}
+  modeManager: {fileID: 8698715986294293726}
   attackCollider: {fileID: 3452593541282707586}
   jumpForce: 3
   terrainLayer:
@@ -715,7 +762,6 @@ MonoBehaviour:
     m_Bits: 0
   groundCheck: {fileID: 0}
   isGrounded: 0
-  mode: 0
 --- !u!114 &3452593541282707586
 MonoBehaviour:
   m_ObjectHideFlags: 0

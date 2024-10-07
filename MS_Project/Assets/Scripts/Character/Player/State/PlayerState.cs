@@ -13,7 +13,8 @@ public abstract class PlayerState : MonoBehaviour
     protected PlayerController playerController;
 
     protected PlayerStateManager playerStateManager;
-    // protected PlayerStatusManager playerStatusManager;
+
+    protected PlayerModeManager playerModeManager;
 
     protected Rigidbody rb;
 
@@ -34,7 +35,8 @@ public abstract class PlayerState : MonoBehaviour
         playerController = _playerController;
 
         playerStateManager = playerController.StateManager;
-        //playerStatusManager = playerController.EnemyStatusManager;
+
+        playerModeManager = playerController.ModeManager;
 
         rb = playerController.RigidBody;
 
