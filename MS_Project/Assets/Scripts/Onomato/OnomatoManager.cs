@@ -25,9 +25,9 @@ public class OnomatoManager : MonoBehaviour
     /// <summary>
     /// 食べられる処理
     /// </summary>
-    private void Absorb()
+    public void Absorb()
     {
-        Debug.Log("OnomatoManager:イベントを受信、モードチェンジ");
+        Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
         //モードチェンジのイベント送信
         OnModeChangeEvent?.Invoke(PlayerMode.Sword);
     }
