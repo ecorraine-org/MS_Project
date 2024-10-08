@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     // 
     private Transform sprite;
     private SpriteRenderer spriteRenderer;
+    [HideInInspector]public Material material;
     private Animator spriteAnim;
     private Animator playerFlip;
 
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour
         sprite = gameObject.transform.GetChild(0);
         spriteRenderer = sprite.GetComponent<SpriteRenderer>();
         spriteRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        material = spriteRenderer.material;
 
         spriteAnim = sprite.GetComponent<Animator>();
 

@@ -11,9 +11,9 @@ public class PlayerWalkState : PlayerState
 
     public override void Init(PlayerController _playerController)
     {
+        SetIsPerformDamage(false);
+
         base.Init(_playerController);
-
-
     }
 
     public override void Tick()

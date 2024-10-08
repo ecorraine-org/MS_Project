@@ -6,6 +6,8 @@ public class PlayerHitState : PlayerState
 {
     public override void Init(PlayerController _playerController)
     {
+        SetIsPerformDamage(false);
+
         base.Init(_playerController);
         Debug.Log("被撃ステート");
     }

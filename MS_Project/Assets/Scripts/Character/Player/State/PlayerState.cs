@@ -24,6 +24,8 @@ public abstract class PlayerState : MonoBehaviour
 
     protected Transform mainCamera;
 
+    private bool isPerformDamage = false;
+
     /// <summary>
     ///ステートの初期化処理
     /// </summary>
@@ -45,6 +47,32 @@ public abstract class PlayerState : MonoBehaviour
         spriteRenderer = playerController.SpriteRenderer;
 
         mainCamera = playerController.MainCamera;
+
+        DrawAsOverlay(isPerformDamage);
+    }
+
+    public void DrawAsOverlay(bool _value)
+    {
+        if (!_value)
+        {
+            // 深度テストを有効
+            playerController.material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.LessEqual);
+        }
+        else
+        {
+            // 深度テストを無効
+            playerController.material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
+        }
+    }
+
+    public void SetIsPerformDamage(bool _value)
+    {
+        isPerformDamage = _value;
+    }
+
+    public bool GetIsPerformDamage()
+    {
+        return isPerformDamage;
     }
 
     /// <summary>
