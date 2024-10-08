@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -27,6 +28,8 @@ public class PlayerStateManager : MonoBehaviour
 
     [SerializeField, Header("今の状態")]
     PlayerState currentState;
+    [SerializeField, ReadOnly]
+    bool isAttacking;
 
     [SerializeField, Header("アイドル状態ビヘイビア")]
     PlayerIdleState idleState;
@@ -93,6 +96,7 @@ public class PlayerStateManager : MonoBehaviour
 
         //ステート更新
         currentState.Tick();
+        isAttacking = currentState.GetIsPerformDamage();
     }
 
     private void FixedUpdate()

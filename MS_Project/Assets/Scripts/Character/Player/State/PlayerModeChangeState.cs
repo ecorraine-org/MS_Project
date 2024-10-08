@@ -6,6 +6,8 @@ public class PlayerModeChangeState : PlayerState
 {
     public override void Init(PlayerController _playerController)
     {
+        SetIsPerformDamage(false);
+
         base.Init(_playerController);
         Debug.Log("切替ステート");
 

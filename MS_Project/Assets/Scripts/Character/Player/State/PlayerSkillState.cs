@@ -6,6 +6,8 @@ public class PlayerSkillState : PlayerState
 {
     public override void Init(PlayerController _playerController)
     {
+        SetIsPerformDamage(true);
+
         base.Init(_playerController);
         Debug.Log("スキルステート");
     }

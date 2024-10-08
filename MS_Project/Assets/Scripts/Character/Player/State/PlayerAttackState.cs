@@ -13,9 +13,9 @@ public class PlayerAttackState : PlayerState
 
     public override void Init(PlayerController _playerController)
     {
+        SetIsPerformDamage(true);
+
         base.Init(_playerController);
-
-
 
         switch (playerModeManager.Mode)
         {

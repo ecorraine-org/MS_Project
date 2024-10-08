@@ -9,10 +9,11 @@ public class PlayerIdleState : PlayerState
 
     public override void Init(PlayerController _playerController)
     {
+        SetIsPerformDamage(false);
+
         base.Init(_playerController);
 
         // inputManager.BindAction(inputManager.InputControls.GamePlay.Attack, ExecuteAttack);
-
     }
 
 

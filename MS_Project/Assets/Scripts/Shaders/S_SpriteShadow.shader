@@ -12,8 +12,10 @@ Shader "Custom/SpriteShadow"
         [PerRendererData] _AlphaTex("External Alpha", 2D) = "white" {}
         [PerRendererData] _EnableExternalAlpha("Enable External Alpha", Float) = 0
         _Cutoff("Alpha Cutoff", Range(0,1)) = 0.5
-		[PerRendererData] _NormalMap("NormalMap", 2D) = "white" {}
-		_MainLightPosition("MainLightPosition", Vector) = (0,0,0,0)
+        [PerRendererData] _NormalMap("NormalMap", 2D) = "white" {}
+        _MainLightPosition("MainLightPosition", Vector) = (0,0,0,0)
+        [Enum(UnityEngine.Rendering.CompareFunction)]
+        _ZTest("ZTest", Float) = 4                                                    // LEqual
     }
  
     SubShader
@@ -29,7 +31,7 @@ Shader "Custom/SpriteShadow"
  
         Cull Off
         Lighting On
-		ZTest Always
+        ZTest [_ZTest]
         ZWrite Off
         Blend One OneMinusSrcAlpha
  
@@ -46,13 +48,13 @@ Shader "Custom/SpriteShadow"
         };
 
         // added "abs" 2 sided lighting
-		half4 LightingTwoSidedLambert(SurfaceOutput s, half3 lightDir, half atten) {
-			half NdotL = abs(dot(s.Normal, lightDir));
-			half4 c;
-			c.rgb = s.Albedo * _LightColor0.rgb * (NdotL * atten);
-			c.a = s.Alpha;
-			return c;
-		}
+        half4 LightingTwoSidedLambert(SurfaceOutput s, half3 lightDir, half atten) {
+            half NdotL = abs(dot(s.Normal, lightDir));
+            half4 c;
+            c.rgb = s.Albedo * _LightColor0.rgb * (NdotL * atten);
+            c.a = s.Alpha;
+            return c;
+        }
  
         void vert(inout appdata_full v, out Input o)
         {
