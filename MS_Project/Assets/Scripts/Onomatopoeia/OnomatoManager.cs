@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class OnomatoManager : MonoBehaviour
 {
+    [SerializeField]
+    private OnomatopoeiaController controller;
+
     //  モードチェンジのイベント
     public delegate void OnomatoEventHandler(PlayerMode mode);
     public static event OnomatoEventHandler OnModeChangeEvent;
@@ -29,6 +32,8 @@ public class OnomatoManager : MonoBehaviour
     /// </summary>
     public void Absorb()
     {
+        controller.isAlive = false;
+
         Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
         //モードチェンジのイベント送信
         OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
