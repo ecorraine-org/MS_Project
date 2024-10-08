@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 792566756607139086}
   - component: {fileID: 7880825859409919145}
   - component: {fileID: 6588497362819437872}
-  - component: {fileID: -3395875150257676063}
   m_Layer: 7
   m_Name: OnomatoItem
   m_TagString: Untagged
@@ -31,15 +30,15 @@ RectTransform:
   m_GameObject: {fileID: 6915221731898776878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 5}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!65 &-3616118106274782403
 BoxCollider:
@@ -60,7 +59,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1, y: 1.1, z: 0.1}
+  m_Size: {x: 2, y: 1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &5145218551030366244
 MeshRenderer:
@@ -217,6 +216,9 @@ MonoBehaviour:
   isAlive: 1
   fLifetime: 5
   emissionDirection: {x: 0, y: 1, z: 0}
+  fStartSpeed: 5
+  fStopDistance: 1.5
+  data: {fileID: 0}
 --- !u!114 &6588497362819437872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,30 +231,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de19be80f55d2646b852a6c59e142b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &-3395875150257676063
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915221731898776878}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
+  controller: {fileID: 7880825859409919145}

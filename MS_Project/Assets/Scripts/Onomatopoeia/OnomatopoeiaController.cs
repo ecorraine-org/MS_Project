@@ -18,46 +18,92 @@ public class OnomatopoeiaController : MonoBehaviour
     [HideInInspector, Tooltip("移動方向")]
     public Vector3 emissionDirection = Vector3.up;
     [SerializeField, Tooltip("速度")]
-    Vector3 fVelocity = Vector3.zero;
+    public float fStartSpeed = 5f;
+    private Vector3 fVelocity = Vector3.zero;
     [HideInInspector, Tooltip("初期位置")]
     private Vector3 initialPosition;
+    [SerializeField, Tooltip("最大距離")]
+    public float fStopDistance = 1.5f;
 
     public OnomatopoeiaData data;
+    private Rigidbody rb;
+
+    private void Awake()
+    {
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         objOnomatopoeia = this.gameObject;
         onomatopoeiaName = GetComponent<TextMeshPro>().text.ToString();
+        fVelocity = RandomizeVelocity(emissionDirection * fStartSpeed);
+
     }
 
     void Update()
     {
-        UpdateParticle();
+        FaceScreen(true);
+
+        if (!isAlive)
+        {
+            Destroy(objOnomatopoeia);
+        }
+        else
+        {
+            UpdateParticle();
+        }
+
+        if (Debug.isDebugBuild)
+        {
+            Debug.DrawRay(objOnomatopoeia.transform.position, objOnomatopoeia.transform.forward, Color.red);
+        }
     }
 
     void UpdateParticle()
     {
-        if (isAlive)
+        if (isMoving)
         {
-            if (isMoving)
-            {
-                objOnomatopoeia.transform.position += fVelocity * Time.deltaTime;
-            }
+            objOnomatopoeia.transform.position += fVelocity * Time.deltaTime;
 
-            fLifetime -= Time.deltaTime;
-            if (fLifetime <= 0)
+            // 一定距離離れたら、飛び出す停止
+            float distanceTraveled = Vector3.Distance(initialPosition, gameObject.transform.position);
+            if (distanceTraveled >= fStopDistance)
             {
-                isAlive = false;
+                isMoving = false;
             }
         }
-        else if (!isAlive)
+
+        fLifetime -= Time.deltaTime;
+
+        if (fLifetime < 1f)
         {
-            Destroy(objOnomatopoeia);
+            this.gameObject.AddComponent<Rigidbody>();
+        }
+        if (fLifetime <= 0)
+        {
+            isAlive = false;
         }
     }
 
-    public OnomatopoeiaData Data {
+    Vector3 RandomizeVelocity(Vector3 baseVelocity)
+    {
+        // 速度に乱数
+        return baseVelocity + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+    }
+
+    void FaceScreen(bool _value)
+    {
+        if (_value)
+        {
+            Vector3 NewDirection = objOnomatopoeia.transform.position - Camera.main.transform.position;
+            // カメラと同じ方向に向く
+            objOnomatopoeia.transform.LookAt(NewDirection);
+        }
+    }
+
+    public OnomatopoeiaData Data
+    {
         get => data;
     }
 }
