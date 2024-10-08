@@ -11,6 +11,9 @@ public class PlayerAttackState : PlayerState
     public float attackDamage;
     public LayerMask enemyLayer;
 
+    //仮処理
+    //private float testTimer;
+
     public override void Init(PlayerController _playerController)
     {
         SetIsPerformDamage(true);
@@ -32,6 +35,8 @@ public class PlayerAttackState : PlayerState
                 break;
         }
 
+        //仮のクールタイマー初期化
+        // testTimer = 0;
     }
 
     public override void Tick()
@@ -39,7 +44,14 @@ public class PlayerAttackState : PlayerState
         //ダメージチェック
         playerController.StateManager.CheckHit();
 
+        //仮のクールタイム設定
+        // testTimer += Time.time;
+        // if (testTimer >= spriteAnim.GetCurrentAnimatorStateInfo(0).length + 0.2f)
+        //  {
+        //     testTimer = 0;
         Attack();
+        // }
+
 
         // Debug.Log("Time" + spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
