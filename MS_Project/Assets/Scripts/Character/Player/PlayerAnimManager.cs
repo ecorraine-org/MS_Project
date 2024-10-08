@@ -15,9 +15,33 @@ public class PlayerAnimManager : MonoBehaviour
         playerController = _playerController;
     }
 
-    void Attack()
+    /// <summary>
+    /// 攻撃可能設定
+    /// </summary>
+    void EnableHit()
     {
-        // playerController.Attack();
+        AttackColliderManager attackCollider = playerController.AttackCollider;
+
+        attackCollider.SetHit(true);
 
     }
+
+    /// <summary>
+    /// 攻撃不可設定
+    /// </summary>
+    void DisableHit()
+    {
+        AttackColliderManager attackCollider = playerController.AttackCollider;
+
+        attackCollider.SetHit(false);
+    }
+
+    /// <summary>
+    ///攻撃可能設定
+    /// </summary>
+    //void SetHit(bool _canAttack)
+    //{
+    //    playerController.AttackCollider.CanHit = _canAttack;
+
+    //}
 }

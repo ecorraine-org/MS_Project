@@ -25,13 +25,13 @@ public class PlayerEatState : PlayerState
         //捕食方向設定
         eatingDirec = new Vector3(inputDirec.x, 0, inputDirec.y);
 
-        Attack();
+
         spriteAnim.Play("Eat");
     }
 
     public override void Tick()
     {
-
+        Attack();
 
         //モードチェンジへ遷移
         //条件:①遷移先状態は今のと違う
@@ -69,7 +69,7 @@ public class PlayerEatState : PlayerState
         attackAreaPos += offsetPos;
 
         //コライダーの検出
-        playerController.AttackCollider.DetectOnomotoColliders(playerController.transform, attackAreaPos, attackSize, eatingDirec, onomatoLayer);
+        playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
 
     }
 

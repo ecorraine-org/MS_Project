@@ -14,9 +14,8 @@ public class PlayerAttackState : PlayerState
     public override void Init(PlayerController _playerController)
     {
         base.Init(_playerController);
-        Debug.Log("AttackState");//test
 
-        Attack();
+
 
         switch (playerModeManager.Mode)
         {
@@ -39,6 +38,8 @@ public class PlayerAttackState : PlayerState
     {
         //ダメージチェック
         playerController.StateManager.CheckHit();
+
+        Attack();
 
         // Debug.Log("Time" + spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
