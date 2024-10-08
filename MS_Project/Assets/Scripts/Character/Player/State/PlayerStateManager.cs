@@ -7,16 +7,16 @@ using UnityEngine;
 /// </summary>
 public enum StateType
 {
-    Idle,           //待機
-    Hit,            //被撃(被ダメージ)
-    Dead,           //死亡
-    Walk,         　//移動
-    Attack,         //攻撃
-    Skill,          //技能(スキル)
-    FinishSkill,    //奥義(必殺技)
-    Eat,            //捕食(食べる)
-    ModeChange,     //切替(モードチェンジ)
-    Dodge           //回避
+    [InspectorName("待機")] Idle,                 //待機
+    [InspectorName("被ダメージ")] Hit,             //被撃(被ダメージ)
+    [InspectorName("死亡")] Dead,                 //死亡
+    [InspectorName("移動")] Walk,                 //移動
+    [InspectorName("攻撃")] Attack,               //攻撃
+    [InspectorName("スキル")] Skill,               //技能(スキル)
+    [InspectorName("必殺技")] FinishSkill,         //奥義(必殺技)
+    [InspectorName("捕食")] Eat,                  //捕食(食べる)
+    [InspectorName("モードチェンジ")] ModeChange,   //切替(モードチェンジ)
+    [InspectorName("回避")] Dodge                 //回避
 
 }
 

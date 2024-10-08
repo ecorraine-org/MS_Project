@@ -8,7 +8,7 @@ using UnityEngine;
 public class StatusManager : MonoBehaviour, ILife
 {
     [SerializeField, Header("ステータスデータ")]
-    protected CharaStatusData statusData;
+    protected CharacterStatusData statusData;
 
     [SerializeField, Header("体力")]
     float currentHealth;
@@ -41,9 +41,8 @@ public class StatusManager : MonoBehaviour, ILife
         set { currentHealth = value; }
     }
 
-    public CharaStatusData StatusData
+    public CharacterStatusData StatusData
     {
         get => statusData;
-
     }
 }

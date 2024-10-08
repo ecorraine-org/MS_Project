@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnomatoDataHandler : OnomatoData
+public class OnomatoDataHandler : OnomatopoeiaData
 {
-    public OnomatoData data;
+    public OnomatopoeiaData data;
 
-    public OnomatoData Data
+    public OnomatopoeiaData Data
     {
         get => data;
     }

@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/Character/Enemy/EnemyStatusData", order = 1)]
-public class EnemyStatusData : CharaStatusData
+[CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/Character/Enemy/EnemyStatusData", order = 2)]
+public class EnemyStatusData : CharacterStatusData
 {
     [Header("追跡になる距離")]
     public float fChaseDistance = 3f;
@@ -24,7 +24,7 @@ public class EnemyStatusData : CharaStatusData
     public OnomatoType eEnemyType = OnomatoType.None;
 
     [Header("オノマトペデータ")]
-    public OnomatoData onomatoData;
+    public OnomatopoeiaData onomatoData;
 
     [Header("耐性")]
     public OnomatoType eTolerance = OnomatoType.None;
