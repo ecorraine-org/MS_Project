@@ -6,22 +6,14 @@ using UnityEngine;
 /// </summary>
 public enum Direction
 {
-    [InspectorName("上")]
-    Up,
-    [InspectorName("下")]
-    Down,
-    [InspectorName("左")]
-    Left,
-    [InspectorName("右")]
-    Right,
-    [InspectorName("左上")]
-    UpLeft,
-    [InspectorName("右上")]
-    UpRight,
-    [InspectorName("左下")]
-    DownLeft,
-    [InspectorName("右下")]
-    DownRight
+    [InspectorName("上")]Up,
+    [InspectorName("下")]Down,
+    [InspectorName("左")]Left,
+    [InspectorName("右")]Right,
+    [InspectorName("左上")]UpLeft,
+    [InspectorName("右上")]UpRight,
+    [InspectorName("左下")]DownLeft,
+    [InspectorName("右下")]DownRight
 }
 
 /// <summary>
@@ -30,10 +22,8 @@ public enum Direction
 public enum PlayerMode
 {
     None,
-    [InspectorName("剣")]
-    Sword,
-    [InspectorName("ハンマー")]
-    Hammer,
+    [InspectorName("剣")]Sword,
+    [InspectorName("ハンマー")]Hammer,
 }
 
 /// <summary>
@@ -42,12 +32,8 @@ public enum PlayerMode
 public enum OnomatoType
 {
     None,
-    [InspectorName("剣")]
-    A,
-    [InspectorName("ハンマー")]
-    B,
-    [InspectorName("C")]
-    C,
-    [InspectorName("D")]
-    D
+    [InspectorName("剣")]SlashType,
+    [InspectorName("ハンマー")]SmashType,
+    [InspectorName("C")]CType,
+    [InspectorName("D")]DType
 }

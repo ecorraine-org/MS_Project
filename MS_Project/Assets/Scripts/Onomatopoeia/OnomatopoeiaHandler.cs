@@ -5,7 +5,7 @@ using UnityEngine;
 public class OnomatopoeiaHandler : MonoBehaviour
 {
     [SerializeField, Header("オノマトペデータ")]
-    protected OnomatoData onomatoData;
+    protected OnomatopoeiaData onomatoData;
 
     [Header("生成情報")]
     [Tooltip("最大生成数")]

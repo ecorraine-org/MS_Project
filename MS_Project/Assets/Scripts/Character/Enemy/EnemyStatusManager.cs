@@ -14,17 +14,19 @@ public class EnemyStatusManager : StatusManager
     [SerializeField, ReadOnly, Tooltip("攻撃力")]
     private float damage;
 
-    [SerializeField, ReadOnly, Tooltip("攻撃しているか？")]
-    private bool isAttack = true;
-
     [SerializeField, ReadOnly, Tooltip("攻撃されたか？")]
-    private bool isDamaged = false;
+    public bool isDamaged = false;
+
+    /*
+    [SerializeField, ReadOnly, Tooltip("生きているか？")]
+    public bool isAlive = true;
+    */
 
     [SerializeField, ReadOnly, Tooltip("エネミータイプ")]
     private OnomatoType enemyType;
 
     [SerializeField, ReadOnly, Tooltip("オノマトペデータ")]
-    private OnomatoData onomatoData;
+    private OnomatopoeiaData onomatoData;
 
     [SerializeField, ReadOnly, Tooltip("耐性")]
     private OnomatoType tolerance;
@@ -39,6 +41,12 @@ public class EnemyStatusManager : StatusManager
         enemyType = StatusData.eEnemyType;
         onomatoData = StatusData.onomatoData;
         tolerance = StatusData.eTolerance;
+    }
+
+    public override void TakeDamage(float _damage)
+    {
+        isDamaged = true;
+        base.TakeDamage(_damage);
     }
 
     public new EnemyStatusData StatusData

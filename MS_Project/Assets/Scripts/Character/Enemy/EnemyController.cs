@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField, Header("プレイヤー")]
     Transform player;
     [SerializeField, Header("ステータスマネージャー")]
-    EnemyStatusManager statusManager;
+    EnemyStatusManager status;
 
     [Header("イベント")]
     public UnityEvent<Vector3> OnMovementInput;
@@ -23,8 +23,8 @@ public class EnemyController : MonoBehaviour
     bool isAttack = true;
     [SerializeField, Tooltip("攻撃クールタイム")]
     float attackCoolDuration = 1;
-    [SerializeField, Tooltip("攻撃されたか？")]
-    bool isDamaged = false;
+    //[SerializeField, Tooltip("攻撃されたか？")]
+    //bool isDamaged = false;
 
     public Vector3 MovementInput { get; set; }
 
@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        statusManager = gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyStatusManager>();
+        status = gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyStatusManager>();
 
         rb = GetComponent<Rigidbody>();
         animator = transform.GetChild(1).GetComponent<Animator>();
@@ -62,10 +62,10 @@ public class EnemyController : MonoBehaviour
 
         float distance = Vector3.Distance(player.position, transform.position);
 
-        if (distance < statusManager.StatusData.fChaseDistance)
+        if (distance < status.StatusData.fChaseDistance)
         {
 
-            if (distance <= statusManager.StatusData.fAttackDistance)
+            if (distance <= status.StatusData.fAttackDistance)
             {
                 OnMovementInput?.Invoke(Vector3.zero);
                 // 攻撃
@@ -88,6 +88,8 @@ public class EnemyController : MonoBehaviour
             // 停止
             OnMovementInput?.Invoke(Vector3.zero);
         }
+
+        OnDamaged?.Invoke();
 
         if (Debug.isDebugBuild)
         {
@@ -123,11 +125,12 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage()
     {
-        if (isDamaged)
+        if (status.isDamaged)
         {
             animator.Play("Damaged");
             Debug.Log("ダメージされた");
             GameObject instance = Instantiate(onomatoObj, this.transform);
+            status.isDamaged = false;
         }
     }
 

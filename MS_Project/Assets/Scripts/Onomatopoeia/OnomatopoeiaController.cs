@@ -22,7 +22,7 @@ public class OnomatopoeiaController : MonoBehaviour
     [HideInInspector, Tooltip("初期位置")]
     private Vector3 initialPosition;
 
-    public OnomatoData data;
+    public OnomatopoeiaData data;
 
     // Start is called before the first frame update
     void Start()
@@ -57,7 +57,7 @@ public class OnomatopoeiaController : MonoBehaviour
         }
     }
 
-    public OnomatoData Data {
+    public OnomatopoeiaData Data {
         get => data;
     }
 }
