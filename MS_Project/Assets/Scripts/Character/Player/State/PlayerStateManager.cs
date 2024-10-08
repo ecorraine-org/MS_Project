@@ -125,8 +125,19 @@ public class PlayerStateManager : MonoBehaviour
         currentState = dicStates[_type];
         currentStateType = _type;
 
+        //状態リセット処理
+        ResetState();
+
         //初期化
         currentState.Init(playerController);
+    }
+
+    ///</summary>
+    ///状態リセット処理
+    ///</summary>
+    private void ResetState()
+    {
+        playerController.AttackCollider.CanHit = false;
     }
 
     ///<summary>

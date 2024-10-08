@@ -12,17 +12,17 @@ public class OnomatoManager : MonoBehaviour
     public delegate void FrenzyEventHandler(float amount);
     public static event FrenzyEventHandler OnIncreaseFrenzyEvent;
 
-    private void OnEnable()
-    {
-        //イベントをバインドする
-        AttackColliderManager.OnOnomatoEvent += Absorb;
-    }
+    //private void OnEnable()
+    //{
+    //    //イベントをバインドする
+    //    AttackColliderManager.OnOnomatoEvent += Absorb;
+    //}
 
-    private void OnDisable()
-    {
-        //バインドを解除する
-        AttackColliderManager.OnOnomatoEvent -= Absorb;
-    }
+    //private void OnDisable()
+    //{
+    //    //バインドを解除する
+    //    AttackColliderManager.OnOnomatoEvent -= Absorb;
+    //}
 
     /// <summary>
     /// 食べられる処理
