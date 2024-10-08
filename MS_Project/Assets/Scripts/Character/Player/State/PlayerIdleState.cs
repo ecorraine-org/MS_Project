@@ -25,15 +25,28 @@ public class PlayerIdleState : PlayerState
 
         //攻撃へ遷移
         bool isAttack = inputManager.GetAttackTrigger();
-        if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
+        if (isAttack)
+        {
+            playerController.StateManager.TransitionState(StateType.Attack);
+            return;
+        }
 
         //捕食へ遷移
         bool isEat = inputManager.GetEatTrigger();
-        if (isEat) playerController.StateManager.TransitionState(StateType.Eat);
+        if (isEat)
+        {
+            playerController.StateManager.TransitionState(StateType.Eat);
+            return;
+        }
 
         //スキルへ遷移
         bool isSkill = inputManager.GetSkillTrigger();
-        if (isSkill) playerController.StateManager.TransitionState(StateType.Skill);
+        if (isSkill)
+        {
+            playerController.StateManager.TransitionState(StateType.Skill);
+            return;
+        }
+
 
         //アニメーション設定
         playerController.SetWalkAnimation();
@@ -43,6 +56,7 @@ public class PlayerIdleState : PlayerState
         //移動へ遷移
         if (inputDirec.magnitude > 0)
             playerController.StateManager.TransitionState(StateType.Walk);
+
 
     }
 
