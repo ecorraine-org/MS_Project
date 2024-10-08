@@ -40,7 +40,7 @@ public class AttackColliderManager : MonoBehaviour
             hitObjects.Add(hitCollider);
 
             //ダメージ処理処理
-            TakeDamage(hitCollider, _damage);
+            Hit(hitCollider, _damage);
         }
 
 
@@ -87,9 +87,9 @@ public class AttackColliderManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ダメージ処理
+    ///被撃処理
     /// </summary>
-    private void TakeDamage(Collider _hitCollider, float _damage)
+    private void Hit(Collider _hitCollider, float _damage)
     {
         var life = _hitCollider.GetComponentInChildren<ILife>();
         if (life != null)
@@ -97,6 +97,11 @@ public class AttackColliderManager : MonoBehaviour
             life.TakeDamage(_damage);
         }
 
+        var hit = _hitCollider.GetComponentInChildren<IHit>();
+        if (hit != null)
+        {
+            hit.Hit();
+        }
     }
 
     /// <summary>
@@ -141,10 +146,11 @@ public class AttackColliderManager : MonoBehaviour
         Debug.DrawLine(_owner.position, _owner.position + ToClosestColliderDirec, Color.blue, 1.0f);
 
         //食べられる処理
-        closestCollider.SendMessage("Absorb");
+        // closestCollider.SendMessage("Absorb");
+
 
         //ダメージ処理処理
-        TakeDamage(closestCollider, _damage);
+        Hit(closestCollider, _damage);
     }
 
 

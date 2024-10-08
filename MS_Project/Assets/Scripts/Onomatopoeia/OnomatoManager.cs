@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnomatoManager : MonoBehaviour
+public class OnomatoManager : MonoBehaviour, IHit
 {
     [SerializeField]
     private OnomatopoeiaController controller;
@@ -30,7 +30,23 @@ public class OnomatoManager : MonoBehaviour
     /// <summary>
     /// 食べられる処理
     /// </summary>
-    public void Absorb()
+    //public void Absorb()
+    //{
+    //    controller.isAlive = false;
+
+    //    Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
+    //    //モードチェンジのイベント送信
+    //    OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
+
+    //    //暴走ゲージを溜めるイベント送信
+    //    OnIncreaseFrenzyEvent?.Invoke(5.0f);
+
+    //}
+
+    /// <summary>
+    /// 被撃処理
+    /// </summary>
+    public void Hit()
     {
         controller.isAlive = false;
 
@@ -40,6 +56,5 @@ public class OnomatoManager : MonoBehaviour
 
         //暴走ゲージを溜めるイベント送信
         OnIncreaseFrenzyEvent?.Invoke(5.0f);
-
     }
 }
