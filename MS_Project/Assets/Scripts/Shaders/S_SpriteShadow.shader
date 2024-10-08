@@ -20,7 +20,7 @@ Shader "Custom/SpriteShadow"
     {
         Tags
         {
-            "Queue" = "Transparent"
+            "Queue" = "Overlay"
             "IgnoreProjector" = "True"
             "RenderType" = "Transparent"
             "PreviewType" = "Plane"
@@ -29,6 +29,7 @@ Shader "Custom/SpriteShadow"
  
         Cull Off
         Lighting On
+		ZTest Always
         ZWrite Off
         Blend One OneMinusSrcAlpha
  
