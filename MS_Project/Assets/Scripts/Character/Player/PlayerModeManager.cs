@@ -2,25 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚Ìƒ‚[ƒh‚ğŠÇ—‚·‚éƒrƒwƒCƒrƒA
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ¢ãƒ¼ãƒ‰ã‚’ç®¡ç†ã™ã‚‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢
 /// </summary>
 public class PlayerModeManager : MonoBehaviour
 {
-    //PlayerController‚ÌQÆ
+    //PlayerControllerã®å‚ç…§
     PlayerController playerController;
 
-    [SerializeField, Header("ƒ‚[ƒh")]
+    [SerializeField, Header("ãƒ¢ãƒ¼ãƒ‰")]
     PlayerMode mode = PlayerMode.Sword;
 
     private void OnEnable()
     {
-        //ƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh‚·‚é
+        //ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹
         OnomatoManager.OnModeChangeEvent += ModeChange;
     }
 
     private void OnDisable()
     {
-        //ƒoƒCƒ“ƒh‚ğ‰ğœ‚·‚é
+        //ãƒã‚¤ãƒ³ãƒ‰ã‚’è§£é™¤ã™ã‚‹
         OnomatoManager.OnModeChangeEvent -= ModeChange;
     }
 
@@ -31,12 +31,12 @@ public class PlayerModeManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ‚[ƒhƒ`ƒFƒ“ƒW
+    /// ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸
     /// </summary>
     private void ModeChange(PlayerMode _mode)
     {
         mode = _mode;
-        Debug.Log("Manager: ƒ‚[ƒhƒ`ƒFƒ“ƒWˆ—" + mode);
+        Debug.Log("Manager: ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸å‡¦ç†" + mode);
     }
 
     public PlayerMode Mode

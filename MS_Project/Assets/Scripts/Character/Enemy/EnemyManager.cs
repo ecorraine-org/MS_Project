@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class EnemyManager : MonoBehaviour
 {
+    [SerializeField, Header("プレイヤー")]
+    Transform player;
+
     [SerializeField, Header("ステータスマネージャー")]
     EnemyStatusManager statusManager;
 
@@ -12,8 +16,23 @@ public class EnemyManager : MonoBehaviour
 
     public UnityEvent OnAttack;
 
-    [SerializeField, Header("プレイヤー")]
-    Transform player;
+    public UnityEvent OnDamaged;
+
+    BoxCollider boxCollider;
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        statusManager = gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyStatusManager>();
+    }
+
+    private void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+        BoxCollider collider = gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider>();
+        boxCollider.center = collider.center / 3;
+        boxCollider.size = collider.size / 3;
+    }
 
     private void Update()
     {
@@ -21,10 +40,10 @@ public class EnemyManager : MonoBehaviour
 
         float distance = Vector3.Distance(player.position, transform.position);
 
-        if (distance < statusManager.StatusData.chaseDistance)
+        if (distance < statusManager.StatusData.fChaseDistance)
         {
 
-            if (distance <= statusManager.StatusData.attackDistance)
+            if (distance <= statusManager.StatusData.fAttackDistance)
             {
                 OnMovementInput?.Invoke(Vector3.zero);
                 // 攻撃

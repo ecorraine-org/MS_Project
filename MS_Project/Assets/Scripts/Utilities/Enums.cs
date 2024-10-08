@@ -1,15 +1,26 @@
+using System.Collections;
+using UnityEngine;
+
 /// <summary>
 /// 向き方向
 /// </summary>
 public enum Direction
 {
+    [InspectorName("上")]
     Up,
+    [InspectorName("下")]
     Down,
+    [InspectorName("左")]
     Left,
+    [InspectorName("右")]
     Right,
+    [InspectorName("左上")]
     UpLeft,
+    [InspectorName("右上")]
     UpRight,
+    [InspectorName("左下")]
     DownLeft,
+    [InspectorName("右下")]
     DownRight
 }
 
@@ -19,7 +30,9 @@ public enum Direction
 public enum PlayerMode
 {
     None,
+    [InspectorName("剣")]
     Sword,
+    [InspectorName("ハンマー")]
     Hammer,
 }
 
@@ -29,6 +42,12 @@ public enum PlayerMode
 public enum OnomatoType
 {
     None,
+    [InspectorName("剣")]
     A,
-    B
+    [InspectorName("ハンマー")]
+    B,
+    [InspectorName("C")]
+    C,
+    [InspectorName("D")]
+    D
 }
