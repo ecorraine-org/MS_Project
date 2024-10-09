@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IHit
 {
     [SerializeField, Header("プレイヤー")]
     Transform player;
+    [SerializeField, Header("生成するエネミー")]
+    GameObject enemyObj;
+    [SerializeField]
+    GameObject onomatoObj;
     [SerializeField, Header("ステータスマネージャー")]
     EnemyStatusManager status;
-
-    [Header("イベント")]
-    public UnityEvent<Vector3> OnMovementInput;
-    public UnityEvent OnAttack;
-    public UnityEvent OnDamaged;
 
     [SerializeField, Header("ステータス"), Tooltip("攻撃力")]
     float fDamage = 0;
@@ -23,13 +22,14 @@ public class EnemyController : MonoBehaviour
     bool isAttack = true;
     [SerializeField, Tooltip("攻撃クールタイム")]
     float attackCoolDuration = 1;
-    //[SerializeField, Tooltip("攻撃されたか？")]
-    //bool isDamaged = false;
+
+    [Header("イベント")]
+    public UnityEvent<Vector3> OnMovementInput;
+    public UnityEvent OnAttack;
+    public UnityEvent OnDamaged;
 
     public Vector3 MovementInput { get; set; }
 
-    [SerializeField]
-    GameObject onomatoObj;
     Rigidbody rb;
     Animator animator;
     BoxCollider boxCollider;
@@ -38,6 +38,7 @@ public class EnemyController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         status = gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyStatusManager>();
+        enemyObj = Instantiate(Resources.Load<GameObject>(status.StatusData.enemyPrefab), this.transform);
 
         rb = GetComponent<Rigidbody>();
         animator = transform.GetChild(1).GetComponent<Animator>();
@@ -45,6 +46,9 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItem");
+        onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = status.StatusData.onomatoData.wordToUse;
+
         boxCollider = GetComponent<BoxCollider>();
         BoxCollider collider = gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider>();
         boxCollider.center = collider.center / 3;
@@ -129,7 +133,9 @@ public class EnemyController : MonoBehaviour
         {
             animator.Play("Damaged");
             Debug.Log("ダメージされた");
-            GameObject instance = Instantiate(onomatoObj, this.transform);
+
+            GameObject onomatoCollector = GameObject.FindGameObjectWithTag("OnomatopoeiaCollector").gameObject;
+            GameObject instance = Instantiate(onomatoObj, this.transform.position, Quaternion.identity, onomatoCollector.transform);
             status.isDamaged = false;
         }
     }
@@ -138,5 +144,10 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(attackCoolDuration);
         isAttack = true;
+    }
+
+     public void Hit()
+    {
+
     }
 }

@@ -36,7 +36,7 @@ public class OnomatopoeiaController : MonoBehaviour
     void Start()
     {
         objOnomatopoeia = this.gameObject;
-        onomatopoeiaName = GetComponent<TextMeshPro>().text.ToString();
+        GetComponent<TextMeshPro>().text = onomatopoeiaName;
         fVelocity = RandomizeVelocity(emissionDirection * fStartSpeed);
 
     }
@@ -78,7 +78,11 @@ public class OnomatopoeiaController : MonoBehaviour
 
         if (fLifetime < 1f)
         {
-            this.gameObject.AddComponent<Rigidbody>();
+            bool hasRB = this.gameObject.TryGetComponent<Rigidbody>(out rb);
+            if (!hasRB)
+            {
+                this.gameObject.AddComponent<Rigidbody>();
+            }
         }
         if (fLifetime <= 0)
         {
