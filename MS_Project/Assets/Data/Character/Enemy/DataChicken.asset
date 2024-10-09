@@ -10,9 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
-  m_Name: EnemyStatusData
+  m_Name: DataChicken
   m_EditorClassIdentifier: 
   maxHealth: 100
   velocity: 1
-  chaseDistance: 3
-  attackDistance: 0.8
+  fChaseDistance: 3
+  fDamage: 0
+  fAttackDistance: 0.8
+  fAttackCooldown: 1
+  enemyPrefab: Enemy/Chicken
+  eEnemyType: 1
+  onomatoData: {fileID: 11400000, guid: ab608adfc7c4b7842b9e89a7840a1f43, type: 2}
+  eTolerance: 3
+  sfxClip: 
+  vfxClip: 

@@ -7,7 +7,7 @@ public class OnomatopoeiaData : ScriptableObject
 {
     [Header("生成情報")]
     [Header("オノマトペ名")]
-    public string word;
+    public string wordToUse;
 
     [Header("オノマトペ種類")]
     public OnomatoType type = OnomatoType.None;
