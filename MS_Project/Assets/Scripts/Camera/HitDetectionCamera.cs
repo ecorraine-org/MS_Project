@@ -67,6 +67,10 @@ public class HitDetectionCamera : MonoBehaviour
             //デバッグ表示
             DrawDebugVisuals();
         }
+
+        //補正を行う
+        ApplyVisualHitCorrection();
+
     }
 
     /// <summary>
@@ -82,8 +86,59 @@ public class HitDetectionCamera : MonoBehaviour
             return;
         }
 
+        //プレイヤーの攻撃範囲内だったら補正をかける
         foreach (Collider hitCollider in _attackColliderManager.HitColliders)
         {
+            //3Dでの攻撃判定を表示
+            if (enable3DDetection)
+            {
+                Vector3 hitPos = hitCollider.transform.position;
+                Vector3 screenPos = mainCamera.WorldToScreenPoint(hitPos);
+                Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(playerPos);
+
+                //プレイヤーの攻撃範囲内に敵がいるかどうかを判定
+                if (Vector3.Distance(screenPos, playerScreenPos) < maxHitDistance)
+                {
+                    //補正をかける
+                    //Debug.Log("3Dでの攻撃判定を表示");
+                    //Debug.Log("プレイヤーの攻撃範囲内に敵がいる");
+                    //Debug.Log("補正をかける");
+                }
+            }
+            //2Dでの攻撃判定を表示
+            if (enable2DDetection)
+            {
+                Vector3 hitPos = hitCollider.transform.position;
+                Vector3 screenPos = mainCamera.WorldToScreenPoint(hitPos);
+                Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(playerPos);
+
+                //プレイヤーの攻撃範囲内に敵がいるかどうかを判定
+                if (Vector3.Distance(screenPos, playerScreenPos) < maxHitDistance)
+                {
+                    //補正をかける
+                    //Debug.Log("2Dでの攻撃判定を表示");
+                    //Debug.Log("プレイヤーの攻撃範囲内に敵がいる");
+                    //Debug.Log("補正をかける");
+                }
+            }
+
+            //ブレンド検出を表示
+            if (enableBlendedDetection)
+            {
+                Vector3 hitPos = hitCollider.transform.position;
+                Vector3 screenPos = mainCamera.WorldToScreenPoint(hitPos);
+                Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(playerPos);
+
+                //プレイヤーの攻撃範囲内に敵がいるかどうかを判定
+                if (Vector3.Distance(screenPos, playerScreenPos) < maxHitDistance)
+                {
+                    //補正をかける
+                    //Debug.Log("ブレンド検出を表示");
+                    //Debug.Log("プレイヤーの攻撃範囲内に敵がいる");
+                    //Debug.Log("補正をかける");
+                }
+            }
+
 
         }
     }
@@ -92,14 +147,61 @@ public class HitDetectionCamera : MonoBehaviour
 
     private void DrawDebugVisuals()
     {
+        //デバッグ表示
+        if (_attackColliderManager.HitColliders != null && _attackColliderManager.HitColliders.Length > 0)
+        {
+            foreach (Collider hitCollider in _attackColliderManager.HitColliders)
+            {
+                //3Dでの攻撃判定を表示
+                if (enable3DDetection)
+                {
+                    Vector3 hitPos = hitCollider.transform.position;
+                    Vector3 screenPos = mainCamera.WorldToScreenPoint(hitPos);
+                    Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(_playerController.transform.position);
 
+                    //プレイヤーの攻撃範囲内に敵がいるかどうかを判定
+                    if (Vector3.Distance(screenPos, playerScreenPos) < maxHitDistance)
+                    {
+                        //補正をかける
+                        Debug.DrawLine(screenPos, playerScreenPos, debugColor3D);
+                    }
+                }
+                //2Dでの攻撃判定を表示
+                if (enable2DDetection)
+                {
+                    Vector3 hitPos = hitCollider.transform.position;
+                    Vector3 screenPos = mainCamera.WorldToScreenPoint(hitPos);
+                    Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(_playerController.transform.position);
+
+                    //プレイヤーの攻撃範囲内に敵がいるかどうかを判定
+                    if (Vector3.Distance(screenPos, playerScreenPos) < maxHitDistance)
+                    {
+                        //補正をかける
+                        Debug.DrawLine(screenPos, playerScreenPos, debugColor2D);
+                    }
+                }
+
+                //ブレンド検出を表示
+                if (enableBlendedDetection)
+                {
+                    Vector3 hitPos = hitCollider.transform.position;
+                    Vector3 screenPos = mainCamera.WorldToScreenPoint(hitPos);
+                    Vector3 playerScreenPos = mainCamera.WorldToScreenPoint(_playerController.transform.position);
+
+                    //プレイヤーの攻撃範囲内に敵がいるかどうかを判定
+                    if (Vector3.Distance(screenPos, playerScreenPos) < maxHitDistance)
+                    {
+                        //補正をかける
+                        Debug.DrawLine(screenPos, playerScreenPos, debugColorBlended);
+                    }
+                }
+            }
+
+            //今後の実装メモ
+            //HitDetectionSystem　イベントの発行を行い、それを購読することで
+            //プレイヤー、敵、カメラ間での依存関係を解消する。
+            //HitInfo ヒット情報をカプセル化する
+            //AttackManager 攻撃の検出と結果の処理
+        }
     }
-
-    //今後の実装メモ
-    //HitDetectionSystem　イベントの発行を行い、それを購読することで
-    //プレイヤー、敵、カメラ間での依存関係を解消する。
-    //HitInfo ヒット情報をカプセル化する
-    //AttackManager 攻撃の検出と結果の処理
-
-
 }
