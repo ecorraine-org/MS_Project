@@ -10,5 +10,6 @@ public interface IHit
     /// <summary>
     /// ”íŒ‚ˆ—
     /// </summary>
-    void Hit();
+    /// <param name="canOneHitKill">’¼ÚE‚¹‚é‚©</param>
+    void Hit(bool _canOneHitKill);
 }

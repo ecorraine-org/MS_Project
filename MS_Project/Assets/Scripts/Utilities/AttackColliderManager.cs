@@ -40,7 +40,7 @@ public class AttackColliderManager : MonoBehaviour
             hitObjects.Add(hitCollider);
 
             //ダメージ処理処理
-            Hit(hitCollider, _damage);
+            Hit(hitCollider, _damage, false);
         }
 
 
@@ -89,7 +89,7 @@ public class AttackColliderManager : MonoBehaviour
     /// <summary>
     ///被撃処理
     /// </summary>
-    private void Hit(Collider _hitCollider, float _damage)
+    private void Hit(Collider _hitCollider, float _damage, bool _canOneHitKill)
     {
         var life = _hitCollider.GetComponentInChildren<ILife>();
         if (life != null)
@@ -100,7 +100,7 @@ public class AttackColliderManager : MonoBehaviour
         var hit = _hitCollider.GetComponentInChildren<IHit>();
         if (hit != null)
         {
-            hit.Hit();
+            hit.Hit(_canOneHitKill);
         }
     }
 
@@ -150,7 +150,7 @@ public class AttackColliderManager : MonoBehaviour
 
 
         //ダメージ処理処理
-        Hit(closestCollider, _damage);
+        Hit(closestCollider, _damage, false);
     }
 
 

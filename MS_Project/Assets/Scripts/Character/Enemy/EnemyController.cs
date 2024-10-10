@@ -146,7 +146,7 @@ public class EnemyController : MonoBehaviour, IHit
         isAttack = true;
     }
 
-     public void Hit()
+    public void Hit(bool _canOneHitKill)
     {
 
     }
