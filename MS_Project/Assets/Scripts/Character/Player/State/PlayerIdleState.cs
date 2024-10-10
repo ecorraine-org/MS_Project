@@ -35,7 +35,9 @@ public class PlayerIdleState : PlayerState
 
         //捕食へ遷移
         bool isEat = inputManager.GetEatTrigger();
-        if (isEat && playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0)
+        if (isEat
+              && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0
+              || playerController.StatusManager.IsFrenzy))
         {
             playerController.StateManager.TransitionState(StateType.Eat);
             return;
