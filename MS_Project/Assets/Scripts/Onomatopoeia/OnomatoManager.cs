@@ -46,7 +46,7 @@ public class OnomatoManager : MonoBehaviour, IHit
     /// <summary>
     /// 被撃処理
     /// </summary>
-    public void Hit()
+    public void Hit(bool _canOneHitKill)
     {
         controller.isAlive = false;
 
