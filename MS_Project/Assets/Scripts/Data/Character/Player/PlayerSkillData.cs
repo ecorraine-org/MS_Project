@@ -13,7 +13,4 @@ public class PlayerSkillData : ScriptableObject
 
     [Header("ハンマースキルクールタイム")]
     public float hammerSkillCoolTime = 5.0f;
-
-    [Header("今のスキルクールタイム")]
-    public float curSkillCoolTime = 0.0f;
 }

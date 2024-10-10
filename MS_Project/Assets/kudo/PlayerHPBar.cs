@@ -1,31 +1,49 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHPBar : MonoBehaviour
 {
-    public int maxHp = 200;
-    public int currentHp;
+    [SerializeField, Header("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼")]
+    PlayerController player;
 
-    // ƒXƒ‰ƒCƒ_[
+    public float maxHp = 200.0f;
+    public float currentHp;
+
+    // ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼
     public Slider hpSlider;
 
-    // ƒXƒ‰ƒCƒ_[‚ÌqƒIƒuƒWƒFƒNƒgi”wŒi‚Æ‘OŒij
-    public Image background; // ”wŒi—pƒCƒ[ƒW
-    public Image fill;       // ‘OŒi—pƒCƒ[ƒW
+    // ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆèƒŒæ™¯ã¨å‰æ™¯ï¼‰
+    public Image background; // èƒŒæ™¯ç”¨ã‚¤ãƒ¡ãƒ¼ã‚¸
+    public Image fill;       // å‰æ™¯ç”¨ã‚¤ãƒ¡ãƒ¼ã‚¸
 
-    // ”wŒiHP‚ğŒ¸­‚³‚¹‚é‚½‚ß‚ÌƒRƒ‹[ƒ`ƒ“
+    // èƒŒæ™¯HPã‚’æ¸›å°‘ã•ã›ã‚‹ãŸã‚ã®ã‚³ãƒ«ãƒ¼ãƒãƒ³
     //private Coroutine decreaseBackgroundHpCoroutine;
+
+    private void OnEnable()
+    {
+        //ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹
+        PlayerStatusManager.OnUpdateHPBarEvent += SetCurrentHp;
+    }
+
+    private void OnDisable()
+    {
+        //ãƒã‚¤ãƒ³ãƒ‰ã‚’è§£é™¤ã™ã‚‹
+        PlayerStatusManager.OnUpdateHPBarEvent -= SetCurrentHp;
+    }
 
     void Start()
     {
-        // ƒXƒ‰ƒCƒ_[‚ğ–ƒ^ƒ“‚É‚·‚é
+        //æœ€å¤§HPè¨­å®š
+        maxHp = player.StatusManager.StatusData.maxHealth;
+
+        // ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’æº€ã‚¿ãƒ³ã«ã™ã‚‹
         currentHp = maxHp;
         UpdateHPBar();
         Debug.Log("Start currentHp : " + currentHp);
 
-        // ”wŒiHP‚ğŒ¸­‚³‚¹‚éƒRƒ‹[ƒ`ƒ“‚ğí‚ÉŠJn
+        // èƒŒæ™¯HPã‚’æ¸›å°‘ã•ã›ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’å¸¸ã«é–‹å§‹
         //decreaseBackgroundHpCoroutine = StartCoroutine(DecreaseBackgroundHp());
     }
 
@@ -36,63 +54,71 @@ public class PlayerHPBar : MonoBehaviour
             int damage = Random.Range(1, 100);
             Debug.Log("damage : " + damage);
             currentHp -= damage;
-            currentHp = Mathf.Clamp(currentHp, 0, maxHp); // HP‚ª0–¢–‚É‚È‚ç‚È‚¢‚æ‚¤‚É
+            currentHp = Mathf.Clamp(currentHp, 0, maxHp); // HPãŒ0æœªæº€ã«ãªã‚‰ãªã„ã‚ˆã†ã«
 
-            // HPƒo[‚ğXV
+            // HPãƒãƒ¼ã‚’æ›´æ–°
             UpdateHPBar();
         }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            currentHp -= 10;
-            currentHp = Mathf.Clamp(currentHp, 0, maxHp);
-            Debug.Log("After I key, currentHp : " + currentHp);
-            UpdateHPBar();
-        }
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    currentHp -= 10;
+        //    currentHp = Mathf.Clamp(currentHp, 0, maxHp);
+        //    Debug.Log("After I key, currentHp : " + currentHp);
+        //    UpdateHPBar();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            currentHp += 10;
-            currentHp = Mathf.Clamp(currentHp, 0, maxHp);
-            Debug.Log("After O key, currentHp : " + currentHp);
-            UpdateHPBar();
-        }
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    currentHp += 10;
+        //    currentHp = Mathf.Clamp(currentHp, 0, maxHp);
+        //    Debug.Log("After O key, currentHp : " + currentHp);
+        //    UpdateHPBar();
+        //}
     }
 
-    // HPƒo[‚ğXV‚·‚éƒƒ\ƒbƒh
+    // HPãƒãƒ¼ã‚’æ›´æ–°ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     private void UpdateHPBar()
     {
-        // HPƒo[‚ÌƒXƒ‰ƒCƒ_[‚Ì’l‚ğXV
+        // HPãƒãƒ¼ã®ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®å€¤ã‚’æ›´æ–°
         float normalizedValue = (float)currentHp / maxHp;
         hpSlider.value = normalizedValue;
 
-        // ‘OŒi‚ÌƒTƒCƒY‚ğ’²®
-        fill.fillAmount = normalizedValue; // qƒIƒuƒWƒFƒNƒg‚Ì‘OŒi‚ÌƒTƒCƒY‚ğ’²®
+        // å‰æ™¯ã®ã‚µã‚¤ã‚ºã‚’èª¿æ•´
+        fill.fillAmount = normalizedValue; // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‰æ™¯ã®ã‚µã‚¤ã‚ºã‚’èª¿æ•´
         Debug.Log("HP: " + currentHp + " / " + maxHp + ", Fill Amount: " + fill.fillAmount);
     }
 
-    // ”wŒiHP‚ğ‘OŒiHP‚Ü‚ÅŒ¸­‚³‚¹‚éƒRƒ‹[ƒ`ƒ“
+    //ã‚¤ãƒ™ãƒ³ãƒˆã§HPã‚’æ›´æ–°ã™ã‚‹
+    public void SetCurrentHp(float _currentHp)
+    {
+        currentHp = _currentHp;
+
+        UpdateHPBar();
+    }
+
+    // èƒŒæ™¯HPã‚’å‰æ™¯HPã¾ã§æ¸›å°‘ã•ã›ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³
     /*private IEnumerator DecreaseBackgroundHp()
     {
         while (true)
         {
-            // ‘OŒi‚ÌHP‚ÉŠî‚Ã‚¢‚Ä”wŒi‚ÌHP‚ğŒ¸­
+            // å‰æ™¯ã®HPã«åŸºã¥ã„ã¦èƒŒæ™¯ã®HPã‚’æ¸›å°‘
             float targetValue = (float)currentHp / maxHp;
 
-            // ”wŒi‚ÌHP‚ğ‘OŒi‚ÌHP‚Ü‚Å1‚¸‚ÂŒ¸­
+            // èƒŒæ™¯ã®HPã‚’å‰æ™¯ã®HPã¾ã§1ãšã¤æ¸›å°‘
             if (background.fillAmount > targetValue)
             {
-                background.fillAmount -= 0.01f; // 0.01‚¸‚ÂŒ¸­i’²®‰Â”\j
+                background.fillAmount -= 0.01f; // 0.01ãšã¤æ¸›å°‘ï¼ˆèª¿æ•´å¯èƒ½ï¼‰
             }
             else if (background.fillAmount < targetValue)
             {
-                background.fillAmount += 0.01f; // 0.01‚¸‚Â‘‰Ái’²®‰Â”\j
+                background.fillAmount += 0.01f; // 0.01ãšã¤å¢—åŠ ï¼ˆèª¿æ•´å¯èƒ½ï¼‰
             }
 
-            yield return new WaitForSeconds(0.01f); // ˆê’è‚ÌŠÔ‘Ò‹@i’²®‰Â”\j
+            yield return new WaitForSeconds(0.01f); // ä¸€å®šã®æ™‚é–“å¾…æ©Ÿï¼ˆèª¿æ•´å¯èƒ½ï¼‰
         }
     }
     */

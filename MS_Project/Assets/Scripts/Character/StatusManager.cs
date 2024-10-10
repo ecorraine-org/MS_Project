@@ -11,7 +11,7 @@ public class StatusManager : MonoBehaviour, ILife
     protected CharacterStatusData statusData;
 
     [SerializeField, Header("体力")]
-    float currentHealth;
+    protected float currentHealth;
 
     protected virtual void Awake()
     {
