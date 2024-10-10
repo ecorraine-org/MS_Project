@@ -26,8 +26,6 @@ public class PlayerStatusManager : StatusManager
 
     float frenzyTimer = 0;
 
- 
-
     //暴走しているか
     bool isFrenzy = false;
     //****************
@@ -97,7 +95,7 @@ public class PlayerStatusManager : StatusManager
     /// </summary>
     private void IncreaseFrenzy(float _amount)
     {
-        frenzyValue += _amount;
+        if(!isFrenzy)frenzyValue += _amount;
     }
 
     public new PlayerStatusData StatusData
@@ -108,5 +106,10 @@ public class PlayerStatusManager : StatusManager
     public float FrenzyValue
     {
         get => frenzyValue;
+    }
+
+    public bool IsFrenzy
+    {
+        get => isFrenzy;
     }
 }

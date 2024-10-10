@@ -11,6 +11,9 @@ public class PlayerEatState : PlayerState
     public float attackDamage;
     public LayerMask onomatoLayer;
 
+    [SerializeField, Header("敵レイヤー")]
+    private LayerMask enemyLayer;
+
     //捕食方向
     Vector3 eatingDirec;
 
@@ -27,7 +30,16 @@ public class PlayerEatState : PlayerState
         //捕食方向設定
         eatingDirec = new Vector3(inputDirec.x, 0, inputDirec.y);
 
-          playerController.SkillManager.UseSkill(PlayerSkill.Eat);
+        //暴走時、クールタイムを無視する
+        if (playerController.StatusManager.IsFrenzy)
+        {
+            playerController.SkillManager.ExecuteSkill(PlayerSkill.Eat);
+        }
+        else
+        {
+            playerController.SkillManager.UseSkill(PlayerSkill.Eat);
+        }
+       
      
         //spriteAnim.Play("Eat");
     }
@@ -74,6 +86,8 @@ public class PlayerEatState : PlayerState
         //コライダーの検出
         playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
 
+        //敵との当たり判定
+        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, 1.0f, enemyLayer);
     }
 
     /// <summary>
