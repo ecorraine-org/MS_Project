@@ -13,9 +13,15 @@ public class AttackColliderManager : MonoBehaviour
 
     [SerializeField, Header("最も近いオブジェクト")]
     Collider closestCollider;
+    private CameraBasedHitCorrection _cameraBasedHitCorrection;
 
     //当たり判定可能かどうか
     bool canHit;
+
+    private void Awake()
+    {
+        _cameraBasedHitCorrection = GetComponent<CameraBasedHitCorrection>();
+    }
 
     /// <summary>
     /// コライダーの検出を行い、対象にダメージを与える
@@ -24,26 +30,25 @@ public class AttackColliderManager : MonoBehaviour
     {
         if (!canHit) return;
 
-        hitColliders = Physics.OverlapBox(_pos, _size / 2, UnityEngine.Quaternion.identity, _targetLayer);
+        hitColliders = Physics.OverlapBox(_pos, _size / 2, Quaternion.identity, _targetLayer);
 
         if (hitColliders.Length <= 0) return;
 
         foreach (Collider hitCollider in hitColliders)
         {
-            //攻撃したオブジェクトをスキップ
-            if (hitObjects.Contains(hitCollider))
+            if (hitObjects.Contains(hitCollider)) continue;
+
+            bool isCorrected = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, _size);
+
+            if (isCorrected)
             {
-                continue;
+                hitObjects.Add(hitCollider);
+                Hit(hitCollider, _damage, false);
             }
 
-            //オブジェクトを格納
-            hitObjects.Add(hitCollider);
-
-            //ダメージ処理処理
-            Hit(hitCollider, _damage, false);
+            // デバッグ用の可視化
+            //_cameraBasedHitCorrection.VisualizeCollider(hitCollider.transform.position, _size, isCorrected);
         }
-
-
     }
 
     /// <summary>

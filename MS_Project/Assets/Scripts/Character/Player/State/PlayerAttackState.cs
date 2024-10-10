@@ -10,6 +10,7 @@ public class PlayerAttackState : PlayerState
     public UnityEngine.Vector3 offsetPos;
     public float attackDamage;
     public LayerMask enemyLayer;
+    private CameraBasedHitCorrection _CameraBasedHitCorrection;
 
     //仮処理
     //private float testTimer;
@@ -19,6 +20,9 @@ public class PlayerAttackState : PlayerState
         SetIsPerformDamage(true);
 
         base.Init(_playerController);
+
+        //コンポーネントの取得
+        _CameraBasedHitCorrection = GetComponent<CameraBasedHitCorrection>();
 
         switch (playerModeManager.Mode)
         {
@@ -92,8 +96,15 @@ public class PlayerAttackState : PlayerState
     /// </summary>
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(attackAreaPos, attackSize);
+        if (_CameraBasedHitCorrection != null)
+        {
+            _CameraBasedHitCorrection.VisualizeCollider(attackAreaPos, attackSize, false);
+        }
+        else
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(attackAreaPos, attackSize);
+        }
     }
 
 }
