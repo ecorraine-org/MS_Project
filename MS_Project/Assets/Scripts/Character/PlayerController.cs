@@ -19,8 +19,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("アニメーションマネージャー")]
     PlayerAnimManager animManager;
 
+    [SerializeField, Header("スキルマネージャー")]
+    PlayerSkillManager skillManager;
+
     [SerializeField, Header("モードマネージャー")]
     PlayerModeManager modeManager;
+
+
 
     [SerializeField, Header("アタックコライダーマネージャー")]
     AttackColliderManager attackCollider;
@@ -302,6 +307,11 @@ public class PlayerController : MonoBehaviour
     public PlayerStateManager StateManager
     {
         get => this.stateManager;
+    }
+
+    public PlayerSkillManager SkillManager
+    {
+        get => this.skillManager;
     }
 
     public AttackColliderManager AttackCollider
