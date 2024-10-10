@@ -14,6 +14,8 @@ public abstract class PlayerState : MonoBehaviour
 
     protected PlayerStateManager playerStateManager;
 
+    protected PlayerSkillManager playerSkillManager;
+
     protected PlayerModeManager playerModeManager;
 
     protected Rigidbody rb;
@@ -36,7 +38,9 @@ public abstract class PlayerState : MonoBehaviour
         //マネージャー取得
         playerController = _playerController;
 
-        playerStateManager = playerController.StateManager;
+        playerStateManager = playerController.StateManager; 
+
+        playerSkillManager = playerController.SkillManager;
 
         playerModeManager = playerController.ModeManager;
 

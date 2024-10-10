@@ -10,6 +10,9 @@ public class PlayerSkillState : PlayerState
 
         base.Init(_playerController);
         Debug.Log("スキルステート");
+
+        //スキルを発動する
+        playerController.SkillManager.UseCurSkill();
     }
 
     public override void Tick()

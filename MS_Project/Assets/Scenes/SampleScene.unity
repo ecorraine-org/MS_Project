@@ -257,7 +257,7 @@ MonoBehaviour:
   - {fileID: 0}
   targetImages:
   - {fileID: 0}
-  playerRage: {fileID: 0}
+  playerRage: {fileID: 1356104602}
 --- !u!1 &223377887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,8 +1004,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8836845501146020627, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1356104602}
   m_SourcePrefab: {fileID: 100100000, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
+--- !u!1 &1356104595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8836845501146020627, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
+  m_PrefabInstance: {fileID: 1330872482}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1356104602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356104595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119e705ec79665248ad0d0641c113a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRage: 200
+  currentRage: 0
+  rageSlider: {fileID: 1437987043}
+  background: {fileID: 1005485822}
+  fill: {fileID: 223377889}
 --- !u!1 &1423395916
 GameObject:
   m_ObjectHideFlags: 0
