@@ -7,6 +7,10 @@ using UnityEngine;
 /// </summary>
 public class PlayerStatusManager : StatusManager
 {
+    // HPUI処理イベント
+    public delegate void HPBarEventHandler(float currentHealth);
+    public static event HPBarEventHandler OnUpdateHPBarEvent;
+
     //PlayerControllerの参照
     PlayerController playerController;
 
@@ -78,6 +82,14 @@ public class PlayerStatusManager : StatusManager
             playerController.transform.localScale = defaultSize;
             isFrenzy = false;
         }
+    }
+
+    public override void TakeDamage(float _damage)
+    {
+        base.TakeDamage(_damage);
+
+        //HPUI更新イベントを送信
+        OnUpdateHPBarEvent?.Invoke(currentHealth);
     }
 
     /// <summary>

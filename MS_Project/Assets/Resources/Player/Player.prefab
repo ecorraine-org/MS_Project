@@ -610,7 +610,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillData: {fileID: 11400000, guid: 63ba82a4e258c7144a51fb35980ba7a5, type: 2}
-  curSkill: 0
   curSkillCoolTime: 0
 --- !u!1 &7667086179420449206
 GameObject:
@@ -689,7 +688,6 @@ GameObject:
   - component: {fileID: 8469728801098781021}
   - component: {fileID: 1387272161391414000}
   - component: {fileID: 3452593541282707586}
-  - component: {fileID: 3249130424659038215}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -828,23 +826,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closestCollider: {fileID: 0}
---- !u!114 &3249130424659038215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8836845501146020627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 119e705ec79665248ad0d0641c113a90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxRage: 200
-  currentRage: 0
-  rageSlider: {fileID: 0}
-  background: {fileID: 0}
-  fill: {fileID: 0}
 --- !u!1 &9092467984297795189
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,3 +870,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae31d5e5659c0bf4892a1b1efd2b6952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSize: {x: 1, y: 1, z: 1}
+  offsetPos: {x: 0, y: 0, z: 0}
+  attackDamage: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
