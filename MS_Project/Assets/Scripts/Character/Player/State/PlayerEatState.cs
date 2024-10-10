@@ -27,8 +27,9 @@ public class PlayerEatState : PlayerState
         //捕食方向設定
         eatingDirec = new Vector3(inputDirec.x, 0, inputDirec.y);
 
-
-        spriteAnim.Play("Eat");
+          playerController.SkillManager.UseSkill(PlayerSkill.Eat);
+     
+        //spriteAnim.Play("Eat");
     }
 
     public override void Tick()

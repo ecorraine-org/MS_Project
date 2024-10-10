@@ -31,7 +31,7 @@ public class PlayerWalkState : PlayerState
 
         //捕食へ遷移
         bool isEat = inputManager.GetEatTrigger();
-        if (isEat)
+        if (isEat && playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0)
         {
             playerController.StateManager.TransitionState(StateType.Eat);
             return;
@@ -39,7 +39,8 @@ public class PlayerWalkState : PlayerState
 
         //スキルへ遷移
         bool isSkill = inputManager.GetSkillTrigger();
-        if (isSkill)
+        PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
+        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0)
         {
             playerController.StateManager.TransitionState(StateType.Skill);
             return;

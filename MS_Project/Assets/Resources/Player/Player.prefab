@@ -228,9 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusData: {fileID: 11400000, guid: 9812a4044002bd149a42f65e8b7ef15f, type: 2}
   currentHealth: 0
-  frenzyGauge: 0
-  maxFrenzyGauge: 10
-  frenzyTime: 5
+  frenzyValue: 0
 --- !u!1 &4890304849609403593
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +689,7 @@ GameObject:
   - component: {fileID: 8469728801098781021}
   - component: {fileID: 1387272161391414000}
   - component: {fileID: 3452593541282707586}
-  - component: {fileID: 4685267585463138831}
+  - component: {fileID: 3249130424659038215}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -830,7 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closestCollider: {fileID: 0}
---- !u!114 &4685267585463138831
+--- !u!114 &3249130424659038215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

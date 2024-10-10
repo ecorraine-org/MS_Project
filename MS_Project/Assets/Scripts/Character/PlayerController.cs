@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
         stateManager.Init(this);
         animManager.Init(this);
         modeManager.Init(this);
+        skillManager.Init(this);
         statusManager.Init(this);
     }
 

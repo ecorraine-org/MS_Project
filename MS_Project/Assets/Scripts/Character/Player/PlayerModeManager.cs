@@ -28,7 +28,7 @@ public class PlayerModeManager : MonoBehaviour
     {
         playerController = _playerController;
 
-        playerController.SkillManager.SetCurSkill(mode);
+     //   playerController.SkillManager.SetCurSkill(mode);
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public class PlayerModeManager : MonoBehaviour
         Debug.Log("Manager: モードチェンジ処理" + mode);
 
         //スキル設定
-        playerController.SkillManager.SetCurSkill(mode);
+      //  playerController.SkillManager.SetCurSkill(mode);
     }
 
     public PlayerMode Mode
