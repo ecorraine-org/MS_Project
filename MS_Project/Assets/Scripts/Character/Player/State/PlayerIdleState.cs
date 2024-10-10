@@ -20,6 +20,8 @@ public class PlayerIdleState : PlayerState
 
     public override void Tick()
     {
+      
+
         //ダメージチェック
         playerController.StateManager.CheckHit();
 
@@ -33,7 +35,7 @@ public class PlayerIdleState : PlayerState
 
         //捕食へ遷移
         bool isEat = inputManager.GetEatTrigger();
-        if (isEat)
+        if (isEat && playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0)
         {
             playerController.StateManager.TransitionState(StateType.Eat);
             return;
@@ -41,7 +43,8 @@ public class PlayerIdleState : PlayerState
 
         //スキルへ遷移
         bool isSkill = inputManager.GetSkillTrigger();
-        if (isSkill)
+        PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
+        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0)
         {
             playerController.StateManager.TransitionState(StateType.Skill);
             return;
