@@ -228,6 +228,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusData: {fileID: 11400000, guid: 9812a4044002bd149a42f65e8b7ef15f, type: 2}
   currentHealth: 0
+  frenzyGauge: 0
+  maxFrenzyGauge: 10
+  frenzyTime: 5
 --- !u!1 &4890304849609403593
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,9 +817,6 @@ MonoBehaviour:
   groundCheck: {fileID: 0}
   isGrounded: 0
   material: {fileID: 0}
-  frenzyGauge: 0
-  maxFrenzyGauge: 20
-  frenzyTime: 5
 --- !u!114 &3452593541282707586
 MonoBehaviour:
   m_ObjectHideFlags: 0
