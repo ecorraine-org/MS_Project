@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3efefaa3fa2c641b5810ebefeccda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1356104604}
   maxHp: 200
   currentHp: 0
   hpSlider: {fileID: 1437987043}
@@ -1031,6 +1032,17 @@ MonoBehaviour:
   rageSlider: {fileID: 1437987043}
   background: {fileID: 1005485822}
   fill: {fileID: 223377889}
+--- !u!114 &1356104604 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1387272161391414000, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
+  m_PrefabInstance: {fileID: 1330872482}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356104595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58eb9bfa86b327a4fb2811fea5a9f0fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1423395916
 GameObject:
   m_ObjectHideFlags: 0
