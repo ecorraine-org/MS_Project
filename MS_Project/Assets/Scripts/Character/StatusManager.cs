@@ -41,8 +41,9 @@ public class StatusManager : MonoBehaviour, ILife
         set { currentHealth = value; }
     }
 
-    public CharacterStatusData StatusData
+    public virtual CharacterStatusData StatusData
     {
         get => statusData;
     }
+
 }
