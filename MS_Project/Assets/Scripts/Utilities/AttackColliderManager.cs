@@ -38,9 +38,9 @@ public class AttackColliderManager : MonoBehaviour
         {
             if (hitObjects.Contains(hitCollider)) continue;
 
-            bool isCorrected = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, _size);
+           // bool isCorrected = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, _size);
 
-            if (isCorrected)
+           // if (isCorrected)
             {
                 hitObjects.Add(hitCollider);
                 Hit(hitCollider, _damage, false);
