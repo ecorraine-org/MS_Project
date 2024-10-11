@@ -36,12 +36,13 @@ public class OnomatopoeiaController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(data.wordToUse);
         objOnomatopoeia = this.gameObject;
-                objOnomatopoeia.transform.rotation = new Quaternion(0, 0, -90, 0);
+        objOnomatopoeia.transform.rotation = new Quaternion(0, 0, -90, 0);
 
         GetComponent<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
-        fVelocity = RandomizeVelocity(emissionDirection * fStartSpeed);
 
+        fVelocity = RandomizeVelocity(emissionDirection * fStartSpeed);
     }
 
     void Update()
