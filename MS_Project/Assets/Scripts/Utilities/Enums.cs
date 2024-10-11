@@ -49,6 +49,7 @@ public enum OnomatoType
     None,
     [InspectorName("剣")] SlashType,
     [InspectorName("ハンマー")] SmashType,
-    [InspectorName("C")] CType,
-    [InspectorName("D")] DType
+    [InspectorName("スピアー")] PierceType,
+    [InspectorName("殴り")] HandType,
+    [InspectorName("その他")] OtherType
 }

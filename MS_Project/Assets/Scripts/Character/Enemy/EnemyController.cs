@@ -47,7 +47,6 @@ public class EnemyController : MonoBehaviour, IHit
     private void Start()
     {
         onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItem");
-        onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = status.StatusData.onomatoData.wordToUse;
 
         boxCollider = GetComponent<BoxCollider>();
         BoxCollider collider = gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider>();
@@ -135,6 +134,8 @@ public class EnemyController : MonoBehaviour, IHit
             Debug.Log("ダメージされた");
 
             GameObject onomatoCollector = GameObject.FindGameObjectWithTag("OnomatopoeiaCollector").gameObject;
+            onomatoObj.GetComponent<OnomatopoeiaController>().data = status.StatusData.onomatoData;
+            onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = status.StatusData.onomatoData.wordToUse;
             GameObject instance = Instantiate(onomatoObj, this.transform.position, Quaternion.identity, onomatoCollector.transform);
             status.isDamaged = false;
         }
