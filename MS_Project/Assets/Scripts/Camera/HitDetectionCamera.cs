@@ -26,7 +26,7 @@ public class HitDetectionCamera : MonoBehaviour
     [SerializeField] private Camera mainCamera; //メインカメラ
     [SerializeField] private LayerMask enemyLayer; //敵レイヤー
     [SerializeField] private float maxHitDistance = 5f; //最大ヒット距離
-    [SerializeField] private float visualHitThreshold = 0.1f; //視覚的なヒット閾値
+    //[SerializeField] private float visualHitThreshold = 0.1f; //視覚的なヒット閾値
 
     [Header("Debug ")]
     [SerializeField] private bool showDebugVisuals = true; //デバッグ表示
@@ -48,9 +48,9 @@ public class HitDetectionCamera : MonoBehaviour
     private void Awake()
     {
         //コンポーネントの取得(***後で取得の方法は変更する***)
-        _attackColliderManager = FindObjectOfType<AttackColliderManager>();
+        //_attackColliderManager = FindObjectOfType<AttackColliderManager>();
         //Debug.Log(_attackColliderManager);
-        _playerController = FindObjectOfType<PlayerController>();
+        //_playerController = FindObjectOfType<PlayerController>();
         //Debug.Log(_playerController);
         mainCamera = Camera.main;
     }
