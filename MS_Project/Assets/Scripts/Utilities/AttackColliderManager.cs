@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VContainer;
 
 public class AttackColliderManager : MonoBehaviour
 {
@@ -21,18 +20,10 @@ public class AttackColliderManager : MonoBehaviour
 
     private void Awake()
     {
-        //VContainerテスト
         //1. IContainerBuilderを使用して、コンポーネントを取得する
-        IContainerBuilder containerBuilder = new ContainerBuilder();
+        // いったんコメントアウト
 
-        //2.使いたいクラスを登録
-        containerBuilder.RegisterComponentInHierarchy<CameraBasedHitCorrection>();
-
-        //3.コンテナをビルド
-        var container = containerBuilder.Build();
-
-        //4.コンポーネントを取得
-        _cameraBasedHitCorrection = container.Resolve<CameraBasedHitCorrection>();
+        _cameraBasedHitCorrection = GetComponent<CameraBasedHitCorrection>();
     }
 
     /// <summary>
