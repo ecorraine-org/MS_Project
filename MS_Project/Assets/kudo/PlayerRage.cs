@@ -5,23 +5,26 @@ using UnityEngine.UI;
 
 public class PlayerRage : MonoBehaviour
 {
-    public int maxRage = 200;
-    public int currentRage;
+    private PlayerController player;
 
-    // ƒXƒ‰ƒCƒ_[
+    public float maxRage;
+    public float currentRage;
+
+    // ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼
     public Slider rageSlider;
 
-    // ƒXƒ‰ƒCƒ_[‚ÌqƒIƒuƒWƒFƒNƒgi”wŒi‚Æ‘OŒij
-    public Image background; // ”wŒi—pƒCƒ[ƒW
-    public Image fill;       // ‘OŒi—pƒCƒ[ƒW
-
-    
+    // ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆèƒŒæ™¯ã¨å‰æ™¯ï¼‰
+    public Image background; // èƒŒæ™¯ç”¨ã‚¤ãƒ¡ãƒ¼ã‚¸
+    public Image fill;       // å‰æ™¯ç”¨ã‚¤ãƒ¡ãƒ¼ã‚¸
 
     void Start()
     {
-        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        maxRage = player.StatusManager.StatusData.maxFrenzyGauge;
+        currentRage = player.StatusManager.FrenzyValue;
 
-   
+        rageSlider.maxValue = maxRage;
+        rageSlider.value = currentRage;
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -31,15 +34,16 @@ public class PlayerRage : MonoBehaviour
             int damage = Random.Range(1, 100);
             Debug.Log("damage : " + damage);
             currentRage -= damage;
-            currentRage = Mathf.Clamp(currentRage, 0, maxRage); // HP‚ª0–¢–‚É‚È‚ç‚È‚¢‚æ‚¤‚É
+            currentRage = Mathf.Clamp(currentRage, 0, maxRage); // HPãŒ0æœªæº€ã«ãªã‚‰ãªã„ã‚ˆã†ã«
 
-            // HPƒo[‚ğXV
+            // HPãƒãƒ¼ã‚’æ›´æ–°
             UpdateRage();
         }
     }
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.K))
         {
             currentRage -= 10;
@@ -55,17 +59,30 @@ public class PlayerRage : MonoBehaviour
             Debug.Log("After L key, currentHp : " + currentRage);
             UpdateRage();
         }
+        */
+
+        currentRage = player.StatusManager.FrenzyValue;
+        rageSlider.value = currentRage;
+
+        if (player.StatusManager.FrenzyTimer > 0 && player.StatusManager.IsFrenzy)
+        {
+            rageSlider.value = player.StatusManager.FrenzyTimer;
+            Debug.Log(player.StatusManager.FrenzyTimer);
+        }
+
+        //UpdateRage();
     }
 
-    // HPƒo[‚ğXV‚·‚éƒƒ\ƒbƒh
+    // HPãƒãƒ¼ã‚’æ›´æ–°ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     private void UpdateRage()
     {
-        // HPƒo[‚ÌƒXƒ‰ƒCƒ_[‚Ì’l‚ğXV
+
+        // HPãƒãƒ¼ã®ã‚¹ãƒ©ã‚¤ãƒ€ãƒ¼ã®å€¤ã‚’æ›´æ–°
         float normalizedValue = (float)currentRage / maxRage;
         rageSlider.value = normalizedValue;
 
-        // ‘OŒi‚ÌƒTƒCƒY‚ğ’²®
-        fill.fillAmount = normalizedValue; // qƒIƒuƒWƒFƒNƒg‚Ì‘OŒi‚ÌƒTƒCƒY‚ğ’²®
+        // å‰æ™¯ã®ã‚µã‚¤ã‚ºã‚’èª¿æ•´
+        fill.fillAmount = normalizedValue; // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‰æ™¯ã®ã‚µã‚¤ã‚ºã‚’èª¿æ•´
         Debug.Log("Rage: " + currentRage + " / " + maxRage + ", Fill Amount: " + fill.fillAmount);
     }
 

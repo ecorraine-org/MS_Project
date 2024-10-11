@@ -1,33 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerModeChange : MonoBehaviour
 {
-    // Ø‚è‘Ö‚¦‚½‚¢Image‚ğ‚ÂGameObject‚Ì”z—ñ
-    public GameObject[] images; // V‚µ‚­ƒAƒNƒeƒBƒu‚É‚·‚éImage
-    public GameObject[] targetImages; // Œ»İ•\¦‚³‚ê‚Ä‚¢‚éImage
+    private PlayerController player;
 
-    // PlayerRageƒRƒ“ƒ|[ƒlƒ“ƒg
+    // åˆ‡ã‚Šæ›¿ãˆãŸã„Imageã‚’æŒã¤GameObjectã®é…åˆ—
+    public GameObject[] images; // æ–°ã—ãã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹Image
+    public GameObject[] targetImages; // ç¾åœ¨è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹Image
+
+    public Sprite[] icons;
+
+    // PlayerRageã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
     public PlayerRage playerRage;
 
-    // Ø‚è‘Ö‚¦‚ªs‚í‚ê‚½‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
+    // åˆ‡ã‚Šæ›¿ãˆãŒè¡Œã‚ã‚ŒãŸã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°
     private bool hasChanged = false;
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+    }
 
     void Update()
     {
-        // PlayerRage‚ÌRage‚ªÅ‘å‚É‚È‚Á‚½‚Ì‚İImage‚ğØ‚è‘Ö‚¦‚é
-        if (playerRage.currentRage == playerRage.maxRage && !hasChanged)
+        // PlayerRageã®RageãŒæœ€å¤§ã«ãªã£ãŸæ™‚ã®ã¿Imageã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+        if (player.StatusManager.FrenzyTimer > 0 && player.StatusManager.IsFrenzy)
         {
-            SwitchImages();
-            hasChanged = true; // Ø‚è‘Ö‚¦‚ªs‚í‚ê‚½‚Ì‚Åƒtƒ‰ƒO‚ğXV
+            //SwitchImages();
+            this.gameObject.GetComponent<Image>().sprite = icons[1];
+            hasChanged = true; // åˆ‡ã‚Šæ›¿ãˆãŒè¡Œã‚ã‚ŒãŸã®ã§ãƒ•ãƒ©ã‚°ã‚’æ›´æ–°
+        }
+        else
+        {
+            this.gameObject.GetComponent<Image>().sprite = icons[0];
         }
     }
 
-    // ‰æ‘œ‚ğØ‚è‘Ö‚¦‚éƒƒ\ƒbƒh
+    // ç”»åƒã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     private void SwitchImages()
     {
-        // targetImages‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚é
+        // targetImagesã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
         foreach (GameObject target in targetImages)
         {
             if (target != null)
@@ -36,7 +51,7 @@ public class PlayerModeChange : MonoBehaviour
             }
         }
 
-        // ”z—ñ“à‚ÌV‚µ‚¢Image‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+        // é…åˆ—å†…ã®æ–°ã—ã„Imageã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
         foreach (GameObject image in images)
         {
             if (image != null)
@@ -48,7 +63,7 @@ public class PlayerModeChange : MonoBehaviour
         Debug.Log("Rage maxed out: Target images have been deactivated, and new images have been activated.");
     }
 
-    // Rage‚ª•Ï‰»‚µ‚½‚Æ‚«‚Éƒtƒ‰ƒO‚ğƒŠƒZƒbƒg‚·‚éƒƒ\ƒbƒh
+    // RageãŒå¤‰åŒ–ã—ãŸã¨ãã«ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void ResetChangeFlag()
     {
         hasChanged = false;
