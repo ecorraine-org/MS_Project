@@ -140,6 +140,9 @@ public class PlayerController : MonoBehaviour
     {
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
 
+        //移動しない時、向きを保つため
+        if (inputDirec == UnityEngine.Vector2.zero) return;
+
         //入力方向の角度計算
         float angle = Mathf.Atan2(inputDirec.y, inputDirec.x) * Mathf.Rad2Deg;
         if (angle >= -angleThreshold && angle < angleThreshold)
