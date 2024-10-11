@@ -112,4 +112,9 @@ public class PlayerStatusManager : StatusManager
     {
         get => isFrenzy;
     }
+
+    public float FrenzyTimer
+    {
+        get => frenzyTimer;
+    }
 }

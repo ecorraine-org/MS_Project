@@ -8,7 +8,7 @@ public class PlayerHPBar : MonoBehaviour
     [SerializeField, Header("プレイヤー")]
     PlayerController player;
 
-    public float maxHp = 200.0f;
+    public float maxHp;
     public float currentHp;
 
     // スライダー
@@ -35,11 +35,14 @@ public class PlayerHPBar : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         //最大HP設定
         maxHp = player.StatusManager.StatusData.maxHealth;
+        hpSlider.maxValue = maxHp;
 
         // スライダーを満タンにする
         currentHp = maxHp;
+        hpSlider.value = currentHp;
         UpdateHPBar();
         Debug.Log("Start currentHp : " + currentHp);
 

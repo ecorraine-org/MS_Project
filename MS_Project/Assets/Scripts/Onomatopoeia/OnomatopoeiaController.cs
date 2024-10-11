@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class OnomatopoeiaController : MonoBehaviour
 {
@@ -36,7 +37,9 @@ public class OnomatopoeiaController : MonoBehaviour
     void Start()
     {
         objOnomatopoeia = this.gameObject;
-        GetComponent<TextMeshPro>().text = onomatopoeiaName;
+                objOnomatopoeia.transform.rotation = new Quaternion(0, 0, -90, 0);
+
+        GetComponent<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
         fVelocity = RandomizeVelocity(emissionDirection * fStartSpeed);
 
     }
@@ -103,6 +106,7 @@ public class OnomatopoeiaController : MonoBehaviour
             Vector3 NewDirection = objOnomatopoeia.transform.position - Camera.main.transform.position;
             // カメラと同じ方向に向く
             objOnomatopoeia.transform.LookAt(NewDirection);
+            objOnomatopoeia.transform.Rotate(0, 0, -90);
         }
     }
 
