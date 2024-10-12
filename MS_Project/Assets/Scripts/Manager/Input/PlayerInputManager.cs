@@ -10,6 +10,10 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
     // インプットシステム
     private InputControls inputControls;
 
+    private PlayerController player;
+
+    //Lスティック方向
+    Vector3 lStickVec3;
 
     // アクションのディクショナリ
     private Dictionary<InputAction, Action> actionMap = new Dictionary<InputAction, Action>();
@@ -20,6 +24,16 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
 
         // 入力を有効化
         inputControls.Enable();
+    }
+
+    public void Init(PlayerController _playerController)
+    {
+        player = _playerController;
+    }
+
+    private void Update()
+    {
+        GetInputDirec();
     }
 
     /// <summary>
@@ -83,13 +97,32 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
         }
     }
 
-
     /// <summary>
     /// 移動入力方向を取得
     /// </summary>
     public Vector2 GetMoveDirec()
     {
         return inputControls.GamePlay.Walk.ReadValue<Vector2>();
+    }
+
+    /// <summary>
+    /// スティックの入力方向を取得
+    /// </summary>
+    public Vector3 GetInputDirec()
+    {
+        Vector2 inputDirec2 = inputControls.GamePlay.Walk.ReadValue<Vector2>();
+
+        if (inputDirec2==Vector2.zero) return Vector3.zero;
+
+         lStickVec3 = new Vector3(inputDirec2.x, 0, inputDirec2.y);
+
+        return lStickVec3;
+    }
+
+    public Vector3 LStickVec3
+    {
+        get => this.lStickVec3;
+        set { this.lStickVec3 = value; }
     }
 
     /// <summary>
@@ -116,11 +149,29 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
         return inputControls.GamePlay.Skill.triggered;
     }
 
+    /// <summary>
+    /// ダッシュ入力を取得
+    /// </summary>
+    public bool GetDashTrigger()
+    {
+        return inputControls.GamePlay.Dash.triggered;
+    }
+
 
     public InputControls InputControls
     {
         get { return inputControls; }
     }
 
+    private void OnDrawGizmos()
+    {
+        if (player == null) return;
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(player.transform.position, player.transform.position + lStickVec3);
+
+        //  Gizmos.DrawLine(transform.position, transform.position + inputManager.GetInputDirec());
+    }
 
 }

@@ -11,18 +11,29 @@ public class PlayerSkillManager : MonoBehaviour
     //PlayerControllerの参照
     PlayerController playerController;
 
+    [SerializeField, Header("障害物検出ディテクター")]
+    BlockDetector blockDetector;
+
     [SerializeField, Header("ステータスデータ")]
     PlayerSkillData skillData;
-
-  //  [SerializeField, Header("今のスキル")]
-  //  PlayerSkill curSkill;
 
     [SerializeField, Header("今のスキルのクールタイム")]
     float curSkillCoolTime;
 
+    [SerializeField, Header("ダッシュ持続時間")]
+    private float dashDuration = 0.3f;
+
+    [SerializeField, Header("ダッシュ速度")]
+    private float dashSpeed = 4.0f;
+
+    //ダッシュ方向
+    UnityEngine.Vector3 dashDirec;
+
+    //ダッシュ中かどうか
+    private bool isDashing = false;
+
     //辞書<キー：スキル種類、値：クールタイム>
     private Dictionary<PlayerSkill, float> coolTimers = new Dictionary<PlayerSkill, float>();
-
 
     private void Awake()
     {
@@ -35,39 +46,31 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController = _playerController;
 
+        blockDetector.Init(_playerController);
+
+        blockDetector.Distance = dashSpeed * dashDuration;
     }
 
+    private void FixedUpdate()
+    {
+        if (isDashing)
+        {
+            //敵と重ならないため
+            //移動先に敵がいなければ、敵との当たり判定を無視する
+            if (!blockDetector.IsColliding)
+            {
+                Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+                Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), true);
+            }
 
-    /// <summary>
-    /// スキル種類に応じて、今のスキルを設定する
-    /// </summary>
-    //public void SetCurSkill(PlayerMode _mode)
-    //{
-    //    PlayerSkill skill = (PlayerSkill)(int)_mode;
+            blockDetector.IsEnabled = false;
+            blockDetector.Distance = dashSpeed * dashDuration;
 
-    //    //有効かをチェック
-    //    if (Enum.IsDefined(typeof(PlayerSkill), skill))
-    //    {
-    //        curSkill = skill;
-
-    //        skillData.curSkillCoolTime = curSkill switch
-    //        {
-    //            PlayerSkill.Sword => skillData.swordSkillCoolTime,
-    //            PlayerSkill.Hammer => skillData.hammerSkillCoolTime,
-    //            //デフォルト
-    //            _ => 0f
-    //        };
-    //    }
-
-    //}
-
-    ///// <summary>
-    ///// 今のモードに応じるスキルを発動する
-    ///// </summary>
-    //public void UseCurSkill()
-    //{
-    //    UseSkill(PlayerSkill.CurSkill); 
-    //}
+           // Move(dashSpeed, dashDirec);
+           //一定距離を移動
+            playerController.RigidBody.MovePosition(playerController.RigidBody.position + dashDirec.normalized * dashSpeed * Time.fixedDeltaTime);
+        }
+    }
 
     /// <summary>
     /// スキル種類に応じて、スキルを発動する
@@ -106,6 +109,50 @@ public class PlayerSkillManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+  
+    
+
+    public void Dash(Vector3 _direc)
+    {
+        Debug.Log("DASH!!!!");
+
+        dashDirec = _direc;
+
+        //入力をチェック
+        if (dashDirec != UnityEngine.Vector3.zero)
+        {
+            //ダッシュ処理
+            StartCoroutine(DashCoroutine());
+
+            Debug.Log("DASH!!!!");
+            isDashing = true;
+   
+        }
+    }
+
+    public IEnumerator DashCoroutine()
+    {
+        float startTime = Time.time;
+        while (Time.time < startTime + dashDuration)
+        {
+
+            yield return null;
+        }
+
+
+        EndDash();
+    }
+
+    private void EndDash()
+    {
+        blockDetector.IsEnabled = true;
+        isDashing = false;
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), false);
+
+        Debug.Log("DASH END!!!!");
     }
 
     private void ExecuteEat()
@@ -164,6 +211,66 @@ public class PlayerSkillManager : MonoBehaviour
     {
         get => coolTimers; 
     }
+
+    public BlockDetector BlockDetector
+    {
+        get => this.blockDetector;
+    }
+
+    public bool IsDashing
+    {
+        get => this.isDashing;
+        set { this.isDashing = value; }
+    }
+
+    public Vector3 DashDirec
+    {
+        get => this.dashDirec;
+        // set { this.dashDirec = value; }
+    }
 }
+
+
+/// <summary>
+/// 一定距離を移動
+/// </summary>
+/// <remarks>
+///  fixUpdateで使う
+/// </remarks>
+//private void Move(float _speed, Vector3 _direc)
+//{
+//    playerController.RigidBody.MovePosition(playerController.RigidBody.position + _direc.normalized * _speed * Time.fixedDeltaTime);
+//}
+
+/// <summary>
+/// スキル種類に応じて、今のスキルを設定する
+/// </summary>
+//public void SetCurSkill(PlayerMode _mode)
+//{
+//    PlayerSkill skill = (PlayerSkill)(int)_mode;
+
+//    //有効かをチェック
+//    if (Enum.IsDefined(typeof(PlayerSkill), skill))
+//    {
+//        curSkill = skill;
+
+//        skillData.curSkillCoolTime = curSkill switch
+//        {
+//            PlayerSkill.Sword => skillData.swordSkillCoolTime,
+//            PlayerSkill.Hammer => skillData.hammerSkillCoolTime,
+//            //デフォルト
+//            _ => 0f
+//        };
+//    }
+
+//}
+
+///// <summary>
+///// 今のモードに応じるスキルを発動する
+///// </summary>
+//public void UseCurSkill()
+//{
+//    UseSkill(PlayerSkill.CurSkill); 
+//}
 
 

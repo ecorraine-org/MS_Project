@@ -48,13 +48,20 @@ public class PlayerWalkState : PlayerState
             return;
         }
 
+        //ダッシュ
+        bool isDash = inputManager.GetDashTrigger();
+        if (isDash&&!playerSkillManager.IsDashing)
+        {
+            playerSkillManager.Dash(inputManager.GetInputDirec());
+            return;
+        }
 
 
         //方向設定
-        playerController.SetEightDirection();
+        if (!playerSkillManager.IsDashing) playerController.SetEightDirection();
 
         //アニメーション設定
-        playerController.SetWalkAnimation();
+        if (!playerSkillManager.IsDashing) playerController.SetWalkAnimation();
 
         //方向取得
         inputDirec = inputManager.GetMoveDirec();
@@ -75,7 +82,7 @@ public class PlayerWalkState : PlayerState
         PlayerStatusManager PlayerStatusManager = playerController.StatusManager;
         float moveSpeed = PlayerStatusManager.StatusData.velocity;
 
-        rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
+        if (!playerSkillManager.IsDashing) rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
     }
 
     public override void Exit()
