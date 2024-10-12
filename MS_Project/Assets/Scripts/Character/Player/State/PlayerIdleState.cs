@@ -54,7 +54,7 @@ public class PlayerIdleState : PlayerState
 
 
         //アニメーション設定
-        playerController.SetWalkAnimation();
+        if (!playerSkillManager.IsDashing) playerController.SetWalkAnimation();
 
         inputDirec = inputManager.GetMoveDirec();
 

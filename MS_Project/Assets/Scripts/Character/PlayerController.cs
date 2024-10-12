@@ -25,14 +25,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("モードマネージャー")]
     PlayerModeManager modeManager;
 
-
+    private Collider playerCcollider;
 
     [SerializeField, Header("アタックコライダーマネージャー")]
     AttackColliderManager attackCollider;
 
     Rigidbody thisRigidbody;
 
-    public float jumpForce = 3;
+   // public float jumpForce = 3;
 
     public LayerMask terrainLayer;
     public Transform groundCheck;
@@ -54,16 +54,15 @@ public class PlayerController : MonoBehaviour
     //現在の向き
     Direction currentDirec = Direction.Down;
 
+    //現在の向き(ベクトル)
+    UnityEngine.Vector3 curDirecVector;
+
+
     //ダメージ受けるかどうか
     bool isHit;
 
     // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
-
-   
-
-
-  
 
     void Awake()
     {
@@ -77,6 +76,8 @@ public class PlayerController : MonoBehaviour
 
         playerFlip = GetComponent<Animator>();
 
+        playerCcollider = GetComponent<Collider>();
+
         sprite = gameObject.transform.GetChild(0);
         spriteRenderer = sprite.GetComponent<SpriteRenderer>();
         spriteRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
         spriteAnim = sprite.GetComponent<Animator>();
 
-      
+       
 
         //依存性注入
         stateManager.Init(this);
@@ -92,6 +93,7 @@ public class PlayerController : MonoBehaviour
         modeManager.Init(this);
         skillManager.Init(this);
         statusManager.Init(this);
+        inputManager.Init(this);
     }
 
     void Start()
@@ -100,12 +102,6 @@ public class PlayerController : MonoBehaviour
         groundCheck = gameObject.transform.GetChild(1).gameObject.transform;
         if (Debug.isDebugBuild)
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
-    }
-
-    void Update()
-    {
-       
-
     }
 
     private void FixedUpdate()
@@ -131,7 +127,9 @@ public class PlayerController : MonoBehaviour
         //}
     }
 
+  
 
+   
 
     /// <summary>
     /// 入力方向で現在の方向を八方向のいずれかに設定する
@@ -139,6 +137,8 @@ public class PlayerController : MonoBehaviour
     public void SetEightDirection()
     {
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
+
+        curDirecVector = inputManager.GetInputDirec();
 
         //移動しない時、向きを保つため
         if (inputDirec == UnityEngine.Vector2.zero) return;
@@ -236,16 +236,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
 
-    /// <summary>
-    /// 攻撃イベント
-    /// </summary>
-    //private void OnAttackPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    //{
-    //    spriteAnim.Play("PlayerAttack");
-    //}
-
- 
+        Gizmos.DrawLine(transform.position, transform.position + curDirecVector);
+    }
 
     #region Getter&Setter 
 
@@ -294,6 +290,12 @@ public class PlayerController : MonoBehaviour
     {
         get => this.currentDirec;
         set { this.currentDirec = value; }
+    }
+
+    public UnityEngine.Vector3 CurDirecVector
+    {
+        get => this.curDirecVector;
+        set { this.curDirecVector = value; }
     }
 
     public PlayerStatusManager StatusManager

@@ -568,6 +568,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475123bdac4da0e4ba8af8d14b99cde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7136955524020245556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6037174190421580666}
+  - component: {fileID: 4851914542046528324}
+  m_Layer: 0
+  m_Name: Detector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6037174190421580666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7136955524020245556}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8143523743651954739}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4851914542046528324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7136955524020245556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf2290aa1b5fac418301fdc15ba067e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0.3
+  height: 2
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  detectorPos: {x: 0, y: 0, z: 0}
+  distance: 0
+  direc: {x: 0, y: 0, z: 0}
+  isColliding: 0
+  isEnabled: 1
 --- !u!1 &7219341258194280537
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,8 +666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145fae047354cdd408d78a957e8c1798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockDetector: {fileID: 4851914542046528324}
   skillData: {fileID: 11400000, guid: 63ba82a4e258c7144a51fb35980ba7a5, type: 2}
   curSkillCoolTime: 0
+  dashDuration: 0.3
+  dashSpeed: 5
 --- !u!1 &7667086179420449206
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +748,7 @@ GameObject:
   - component: {fileID: 8469728801098781021}
   - component: {fileID: 1387272161391414000}
   - component: {fileID: 3452593541282707586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -718,6 +775,7 @@ Transform:
   - {fileID: 4089351063618231514}
   - {fileID: 5523829529781374550}
   - {fileID: 7648284783728048680}
+  - {fileID: 6037174190421580666}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3489175230929265989
@@ -810,7 +868,6 @@ MonoBehaviour:
   skillManager: {fileID: 3805252188967827567}
   modeManager: {fileID: 8698715986294293726}
   attackCollider: {fileID: 3452593541282707586}
-  jumpForce: 3
   terrainLayer:
     serializedVersion: 2
     m_Bits: 0
