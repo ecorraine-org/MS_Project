@@ -11,8 +11,8 @@ public class PlayerSkillManager : MonoBehaviour
     //PlayerControllerの参照
     PlayerController playerController;
 
-    [SerializeField, Header("障害物検出ディテクター")]
-    BlockDetector blockDetector;
+    [SerializeField, Header("突進処理ビヘイビア")]
+    DashHandler dash;
 
     [SerializeField, Header("ステータスデータ")]
     PlayerSkillData skillData;
@@ -20,21 +20,7 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, Header("今のスキルのクールタイム")]
     float curSkillCoolTime;
 
-    [SerializeField, Header("ダッシュ持続時間")]
-    private float dashDuration = 0.3f;
 
-    [SerializeField, Header("ダッシュ速度")]
-    private float dashSpeed = 4.0f;
-
-    [SerializeField, Header("ターゲットを貫通可能かどうか")]
-    private bool canThrough = false;
-    
-
-    //ダッシュ方向
-    UnityEngine.Vector3 dashDirec;
-
-    //ダッシュ中かどうか
-    private bool isDashing = false;
 
     //辞書<キー：スキル種類、値：クールタイム>
     private Dictionary<PlayerSkill, float> coolTimers = new Dictionary<PlayerSkill, float>();
@@ -50,29 +36,8 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController = _playerController;
 
-        blockDetector.Init(_playerController);
+        dash.Init(playerController);
 
-        blockDetector.Distance = dashSpeed * dashDuration;
-    }
-
-    private void FixedUpdate()
-    {
-        if (isDashing)
-        {
-            //敵と重ならないため
-            //移動先に敵がいなければ、敵との当たり判定を無視する
-            if (!blockDetector.IsColliding&& canThrough)
-            {
-                Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
-                Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), true);
-            }
-
-            blockDetector.IsEnabled = false;
-            blockDetector.Distance = dashSpeed * dashDuration;
-
-           //一定距離を移動
-            playerController.RigidBody.MovePosition(playerController.RigidBody.position + dashDirec.normalized * dashSpeed * Time.fixedDeltaTime);
-        }
     }
 
     /// <summary>
@@ -114,64 +79,13 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// 突進処理
-    /// </summary>
-    /// /// <param name="canThrough"> ターゲットを貫通可能かどうか </param>
-    public void Dash(bool _canThrough,Vector3 _direc = default)
-    {
-    
-        if (_direc == default)
-        {
-            //引数なかったら、Lスティックの入力方向を使う
-            dashDirec = playerController.InputManager.GetInputDirec();         
-        }
-        else
-        {
-            dashDirec = _direc;
-        }
-
-        //入力をチェック
-        if (dashDirec != UnityEngine.Vector3.zero)
-        {
-            //ダッシュ処理
-            StartCoroutine(DashCoroutine());
-
-            Debug.Log("DASH!!!!");//test
-            isDashing = true;
-   
-        }
-    }
-
-    public IEnumerator DashCoroutine()
-    {
-        float startTime = Time.time;
-        while (Time.time < startTime + dashDuration)
-        {
-
-            yield return null;
-        }
-
-
-        EndDash();
-    }
-
     //キャンセルされた時のリセット処理
     public void Reset()
     {
-       if(isDashing)EndDash();
+       if(dash.IsDashing) dash.EndDash();
     }
 
-    private void EndDash()
-    {
-        blockDetector.IsEnabled = true;
-        isDashing = false;
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), false);
-
-        Debug.Log("DASH END!!!!");
-    }
+ 
 
     private void ExecuteEat()
     {
@@ -224,20 +138,26 @@ public class PlayerSkillManager : MonoBehaviour
         get => coolTimers; 
     }
 
-    public BlockDetector BlockDetector
+    //public BlockDetector BlockDetector
+    //{
+    //    get => this.blockDetector;
+    //}
+
+    public DashHandler DashHandler
     {
-        get => this.blockDetector;
+        get => this.dash;
     }
+
 
     public bool IsDashing
     {
-        get => this.isDashing;
-        set { this.isDashing = value; }
+        get => this.dash.IsDashing;
+        set { this.dash.IsDashing = value; }
     }
 
     public Vector3 DashDirec
     {
-        get => this.dashDirec;
+        get => this.dash.Direc;
         // set { this.dashDirec = value; }
     }
 }

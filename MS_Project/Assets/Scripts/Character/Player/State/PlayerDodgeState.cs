@@ -11,7 +11,7 @@ public class PlayerDodgeState : PlayerState
         base.Init(_playerController);
         Debug.Log("回避ステート");
 
-        playerSkillManager.Dash(false);
+        playerSkillManager.DashHandler.Dash(false);
     }
 
     public override void Tick()

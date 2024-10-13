@@ -663,7 +663,6 @@ MonoBehaviour:
     m_Bits: 64
   detectorPos: {x: 0, y: 0, z: 0}
   distance: 0
-  direc: {x: 0, y: 0, z: 0}
   isColliding: 0
   isEnabled: 1
 --- !u!1 &7219341258194280537
@@ -676,6 +675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5523829529781374550}
   - component: {fileID: 3805252188967827567}
+  - component: {fileID: 433902212357176194}
   m_Layer: 0
   m_Name: Skill
   m_TagString: Untagged
@@ -711,10 +711,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockDetector: {fileID: 4851914542046528324}
+  dash: {fileID: 433902212357176194}
   skillData: {fileID: 11400000, guid: 63ba82a4e258c7144a51fb35980ba7a5, type: 2}
   curSkillCoolTime: 0
-  dashDuration: 0.3
-  dashSpeed: 5
+  canThrough: 0
+--- !u!114 &433902212357176194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219341258194280537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4bf84a6c6e97b4f9fccef15e67802e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockDetector: {fileID: 4851914542046528324}
+  duration: 0.3
+  speed: 4
 --- !u!1 &7667086179420449206
 GameObject:
   m_ObjectHideFlags: 0
