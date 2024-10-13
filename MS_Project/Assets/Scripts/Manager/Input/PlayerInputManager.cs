@@ -170,8 +170,6 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
         Gizmos.color = Color.red;
 
         Gizmos.DrawLine(player.transform.position, player.transform.position + lStickVec3);
-
-        //  Gizmos.DrawLine(transform.position, transform.position + inputManager.GetInputDirec());
     }
 
 }

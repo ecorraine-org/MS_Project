@@ -271,6 +271,11 @@ public class PlayerController : MonoBehaviour
         get => this.modeManager;
     }
 
+    public PlayerInputManager InputManager
+    {
+        get => this.inputManager;
+    }
+
     public Animator SpriteAnim
     {
         get => this.spriteAnim;

@@ -7,6 +7,8 @@ public struct SkillStatus
 {
     public PlayerSkill skillName;
     public float coolTime;
+    public float dashSpeed;//突進速度
+    public float hpCost;//hp消費量
 }
 
 [CreateAssetMenu(fileName = "PlayerSkillData", menuName = "ScriptableObjects/Character/Player/SkillData", order = 0)]
