@@ -7,17 +7,16 @@ using UnityEngine;
 /// </summary>
 public class BlockDetector : MonoBehaviour
 {
-    public float radius = 1.0f;  
-    public float height = 2.0f;  
-    public LayerMask targetLayer; 
-    public Vector3 detectorPos; 
-  //  public Transform detectionEndPoint;
+    public float radius = 1.0f;
+    public float height = 2.0f;
+    public LayerMask targetLayer;
+    public Vector3 detectorPos;
 
     [SerializeField, Header("自身との距離")]
     private float distance;
 
-    [SerializeField, Header("自身の方向")]
-    private Vector3 direc;
+    //[SerializeField, Header("自身の方向")]
+   // private Vector3 direc;
 
     [SerializeField, Header("コライダーを検出したか")]
     private bool isColliding = false;
@@ -25,28 +24,19 @@ public class BlockDetector : MonoBehaviour
     [SerializeField, Header("有効か")]
     private bool isEnabled = true;
 
-    //プレイヤーコントローラー
-    private PlayerController player;
+    //オブジェクトのTransform 
+    //private Transform owner;
 
-    public void Init(PlayerController _playerController)
-    {
-        player = _playerController;
-    }
-
-    private void Update()
+    public void DetectUpdate(Transform _owner, Vector3 _direc)
     {
         if (!isEnabled) return;
 
-        direc = player.CurDirecVector;
-
-      //  if (direc == Vector3.zero) return;
-
-        DetectEnemies();
+        DetectTarget(_owner, _direc);
     }
 
-    void DetectEnemies()
+    void DetectTarget(Transform _owner, Vector3 _direc)
     {
-        detectorPos = player.transform.position + distance* direc.normalized;
+        detectorPos = _owner.position + distance * _direc.normalized;
 
         //範囲内のターゲットを検出
         Collider[] colliders = Physics.OverlapCapsule(detectorPos, detectorPos, radius, targetLayer);
@@ -54,11 +44,6 @@ public class BlockDetector : MonoBehaviour
         if (colliders.Length > 0) isColliding = true;
         else isColliding = false;
 
-        //foreach (var enemy in colliders)
-        //{
-
-            //    Debug.Log("Enemy detected: " + enemy.name);//test
-            //}
     }
 
     public bool IsEnabled
@@ -79,22 +64,20 @@ public class BlockDetector : MonoBehaviour
         set { this.distance = value; }
     }
 
+    //public Vector3 Direc
+    //{
+    //    get => this.direc;
+    //    set { this.direc = value; }
+    //}
+
     /// <summary>
     /// 可視化処理
     /// </summary>
     private void OnDrawGizmos()
     {
+        Gizmos.color = Color.red;
 
-
-       // if (detectorPos != null )
-        {
-            Gizmos.color = Color.red;
-
-            Gizmos.DrawWireSphere(detectorPos, radius);
-
-           // Gizmos.DrawLine(detectorPos + Vector3.up * radius, detectorPos + Vector3.up * radius);
-           // Gizmos.DrawLine(detectorPos - Vector3.up * radius, detectorPos - Vector3.up * radius);
-        }
+        Gizmos.DrawWireSphere(detectorPos, radius);
     }
 }
 

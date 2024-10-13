@@ -102,6 +102,9 @@ public class PlayerEatState : PlayerState
     // Gizmosを使用してベクトルを描画
     private void OnDrawGizmos()
     {
+        if (playerStateManager==null) return;
+        if ( playerStateManager.CurrentStateType != StateType.Eat) return;
+
         // オブジェクトの位置
         Vector3 start = transform.position;
         // ベクトルの終点を計算
