@@ -38,7 +38,6 @@ public enum PlayerSkill
     Sword,
     Hammer,
     Eat,
-    CurSkill,//今のスキル
 }
 
 /// <summary>

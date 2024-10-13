@@ -179,14 +179,8 @@ public class PlayerSkillManager : MonoBehaviour
 
     private IEnumerator SkillCooldown( PlayerSkill _skillType)
     {
-        float coolTime = _skillType switch
-        {
-            PlayerSkill.Eat => skillData.eatingCoolTime,
-            PlayerSkill.Sword => skillData.swordSkillCoolTime,
-            PlayerSkill.Hammer => skillData.hammerSkillCoolTime,
-            //デフォルト
-            _ => 0f
-        };
+        //データからクールタイムを取得
+        float coolTime = skillData.dicSkill.ContainsKey(_skillType) ? skillData.dicSkill[_skillType].coolTime : 0f;
 
         //クールタイム設定
         coolTimers[_skillType] = coolTime;
