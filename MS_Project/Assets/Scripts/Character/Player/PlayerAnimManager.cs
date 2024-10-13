@@ -37,11 +37,23 @@ public class PlayerAnimManager : MonoBehaviour
     }
 
     /// <summary>
-    ///攻撃可能設定
+    /// 突進開始
     /// </summary>
-    //void SetHit(bool _canAttack)
-    //{
-    //    playerController.AttackCollider.CanHit = _canAttack;
+    void StartDash()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
 
-    //}
+       // attackCollider.SetHit(true);
+
+    }
+
+    /// <summary>
+    /// 突進終了
+    /// </summary>
+    void EndDash()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+
+       // attackCollider.SetHit(false);
+    }
 }

@@ -37,6 +37,9 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField, Header("スキル状態ビヘイビア")]
     PlayerSkillState skillState;
 
+    [SerializeField, Header("回避状態ビヘイビア")]
+    PlayerDodgeState dodgeState;
+
     [SerializeField, Header("被撃状態ビヘイビア")]
     PlayerHitState hitState;
 
@@ -78,6 +81,7 @@ public class PlayerStateManager : MonoBehaviour
         dicStates.Add(StateType.Hit, hitState);
         dicStates.Add(StateType.Eat, eatState);
         dicStates.Add(StateType.Skill, skillState);
+        dicStates.Add(StateType.Dodge, dodgeState);
         dicStates.Add(StateType.Dead, deadState);
         dicStates.Add(StateType.Walk, walkState);
         dicStates.Add(StateType.Attack, attackState);
@@ -142,6 +146,8 @@ public class PlayerStateManager : MonoBehaviour
     private void ResetState()
     {
         playerController.AttackCollider.CanHit = false;
+
+       playerController.SkillManager.Reset();
     }
 
     ///<summary>

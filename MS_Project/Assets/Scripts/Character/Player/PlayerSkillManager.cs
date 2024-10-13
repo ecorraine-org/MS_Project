@@ -26,6 +26,10 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, Header("ダッシュ速度")]
     private float dashSpeed = 4.0f;
 
+    [SerializeField, Header("ターゲットを貫通可能かどうか")]
+    private bool canThrough = false;
+    
+
     //ダッシュ方向
     UnityEngine.Vector3 dashDirec;
 
@@ -57,7 +61,7 @@ public class PlayerSkillManager : MonoBehaviour
         {
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
-            if (!blockDetector.IsColliding)
+            if (!blockDetector.IsColliding&& canThrough)
             {
                 Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
                 Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), true);
@@ -66,7 +70,6 @@ public class PlayerSkillManager : MonoBehaviour
             blockDetector.IsEnabled = false;
             blockDetector.Distance = dashSpeed * dashDuration;
 
-           // Move(dashSpeed, dashDirec);
            //一定距離を移動
             playerController.RigidBody.MovePosition(playerController.RigidBody.position + dashDirec.normalized * dashSpeed * Time.fixedDeltaTime);
         }
@@ -111,14 +114,23 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
-  
-    
 
-    public void Dash(Vector3 _direc)
+    /// <summary>
+    /// 突進処理
+    /// </summary>
+    /// /// <param name="canThrough"> ターゲットを貫通可能かどうか </param>
+    public void Dash(bool _canThrough,Vector3 _direc = default)
     {
-        Debug.Log("DASH!!!!");
-
-        dashDirec = _direc;
+    
+        if (_direc == default)
+        {
+            //引数なかったら、Lスティックの入力方向を使う
+            dashDirec = playerController.InputManager.GetInputDirec();         
+        }
+        else
+        {
+            dashDirec = _direc;
+        }
 
         //入力をチェック
         if (dashDirec != UnityEngine.Vector3.zero)
@@ -126,7 +138,7 @@ public class PlayerSkillManager : MonoBehaviour
             //ダッシュ処理
             StartCoroutine(DashCoroutine());
 
-            Debug.Log("DASH!!!!");
+            Debug.Log("DASH!!!!");//test
             isDashing = true;
    
         }
@@ -143,6 +155,12 @@ public class PlayerSkillManager : MonoBehaviour
 
 
         EndDash();
+    }
+
+    //キャンセルされた時のリセット処理
+    public void Reset()
+    {
+       if(isDashing)EndDash();
     }
 
     private void EndDash()
