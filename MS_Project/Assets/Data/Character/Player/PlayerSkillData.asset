@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbb3d9f04ac6264689364d5d792832a, type: 3}
   m_Name: PlayerSkillData
   m_EditorClassIdentifier: 
-  eatingCoolTime: 2
-  swordSkillCoolTime: 2
-  hammerSkillCoolTime: 5
-  curSkillCoolTime: 5
+  skill:
+  - skillName: 1
+    coolTime: 0
+  - skillName: 2
+    coolTime: 0
+  - skillName: 3
+    coolTime: 0

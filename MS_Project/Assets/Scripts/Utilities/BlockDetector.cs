@@ -46,10 +46,7 @@ public class BlockDetector : MonoBehaviour
 
     void DetectEnemies()
     {
-     
         detectorPos = player.transform.position + distance* direc.normalized;
-
-        Debug.Log("playerPos" + player.transform.position+ " detectorPos " + detectorPos);//test
 
         //範囲内のターゲットを検出
         Collider[] colliders = Physics.OverlapCapsule(detectorPos, detectorPos, radius, targetLayer);
