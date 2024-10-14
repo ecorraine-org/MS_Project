@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyController : MonoBehaviour, IHit
+public class EnemyController : ObjectController, IHit
 {
-    [SerializeField, Header("プレイヤー")]
-    Transform player;
-    [SerializeField, Header("生成するエネミー")]
-    GameObject enemyObj;
-    [SerializeField]
-    GameObject onomatoObj;
-    [SerializeField, Header("ステータスマネージャー")]
-    EnemyStatusManager status;
+    public readonly WorldObjectType type = WorldObjectType.Enemy;
 
     [SerializeField, Header("ステータス"), Tooltip("攻撃力")]
     float fDamage = 0;
@@ -25,31 +18,28 @@ public class EnemyController : MonoBehaviour, IHit
 
     [Header("イベント")]
     public UnityEvent<Vector3> OnMovementInput;
-    public UnityEvent OnAttack;
     public UnityEvent OnDamaged;
+    public UnityEvent OnAttack;
 
     public Vector3 MovementInput { get; set; }
 
-    Rigidbody rb;
-    Animator animator;
-    BoxCollider boxCollider;
+    private Animator animator;
+    private BoxCollider boxCollider;
 
-    private void Awake()
+    public override void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        status = gameObject.transform.GetChild(0).gameObject.GetComponent<EnemyStatusManager>();
-        enemyObj = Instantiate(Resources.Load<GameObject>(status.StatusData.enemyPrefab), this.transform);
+        base.Awake();
 
-        rb = GetComponent<Rigidbody>();
-        animator = transform.GetChild(1).GetComponent<Animator>();
+        gameObj = Instantiate(Resources.Load<GameObject>(status.StatusData.enemyPrefab), this.transform);
+        animator = this.transform.GetChild(1).GetComponent<Animator>();
     }
 
-    private void Start()
+    public override void Start()
     {
-        onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItem");
+        base.Start();
 
-        boxCollider = GetComponent<BoxCollider>();
-        BoxCollider collider = gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider>();
+        boxCollider = this.GetComponent<BoxCollider>();
+        BoxCollider collider = this.gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider>();
         boxCollider.center = collider.center / 3;
         boxCollider.size = collider.size / 3;
     }
@@ -119,8 +109,10 @@ public class EnemyController : MonoBehaviour, IHit
     {
         if (isAttack)
         {
-            //  Debug.Log("敵攻撃");
-            animator.Play("Attack");
+            animator.SetTrigger("IsAttack");
+
+            player.GetComponent<PlayerController>().StatusManager.TakeDamage(status.StatusData.fDamage);
+
             isAttack = false;
             StartCoroutine(nameof(AttackCoroutine));
         }
@@ -131,12 +123,9 @@ public class EnemyController : MonoBehaviour, IHit
         if (status.isDamaged)
         {
             animator.Play("Damaged");
-            Debug.Log("ダメージされた");
 
-            GameObject onomatoCollector = GameObject.FindGameObjectWithTag("OnomatopoeiaCollector").gameObject;
-            onomatoObj.GetComponent<OnomatopoeiaController>().data = status.StatusData.onomatoData;
-            onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = status.StatusData.onomatoData.wordToUse;
-            GameObject instance = Instantiate(onomatoObj, this.transform.position, Quaternion.identity, onomatoCollector.transform);
+            GenerateOnomatopoeia();
+
             status.isDamaged = false;
         }
     }
