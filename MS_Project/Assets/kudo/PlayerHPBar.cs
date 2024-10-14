@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHPBar : MonoBehaviour
 {
-    [SerializeField, Header("プレイヤー")]
-    PlayerController player;
+    private PlayerController player;
 
     public float maxHp;
     public float currentHp;
@@ -43,7 +42,7 @@ public class PlayerHPBar : MonoBehaviour
         // スライダーを満タンにする
         currentHp = maxHp;
         hpSlider.value = currentHp;
-        UpdateHPBar();
+        //UpdateHPBar();
         Debug.Log("Start currentHp : " + currentHp);
 
         // 背景HPを減少させるコルーチンを常に開始
@@ -71,7 +70,7 @@ public class PlayerHPBar : MonoBehaviour
         //    currentHp -= 10;
         //    currentHp = Mathf.Clamp(currentHp, 0, maxHp);
         //    Debug.Log("After I key, currentHp : " + currentHp);
-        //    UpdateHPBar();
+        UpdateHPBar();
         //}
 
         //if (Input.GetKeyDown(KeyCode.O))
@@ -88,7 +87,7 @@ public class PlayerHPBar : MonoBehaviour
     {
         // HPバーのスライダーの値を更新
         float normalizedValue = (float)currentHp / maxHp;
-        hpSlider.value = normalizedValue;
+        hpSlider.value = currentHp;
 
         // 前景のサイズを調整
         fill.fillAmount = normalizedValue; // 子オブジェクトの前景のサイズを調整

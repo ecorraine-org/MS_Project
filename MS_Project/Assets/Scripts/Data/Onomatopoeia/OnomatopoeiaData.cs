@@ -18,4 +18,7 @@ public class OnomatopoeiaData : ScriptableObject
 
     [Header("速度")]
     public float fSpeed = 0f;
+
+    [Header("回復")]
+    public float fHeal = 0f;
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 敵のステータスを管理するビヘイビア
 /// </summary>
-public class EnemyStatusManager : StatusManager
+public class ObjectStatusManager : StatusManager
 {
     [SerializeField, ReadOnly, Tooltip("速度")]
     private float moveSpeed;
@@ -22,8 +22,8 @@ public class EnemyStatusManager : StatusManager
     public bool isAlive = true;
     */
 
-    [SerializeField, ReadOnly, Tooltip("エネミータイプ")]
-    private OnomatoType enemyType;
+    [SerializeField, ReadOnly, Tooltip("自分の属性")]
+    private OnomatoType selfType;
 
     [SerializeField, ReadOnly, Tooltip("オノマトペデータ")]
     private OnomatopoeiaData onomatoData;
@@ -38,7 +38,7 @@ public class EnemyStatusManager : StatusManager
 
         moveSpeed = StatusData.velocity;
         damage = StatusData.fDamage;
-        enemyType = StatusData.eEnemyType;
+        selfType = StatusData.eEnemyType;
         onomatoData = StatusData.onomatoData;
         tolerance = StatusData.eTolerance;
     }
