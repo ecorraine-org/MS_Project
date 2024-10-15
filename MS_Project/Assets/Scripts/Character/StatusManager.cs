@@ -10,7 +10,7 @@ public class StatusManager : MonoBehaviour, ILife
     [SerializeField, Header("ステータスデータ")]
     protected CharacterStatusData statusData;
 
-    [SerializeField, Header("体力")]
+    [SerializeField, Tooltip("体力")]
     protected float currentHealth;
 
     protected virtual void Awake()
@@ -44,6 +44,11 @@ public class StatusManager : MonoBehaviour, ILife
     public virtual CharacterStatusData StatusData
     {
         get => statusData;
+    }
+
+    public virtual WorldObjectType ObjectType
+    {
+        get => statusData.ObjectType;
     }
 
 }

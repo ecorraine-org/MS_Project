@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum WorldObjectType
-{
-    None,
-    [InspectorName("敵")] Enemy,
-    [InspectorName("その他")] StaticObject
-}
-
 public enum ObjectStateType {
     [InspectorName("待機")]Idle,
     [InspectorName("移動")]Walk,
@@ -31,15 +24,11 @@ public abstract class ObjectController : MonoBehaviour
     [Tooltip("ステータスマネージャー")]
     protected ObjectStatusManager status;
 
-    protected Rigidbody rb;
-
     // Start is called before the first frame update
     public virtual void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         status = this.transform.GetChild(0).gameObject.GetComponent<ObjectStatusManager>();
-
-        rb = this.GetComponent<Rigidbody>();
     }
 
     public virtual void Start()

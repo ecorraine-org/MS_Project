@@ -52,3 +52,14 @@ public enum OnomatoType
     [InspectorName("殴り")] HandType,
     [InspectorName("その他")] OtherType
 }
+
+/// <summary>
+/// 
+/// </summary>
+public enum WorldObjectType
+{
+    None,
+    [InspectorName("プレイヤー")] Player,
+    [InspectorName("敵")] Enemy,
+    [InspectorName("その他")] StaticObject
+}
