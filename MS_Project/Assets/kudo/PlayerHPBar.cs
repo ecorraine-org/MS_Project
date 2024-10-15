@@ -91,7 +91,7 @@ public class PlayerHPBar : MonoBehaviour
 
         // 前景のサイズを調整
         fill.fillAmount = normalizedValue; // 子オブジェクトの前景のサイズを調整
-        Debug.Log("HP: " + currentHp + " / " + maxHp + ", Fill Amount: " + fill.fillAmount);
+        //Debug.Log("HP: " + currentHp + " / " + maxHp + ", Fill Amount: " + fill.fillAmount);
     }
 
     //イベントでHPを更新する
