@@ -22,7 +22,7 @@ public class EnemyController : ObjectController, IHit
     public UnityEvent OnAttack;
     public UnityEvent OnUseSkill;
 
-    public EnemySkill enemySkill;
+    private EnemySkill enemySkill;
 
     public Vector3 MovementInput { get; set; }
 
@@ -50,6 +50,7 @@ public class EnemyController : ObjectController, IHit
         boxCollider.size = collider.size / 3;
 
         enemySkill = this.gameObject.transform.GetChild(1).gameObject.GetComponent<EnemySkill>();
+        enemySkill.SetPlayer(player);
         enemySkill.SetRigidbody(rb);
     }
 
@@ -63,7 +64,7 @@ public class EnemyController : ObjectController, IHit
         if (player == null) return;
 
         float distance = Vector3.Distance(player.position, transform.position);
-
+        enemySkill.SetDistanceToPlayer(distance);
         if (distance < status.StatusData.chaseDistance)
         {
 

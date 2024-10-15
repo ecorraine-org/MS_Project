@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ”íŒ‚ˆ—ƒCƒ“ƒ^ƒtƒF[ƒX
+/// è¢«æ’ƒå‡¦ç†ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
 /// </summary>
 public interface IHit
 {
     /// <summary>
-    /// ”íŒ‚ˆ—
+    /// è¢«æ’ƒå‡¦ç†
     /// </summary>
-    /// <param name="canOneHitKill">’¼ÚE‚¹‚é‚©</param>
+    /// <param name="canOneHitKill">ç›´æ¥æ®ºã›ã‚‹ã‹</param>
     void Hit(bool _canOneHitKill);
 }

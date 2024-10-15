@@ -17,6 +17,6 @@ public class EnemyStatusData : ObjectStatusData
     [Header("移動速度")]
     public float velocity = 1.0f;
 
-    [Header("追跡になる距離")]
+    [Header("追跡する距離")]
     public float chaseDistance = 3f;
 }
