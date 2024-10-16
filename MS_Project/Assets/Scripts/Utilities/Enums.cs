@@ -38,6 +38,7 @@ public enum PlayerSkill
     Sword,
     Hammer,
     Eat,
+    Dodge
 }
 
 /// <summary>
