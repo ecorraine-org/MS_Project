@@ -10,6 +10,9 @@ public class PlayerAnimManager : MonoBehaviour
     //PlayerControllerの参照
     PlayerController playerController;
 
+    public float startTime;
+
+    public float testTime;
     public void Init(PlayerController _playerController)
     {
         playerController = _playerController;
@@ -43,7 +46,13 @@ public class PlayerAnimManager : MonoBehaviour
     {
         PlayerSkillManager skillManager = playerController.SkillManager;
 
-       // attackCollider.SetHit(true);
+        skillManager.DashHandler.Dash(true);
+
+        startTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime*
+             playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length;
+
+        testTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length - startTime;
+
 
     }
 
@@ -54,6 +63,6 @@ public class PlayerAnimManager : MonoBehaviour
     {
         PlayerSkillManager skillManager = playerController.SkillManager;
 
-       // attackCollider.SetHit(false);
+        skillManager.DashHandler.EndDash();
     }
 }

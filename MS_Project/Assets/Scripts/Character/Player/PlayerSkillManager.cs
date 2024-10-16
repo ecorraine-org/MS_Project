@@ -36,7 +36,7 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController = _playerController;
 
-        dash.Init(playerController);
+        dash.Init(playerController, skillData);
 
     }
 
@@ -52,9 +52,9 @@ public class PlayerSkillManager : MonoBehaviour
 
             //スキル発動
             ExecuteSkill(_skillType);
-       
+
             //クールタイム処理
-            StartCoroutine(SkillCooldown( _skillType));
+            StartCoroutine(SkillCooldown(_skillType));
         }
     }
 
@@ -67,11 +67,11 @@ public class PlayerSkillManager : MonoBehaviour
                 ExecuteEat();
                 break;
             case PlayerSkill.Sword:
-   
+
                 ExecuteSwordSkill();
                 break;
             case PlayerSkill.Hammer:
-  
+
                 ExecuteHammerSkill();
                 break;
             default:
@@ -82,10 +82,17 @@ public class PlayerSkillManager : MonoBehaviour
     //キャンセルされた時のリセット処理
     public void Reset()
     {
-       if(dash.IsDashing) dash.EndDash();
+        if (dash.IsDashing) dash.EndDash();
     }
 
- 
+    public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
+    {
+        //突進初期化
+        dash.Speed = skillData.dicSkill[PlayerSkill.Dodge].dashSpeed;
+        dash.Duration = skillData.dicSkill[PlayerSkill.Dodge].dashDuration;
+
+        dash.Dash(_canThrough, _direc);
+    }
 
     private void ExecuteEat()
     {
@@ -98,6 +105,10 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("Attack");
         playerController.SpriteRenderer.color = Color.red;
+
+        //突進初期化
+        dash.Speed = skillData.dicSkill[PlayerSkill.Sword].dashSpeed;
+        dash.Duration = skillData.dicSkill[PlayerSkill.Sword].dashDuration;
 
         Debug.Log("Sword skill executed!");
     }

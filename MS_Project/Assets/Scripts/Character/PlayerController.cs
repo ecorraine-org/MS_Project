@@ -140,6 +140,8 @@ public class PlayerController : MonoBehaviour
 
         curDirecVector = inputManager.GetInputDirec();
 
+        
+
         //移動しない時、向きを保つため
         if (inputDirec == UnityEngine.Vector2.zero) return;
 
@@ -147,12 +149,13 @@ public class PlayerController : MonoBehaviour
         float angle = Mathf.Atan2(inputDirec.y, inputDirec.x) * Mathf.Rad2Deg;
         if (angle >= -angleThreshold && angle < angleThreshold)
         {
+            spriteRenderer.flipX = true;
             currentDirec = Direction.Right;
         }
 
         if (angle >= angleThreshold && angle < angleThreshold * 3)
         {
-
+            spriteRenderer.flipX = true;
             currentDirec = Direction.UpRight;
         }
         if (angle >= angleThreshold * 3 && angle < angleThreshold * 5)
@@ -163,16 +166,19 @@ public class PlayerController : MonoBehaviour
 
         if (angle >= angleThreshold * 5 && angle < angleThreshold * 7)
         {
+            spriteRenderer.flipX = false;
             currentDirec = Direction.UpLeft;
         }
 
         if (angle >= angleThreshold * 7 || angle < -angleThreshold * 7)
         {
+            spriteRenderer.flipX = false;
             currentDirec = Direction.Left;
         }
 
         if (angle >= -angleThreshold * 7 && angle < -angleThreshold * 5)
         {
+            spriteRenderer.flipX = false;
             currentDirec = Direction.DownLeft;
         }
 
@@ -183,6 +189,7 @@ public class PlayerController : MonoBehaviour
 
         if (angle >= -angleThreshold * 3 && angle < -angleThreshold)
         {
+            spriteRenderer.flipX = true;
             currentDirec = Direction.DownRight;
         }
     }
@@ -194,17 +201,17 @@ public class PlayerController : MonoBehaviour
     {
         spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
 
-        spriteRenderer.flipX = false;
+        //spriteRenderer.flipX = false;
 
         switch (currentDirec)
         {
             case Direction.Right:
-                spriteRenderer.flipX = true;
+              //  spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkRight");
                 break;
 
             case Direction.UpRight:
-                spriteRenderer.flipX = true;
+               // spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkUpRight");
                 break;
 
@@ -230,7 +237,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case Direction.DownRight:
-                spriteRenderer.flipX = true;
+              //  spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkDownRight");
                 break;
         }
@@ -269,6 +276,11 @@ public class PlayerController : MonoBehaviour
     public PlayerModeManager ModeManager
     {
         get => this.modeManager;
+    }
+
+    public PlayerAnimManager AnimManager
+    {
+        get => this.animManager;
     }
 
     public PlayerInputManager InputManager

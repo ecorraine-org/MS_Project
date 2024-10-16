@@ -612,6 +612,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475123bdac4da0e4ba8af8d14b99cde4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startTime: 0
+  testTime: 0
 --- !u!1 &7136955524020245556
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,11 +712,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 145fae047354cdd408d78a957e8c1798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockDetector: {fileID: 4851914542046528324}
   dash: {fileID: 433902212357176194}
   skillData: {fileID: 11400000, guid: 63ba82a4e258c7144a51fb35980ba7a5, type: 2}
   curSkillCoolTime: 0
-  canThrough: 0
 --- !u!114 &433902212357176194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +730,7 @@ MonoBehaviour:
   blockDetector: {fileID: 4851914542046528324}
   duration: 0.3
   speed: 4
+  canThrough: 0
 --- !u!1 &7667086179420449206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,4 +1045,4 @@ MonoBehaviour:
   attackDamage: 0
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64

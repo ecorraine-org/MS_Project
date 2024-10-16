@@ -8,6 +8,7 @@ public struct SkillStatus
     public PlayerSkill skillName;
     public float coolTime;
     public float dashSpeed;//突進速度
+    public float dashDuration;//突進持続時間(-1:自動で停止しない)
     public float hpCost;//hp消費量
 }
 
@@ -19,8 +20,6 @@ public class PlayerSkillData : ScriptableObject
 
     //辞書<キー：スキル種類、値：ステータス>
     public Dictionary<PlayerSkill, SkillStatus> dicSkill;
-
-    public float testData = 5.0f;
 
     private void OnEnable()
     {
