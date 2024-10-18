@@ -19,14 +19,14 @@ public class EnemyController : ObjectController, IHit
     public Vector3 MovementInput { get; set; }
 
     private Animator animator;
-    private SphereCollider sphereCollider;
+    private CapsuleCollider capsuleCollider;
     protected Rigidbody rb;
 
     public override void Awake()
     {
         base.Awake();
 
-        sphereCollider = this.GetComponent<SphereCollider>();
+        capsuleCollider = this.GetComponent<CapsuleCollider>();
         rb = this.GetComponent<Rigidbody>();
     }
 
@@ -37,9 +37,10 @@ public class EnemyController : ObjectController, IHit
         gameObj = Instantiate(Resources.Load<GameObject>(status.StatusData.gameObjPrefab), this.transform);
         animator = gameObj.GetComponent<Animator>();
 
-        SphereCollider collider = gameObj.GetComponent<SphereCollider>();
-        sphereCollider.center = collider.center;
-        sphereCollider.radius = collider.radius / 3;
+        CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
+        capsuleCollider.center = collider.center / 3;
+        capsuleCollider.height = collider.height / 3;
+        capsuleCollider.radius = collider.radius / 3;
 
         if (gameObj.TryGetComponent<EnemySkill>(out enemySkill))
         {
