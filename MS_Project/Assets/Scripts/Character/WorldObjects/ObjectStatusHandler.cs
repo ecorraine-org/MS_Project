@@ -33,16 +33,25 @@ public class ObjectStatusHandler : StatusManager
     private OnomatoType tolerance;
 
 
+    EnemyStatusData enemyStatusData;
+
     protected override void Awake()
     {
-        base.Awake();
+        //base.Awake();
 
-        moveSpeed = StatusData.velocity;
-        damage = StatusData.damage;
-        actionCooldown = StatusData.timeTillNextAction;
-        selfType = StatusData.SelfType;
-        onomatoData = StatusData.onomatoData;
-        tolerance = StatusData.tolerance;
+        //enemyStatusData = ScriptableObject.CreateInstance<EnemyStatusData>();
+    }
+
+    protected virtual void Start()
+    {
+        statusData = enemyStatusData;
+        currentHealth = enemyStatusData.maxHealth;
+        moveSpeed = enemyStatusData.velocity;
+        damage = enemyStatusData.damage;
+        actionCooldown = enemyStatusData.timeTillNextAction;
+        selfType = enemyStatusData.SelfType;
+        onomatoData = enemyStatusData.onomatoData;
+        tolerance = enemyStatusData.tolerance;
     }
 
     public override void TakeDamage(float _damage)
@@ -53,8 +62,8 @@ public class ObjectStatusHandler : StatusManager
 
     public new EnemyStatusData StatusData
     {
-        get => (EnemyStatusData)statusData;
-        set { statusData = value; }
+        get => (EnemyStatusData)enemyStatusData;
+        set { enemyStatusData = value; }
     }
 
     public float MoveSpeed
