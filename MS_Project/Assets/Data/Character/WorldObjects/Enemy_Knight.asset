@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
-  m_Name: Elite_Hunter
+  m_Name: Enemy_Knight
   m_EditorClassIdentifier: 
   maxHealth: 100
-  gameObjPrefab: Enemy/Hunter
-  SelfType: 3
-  onomatoData: {fileID: 11400000, guid: edf6d2473c040c64384dacf4a34215a7, type: 2}
-  tolerance: 0
+  gameObjPrefab: Enemy/Knight
+  SelfType: 1
+  onomatoData: {fileID: 11400000, guid: ab608adfc7c4b7842b9e89a7840a1f43, type: 2}
+  tolerance: 1
   sfxClip: 
   vfxClip: 
   timeTillNextAction: 1

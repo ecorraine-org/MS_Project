@@ -9,6 +9,9 @@ public class EnemyController : ObjectController, IHit
     [SerializeField, Tooltip("攻撃しているか？")]
     private bool canAttack = true;
 
+    [SerializeField, Tooltip("ラストヒットできるかどうか")]
+    protected bool isKillable = false;
+
     [Header("イベント")]
     public UnityEvent<Vector3> OnMovementInput;
     public UnityEvent OnDamaged;
@@ -62,6 +65,12 @@ public class EnemyController : ObjectController, IHit
     private void Update()
     {
         if (player == null) return;
+
+         //フィニッシュ
+        if (status.Health <= status.StatusData.maxHealth / 2)
+        {
+            isKillable = true;
+        }
 
         float distance = Vector3.Distance(player.position, transform.position);
 
@@ -160,6 +169,13 @@ public class EnemyController : ObjectController, IHit
 
     public void Hit(bool _canOneHitKill)
     {
+        if (isKillable && _canOneHitKill)
+        {
+            //プレイヤーの体力を回復
+            player.GetComponent<PlayerController>().StatusManager.TakeDamage(-5);
 
+            //殺す
+            //Destroy(this.gameObject);
+        }
     }
 }
