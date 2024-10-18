@@ -73,7 +73,7 @@ PrefabInstance:
       addedObject: {fileID: 8878257401242114981}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bedb8d535165f4249b4f9703376e7e39, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1207023741298949712}
+      addedObject: {fileID: -7535679153521265256}
   m_SourcePrefab: {fileID: 100100000, guid: bedb8d535165f4249b4f9703376e7e39, type: 3}
 --- !u!1 &527770033647746520 stripped
 GameObject:
@@ -90,7 +90,7 @@ Animator:
   m_GameObject: {fileID: 527770033647746520}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4a7727dcd5473de48b2d4d419a7353f5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5948748b4acd7f147ba7828fd9669d14, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -102,8 +102,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &1207023741298949712
-BoxCollider:
+--- !u!136 &-7535679153521265256
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,7 +119,9 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3, y: 3, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.8
+  m_Height: 2.7
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.25, z: 0}

@@ -30,9 +30,13 @@ public class EnemySpawner : MonoBehaviour
     public List<GameObject> enemyPool;
     private int maxPoolSize = 25;
 
+    private GameObject enemyCollector;
+
     private void Awake()
     {
         radius = this.GetComponent<SphereCollider>().radius;
+
+        enemyCollector = GameObject.FindGameObjectWithTag("EnemyCollector").gameObject;
     }
 
     private void Start()
@@ -43,6 +47,14 @@ public class EnemySpawner : MonoBehaviour
             {
                 int random = Random.Range(0, mobPool.Count);
                 Spawn(mobPool[random], RandomizeWithinRadius());
+            }
+        }
+        if (elitePool.Count > 0)
+        {
+            for (eliteCount = 0; eliteCount < eliteMaxCount; eliteCount++)
+            {
+                int random = Random.Range(0, elitePool.Count);
+                Spawn(elitePool[random], RandomizeWithinRadius());
             }
         }
         else
@@ -78,9 +90,8 @@ public class EnemySpawner : MonoBehaviour
 
     GameObject InstantiateEnemy(EnemyStatusData _data, Vector3 _position)
     {
-        GameObject obj = Instantiate(Resources.Load<GameObject>("Enemy/EnemyContainer"), _position, Quaternion.identity);
+        GameObject obj = Instantiate(Resources.Load<GameObject>("Enemy/EnemyContainer"), _position, Quaternion.identity, enemyCollector.transform);
         obj.GetComponent<EnemyController>().status.StatusData = _data;
-        //obj.transform.GetChild(0).GetComponent<ObjectStatusHandler>().StatusData = _data;
         return obj;
     }
 
@@ -92,6 +103,12 @@ public class EnemySpawner : MonoBehaviour
         randomDirection.y = center.y;
 
         return randomDirection;
+    }
+
+    public void DespawnEnemy(GameObject _self)
+    {
+        enemyPool.Remove(_self);
+        Destroy(_self);
     }
     /*
     void Initialize(Transform _container, MonoBehaviour _monoBehaviour);

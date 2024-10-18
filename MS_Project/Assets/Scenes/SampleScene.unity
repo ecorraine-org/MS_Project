@@ -369,13 +369,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ee9ff03b2a4154c9b6fab736a712e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mobMaxCount: 5
+  mobMaxCount: 10
   mobPool:
   - {fileID: 11400000, guid: f2ae16b1b2db4ff4bb60f80b405a943e, type: 2}
   - {fileID: 11400000, guid: b861a65bec402a54eb23324324542341, type: 2}
-  eliteMaxCount: 0
-  elitePool: []
+  - {fileID: 11400000, guid: 612a20def7926e347bb190f195c7af66, type: 2}
+  - {fileID: 11400000, guid: 9d9f4dcc23fa32d4daf899acd7e24573, type: 2}
+  eliteMaxCount: 3
+  elitePool:
+  - {fileID: 11400000, guid: 3402e0fff7f31a047b240c842b107bb4, type: 2}
   totalEnemyCount: 0
+  enemyPool: []
 --- !u!135 &672068687
 SphereCollider:
   m_ObjectHideFlags: 0
