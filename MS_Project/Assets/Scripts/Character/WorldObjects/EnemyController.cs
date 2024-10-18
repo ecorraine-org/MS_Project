@@ -1,42 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class EnemyController : ObjectController, IHit
 {
-    public readonly WorldObjectType type = WorldObjectType.Enemy;
-
-    [SerializeField, Header("ステータス"), Tooltip("攻撃力")]
-    float fDamage = 0;
-    [SerializeField, Tooltip("速度")]
-    float currentSpeed = 0;
     [SerializeField, Tooltip("攻撃しているか？")]
-    bool isAttack = true;
-    [SerializeField, Tooltip("攻撃クールタイム")]
-    float attackCoolDuration = 1;
+    private bool canAttack = true;
 
     [Header("イベント")]
     public UnityEvent<Vector3> OnMovementInput;
     public UnityEvent OnDamaged;
     public UnityEvent OnAttack;
-    public UnityEvent OnUseSkill;
 
     private EnemySkill enemySkill;
 
     public Vector3 MovementInput { get; set; }
 
     private Animator animator;
-    private BoxCollider boxCollider;
+    private SphereCollider sphereCollider;
     protected Rigidbody rb;
 
     public override void Awake()
     {
         base.Awake();
 
-        gameObj = Instantiate(Resources.Load<GameObject>(status.StatusData.gameObjPrefab), this.transform);
-        animator = this.transform.GetChild(1).GetComponent<Animator>();
-
+        sphereCollider = this.GetComponent<SphereCollider>();
         rb = this.GetComponent<Rigidbody>();
     }
 
@@ -44,14 +34,23 @@ public class EnemyController : ObjectController, IHit
     {
         base.Start();
 
-        boxCollider = this.GetComponent<BoxCollider>();
-        BoxCollider collider = this.gameObject.transform.GetChild(1).gameObject.GetComponent<BoxCollider>();
-        boxCollider.center = collider.center / 3;
-        boxCollider.size = collider.size / 3;
+        gameObj = Instantiate(Resources.Load<GameObject>(status.StatusData.gameObjPrefab), this.transform);
+        animator = gameObj.GetComponent<Animator>();
 
-        enemySkill = this.gameObject.transform.GetChild(1).gameObject.GetComponent<EnemySkill>();
-        enemySkill.SetPlayer(player);
-        enemySkill.SetRigidbody(rb);
+        BoxCollider collider = gameObj.GetComponent<BoxCollider>();
+        sphereCollider.center = collider.center / 3;
+        sphereCollider.size = collider.size / 3;
+
+        if (gameObj.TryGetComponent<EnemySkill>(out enemySkill))
+        {
+            enemySkill.SetAnimator(animator);
+            enemySkill.SetPlayer(player);
+            enemySkill.SetRigidbody(rb);
+        }
+        else
+        {
+            CustomLogger.LogWarning(gameObj.GetType(), gameObj.name);
+        }
     }
 
     private void FixedUpdate()
@@ -64,16 +63,19 @@ public class EnemyController : ObjectController, IHit
         if (player == null) return;
 
         float distance = Vector3.Distance(player.position, transform.position);
-        enemySkill.SetDistanceToPlayer(distance);
+
         if (distance < status.StatusData.chaseDistance)
         {
 
             if (distance <= status.StatusData.attackDistance)
             {
                 OnMovementInput?.Invoke(Vector3.zero);
+                if (enemySkill)
+                {
+                    enemySkill.SetDistanceToPlayer(distance);
+                }
                 // 攻撃
                 OnAttack?.Invoke();
-                OnUseSkill?.Invoke();
             }
             else
             {
@@ -104,11 +106,11 @@ public class EnemyController : ObjectController, IHit
 
     private void Move()
     {
-        if (MovementInput.magnitude > 0.1f && currentSpeed >= 0)
+        if (MovementInput.magnitude > 0.1f && status.MoveSpeed >= 0)
         {
             animator.Play("Walk");
             // 前に進む
-            rb.velocity = MovementInput * currentSpeed;
+            rb.velocity = MovementInput * status.MoveSpeed;
         }
         else
         {
@@ -118,20 +120,23 @@ public class EnemyController : ObjectController, IHit
 
     public void Attack()
     {
-        if (isAttack)
+        if (canAttack)
         {
-            animator.SetTrigger("IsAttack");
+            UseSkill();
 
-            player.GetComponent<PlayerController>().StatusManager.TakeDamage(status.StatusData.damage);
+            player.GetComponent<PlayerController>().StatusManager.TakeDamage(status.Damage);
 
-            isAttack = false;
             StartCoroutine(nameof(AttackCoroutine));
         }
     }
 
     public void UseSkill()
     {
-        enemySkill.SkillAttack();
+        animator.SetTrigger("IsAttack");
+        if (enemySkill)
+            enemySkill.SkillAttack();
+
+        canAttack = false;
     }
 
     public void TakeDamage()
@@ -148,8 +153,8 @@ public class EnemyController : ObjectController, IHit
 
     IEnumerator AttackCoroutine()
     {
-        yield return new WaitForSeconds(attackCoolDuration);
-        isAttack = true;
+        yield return new WaitForSeconds(status.ActionCooldown);
+        canAttack = true;
     }
 
     public void Hit(bool _canOneHitKill)

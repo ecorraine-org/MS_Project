@@ -12,13 +12,13 @@ public class OnomatopoeiaData : ScriptableObject
     [Header("オノマトペ種類")]
     public OnomatoType type = OnomatoType.None;
 
-    [Header("ステータス加算")]
+    [Header("ステータス加算：")]
     [Header("ダメージ")]
-    public int iDamage = 0;
+    public float damageBuff = 0;
 
     [Header("速度")]
-    public float fSpeed = 0f;
+    public float speedBuff = 0f;
 
     [Header("回復")]
-    public float fHeal = 0f;
+    public float healBuff = 0f;
 }

@@ -27,5 +27,5 @@ public class ObjectStatusData : CharacterStatusData
     public string vfxClip;
 
     [Header("行動クールタイム")]
-    public float actionCooldown = 1f;
+    public float timeTillNextAction = 1f;
 }
