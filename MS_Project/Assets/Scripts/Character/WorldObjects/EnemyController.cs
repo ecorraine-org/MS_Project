@@ -37,9 +37,9 @@ public class EnemyController : ObjectController, IHit
         gameObj = Instantiate(Resources.Load<GameObject>(status.StatusData.gameObjPrefab), this.transform);
         animator = gameObj.GetComponent<Animator>();
 
-        BoxCollider collider = gameObj.GetComponent<BoxCollider>();
-        sphereCollider.center = collider.center / 3;
-        sphereCollider.size = collider.size / 3;
+        SphereCollider collider = gameObj.GetComponent<SphereCollider>();
+        sphereCollider.center = collider.center;
+        sphereCollider.radius = collider.radius / 3;
 
         if (gameObj.TryGetComponent<EnemySkill>(out enemySkill))
         {
