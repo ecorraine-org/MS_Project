@@ -33,19 +33,20 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         radius = this.GetComponent<SphereCollider>().radius;
-
-        totalEnemyCount = mobMaxCount + eliteMaxCount;
     }
 
     private void Start()
     {
         if (mobPool.Count > 0)
         {
-            int random = Random.Range(0, mobPool.Count);
-            Spawn(mobPool[random], RandomizeWithinRadius());
+            for (mobCount = 0; mobCount < mobMaxCount; mobCount++)
+            {
+                int random = Random.Range(0, mobPool.Count);
+                Spawn(mobPool[random], RandomizeWithinRadius());
+            }
         }
         else
-            CustomLogger.Log("No mobs to spawn.");
+            CustomLogger.Log("配列が空のため、スポーンする敵がありません。");
     }
 
     private void Update()
@@ -65,17 +66,21 @@ public class EnemySpawner : MonoBehaviour
             maxPoolSize
         );
         */
-        if (_enemydata == null)
+        if (_enemydata == null || totalEnemyCount >= maxPoolSize)
+        {
+            CustomLogger.Log("スポーンが失敗しました。");
             return;
+        }
 
-        
-
+        enemyPool.Add(InstantiateEnemy(_enemydata, _position));
+        totalEnemyCount++;
     }
 
-    GameObject IntantiateEnemy(EnemyStatusData _data, Vector3 _position)
+    GameObject InstantiateEnemy(EnemyStatusData _data, Vector3 _position)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("Enemy/EnemyContainer"), _position, Quaternion.identity);
         obj.GetComponent<EnemyController>().status.StatusData = _data;
+        //obj.transform.GetChild(0).GetComponent<ObjectStatusHandler>().StatusData = _data;
         return obj;
     }
 
