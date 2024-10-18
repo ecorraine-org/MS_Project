@@ -132,6 +132,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bad815834ad36a4e9dc3b393bb2ef2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2245714443415439379
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3733235952574674363}
+  - component: {fileID: 2449983563296160655}
+  - component: {fileID: 302985067535914368}
+  m_Layer: 6
+  m_Name: EnemyDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3733235952574674363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245714443415439379}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6037174190421580666}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2449983563296160655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245714443415439379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ff166b1d919f94d8ebe39dcada2323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliders: []
+--- !u!65 &302985067535914368
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2245714443415439379}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.7, z: 0.5}
+  m_Center: {x: -0.75, y: 0.39, z: 0}
 --- !u!1 &3115044779377313445
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusData: {fileID: 11400000, guid: 9812a4044002bd149a42f65e8b7ef15f, type: 2}
-  currentHealth: 0
+  currentHealth: 100
   frenzyValue: 0
 --- !u!1 &4890304849609403593
 GameObject:
@@ -442,7 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSize: {x: 1, y: 0.5, z: 0.5}
   offsetPos: {x: 0.5, y: 0.3, z: 0}
-  attackDamage: 3
+  attackDamage: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -643,7 +710,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3733235952574674363}
   m_Father: {fileID: 8143523743651954739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4851914542046528324
@@ -930,6 +998,7 @@ MonoBehaviour:
   skillManager: {fileID: 3805252188967827567}
   modeManager: {fileID: 8698715986294293726}
   attackCollider: {fileID: 3452593541282707586}
+  detectEnemy: {fileID: 2449983563296160655}
   terrainLayer:
     serializedVersion: 2
     m_Bits: 0

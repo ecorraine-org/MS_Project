@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Header("アタックコライダーマネージャー")]
     AttackColliderManager attackCollider;
 
+    [SerializeField, Header("エネミーディテクター")]
+    DetectEnemyArea detectEnemy;
+
     Rigidbody thisRigidbody;
 
    // public float jumpForce = 3;
@@ -94,6 +97,7 @@ public class PlayerController : MonoBehaviour
         skillManager.Init(this);
         statusManager.Init(this);
         inputManager.Init(this);
+        detectEnemy.Init(this);
     }
 
     void Start()

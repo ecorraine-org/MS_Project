@@ -103,7 +103,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     private void ExecuteSwordSkill()
     {
-        playerController.SpriteAnim.Play("Attack");
+        playerController.SpriteAnim.Play("SwordSkill");
         playerController.SpriteRenderer.color = Color.red;
 
         //突進初期化
