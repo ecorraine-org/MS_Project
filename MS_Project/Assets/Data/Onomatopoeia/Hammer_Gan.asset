@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb2a201c6ebcc254db8f07456f46242d, type: 3}
-  m_Name: DataWalk
+  m_Script: {fileID: 11500000, guid: 0dc0296d4a0259249be7c496d9fbfcbb, type: 3}
+  m_Name: Hammer_Gan
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  gameObjPrefab: 
-  SelfType: 5
-  onomatoData: {fileID: 11400000, guid: 8b0c05c99c42b564da4b9d77695334b1, type: 2}
-  tolerance: 0
-  sfxClip: 
-  vfxClip: 
-  actionCooldown: 1
+  wordToUse: "\u30AC\u30F3\u30C3"
+  type: 2
+  damageBuff: 0
+  speedBuff: 0
+  healBuff: 0

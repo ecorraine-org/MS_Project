@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 敵のステータスを管理するビヘイビア
 /// </summary>
-public class ObjectStatusManager : StatusManager
+public class ObjectStatusHandler : StatusManager
 {
     [Tooltip("攻撃されたか？")]
     private bool isDamaged = false;
@@ -19,6 +19,9 @@ public class ObjectStatusManager : StatusManager
 
     [SerializeField, Tooltip("攻撃力")]
     private float damage;
+
+    [SerializeField, Tooltip("行動クールタイム")]
+    private float actionCooldown;
 
     [SerializeField, Tooltip("自分の属性")]
     private OnomatoType selfType;
@@ -36,6 +39,7 @@ public class ObjectStatusManager : StatusManager
 
         moveSpeed = StatusData.velocity;
         damage = StatusData.damage;
+        actionCooldown = StatusData.timeTillNextAction;
         selfType = StatusData.SelfType;
         onomatoData = StatusData.onomatoData;
         tolerance = StatusData.tolerance;
@@ -50,6 +54,7 @@ public class ObjectStatusManager : StatusManager
     public new EnemyStatusData StatusData
     {
         get => (EnemyStatusData)statusData;
+        set { statusData = value; }
     }
 
     public float MoveSpeed
@@ -62,6 +67,12 @@ public class ObjectStatusManager : StatusManager
     {
         get => damage;
         set { damage = value; }
+    }
+
+    public float ActionCooldown
+    {
+        get => actionCooldown;
+        set { actionCooldown = value; }
     }
 
     public bool IsDamaged

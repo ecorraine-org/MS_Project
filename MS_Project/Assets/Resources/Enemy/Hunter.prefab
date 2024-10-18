@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8271d590ce4111408f3ca6b645b9a76, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d8271d590ce4111408f3ca6b645b9a76, type: 3}
       propertyPath: m_Name
       value: Hunter
@@ -90,7 +94,7 @@ Animator:
   m_GameObject: {fileID: 8868368001647199929}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 234eae81e944c3d4784afeb059bc975d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

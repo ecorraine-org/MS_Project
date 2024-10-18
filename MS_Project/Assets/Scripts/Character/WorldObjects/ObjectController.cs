@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,22 +14,24 @@ public enum ObjectStateType {
 
 public abstract class ObjectController : MonoBehaviour
 {
+    [HideInInspector]
     protected Transform player;
     
-    [Tooltip("生成するオブジェクト")]
-    protected GameObject gameObj;
+    [ReadOnly, Tooltip("生成されたオブジェクト")]
+    public GameObject gameObj;
     
-    [Tooltip("生成するオノマトペオブジェクト")]
+    [HideInInspector, Tooltip("生成するオノマトペオブジェクト")]
     protected GameObject onomatoObj;
 
-    [Tooltip("ステータスマネージャー")]
-    protected ObjectStatusManager status;
+    [HideInInspector, Tooltip("ステータスマネージャー")]
+    public ObjectStatusHandler status;
 
     // Start is called before the first frame update
     public virtual void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        status = this.transform.GetChild(0).gameObject.GetComponent<ObjectStatusManager>();
+        if(!this.transform.GetChild(0).gameObject.TryGetComponent<ObjectStatusHandler>(out status))
+            CustomLogger.LogWarning(status.GetType(), status.name);
     }
 
     public virtual void Start()
