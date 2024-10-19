@@ -87,7 +87,7 @@ public class PlayerEatState : PlayerState
         playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
 
         //敵との当たり判定
-        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, 1.0f, enemyLayer);
+        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, 1.0f, enemyLayer,false);
     }
 
     /// <summary>

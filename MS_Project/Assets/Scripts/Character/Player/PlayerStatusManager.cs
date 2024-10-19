@@ -83,7 +83,6 @@ public class PlayerStatusManager : StatusManager
     public override void TakeDamage(float _damage)
     {
         base.TakeDamage(_damage);
-        Debug.Log("PlayerHealth:" + currentHealth);//test
         //HPUI更新イベントを送信
         OnUpdateHPBarEvent?.Invoke(currentHealth);
     }

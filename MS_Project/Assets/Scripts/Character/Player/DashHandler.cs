@@ -60,7 +60,7 @@ public class DashHandler : MonoBehaviour
             blockDetector.Distance = speed * duration;
         }
 
-        blockDetector.DetectUpdate(playerController.transform, playerController.InputManager.GetInputDirec());
+        blockDetector.DetectUpdate(playerController.transform, playerController.InputManager.GetLStick());
     }
 
     private void FixedUpdate()
@@ -76,13 +76,7 @@ public class DashHandler : MonoBehaviour
             }
 
             blockDetector.IsEnabled = false;
-            //blockDetector.Distance = speed * duration;
-            //if (duration == -1)
-            //{
-            //    blockDetector.Distance = speed* 
-            //        (playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length- playerController.AnimManager.startTime);
-
-            //}
+ 
 
             //一定距離を移動
             playerController.RigidBody.MovePosition(playerController.RigidBody.position + direc.normalized * speed * Time.fixedDeltaTime);
@@ -95,19 +89,29 @@ public class DashHandler : MonoBehaviour
     /// 突進処理
     /// </summary>
     /// /// <param name="canThrough"> ターゲットを貫通可能かどうか </param>
-    public void Dash(bool _canThrough, Vector3 _direc = default)
+    public void StartDash(bool _canThrough, Vector3 _direc = default)
     {
         canThrough = _canThrough;
+
+        //向きによるアニメーション設定(反転するかどうか)
+        playerController.SetEightDirection();
 
         if (_direc == default)
         {
             //引数なかったら、Lスティックの入力方向を使う
-            direc = playerController.InputManager.GetInputDirec();
+            direc = playerController.InputManager.GetLStick();
+           // Debug.Log("direc"+ direc);
+            //Debug.Log("curDirecVector" + playerController.CurDirecVector);
+
+            //入力しない場合、向きをデフォルト方向にする
+            if (direc == Vector3.zero) direc = playerController.CurDirecVector;
         }
         else
         {
             direc = _direc;
         }
+
+     
 
         //入力をチェック
         if (direc != UnityEngine.Vector3.zero)

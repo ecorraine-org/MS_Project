@@ -31,6 +31,13 @@ public class PlayerWalkState : PlayerState
 
         //捕食へ遷移
         bool isEat = inputManager.GetEatTrigger();
+        //フィニッシュ
+        if (isEat&& playerController.DetectEnemy.CheckKillableEnemy())
+        {
+            playerController.StateManager.TransitionState(StateType.FinishSkill);
+            return;
+        }
+
         if (isEat 
             && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0
             || playerController.StatusManager.IsFrenzy))
@@ -42,7 +49,8 @@ public class PlayerWalkState : PlayerState
         //スキルへ遷移
         bool isSkill = inputManager.GetSkillTrigger();
         PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
-        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0)
+        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0
+            && playerController.SkillManager.HpCost(skill))
         {
             playerController.StateManager.TransitionState(StateType.Skill);
             return;
@@ -52,7 +60,6 @@ public class PlayerWalkState : PlayerState
         bool isDash = inputManager.GetDashTrigger();
         if (isDash&&!playerSkillManager.IsDashing)
         {
-            //playerSkillManager.Dash();
             playerController.StateManager.TransitionState(StateType.Dodge);
             return;
         }
@@ -81,8 +88,6 @@ public class PlayerWalkState : PlayerState
     {
         //移動速度取得
         float moveSpeed = statusManager.StatusData.velocity;
-        Debug.Log("moveSpeed"+moveSpeed);//test
-        Debug.Log("PlayerStatusManager.StatusData.velocity" + statusManager.StatusData.velocity);//test
 
         rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
     }

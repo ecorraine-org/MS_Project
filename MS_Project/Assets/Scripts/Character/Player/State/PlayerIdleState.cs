@@ -35,6 +35,13 @@ public class PlayerIdleState : PlayerState
 
         //捕食へ遷移
         bool isEat = inputManager.GetEatTrigger();
+        //フィニッシュ
+        if (isEat&& playerController.DetectEnemy.CheckKillableEnemy())
+        {
+            playerController.StateManager.TransitionState(StateType.FinishSkill);
+            return;
+        }
+
         if (isEat
               && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0
               || playerController.StatusManager.IsFrenzy))
@@ -46,12 +53,20 @@ public class PlayerIdleState : PlayerState
         //スキルへ遷移
         bool isSkill = inputManager.GetSkillTrigger();
         PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
-        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0)
+        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0
+            && playerController.SkillManager.HpCost(skill))
         {
             playerController.StateManager.TransitionState(StateType.Skill);
             return;
         }
 
+        //回避へ遷移
+        bool isDash = inputManager.GetDashTrigger();
+        if (isDash && !playerSkillManager.IsDashing)
+        {
+            playerController.StateManager.TransitionState(StateType.Dodge);
+            return;
+        }
 
         //アニメーション設定
         if (!playerSkillManager.IsDashing) playerController.SetWalkAnimation();

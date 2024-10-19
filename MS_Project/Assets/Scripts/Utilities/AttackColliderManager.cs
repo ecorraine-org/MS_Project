@@ -29,7 +29,7 @@ public class AttackColliderManager : MonoBehaviour
     /// <summary>
     /// コライダーの検出を行い、対象にダメージを与える
     /// </summary>
-    public void DetectColliders(Vector3 _pos, Vector3 _size, float _damage, LayerMask _targetLayer)
+    public void DetectColliders(Vector3 _pos, Vector3 _size, float _damage, LayerMask _targetLayer,bool _oneHitKill)
     {
         if (!canHit) return;
 
@@ -46,7 +46,7 @@ public class AttackColliderManager : MonoBehaviour
             // if (isCorrected)
             {
                 hitObjects.Add(hitCollider);
-                Hit(hitCollider, _damage, false);
+                Hit(hitCollider, _damage, _oneHitKill);
             }
 
             // デバッグ用の可視化
