@@ -33,7 +33,7 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
 
     private void Update()
     {
-        GetInputDirec();
+        GetLStick();
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
     /// <summary>
     /// スティックの入力方向を取得
     /// </summary>
-    public Vector3 GetInputDirec()
+    public Vector3 GetLStick()
     {
         Vector2 inputDirec2 = inputControls.GamePlay.Walk.ReadValue<Vector2>();
 

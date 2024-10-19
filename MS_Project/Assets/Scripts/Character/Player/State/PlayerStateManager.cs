@@ -14,7 +14,7 @@ public enum StateType
     [InspectorName("移動")] Walk,                 //移動
     [InspectorName("攻撃")] Attack,               //攻撃
     [InspectorName("スキル")] Skill,               //技能(スキル)
-    [InspectorName("必殺技")] FinishSkill,         //奥義(必殺技)
+    [InspectorName("終結")] FinishSkill,         //終結(フィニッシュスキル)
     [InspectorName("捕食")] Eat,                  //捕食(食べる)
     [InspectorName("モードチェンジ")] ModeChange,   //切替(モードチェンジ)
     [InspectorName("回避")] Dodge                 //回避
@@ -55,6 +55,9 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField, Header("攻撃状態ビヘイビア")]
     PlayerAttackState attackState;
 
+    [SerializeField, Header("終結状態ビヘイビア")]
+    PlayerFinishState finishState;
+
     [SerializeField, Header("モードチェンジ状態ビヘイビア")]
     PlayerModeChangeState modeChangeState;
 
@@ -86,8 +89,8 @@ public class PlayerStateManager : MonoBehaviour
         dicStates.Add(StateType.Walk, walkState);
         dicStates.Add(StateType.Attack, attackState);
         dicStates.Add(StateType.ModeChange, modeChangeState);
-        //dicStates.Add(StateType.CombatStance, combatStanceState);
-        //dicStates.Add(StateType.Stun, stunState);
+        dicStates.Add(StateType.FinishSkill,finishState);
+
 
         //初期状態設定
         TransitionState(initStateType);

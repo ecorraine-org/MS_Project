@@ -42,19 +42,19 @@ public class DetectEnemyArea : DetectArea
 
     }
 
-    bool CheckKillableEnemy()
+   public  bool CheckKillableEnemy()
    {
-        foreach (Collider collider in colliders)
-        {
-            //敵を取得
-            EnemyController enemy = collider.GetComponent<EnemyController>();
+        //foreach (Collider collider in colliders)
+        //{
+        //    //敵を取得
+        //    EnemyController enemy = collider.GetComponent<EnemyController>();
 
-            //一撃で殺せるかをチェック
-            //if (enemy != null && enemy.IsKillable)
-            {
-                return true;
-            }
-        }
+        //    //一撃で殺せるかをチェック
+        //    if (enemy != null && enemy.IsKillable)
+        //    {
+        //        return true;
+        //    }
+        //}
 
         return false;
    }

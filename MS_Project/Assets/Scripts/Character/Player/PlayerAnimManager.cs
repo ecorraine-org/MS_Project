@@ -46,7 +46,7 @@ public class PlayerAnimManager : MonoBehaviour
     {
         PlayerSkillManager skillManager = playerController.SkillManager;
 
-        skillManager.DashHandler.Dash(true);
+        skillManager.DashHandler.StartDash(true);
 
         startTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime*
              playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length;

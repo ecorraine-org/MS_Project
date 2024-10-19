@@ -55,11 +55,10 @@ public class PlayerController : MonoBehaviour
     UnityEngine.Vector2 inputDirec;
 
     //現在の向き
-    Direction currentDirec = Direction.Down;
+    Direction currentDirec = Direction.Left;
 
     //現在の向き(ベクトル)
-    UnityEngine.Vector3 curDirecVector;
-
+    UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1,0,0);
 
     //ダメージ受けるかどうか
     bool isHit;
@@ -83,6 +82,7 @@ public class PlayerController : MonoBehaviour
 
         sprite = gameObject.transform.GetChild(0);
         spriteRenderer = sprite.GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = false;
         spriteRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
         material = spriteRenderer.material;
 
@@ -110,6 +110,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Debug.Log("CurDirec "+curDirecVector);
+
         //thisRigidbody.velocity = new UnityEngine.Vector3(moveInput.x * moveSpeed, thisRigidbody.velocity.y, moveInput.y * moveSpeed);
 
         //RaycastHit raycastHit;
@@ -142,12 +144,12 @@ public class PlayerController : MonoBehaviour
     {
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
 
-        curDirecVector = inputManager.GetInputDirec();
-
-        
-
         //移動しない時、向きを保つため
         if (inputDirec == UnityEngine.Vector2.zero) return;
+
+        curDirecVector = inputManager.GetLStick().normalized;
+
+
 
         //入力方向の角度計算
         float angle = Mathf.Atan2(inputDirec.y, inputDirec.x) * Mathf.Rad2Deg;
@@ -300,6 +302,11 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer SpriteRenderer
     {
         get => this.spriteRenderer;
+    }
+
+    public DetectEnemyArea DetectEnemy
+    {
+        get => this.detectEnemy;
     }
 
     public Direction CurrentDirec

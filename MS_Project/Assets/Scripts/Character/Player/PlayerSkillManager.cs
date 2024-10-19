@@ -41,6 +41,28 @@ public class PlayerSkillManager : MonoBehaviour
     }
 
     /// <summary>
+    /// スキル発動するためのhp消費
+    /// </summary>
+    public bool HpCost(PlayerSkill _skillType)
+    {
+        // スキルのHPコストが現在のHPより少ないか
+        if (skillData.dicSkill[_skillType].hpCost < playerController.StatusManager.Health)
+        {
+            var life = playerController.GetComponentInChildren<ILife>();
+            if (life != null)
+            {
+                //hp消費
+                life.TakeDamage(skillData.dicSkill[_skillType].hpCost);
+            }
+
+            return true;
+        }
+       
+
+        return false;
+    }
+
+    /// <summary>
     /// スキル種類に応じて、スキルを発動する
     /// </summary>
     public void UseSkill(PlayerSkill _skillType)
@@ -91,10 +113,10 @@ public class PlayerSkillManager : MonoBehaviour
         dash.Speed = skillData.dicSkill[PlayerSkill.Dodge].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Dodge].dashDuration;
 
-        dash.Dash(_canThrough, _direc);
+        dash.StartDash(_canThrough, _direc);
     }
 
-    private void ExecuteEat()
+    public void ExecuteEat()
     {
         playerController.SpriteAnim.Play("Eat");
 

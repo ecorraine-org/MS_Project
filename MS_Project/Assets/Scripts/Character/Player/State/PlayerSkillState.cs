@@ -72,7 +72,7 @@ public class PlayerSkillState : PlayerState
         attackAreaPos += offsetPos;
 
         //コライダーの検出
-        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, attackDamage, enemyLayer);
+        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, attackDamage, enemyLayer,false);
 
     }
 

@@ -44,6 +44,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc53722b16d6e154fabd8816e9fa3267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1809639675820165722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4335754999210969451}
+  - component: {fileID: 2807955465749668996}
+  m_Layer: 0
+  m_Name: FinishState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4335754999210969451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809639675820165722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1044981118679733027}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2807955465749668996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809639675820165722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1038b0d9384a047a0337927ff63e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSize: {x: 1, y: 1, z: 1}
+  offsetPos: {x: 0, y: 0, z: 0}
+  attackDamage: 0
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1918547328293662838
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +889,7 @@ Transform:
   - {fileID: 4498236198163812774}
   - {fileID: 5248895878539041512}
   - {fileID: 8522162506631235155}
+  - {fileID: 4335754999210969451}
   m_Father: {fileID: 8143523743651954739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2304777744165196105
@@ -864,6 +915,7 @@ MonoBehaviour:
   eatState: {fileID: 3950679397972669252}
   walkState: {fileID: 889802611649192483}
   attackState: {fileID: 7209267645208713686}
+  finishState: {fileID: 2807955465749668996}
   modeChangeState: {fileID: 9063655992469640267}
 --- !u!1 &8836845501146020627
 GameObject:
@@ -940,8 +992,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836845501146020627}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 100
+  m_Drag: 10
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
