@@ -35,6 +35,12 @@ public class PlayerAttackState : PlayerState
             case PlayerMode.Hammer:
                 spriteAnim.Play("HammerAttack");
                 break;
+            case PlayerMode.Spear:
+                spriteAnim.Play("SpearAttack");
+                break;
+            case PlayerMode.Gauntlet:
+                spriteAnim.Play("GauntletAttack");
+                break;
             default:
                 break;
         }

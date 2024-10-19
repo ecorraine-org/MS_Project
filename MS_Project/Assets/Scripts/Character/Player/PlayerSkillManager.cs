@@ -96,6 +96,14 @@ public class PlayerSkillManager : MonoBehaviour
 
                 ExecuteHammerSkill();
                 break;
+            case PlayerSkill.Spear:
+
+                ExecuteSpearSkill();
+                break;
+            case PlayerSkill.Gauntlet:
+
+                ExecuteGauntletSkill();
+                break;
             default:
                 break;
         }
@@ -138,6 +146,18 @@ public class PlayerSkillManager : MonoBehaviour
     private void ExecuteHammerSkill()
     {
         playerController.SpriteAnim.Play("HammerAttack");
+        playerController.SpriteRenderer.color = Color.red;
+    }
+
+    private void ExecuteSpearSkill()
+    {
+        playerController.SpriteAnim.Play("SpearAttack");
+        playerController.SpriteRenderer.color = Color.red;
+    }
+
+    private void ExecuteGauntletSkill()
+    {
+        playerController.SpriteAnim.Play("GauntletAttack");
         playerController.SpriteRenderer.color = Color.red;
     }
 

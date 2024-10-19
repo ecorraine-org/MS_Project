@@ -24,6 +24,8 @@ public enum PlayerMode
     None,
     [InspectorName("剣")] Sword,
     [InspectorName("ハンマー")] Hammer,
+    [InspectorName("スピア")] Spear,
+    [InspectorName("ガントレット")] Gauntlet,
 }
 
 /// <summary>
@@ -37,6 +39,8 @@ public enum PlayerSkill
     None,
     Sword,
     Hammer,
+    Spear,
+    Gauntlet,
     Eat,
     Dodge
 }
