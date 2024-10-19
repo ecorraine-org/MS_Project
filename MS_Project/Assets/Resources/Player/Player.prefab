@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 3733235952574674363}
   - component: {fileID: 2449983563296160655}
   - component: {fileID: 302985067535914368}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: EnemyDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1070,6 +1070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decf8e94694e7874e83b8412f934948f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitColliders: []
   closestCollider: {fileID: 0}
 --- !u!1 &8929522941215182088
 GameObject:

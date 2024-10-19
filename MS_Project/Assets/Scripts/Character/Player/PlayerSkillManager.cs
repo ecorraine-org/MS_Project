@@ -27,9 +27,16 @@ public class PlayerSkillManager : MonoBehaviour
 
     private void Awake()
     {
-        coolTimers.Add(PlayerSkill.Eat, 0f);
-        coolTimers.Add(PlayerSkill.Sword, 0f);
-        coolTimers.Add(PlayerSkill.Hammer, 0f);
+        //coolTimers.Add(PlayerSkill.Eat, 0f);
+        //coolTimers.Add(PlayerSkill.Sword, 0f);
+        //coolTimers.Add(PlayerSkill.Hammer, 0f);
+        //coolTimers.Add(PlayerSkill.Spear, 0f);
+        //coolTimers.Add(PlayerSkill.Gauntlet, 0f);
+
+        foreach (PlayerSkill skill in Enum.GetValues(typeof(PlayerSkill)))
+        {
+            coolTimers.Add(skill, 0f);
+        }
     }
 
     public void Init(PlayerController _playerController)
@@ -145,19 +152,19 @@ public class PlayerSkillManager : MonoBehaviour
 
     private void ExecuteHammerSkill()
     {
-        playerController.SpriteAnim.Play("HammerAttack");
+        playerController.SpriteAnim.Play("HammerSkill");
         playerController.SpriteRenderer.color = Color.red;
     }
 
     private void ExecuteSpearSkill()
     {
-        playerController.SpriteAnim.Play("SpearAttack");
+        playerController.SpriteAnim.Play("SpearSkill");
         playerController.SpriteRenderer.color = Color.red;
     }
 
     private void ExecuteGauntletSkill()
     {
-        playerController.SpriteAnim.Play("GauntletAttack");
+        playerController.SpriteAnim.Play("GauntletSkill");
         playerController.SpriteRenderer.color = Color.red;
     }
 

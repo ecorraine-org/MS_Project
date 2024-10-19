@@ -5,6 +5,7 @@ using UnityEngine;
 public class AttackColliderManager : MonoBehaviour
 {
     // 当たり判定を行う際に取得されるコライダーの配列
+    [SerializeField, Header("当たったオブジェクト配列")]
     Collider[] hitColliders;
 
     // 重複処理を避けるために使用される配列
@@ -16,7 +17,7 @@ public class AttackColliderManager : MonoBehaviour
     private CameraBasedHitCorrection _cameraBasedHitCorrection;
 
     //当たり判定可能かどうか
-    bool canHit;
+    bool canHit=false;
 
     private void Awake()
     {
@@ -31,6 +32,8 @@ public class AttackColliderManager : MonoBehaviour
     /// </summary>
     public void DetectColliders(Vector3 _pos, Vector3 _size, float _damage, LayerMask _targetLayer,bool _oneHitKill)
     {
+        //アニメーションイベントで
+        //当たり判定有効するかを設定する
         if (!canHit) return;
 
         hitColliders = Physics.OverlapBox(_pos, _size / 2, Quaternion.identity, _targetLayer);
@@ -42,6 +45,9 @@ public class AttackColliderManager : MonoBehaviour
             if (hitObjects.Contains(hitCollider)) continue;
 
             // bool isCorrected = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, _size);
+
+
+            Debug.Log("HIT!!!!!!!!!!");//test
 
             // if (isCorrected)
             {
@@ -105,10 +111,18 @@ public class AttackColliderManager : MonoBehaviour
             life.TakeDamage(_damage);
         }
 
+        //攻撃を受けた側の処理
         var hit = _hitCollider.GetComponentInChildren<IHit>();
         if (hit != null)
         {
             hit.Hit(_canOneHitKill);
+        }
+
+        //攻撃側の処理
+        var attack = transform.root.GetComponentInChildren<IAttack>();
+        if (attack != null)
+        {
+            attack.Attack(_hitCollider);
         }
     }
 

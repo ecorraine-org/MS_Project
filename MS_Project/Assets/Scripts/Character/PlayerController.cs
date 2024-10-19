@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IHit,IAttack
 {
     // インプットシングルトン
     protected PlayerInputManager inputManager;
@@ -250,6 +250,36 @@ public class PlayerController : MonoBehaviour
 
         Gizmos.DrawLine(transform.position, transform.position + curDirecVector);
     }
+
+    public void Hit(bool _canOneHitKill)
+    {
+       
+    }
+
+    public void Attack(Collider _hitCollider)
+    {
+    
+
+        if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Debug.Log("ヒットストップ");
+            // ヒットストップ
+            StartCoroutine(HitStopCoroutine(0.2f, 0.2f));
+        }
+    }
+
+    private IEnumerator HitStopCoroutine(float _slowSpeed, float _duration)
+    {
+        // 流す速度を遅くする
+        spriteAnim.speed = _slowSpeed;
+
+        yield return new WaitForSeconds(_duration);
+
+        // 流す速度を戻す
+        spriteAnim.speed = 1f;
+    }
+
+
 
     #region Getter&Setter 
 
