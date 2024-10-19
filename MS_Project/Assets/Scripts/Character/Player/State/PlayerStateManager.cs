@@ -89,7 +89,7 @@ public class PlayerStateManager : MonoBehaviour
         dicStates.Add(StateType.Walk, walkState);
         dicStates.Add(StateType.Attack, attackState);
         dicStates.Add(StateType.ModeChange, modeChangeState);
-        dicStates.Add(StateType.FinishSkill,finishState);
+        dicStates.Add(StateType.FinishSkill, finishState);
 
 
         //初期状態設定
@@ -150,7 +150,9 @@ public class PlayerStateManager : MonoBehaviour
     {
         playerController.AttackCollider.CanHit = false;
 
-       playerController.SkillManager.Reset();
+        playerController.SpriteAnim.speed = 1f;
+
+        playerController.SkillManager.Reset();
     }
 
     ///<summary>
