@@ -14,6 +14,7 @@ public class PlayerStatusManager : StatusManager
     //PlayerControllerの参照
     PlayerController playerController;
 
+    [SerializeField,Header("プレイヤーデータ")]
     PlayerStatusData playerStatusData;
 
     //暴走
@@ -32,10 +33,7 @@ public class PlayerStatusManager : StatusManager
 
     protected override void Awake()
     {
-        base.Awake();
-
-        playerStatusData = ScriptableObject.CreateInstance<PlayerStatusData>(); 
-        
+        base.Awake();        
     }
 
     private void OnEnable()

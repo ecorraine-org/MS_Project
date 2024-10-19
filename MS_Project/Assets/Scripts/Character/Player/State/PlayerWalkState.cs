@@ -80,10 +80,11 @@ public class PlayerWalkState : PlayerState
     public override void FixedTick()
     {
         //移動速度取得
-        PlayerStatusManager PlayerStatusManager = playerController.StatusManager;
-        float moveSpeed = PlayerStatusManager.StatusData.velocity;
+        float moveSpeed = statusManager.StatusData.velocity;
+        Debug.Log("moveSpeed"+moveSpeed);//test
+        Debug.Log("PlayerStatusManager.StatusData.velocity" + statusManager.StatusData.velocity);//test
 
-        /*if (!playerSkillManager.IsDashing)*/ rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
+        rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
     }
 
     public override void Exit()

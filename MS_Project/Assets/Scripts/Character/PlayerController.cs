@@ -205,17 +205,13 @@ public class PlayerController : MonoBehaviour
     {
         spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
 
-        //spriteRenderer.flipX = false;
-
         switch (currentDirec)
         {
             case Direction.Right:
-              //  spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkRight");
                 break;
 
-            case Direction.UpRight:
-               // spriteRenderer.flipX = true;
+            case Direction.UpRight:      
                 spriteAnim.Play("WalkUpRight");
                 break;
 
@@ -241,7 +237,6 @@ public class PlayerController : MonoBehaviour
                 break;
 
             case Direction.DownRight:
-              //  spriteRenderer.flipX = true;
                 spriteAnim.Play("WalkDownRight");
                 break;
         }
