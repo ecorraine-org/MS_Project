@@ -32,6 +32,12 @@ public class PlayerSkillState : PlayerState
             case PlayerMode.Hammer:
                 playerController.SkillManager.UseSkill(PlayerSkill.Hammer);
                 break;
+            case PlayerMode.Spear:
+                playerController.SkillManager.UseSkill(PlayerSkill.Spear);
+                break;
+            case PlayerMode.Gauntlet:
+                playerController.SkillManager.UseSkill(PlayerSkill.Gauntlet);
+                break;
             default:
                 break;
         }
