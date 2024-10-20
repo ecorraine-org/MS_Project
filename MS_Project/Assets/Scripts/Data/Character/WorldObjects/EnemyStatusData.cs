@@ -12,11 +12,11 @@ public class EnemyStatusData : ObjectStatusData
     public float damage = 1f;
 
     [Header("攻撃できる距離")]
-    public float attackDistance = 0.8f;
+    public float attackDistance = 2f;
 
     [Header("移動速度")]
     public float velocity = 1.0f;
 
     [Header("追跡する距離")]
-    public float chaseDistance = 3f;
+    public float chaseDistance = 5f;
 }

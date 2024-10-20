@@ -374,7 +374,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f2ae16b1b2db4ff4bb60f80b405a943e, type: 2}
   - {fileID: 11400000, guid: b861a65bec402a54eb23324324542341, type: 2}
   - {fileID: 11400000, guid: 612a20def7926e347bb190f195c7af66, type: 2}
-  - {fileID: 11400000, guid: 9d9f4dcc23fa32d4daf899acd7e24573, type: 2}
   eliteMaxCount: 3
   elitePool:
   - {fileID: 11400000, guid: 3402e0fff7f31a047b240c842b107bb4, type: 2}
@@ -399,7 +398,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 100
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -672,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c2ccc461649b84eb81983d06e4730c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  postProcessMaterial: {fileID: 0}
+  postProcessMaterial: {fileID: 2100000, guid: 31854dca12f93374c9e4aec44ec6208d, type: 2}
   hatchDensity: 10
   angleOffset: 45
   depthInfluence: 0.5
@@ -705,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d2aa34914b0204aa691cca22039662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraOffset: {x: 0, y: 1.5, z: -5}
+  cameraOffset: {x: 0, y: 4, z: -10}
   blendFactor: 0.4
 --- !u!4 &1088672488
 Transform:
@@ -716,7 +715,7 @@ Transform:
   m_GameObject: {fileID: 1088672486}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -3}
+  m_LocalPosition: {x: 0, y: 4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
