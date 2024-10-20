@@ -153,7 +153,7 @@ public class EnemyController : ObjectController, IHit
     {
         if (status.IsDamaged)
         {
-            animator.Play("Damaged");
+            animator.Play("Damaged",0,0f);
 
             GenerateOnomatopoeia();
 
@@ -169,6 +169,10 @@ public class EnemyController : ObjectController, IHit
 
     public void Hit(bool _canOneHitKill)
     {
+        // ヒットストップ
+        StartCoroutine(HitStopCoroutine(0.1f, 0.1f));
+        
+
         if (isKillable && _canOneHitKill)
         {
             //プレイヤーの体力を回復
@@ -177,5 +181,23 @@ public class EnemyController : ObjectController, IHit
             //殺す
             //Destroy(this.gameObject);
         }
+    }
+
+    private IEnumerator HitStopCoroutine(float _slowSpeed, float _duration)
+    {
+        // 流す速度を遅くする
+        animator.speed = _slowSpeed;
+
+        yield return new WaitForSeconds(_duration);
+
+        // 流す速度を戻す
+        animator.speed = 1f;
+    }
+
+
+    public bool IsKillable
+    {
+        get => this.isKillable;
+        //set { this.isKillable = value; }
     }
 }
