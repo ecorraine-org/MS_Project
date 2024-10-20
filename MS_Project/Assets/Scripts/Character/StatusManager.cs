@@ -21,7 +21,7 @@ public class StatusManager : MonoBehaviour, ILife
     public virtual void TakeDamage(float _damage)
     {
         currentHealth -= _damage;
-        Debug.Log("Damage:" + _damage);//test
+       // Debug.Log("Damage:" + _damage);//test
 
         if (currentHealth <= 0)
         {

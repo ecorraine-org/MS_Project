@@ -258,13 +258,11 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
 
     public void Attack(Collider _hitCollider)
     {
-    
-
         if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Debug.Log("ヒットストップ");
+           // Debug.Log("ヒットストップ");
             // ヒットストップ
-            StartCoroutine(HitStopCoroutine(0.2f, 0.2f));
+            StartCoroutine(HitStopCoroutine(0.1f, 0.1f));
         }
     }
 
