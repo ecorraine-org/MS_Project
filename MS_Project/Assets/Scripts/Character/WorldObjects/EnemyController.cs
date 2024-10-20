@@ -41,9 +41,9 @@ public class EnemyController : ObjectController, IHit
         animator = gameObj.GetComponent<Animator>();
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
-        capsuleCollider.center = collider.center / 3;
-        capsuleCollider.height = collider.height / 3;
-        capsuleCollider.radius = collider.radius / 3;
+        capsuleCollider.center = collider.center;
+        capsuleCollider.height = collider.height;
+        capsuleCollider.radius = collider.radius;
 
         if (gameObj.TryGetComponent<EnemySkill>(out enemySkill))
         {
@@ -76,6 +76,11 @@ public class EnemyController : ObjectController, IHit
 
         if (distance < status.StatusData.chaseDistance)
         {
+                Vector3 direction = player.position - transform.position;
+                // 進む方向に向く
+                Quaternion newRotation = Quaternion.LookRotation(direction.normalized);
+                newRotation.x = 0;
+                transform.rotation = newRotation;
 
             if (distance <= status.StatusData.attackDistance)
             {
@@ -90,12 +95,6 @@ public class EnemyController : ObjectController, IHit
             else
             {
                 // 追跡
-                Vector3 direction = player.position - transform.position;
-                // 進む方向に向く
-                Quaternion newRotation = Quaternion.LookRotation(direction.normalized);
-                newRotation.x = 0;
-                transform.rotation = newRotation;
-
                 OnMovementInput?.Invoke(direction.normalized);
             }
         }
@@ -109,8 +108,8 @@ public class EnemyController : ObjectController, IHit
 
         if (Debug.isDebugBuild)
         {
-            Debug.DrawRay(transform.position, (player.position - transform.position) * 2, Color.blue);
-            Debug.DrawRay(transform.position, transform.forward * 3, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(0f, 1f, 0f), (transform.forward * status.StatusData.attackDistance), Color.red);
+            Debug.DrawRay(transform.position + new Vector3(0f, 0.5f, 0f), (transform.forward * status.StatusData.chaseDistance), Color.blue);
         }
     }
 
