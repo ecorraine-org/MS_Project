@@ -17,7 +17,7 @@ public class AttackColliderManager : MonoBehaviour
     private CameraBasedHitCorrection _cameraBasedHitCorrection;
 
     //当たり判定可能かどうか
-    bool canHit=false;
+    bool canHit = false;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class AttackColliderManager : MonoBehaviour
     /// <summary>
     /// コライダーの検出を行い、対象にダメージを与える
     /// </summary>
-    public void DetectColliders(Vector3 _pos, Vector3 _size, float _damage, LayerMask _targetLayer,bool _oneHitKill)
+    public void DetectColliders(Vector3 _pos, Vector3 _size, float _damage, LayerMask _targetLayer, bool _oneHitKill)
     {
         //アニメーションイベントで
         //当たり判定有効するかを設定する
@@ -112,6 +112,12 @@ public class AttackColliderManager : MonoBehaviour
         var hit = _hitCollider.GetComponentInChildren<IHit>();
         if (hit != null)
         {
+            if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Onomatopoeia"))
+            {
+                CustomLogger.Log(_hitCollider.gameObject.name + "is detected.");
+                _hitCollider.gameObject.GetComponent<OnomatoManager>().NextDataType = _hitCollider.gameObject.GetComponent<OnomatopoeiaController>().Data.type;
+            }
+
             hit.Hit(_canOneHitKill);
         }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OnomatoManager : MonoBehaviour, IHit
@@ -15,33 +16,47 @@ public class OnomatoManager : MonoBehaviour, IHit
     public delegate void FrenzyEventHandler(float amount);
     public static event FrenzyEventHandler OnIncreaseFrenzyEvent;
 
-    //private void OnEnable()
-    //{
-    //    //イベントをバインドする
-    //    AttackColliderManager.OnOnomatoEvent += Absorb;
-    //}
+    [HideInInspector]
+    private PlayerController player;
+    private PlayerMode currentMode;
+    private OnomatoType nextDataType;
+    private OnomatoType currentDataType;
 
-    //private void OnDisable()
-    //{
-    //    //バインドを解除する
-    //    AttackColliderManager.OnOnomatoEvent -= Absorb;
-    //}
+    /*
+    private void OnEnable()
+    {
+        //イベントをバインドする
+        AttackColliderManager.OnOnomatoEvent += Absorb;
+    }
+
+    private void OnDisable()
+    {
+        //バインドを解除する
+        AttackColliderManager.OnOnomatoEvent -= Absorb;
+    }
 
     /// <summary>
     /// 食べられる処理
     /// </summary>
-    //public void Absorb()
-    //{
-    //    controller.isAlive = false;
+    public void Absorb()
+    {
+        controller.isAlive = false;
 
-    //    Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
-    //    //モードチェンジのイベント送信
-    //    OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
+        Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
+        //モードチェンジのイベント送信
+        OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
 
-    //    //暴走ゲージを溜めるイベント送信
-    //    OnIncreaseFrenzyEvent?.Invoke(5.0f);
+        //暴走ゲージを溜めるイベント送信
+        OnIncreaseFrenzyEvent?.Invoke(5.0f);
 
-    //}
+    }
+     */
+
+    private void Awake()
+    {
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        currentMode = player.ModeManager.Mode;
+    }
 
     /// <summary>
     /// 被撃処理
@@ -52,9 +67,47 @@ public class OnomatoManager : MonoBehaviour, IHit
 
         Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
         //モードチェンジのイベント送信
-        OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
+        ChangeMode(nextDataType);
 
         //暴走ゲージを溜めるイベント送信
         OnIncreaseFrenzyEvent?.Invoke(5.0f);
+    }
+
+    public static void ChangeMode(OnomatoType _datatype)
+    {
+        string nextMode = "";
+        switch (_datatype)
+        {
+            case OnomatoType.None:
+                break;
+            case OnomatoType.SlashType:
+                nextMode = PlayerMode.Sword.ToString();
+                OnModeChangeEvent?.Invoke(PlayerMode.Sword);
+                break;
+            case OnomatoType.SmashType:
+                nextMode = PlayerMode.Hammer.ToString();
+                OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
+                break;
+            case OnomatoType.PierceType:
+                nextMode = PlayerMode.Spear.ToString();
+                OnModeChangeEvent?.Invoke(PlayerMode.Spear);
+                break;
+            case OnomatoType.HandType:
+                nextMode = PlayerMode.Gauntlet.ToString();
+                OnModeChangeEvent?.Invoke(PlayerMode.Gauntlet);
+                break;
+            case OnomatoType.OtherType:
+                break;
+            default:
+                break;
+        }
+
+        CustomLogger.Log("Change Mode to: " + nextMode);
+    }
+
+    public OnomatoType NextDataType
+    {
+        get => this.nextDataType;
+        set { this.nextDataType = value; }
     }
 }

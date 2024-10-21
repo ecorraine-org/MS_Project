@@ -4,7 +4,8 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum ObjectStateType {
+public enum ObjectStateType
+{
     [InspectorName("待機")]Idle,
     [InspectorName("移動")]Walk,
     [InspectorName("攻撃")]Attack,

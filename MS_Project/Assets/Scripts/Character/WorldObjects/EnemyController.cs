@@ -105,12 +105,6 @@ public class EnemyController : ObjectController, IHit
         }
 
         OnDamaged?.Invoke();
-
-        if (Debug.isDebugBuild)
-        {
-            Debug.DrawRay(transform.position + new Vector3(0f, 1f, 0f), (transform.forward * status.StatusData.attackDistance), Color.red);
-            Debug.DrawRay(transform.position + new Vector3(0f, 0.5f, 0f), (transform.forward * status.StatusData.chaseDistance), Color.blue);
-        }
     }
 
     private void Move()
@@ -193,10 +187,23 @@ public class EnemyController : ObjectController, IHit
         animator.speed = 1f;
     }
 
-
     public bool IsKillable
     {
         get => this.isKillable;
         //set { this.isKillable = value; }
     }
+
+    #region Gizmos
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, status.StatusData.attackDistance);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, status.StatusData.chaseDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position + new Vector3(0f, 1f, 0f), transform.position + transform.forward * status.StatusData.chaseDistance);
+    }
+    #endregion
 }

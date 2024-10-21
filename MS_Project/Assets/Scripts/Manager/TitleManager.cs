@@ -14,10 +14,10 @@ public class TitleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // EnterƒL[‚ª‰Ÿ‚³‚ê‚½‚ç
+        // Enterã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            // MainScene‚É‘JˆÚ
+            // MainSceneã«é·ç§»
             SceneManager.LoadScene("StartScene01");
         }
     }

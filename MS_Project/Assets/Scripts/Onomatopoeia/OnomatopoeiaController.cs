@@ -24,13 +24,16 @@ public class OnomatopoeiaController : MonoBehaviour
     [HideInInspector, Tooltip("初期位置")]
     private Vector3 initialPosition;
     [SerializeField, Tooltip("最大距離")]
-    public float fStopDistance = 1.5f;
+    public float fStopDistance = 5f;
 
     public OnomatopoeiaData data;
     private Rigidbody rb;
 
+    private OnomatoManager onomatoManager;
+
     private void Awake()
     {
+        onomatoManager = this.gameObject.GetComponent<OnomatoManager>();
     }
 
     // Start is called before the first frame update

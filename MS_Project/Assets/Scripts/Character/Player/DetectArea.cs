@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// コライダー検索エリア
+/// 繧ｳ繝ｩ繧､繝繝ｼ讀懃ｴ｢繧ｨ繝ｪ繧｢
 /// </summary>
 public class DetectArea : MonoBehaviour
 {
-    [SerializeField, Header("ターゲットにするコライダー一覧")]
+    [SerializeField, Header("繧ｿ繝ｼ繧ｲ繝�繝医↓縺吶ｋ繧ｳ繝ｩ繧､繝繝ｼ荳隕ｧ")]
     protected List<Collider> colliders = new List<Collider>();
 
     protected Collider collider;

@@ -9,39 +9,39 @@ public class IrisShot : MonoBehaviour
     [SerializeField] RectTransform unmask;
     readonly Vector2 IRIS_IN_SCALE = new Vector2(30, 30);
     readonly float SCALE_DURATION = 2;
-    [SerializeField] string sceneToLoad; // Ø‚è‘Ö‚¦‚éƒV[ƒ“–¼‚ğw’è
+    [SerializeField] string sceneToLoad; // åˆ‡ã‚Šæ›¿ãˆã‚‹ã‚·ãƒ¼ãƒ³åã‚’æŒ‡å®š
 
     private void Start()
     {
-        // ƒV[ƒ“ŠJn‚ÉƒAƒCƒŠƒXƒCƒ“
+        // ã‚·ãƒ¼ãƒ³é–‹å§‹æ™‚ã«ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³
         IrisIn();
     }
 
     public void IrisIn()
     {
-        // ƒAƒCƒŠƒXƒCƒ“i‘å‚«‚­‚µ‚Ä•\¦j
-        unmask.localScale = Vector3.zero;  // ‰Šúó‘Ô‚Å¬‚³‚­‚µ‚Ä‚¨‚­
+        // ã‚¢ã‚¤ãƒªã‚¹ã‚¤ãƒ³ï¼ˆå¤§ããã—ã¦è¡¨ç¤ºï¼‰
+        unmask.localScale = Vector3.zero;  // åˆæœŸçŠ¶æ…‹ã§å°ã•ãã—ã¦ãŠã
         unmask.DOScale(IRIS_IN_SCALE, SCALE_DURATION).SetEase(Ease.InCubic);
     }
 
     public void IrisOut()
     {
-        // ƒAƒCƒŠƒXƒAƒEƒgi¬‚³‚­‚µ‚ÄÁ‚¦‚éj‚ÆƒV[ƒ“‘JˆÚ‚ğŠJn
+        // ã‚¢ã‚¤ãƒªã‚¹ã‚¢ã‚¦ãƒˆï¼ˆå°ã•ãã—ã¦æ¶ˆãˆã‚‹ï¼‰ã¨ã‚·ãƒ¼ãƒ³é·ç§»ã‚’é–‹å§‹
         StartCoroutine(IrisOutAndLoadScene());
     }
 
     private IEnumerator IrisOutAndLoadScene()
     {
-        // ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŠ®—¹‚ğ‘Ò‚Â
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å®Œäº†ã‚’å¾…ã¤
         yield return unmask.DOScale(Vector3.zero, SCALE_DURATION).SetEase(Ease.OutCubic).WaitForCompletion();
 
-        // ƒV[ƒ“‘JˆÚ
+        // ã‚·ãƒ¼ãƒ³é·ç§»
         SceneManager.LoadScene(sceneToLoad);
     }
 
     private void Update()
     {
-        // EnterƒL[‚ÅƒAƒCƒŠƒXƒAƒEƒg
+        // Enterã‚­ãƒ¼ã§ã‚¢ã‚¤ãƒªã‚¹ã‚¢ã‚¦ãƒˆ
         if (Input.GetKeyDown(KeyCode.Return))
         {
             IrisOut();

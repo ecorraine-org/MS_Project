@@ -134,7 +134,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -152,10 +152,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 4
   m_fontSizeMax: 8
   m_fontStyle: 0
@@ -212,13 +212,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objOnomatopoeia: {fileID: 0}
-  onomatopoeiaName: "\u30D6\u30E8\u30D6\u30E8"
+  onomatopoeiaName: 
   isAlive: 1
   fLifetime: 5
   emissionDirection: {x: 0, y: 1, z: 0}
   fStartSpeed: 5
-  fStopDistance: 1.5
-  data: {fileID: 11400000, guid: 8b0c05c99c42b564da4b9d77695334b1, type: 2}
+  fStopDistance: 5
+  data: {fileID: 0}
 --- !u!114 &6588497362819437872
 MonoBehaviour:
   m_ObjectHideFlags: 0
