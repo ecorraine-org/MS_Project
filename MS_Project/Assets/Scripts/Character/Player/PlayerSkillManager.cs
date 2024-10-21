@@ -156,18 +156,28 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("HammerSkill");
         playerController.SpriteRenderer.color = Color.red;
+
+        dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
+        dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
     }
 
     private void ExecuteSpearSkill()
     {
         playerController.SpriteAnim.Play("SpearSkill");
         playerController.SpriteRenderer.color = Color.red;
+
+        //突進初期化
+        dash.Speed = skillData.dicSkill[PlayerSkill.Spear].dashSpeed;
+        dash.Duration = skillData.dicSkill[PlayerSkill.Spear].dashDuration;
     }
 
     private void ExecuteGauntletSkill()
     {
         playerController.SpriteAnim.Play("GauntletSkill");
         playerController.SpriteRenderer.color = Color.red;
+
+        dash.Speed = skillData.dicSkill[PlayerSkill.Gauntlet].dashSpeed;
+        dash.Duration = skillData.dicSkill[PlayerSkill.Gauntlet].dashDuration;
     }
 
 

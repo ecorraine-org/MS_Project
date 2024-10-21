@@ -65,6 +65,8 @@ public class OnomatoManager : MonoBehaviour, IHit
     {
         controller.isAlive = false;
 
+        nextDataType = controller.Data.type;
+
         Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
         //モードチェンジのイベント送信
         ChangeMode(nextDataType);

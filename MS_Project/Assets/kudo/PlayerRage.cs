@@ -67,7 +67,7 @@ public class PlayerRage : MonoBehaviour
         if (player.StatusManager.FrenzyTimer > 0 && player.StatusManager.IsFrenzy)
         {
             rageSlider.value = player.StatusManager.FrenzyTimer;
-            Debug.Log(player.StatusManager.FrenzyTimer);
+         //   Debug.Log(player.StatusManager.FrenzyTimer);
         }
 
         //UpdateRage();

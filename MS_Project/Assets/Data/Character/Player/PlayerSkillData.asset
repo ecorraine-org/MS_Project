@@ -15,7 +15,7 @@ MonoBehaviour:
   skill:
   - skillName: 1
     coolTime: 0
-    dashSpeed: 6
+    dashSpeed: 0
     dashDuration: -1
     hpCost: 2
   - skillName: 2
@@ -25,9 +25,9 @@ MonoBehaviour:
     hpCost: 2
   - skillName: 3
     coolTime: 0
-    dashSpeed: 0
+    dashSpeed: 25
     dashDuration: -1
-    hpCost: 2
+    hpCost: 0
   - skillName: 4
     coolTime: 0
     dashSpeed: 0

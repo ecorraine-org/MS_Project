@@ -112,11 +112,11 @@ public class AttackColliderManager : MonoBehaviour
         var hit = _hitCollider.GetComponentInChildren<IHit>();
         if (hit != null)
         {
-            if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Onomatopoeia"))
-            {
-                CustomLogger.Log(_hitCollider.gameObject.name + "is detected.");
-                _hitCollider.gameObject.GetComponent<OnomatoManager>().NextDataType = _hitCollider.gameObject.GetComponent<OnomatopoeiaController>().Data.type;
-            }
+            //if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Onomatopoeia"))
+            //{
+            //    CustomLogger.Log(_hitCollider.gameObject.name + "is detected.");
+            //    _hitCollider.gameObject.GetComponent<OnomatoManager>().NextDataType = _hitCollider.gameObject.GetComponent<OnomatopoeiaController>().Data.type;
+            //}
 
             hit.Hit(_canOneHitKill);
         }
