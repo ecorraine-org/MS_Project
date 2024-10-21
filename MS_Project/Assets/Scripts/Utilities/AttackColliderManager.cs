@@ -46,9 +46,6 @@ public class AttackColliderManager : MonoBehaviour
 
             // bool isCorrected = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, _size);
 
-
-            Debug.Log("HIT!!!!!!!!!!");//test
-
             // if (isCorrected)
             {
                 hitObjects.Add(hitCollider);

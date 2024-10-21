@@ -169,6 +169,23 @@ public class PlayerStateManager : MonoBehaviour
     }
 
     ///<summary>
+    ///回避状態チェック
+    ///</summary>
+    public bool CheckDodge()
+    {
+        //ボタン入力
+        bool isDashTrigger = playerController.InputManager.GetDashTrigger();
+        //回避中は再度回避できないようにする
+        if (isDashTrigger && !playerController.SkillManager.IsDashing)
+        {
+            TransitionState(StateType.Dodge);
+            return true;
+        }
+
+        return false;
+    }
+
+    ///<summary>
     ///被ダメージ状態チェック
     ///</summary>
     public bool CheckHit()

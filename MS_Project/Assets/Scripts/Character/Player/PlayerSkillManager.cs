@@ -124,6 +124,8 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
     {
+        playerController.SpriteAnim.Play("WalkRight");
+
         //突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Dodge].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Dodge].dashDuration;

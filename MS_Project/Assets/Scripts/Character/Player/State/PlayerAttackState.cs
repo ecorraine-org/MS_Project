@@ -24,6 +24,9 @@ public class PlayerAttackState : PlayerState
         //コンポーネントの取得
         _CameraBasedHitCorrection = GetComponent<CameraBasedHitCorrection>();
 
+        //方向変更
+        playerController.SetEightDirection();
+
         switch (playerModeManager.Mode)
         {
             case PlayerMode.None:
@@ -51,19 +54,13 @@ public class PlayerAttackState : PlayerState
 
     public override void Tick()
     {
+        //回避へ遷移
+        if (playerStateManager.CheckDodge()) return;
+
         //ダメージチェック
-        playerController.StateManager.CheckHit();
+        playerStateManager.CheckHit();
 
-        //仮のクールタイム設定
-        // testTimer += Time.time;
-        // if (testTimer >= spriteAnim.GetCurrentAnimatorStateInfo(0).length + 0.2f)
-        //  {
-        //     testTimer = 0;
         Attack();
-        // }
-
-
-        // Debug.Log("Time" + spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime);
 
         //アニメーション終了、アイドルへ遷移
         if (spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
