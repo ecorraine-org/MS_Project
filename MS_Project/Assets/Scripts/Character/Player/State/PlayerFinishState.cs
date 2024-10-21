@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerFinishState : PlayerState
 {
-    //•ßHtest
+    //æ•é£Ÿtest
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     UnityEngine.Vector3 attackAreaPos;
     public UnityEngine.Vector3 offsetPos;
     public float attackDamage;
 
-    [SerializeField, Header("“GƒŒƒCƒ„[")]
+    [SerializeField, Header("æ•µãƒ¬ã‚¤ãƒ¤ãƒ¼")]
     private LayerMask enemyLayer;
 
-    //•ßH•ûŒü
+    //æ•é£Ÿæ–¹å‘
     Vector3 eatingDirec;
 
     public override void Init(PlayerController _playerController)
@@ -21,15 +21,15 @@ public class PlayerFinishState : PlayerState
         SetIsPerformDamage(true);
 
         base.Init(_playerController);
-        Debug.Log("IŒ‹ƒXƒe[ƒg");
+        Debug.Log("çµ‚çµã‚¹ãƒ†ãƒ¼ãƒˆ");
 
-        //“ü—Í•ûŒüæ“¾
+        //å…¥åŠ›æ–¹å‘å–å¾—
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
 
-        //•ßH•ûŒüİ’è
+        //æ•é£Ÿæ–¹å‘è¨­å®š
         eatingDirec = new Vector3(inputDirec.x, 0, inputDirec.y);
 
-        //”­“®
+        //ç™ºå‹•
         playerController.SkillManager.ExecuteEat();
     }
 
@@ -37,7 +37,7 @@ public class PlayerFinishState : PlayerState
     {
         Attack();
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“I—¹AƒAƒCƒhƒ‹‚Ö‘JˆÚ
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†ã€ã‚¢ã‚¤ãƒ‰ãƒ«ã¸é·ç§»
         if (spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
         {
             playerController.StateManager.TransitionState(StateType.Idle);
@@ -59,20 +59,20 @@ public class PlayerFinishState : PlayerState
 
         attackAreaPos = transform.position;
 
-        //¶‰E”½“]‚©
+        //å·¦å³åè»¢ã‹
         offsetPos.x = spriteRenderer.flipX ? Mathf.Abs(offsetPos.x) : -Mathf.Abs(offsetPos.x);
 
         attackAreaPos += offsetPos;
 
-        //ƒRƒ‰ƒCƒ_[‚ÌŒŸo
+        //ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã®æ¤œå‡º
         //playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
 
-        //“G‚Æ‚Ì“–‚½‚è”»’è
+        //æ•µã¨ã®å½“ãŸã‚Šåˆ¤å®š
         playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, 1.0f, enemyLayer,true);
     }
 
     /// <summary>
-    /// •`‰ætest
+    /// æç”»test
     /// </summary>
     private void OnDrawGizmosSelected()
     {
@@ -80,24 +80,24 @@ public class PlayerFinishState : PlayerState
         Gizmos.DrawWireCube(attackAreaPos, attackSize);
     }
 
-    // Gizmos‚ğg—p‚µ‚ÄƒxƒNƒgƒ‹‚ğ•`‰æ
+    // Gizmosã‚’ä½¿ç”¨ã—ã¦ãƒ™ã‚¯ãƒˆãƒ«ã‚’æç”»
     private void OnDrawGizmos()
     {
         if (playerStateManager == null) return;
         if (playerStateManager.CurrentStateType != StateType.Eat) return;
 
-        // ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®
         Vector3 start = transform.position;
-        // ƒxƒNƒgƒ‹‚ÌI“_‚ğŒvZ
+        // ãƒ™ã‚¯ãƒˆãƒ«ã®çµ‚ç‚¹ã‚’è¨ˆç®—
         Vector3 end = start + eatingDirec;
 
-        // ü‚ÌF‚ğİ’è
+        // ç·šã®è‰²ã‚’è¨­å®š
         Gizmos.color = Color.red;
 
-        // ü‚ğ•`‰æ
+        // ç·šã‚’æç”»
         Gizmos.DrawLine(start, end);
 
-        // –îˆó‚ÌI“_‚É¬‚³‚È‹…‚ğ•`‰æ‚µ‚Ä‹Šo“I‚É‚í‚©‚è‚â‚·‚­‚·‚é
+        // çŸ¢å°ã®çµ‚ç‚¹ã«å°ã•ãªçƒã‚’æç”»ã—ã¦è¦–è¦šçš„ã«ã‚ã‹ã‚Šã‚„ã™ãã™ã‚‹
         Gizmos.DrawSphere(end, 0.05f);
     }
 }

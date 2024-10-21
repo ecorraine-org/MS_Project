@@ -110,32 +110,31 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
 
     private void FixedUpdate()
     {
-        //Debug.Log("CurDirec "+curDirecVector);
+        sprite.transform.rotation = mainCamera.rotation;
+        /*
+        Debug.Log("CurDirec "+curDirecVector);
 
-        //thisRigidbody.velocity = new UnityEngine.Vector3(moveInput.x * moveSpeed, thisRigidbody.velocity.y, moveInput.y * moveSpeed);
+        thisRigidbody.velocity = new UnityEngine.Vector3(moveInput.x * moveSpeed, thisRigidbody.velocity.y, moveInput.y * moveSpeed);
 
-        //RaycastHit raycastHit;
-        //if (Physics.Raycast(groundCheck.position, UnityEngine.Vector3.down, out raycastHit, 0.1f, terrainLayer))
-        //{
-        //    isGrounded = true;
-        //}
-        //else
-        //{
-        //    isGrounded = false;
-        //}
-        //Debug.DrawRay(groundCheck.position, UnityEngine.Vector2.down, Color.red);
+        RaycastHit raycastHit;
+        if (Physics.Raycast(groundCheck.position, UnityEngine.Vector3.down, out raycastHit, 0.1f, terrainLayer))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+        Debug.DrawRay(groundCheck.position, UnityEngine.Vector2.down, Color.red);
 
-        //if (Input.GetButtonDown("Jump") && isGrounded)
-        //{
-        //    //canJump = true;
-        //    //thisRigidbody.AddForce(UnityEngine.Vector3.up * jumpForce, ForceMode.Impulse);
-        //    thisRigidbody.velocity += new UnityEngine.Vector3(0f, jumpForce, 0f);
-        //}
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            //canJump = true;
+            //thisRigidbody.AddForce(UnityEngine.Vector3.up * jumpForce, ForceMode.Impulse);
+            thisRigidbody.velocity += new UnityEngine.Vector3(0f, jumpForce, 0f);
+        }
+         */
     }
-
-  
-
-   
 
     /// <summary>
     /// 入力方向で現在の方向を八方向のいずれかに設定する
