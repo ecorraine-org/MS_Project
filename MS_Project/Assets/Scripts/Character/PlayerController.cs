@@ -149,8 +149,6 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
 
         curDirecVector = inputManager.GetLStick().normalized;
 
-
-
         //入力方向の角度計算
         float angle = Mathf.Atan2(inputDirec.y, inputDirec.x) * Mathf.Rad2Deg;
         if (angle >= -angleThreshold && angle < angleThreshold)

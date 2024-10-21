@@ -57,13 +57,7 @@ public class PlayerWalkState : PlayerState
         }
 
         //回避へ遷移
-        bool isDash = inputManager.GetDashTrigger();
-        if (isDash&&!playerSkillManager.IsDashing)
-        {
-            playerController.StateManager.TransitionState(StateType.Dodge);
-            return;
-        }
-
+        if (playerStateManager.CheckDodge()) return;
 
         //方向設定
         playerController.SetEightDirection();

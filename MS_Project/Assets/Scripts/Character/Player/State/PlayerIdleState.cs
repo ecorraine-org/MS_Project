@@ -61,12 +61,8 @@ public class PlayerIdleState : PlayerState
         }
 
         //回避へ遷移
-        bool isDash = inputManager.GetDashTrigger();
-        if (isDash && !playerSkillManager.IsDashing)
-        {
-            playerController.StateManager.TransitionState(StateType.Dodge);
-            return;
-        }
+        if (playerStateManager.CheckDodge()) return;
+
 
         //アニメーション設定
         if (!playerSkillManager.IsDashing) playerController.SetWalkAnimation();
