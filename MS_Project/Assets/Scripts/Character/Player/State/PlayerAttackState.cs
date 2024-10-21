@@ -60,6 +60,16 @@ public class PlayerAttackState : PlayerState
         //ダメージチェック
         playerStateManager.CheckHit();
 
+        //スキルへ遷移
+        bool isSkill = inputManager.GetSkillTrigger();
+        PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
+        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0
+            && playerController.SkillManager.HpCost(skill))
+        {
+            playerController.StateManager.TransitionState(StateType.Skill);
+            return;
+        }
+
         Attack();
 
         //アニメーション終了、アイドルへ遷移

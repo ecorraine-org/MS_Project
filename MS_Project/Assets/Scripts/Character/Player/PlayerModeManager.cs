@@ -39,8 +39,11 @@ public class PlayerModeManager : MonoBehaviour
         mode = _mode;
         Debug.Log("Manager: モードチェンジ処理" + mode);
 
+        //プレイヤーの体力を回復
+        playerController.StatusManager.TakeDamage(-5);
+
         //スキル設定
-      //  playerController.SkillManager.SetCurSkill(mode);
+        //  playerController.SkillManager.SetCurSkill(mode);
     }
 
     public PlayerMode Mode
