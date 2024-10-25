@@ -6,15 +6,15 @@ using System.Collections;
 public class EnemyElite_Controller : MonoBehaviour
 {
 
-    public float minInterval = 0f; // ƒAƒjƒ[ƒVƒ‡ƒ“”­“®‚ÌÅ¬ŠÔŠui•bjg‚í‚È‚¢‰Â”\«
-    public float maxInterval = 0f; // ƒAƒjƒ[ƒVƒ‡ƒ“”­“®‚ÌÅ‘åŠÔŠui•bj
-    public string[] animationTriggers; // ”­“®‰Â”\‚ÈƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒgƒŠƒK[–¼‚Ì”z—ñ
+    public float minInterval = 0f; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç™ºå‹•ã®æœ€å°é–“éš”ï¼ˆç§’ï¼‰ä½¿ã‚ãªã„å¯èƒ½æ€§
+    public float maxInterval = 0f; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç™ºå‹•ã®æœ€å¤§é–“éš”ï¼ˆç§’ï¼‰
+    public string[] animationTriggers; // ç™ºå‹•å¯èƒ½ãªã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒˆãƒªã‚¬ãƒ¼åã®é…åˆ—
 
-    private List<GameObject> projectiles = new List<GameObject>(); // Œ»İ‚Ì“Š±•¨ƒŠƒXƒg
+    private List<GameObject> projectiles = new List<GameObject>(); // ç¾åœ¨ã®æŠ•æ“²ç‰©ãƒªã‚¹ãƒˆ
 
-    public float approachSpeed = 1f; // ƒvƒŒƒCƒ„[‚É‹ß‚Ã‚­‘¬“x
-    public Transform player; // Inspector‚ÅƒvƒŒƒCƒ„[‚ğİ’è‚·‚é‚½‚ß‚ÌTransform
-    public float followDistance = 1f; // ƒvƒŒƒCƒ„[‚Æ‚ÌÅ’á‹——£
+    public float approachSpeed = 1f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«è¿‘ã¥ãé€Ÿåº¦
+    public Transform player; // Inspectorã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¨­å®šã™ã‚‹ãŸã‚ã®Transform
+    public float followDistance = 1f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®æœ€ä½è·é›¢
 
     private Rigidbody rb;
     private Animator animator;
@@ -35,21 +35,21 @@ public class EnemyElite_Controller : MonoBehaviour
 
     void Update()
     {
-        // ƒvƒŒƒCƒ„[‚ª‘¶İ‚·‚éê‡‚É‚Ì‚İ•ûŒü‚ğŒü‚«A’Ç]‚·‚é
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå­˜åœ¨ã™ã‚‹å ´åˆã«ã®ã¿æ–¹å‘ã‚’å‘ãã€è¿½å¾“ã™ã‚‹
         if (player != null)
         {
-            // ƒvƒŒƒCƒ„[‚Æ‚Ì‹——£‚ğŒvZ
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã®è·é›¢ã‚’è¨ˆç®—
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-            // ˆê’è‚Ì‹——£‚æ‚è‰“‚¢ê‡‚Ì‚İ’Ç]‚·‚é
+            // ä¸€å®šã®è·é›¢ã‚ˆã‚Šé ã„å ´åˆã®ã¿è¿½å¾“ã™ã‚‹
             if (distanceToPlayer > followDistance)
             {
                 Vector3 direction = (player.position - transform.position).normalized;
 
-                // ƒvƒŒƒCƒ„[‚Ì•ûŒü‚É‰ñ“]iy²‚¾‚¯j
+                // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ–¹å‘ã«å›è»¢ï¼ˆyè»¸ã ã‘ï¼‰
                 transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
 
-                // ƒvƒŒƒCƒ„[‚É‹ß‚Ã‚­iapproachSpeed‚ğg‚Á‚Ä‘¬“x‚ğ’²®j
+                // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«è¿‘ã¥ãï¼ˆapproachSpeedã‚’ä½¿ã£ã¦é€Ÿåº¦ã‚’èª¿æ•´ï¼‰
                 transform.position += direction * approachSpeed * Time.deltaTime;
             }
         }

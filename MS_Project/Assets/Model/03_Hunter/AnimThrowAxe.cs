@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class AnimThrowAxe : MonoBehaviour
 {
-    public GameObject axePrefab; // “Š‚°‚éƒvƒŒƒnƒu
-    public Transform spawnPoint; // ƒvƒŒƒnƒu‚Ì¶¬ˆÊ’u
-    public float throwForce = 10f; // “Š‚°‚é—Í
+    public GameObject axePrefab; // æŠ•ã’ã‚‹ãƒ—ãƒ¬ãƒãƒ–
+    public Transform spawnPoint; // ãƒ—ãƒ¬ãƒãƒ–ã®ç”Ÿæˆä½ç½®
+    public float throwForce = 10f; // æŠ•ã’ã‚‹åŠ›
 
-    // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚©‚çŒÄ‚Ño‚·ƒƒ\ƒbƒh
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰å‘¼ã³å‡ºã™ãƒ¡ã‚½ãƒƒãƒ‰
     public void ThrowAxe()
     {
         if (axePrefab != null && spawnPoint != null)
         {
-            // ƒvƒŒƒnƒu‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+            // ãƒ—ãƒ¬ãƒãƒ–ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
             GameObject thrownAxe = Instantiate(axePrefab, spawnPoint.position, spawnPoint.rotation);
-            // “Š‚°‚é•ûŒü‚É—Í‚ğ‰Á‚¦‚é
+            // æŠ•ã’ã‚‹æ–¹å‘ã«åŠ›ã‚’åŠ ãˆã‚‹
             Rigidbody rb = thrownAxe.GetComponent<Rigidbody>();
             if (rb != null)
             {
