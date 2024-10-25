@@ -38,12 +38,19 @@ public class ObjectStatusHandler : StatusManager
     protected override void Awake()
     {
         //base.Awake();
-
-        //enemyStatusData = ScriptableObject.CreateInstance<EnemyStatusData>();
     }
 
     protected virtual void Start()
     {
+        if(!StatusData)
+        {
+            CustomLogger.Log("No status data found. Instantiating from new.");
+            StatusData = (EnemyStatusData)base.StatusData;
+        }
+        else
+        {
+            CustomLogger.Log("Found " + StatusData.ToString() + "\nInstantiating...");
+        }
         statusData = enemyStatusData;
         currentHealth = enemyStatusData.maxHealth;
         moveSpeed = enemyStatusData.velocity;
