@@ -28,20 +28,26 @@ public class OnomatopoeiaController : MonoBehaviour
 
     public OnomatopoeiaData data;
     private Rigidbody rb;
+    private GameObject player;
 
     private OnomatoManager onomatoManager;
 
     private void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        initialPosition = this.transform.position - player.GetComponent<PlayerController>().CurDirecVector * 1.5f;
+        initialPosition = new Vector3(initialPosition.x, initialPosition.y / 1.5f, player.transform.position.z);
+
         onomatoManager = this.gameObject.GetComponent<OnomatoManager>();
+
+        objOnomatopoeia = this.gameObject;
+        objOnomatopoeia.transform.rotation = new Quaternion(0, 0, -90, 0);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log(data.wordToUse);
-        objOnomatopoeia = this.gameObject;
-        objOnomatopoeia.transform.rotation = new Quaternion(0, 0, -90, 0);
 
         GetComponent<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
 

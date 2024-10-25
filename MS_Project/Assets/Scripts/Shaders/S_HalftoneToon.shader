@@ -12,8 +12,8 @@ Shader "Custom/HalftoneToonLambert"
     {
         Tags
         {
-            "RenderType" = "Overlay"
-            "Queue" = "Overlay"
+            "RenderType" = "Opaque"
+            // "Queue" = "Overlay"
             "LightMode" = "ForwardBase"
         }
         LOD 200
@@ -21,13 +21,12 @@ Shader "Custom/HalftoneToonLambert"
         Pass
         {
             Blend SrcAlpha OneMinusSrcAlpha
-            ZWrite Off
-            Cull Off
+            ZWrite On
+            Cull Back
 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-
             #include "UnityCG.cginc"
             #include "UnityLightingCommon.cginc"
 
@@ -50,13 +49,12 @@ Shader "Custom/HalftoneToonLambert"
             float4 _MainTex_ST;
             fixed4 _Color;
             int _ToonSteps;
-            float _HalftoneSize;
-            float _CrossHatchSize;
+
             float _DotSpacing;
             float _DotSize;
 
             // Halftone function to create dot pattern
-            half4 Halftone(fixed4 texColor, float2 uv, float intensity)
+            half4 HalftonePattern(float4 color, float2 uv, float intensity)
             {
                 // Adjust dot spacing based on light intensity
                 float adjustedDotSpacing = _DotSpacing * (1.0 - intensity);
@@ -65,7 +63,15 @@ Shader "Custom/HalftoneToonLambert"
                 // Create a circular dot pattern
                 float dot = step(length(gridPos - 0.5), _DotSize); // Circle with radius _DotSize
                 // Use the dot to mask the texture color
-                return texColor * dot;
+                return color * dot;
+            }
+
+            // Toon shading function
+            float ToonLighting(float lightIntensity, float _StepSize)
+            {
+                // Apply toon shading by stepping the diffuse value
+                float steps = 1.0 / _StepSize;
+                return floor(lightIntensity / steps) * steps;
             }
 
             v2f vert (appdata_t v)
@@ -89,22 +95,20 @@ Shader "Custom/HalftoneToonLambert"
 
                 float3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                // Apply toon shading by stepping the diffuse value
-                half stepSize = 1.0 / _ToonSteps;
-                half toonDiff = floor(nDotL / stepSize) * stepSize;
+                float toonDiff = ToonLighting(nDotL, _ToonSteps);
 
                 // Halftone effect applied only to shadowed areas
                 float4 halftoneColor = texColor;
                 if (toonDiff < 0.1)
                 {
                     // Scale the halftone based on light intensity
-                    halftoneColor = Halftone(texColor, i.uv, toonDiff);
+                    halftoneColor = HalftonePattern(texColor, i.uv, toonDiff);
                 }
 
-                // Combine the colors, applying toon shading
-                // fixed4 finalColor = (texColor * toonDiff - halftoneColor);
+                // Apply toon shading and halftone effect on shadows
                 fixed4 finalColor = halftoneColor / (halftoneColor - toonDiff);
-                finalColor = texColor * (texColor - finalColor);
+                finalColor = (texColor - finalColor) * (halftoneColor - toonDiff);
+                finalColor.rgb += _LightColor0.rgb;
 
                 return finalColor;
             }

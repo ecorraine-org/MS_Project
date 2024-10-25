@@ -212,13 +212,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objOnomatopoeia: {fileID: 0}
-  onomatopoeiaName: 
+  onomatopoeiaName: "\u30B0\u30B5\u30C3"
   isAlive: 1
   fLifetime: 5
   emissionDirection: {x: 0, y: 1, z: 0}
   fStartSpeed: 5
-  fStopDistance: 5
-  data: {fileID: 0}
+  fStopDistance: 3
+  data: {fileID: 11400000, guid: edf6d2473c040c64384dacf4a34215a7, type: 2}
 --- !u!114 &6588497362819437872
 MonoBehaviour:
   m_ObjectHideFlags: 0
