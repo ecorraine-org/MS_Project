@@ -8,7 +8,7 @@ namespace PixelCrushers.SceneStreamer
 	/// Sets the current scene at Start().
 	/// </summary>
 	[AddComponentMenu("Scene Streamer/Set Start Scene")]
-	public class SetStartScene : MonoBehaviour 
+	public class SetStartScene : MonoBehaviour
 	{
 
 		/// <summary>
@@ -17,9 +17,17 @@ namespace PixelCrushers.SceneStreamer
 		[Tooltip("Load this scene at start")]
 		public string startSceneName = "Scene 1";
 
-		public void Start() 
+		public void Start()
 		{
 			SceneStreamer.SetCurrentScene(startSceneName);
+			//AssetsからCameraPrefabを取得
+			//"C:\Users\yuniz\Documents\MS_Project\MS_Project\Assets\Resources\CameraPivot.prefab"
+
+			GameObject cameraPrefab = Resources.Load("CameraPivot") as GameObject;
+			//CameraPrefabを元に生成
+			Instantiate(cameraPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+
 			Destroy(this);
 		}
 
