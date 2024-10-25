@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c284bde37da7c8479028bad0e88bd1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 3
+  mode: 2
 --- !u!1 &5757435390140318096
 GameObject:
   m_ObjectHideFlags: 0
@@ -1164,7 +1164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSize: {x: 1, y: 1, z: 1}
-  offsetPos: {x: 0, y: 0, z: 0}
+  offsetPos: {x: 0.5, y: 1, z: 0}
   attackDamage: 0
   enemyLayer:
     serializedVersion: 2
