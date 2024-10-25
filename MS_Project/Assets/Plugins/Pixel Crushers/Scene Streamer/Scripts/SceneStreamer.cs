@@ -82,6 +82,9 @@ namespace PixelCrushers.SceneStreamer
 
         private static SceneStreamer s_instance = null;
 
+        //最初に呼び出されるカメラ
+        private GameObject cameraPrefab;
+
         private static SceneStreamer instance
         {
             get
@@ -94,6 +97,7 @@ namespace PixelCrushers.SceneStreamer
                         if (s_instance == null)
                         {
                             s_instance = new GameObject("Scene Loader").AddComponent<SceneStreamer>();
+
                         }
                     }
                     return s_instance;
@@ -123,6 +127,14 @@ namespace PixelCrushers.SceneStreamer
             {
                 s_instance = this;
                 Object.DontDestroyOnLoad(this.gameObject);
+
+                //cameraPrefabを取得し、DontDestroyOnLoadする
+                //cameraPrefab = Resources.Load("CameraPivot") as GameObject;
+                //Object.DontDestroyOnLoad(cameraPrefab);
+                //cameraPrefabをシーンに生成
+                //Instantiate(cameraPrefab);
+
+
             }
         }
 
