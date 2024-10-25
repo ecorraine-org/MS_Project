@@ -68,19 +68,7 @@ public class PlayerSkillState : PlayerState
 
        // switch()
 
-        //移動可能
-        //方向変えないようにする
-
-        if (inputManager.GetSkillReleased() && isCharging)
-        {
-            playerSkillManager.ExecuteSkillChargeFinished((PlayerSkill)playerModeManager.Mode);
-
-            Attack();
-
-            attackSize = defaultAttackSize;
-
-            return;
-        }
+       
 
 
         //条件
@@ -107,7 +95,20 @@ public class PlayerSkillState : PlayerState
             return;
         }
 
-       
+        //移動可能
+        //方向変えないようにする
+
+        if (inputManager.GetSkillReleased() && isCharging)
+        {
+            playerSkillManager.ExecuteSkillChargeFinished((PlayerSkill)playerModeManager.Mode);
+
+            Attack();
+
+          //  attackSize = defaultAttackSize;
+
+            return;
+        }
+
 
         Attack();
 
