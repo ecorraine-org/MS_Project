@@ -12,13 +12,18 @@ public class CameraController : MonoBehaviour
     public float blendFactor = 0.125f;
     private Transform playerPos;
 
+    private Camera mainCamera;
+
     void Awake()
     {
+        mainCamera = Camera.main;
+        mainCamera.depthTextureMode = DepthTextureMode.Depth;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
         transform.position = cameraOffset;
         playerPos = GameObject.FindWithTag("Player").transform;
     }
@@ -30,6 +35,6 @@ public class CameraController : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, blendFactor);
         transform.position = smoothedPosition;
 
-        transform.GetChild(0).transform.LookAt(playerPos);
+        mainCamera.transform.LookAt(playerPos);
     }
 }
