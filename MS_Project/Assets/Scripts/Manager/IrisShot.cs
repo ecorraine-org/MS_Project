@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class IrisShot : MonoBehaviour
 {
     [SerializeField] RectTransform unmask;
-    readonly Vector2 IRIS_IN_SCALE = new Vector2(30, 30);
+    readonly Vector2 IRIS_IN_SCALE = new Vector2(50, 50);
     readonly float SCALE_DURATION = 2;
     [SerializeField] string sceneToLoad; // Ø‚è‘Ö‚¦‚éƒV[ƒ“–¼‚ğw’è
 
