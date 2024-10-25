@@ -25,17 +25,15 @@ public class PlayerSkillManager : MonoBehaviour
     //辞書<キー：スキル種類、値：クールタイム>
     private Dictionary<PlayerSkill, float> coolTimers = new Dictionary<PlayerSkill, float>();
 
+    private Dictionary<PlayerSkill, bool> dicIsCharge = new Dictionary<PlayerSkill, bool>();
+
     private void Awake()
     {
-        //coolTimers.Add(PlayerSkill.Eat, 0f);
-        //coolTimers.Add(PlayerSkill.Sword, 0f);
-        //coolTimers.Add(PlayerSkill.Hammer, 0f);
-        //coolTimers.Add(PlayerSkill.Spear, 0f);
-        //coolTimers.Add(PlayerSkill.Gauntlet, 0f);
 
         foreach (PlayerSkill skill in Enum.GetValues(typeof(PlayerSkill)))
         {
             coolTimers.Add(skill, 0f);
+            dicIsCharge.Add(skill, false);
         }
     }
 
@@ -116,6 +114,38 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
+    public void ExecuteSkillCharge(PlayerSkill _skillType)
+    {
+        dicIsCharge[_skillType] = true;
+
+        switch (_skillType)
+        {
+            case PlayerSkill.Hammer:
+
+                ExecuteHammerSkillCharge();
+                break;
+       
+            default:
+                break;
+        }
+    }
+
+    public void ExecuteSkillChargeFinished(PlayerSkill _skillType)
+    {
+        dicIsCharge[_skillType] = false;
+
+        switch (_skillType)
+        {
+            case PlayerSkill.Hammer:
+
+                ExecuteHammerSkillChargeFinished();
+                break;
+
+            default:
+                break;
+        }
+    }
+
     //キャンセルされた時のリセット処理
     public void Reset()
     {
@@ -152,7 +182,7 @@ public class PlayerSkillManager : MonoBehaviour
         Debug.Log("Sword skill executed!");
     }
 
-    private void ExecuteHammerSkill()
+    public void ExecuteHammerSkill()
     {
         playerController.SpriteAnim.Play("HammerSkill");
         playerController.SpriteRenderer.color = Color.red;
@@ -160,6 +190,29 @@ public class PlayerSkillManager : MonoBehaviour
         dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
     }
+
+    public void ExecuteHammerSkillCharge()
+    {
+
+
+        //playerController.SpriteAnim.Play("HammerSkill");
+        //playerController.SpriteRenderer.color = Color.red;
+
+        //dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
+        //dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
+    }
+
+    public void ExecuteHammerSkillChargeFinished()
+    {
+  
+
+        playerController.SpriteAnim.Play("HammerSkill2");
+        playerController.SpriteRenderer.color = Color.red;
+
+        dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
+        dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
+    }
+
 
     private void ExecuteSpearSkill()
     {
@@ -210,6 +263,12 @@ public class PlayerSkillManager : MonoBehaviour
         get => coolTimers; 
     }
 
+    public Dictionary<PlayerSkill, bool> DicIsCharge
+    {
+        get => dicIsCharge;
+         set { this.dicIsCharge = value; }
+    }
+
     //public BlockDetector BlockDetector
     //{
     //    get => this.blockDetector;
@@ -230,6 +289,12 @@ public class PlayerSkillManager : MonoBehaviour
     public Vector3 DashDirec
     {
         get => this.dash.Direc;
+        // set { this.dashDirec = value; }
+    }
+
+    public PlayerSkillData SkillData
+    {
+        get => this.skillData;
         // set { this.dashDirec = value; }
     }
 }

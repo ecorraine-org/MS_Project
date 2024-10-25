@@ -150,6 +150,22 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
     }
 
     /// <summary>
+    /// スキル入力(ボタン長押し)を取得
+    /// </summary>
+    public bool GetSkillPressed()
+    {
+        return inputControls.GamePlay.Skill.IsPressed();
+    }
+
+    /// <summary>
+    /// スキル入力(ボタン離す)を取得
+    /// </summary>
+    public bool GetSkillReleased()
+    {
+        return inputControls.GamePlay.Skill.WasReleasedThisFrame();
+    }
+
+    /// <summary>
     /// ダッシュ入力を取得
     /// </summary>
     public bool GetDashTrigger()
