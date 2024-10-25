@@ -19,7 +19,6 @@ public class EnemyElite_Controller : MonoBehaviour
     private Rigidbody rb;
     private Animator animator;
 
-    private float nextAnimationTime; // 次のアニメーションを再生する時間
 
 
 
@@ -29,8 +28,7 @@ public class EnemyElite_Controller : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        // 最初のアニメーション発動のスケジュール
-        //ScheduleNextAnimation();
+
     }
 
 
@@ -54,35 +52,6 @@ public class EnemyElite_Controller : MonoBehaviour
                 // プレイヤーに近づく（approachSpeedを使って速度を調整）
                 transform.position += direction * approachSpeed * Time.deltaTime;
             }
-        }
-
-        // ランダムアニメーションの再生タイミングを確認
-        if (Time.time >= nextAnimationTime)
-        {
-            PlayRandomAnimation();
-            ScheduleNextAnimation();
-        }
-
-        // ランダムでアニメーションを再生する
-        void PlayRandomAnimation()
-        {
-            if (animationTriggers.Length > 0)
-            {
-                // ランダムなインデックスを取得
-                int randomIndex = Random.Range(0, animationTriggers.Length);
-                string randomTrigger = animationTriggers[randomIndex];
-
-                // ランダムなトリガーでアニメーションを再生
-                animator.SetTrigger(randomTrigger);
-            }
-        }
-
-        // 次のアニメーションを再生する時間をスケジュール
-        void ScheduleNextAnimation()
-        {
-            // minIntervalとmaxIntervalの間でランダムな時間を設定
-            float interval = Random.Range(minInterval, maxInterval);
-            nextAnimationTime = Time.time + interval;
         }
 
     }
