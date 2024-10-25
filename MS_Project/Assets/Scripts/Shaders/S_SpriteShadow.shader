@@ -19,7 +19,7 @@ Shader "Custom/SpriteShadow"
     {
         Tags
         {
-            "RenderType" = "Transparent"
+            "RenderType" = "Opaque"
             "Queue" = "Overlay"
             "LightMode" = "ForwardBase"
             "PreviewType" = "Plane"
