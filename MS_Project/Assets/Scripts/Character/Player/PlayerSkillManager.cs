@@ -20,6 +20,9 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, Header("今のスキルのクールタイム")]
     float curSkillCoolTime;
 
+    [SerializeField, Header("弾発射装置")]
+    BulletLauncher bulletLauncher;
+
 
 
     //辞書<キー：スキル種類、値：クールタイム>
@@ -180,7 +183,17 @@ public class PlayerSkillManager : MonoBehaviour
         dash.Duration = skillData.dicSkill[PlayerSkill.Sword].dashDuration;
 
         Debug.Log("Sword skill executed!");
+
+        bulletLauncher.SpriteFire(playerController.SpriteRenderer);
     }
+
+    /// <summary>
+    /// 真空連斬
+    /// </summary>
+    //public void LaunchWindBlade()
+    //{
+    
+    //}
 
     public void ExecuteHammerSkill()
     {
@@ -193,8 +206,6 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void ExecuteHammerSkillCharge()
     {
-
-
         //playerController.SpriteAnim.Play("HammerSkill");
         //playerController.SpriteRenderer.color = Color.red;
 
@@ -206,7 +217,7 @@ public class PlayerSkillManager : MonoBehaviour
     {
   
 
-        playerController.SpriteAnim.Play("HammerSkill2");
+        playerController.SpriteAnim.Play("HammerSkill2", 0, 0f);
         playerController.SpriteRenderer.color = Color.red;
 
         dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;

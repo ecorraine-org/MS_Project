@@ -153,6 +153,8 @@ public class PlayerStateManager : MonoBehaviour
         playerController.SpriteAnim.speed = 1f;
 
         playerController.SkillManager.Reset();
+
+        playerController.AnimManager.Reset();
     }
 
     ///<summary>
