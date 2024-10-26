@@ -16,8 +16,13 @@ public class AttackColliderManager : MonoBehaviour
     Collider closestCollider;
     private CameraBasedHitCorrection _cameraBasedHitCorrection;
 
+    [SerializeField, Header("最初の衝突が発生したかどうかを示す")]
+    bool hasCollided=false;
+
     //当たり判定可能かどうか
-    bool canHit = false;
+    bool canHit = true;
+
+
 
     private void Awake()
     {
@@ -127,6 +132,9 @@ public class AttackColliderManager : MonoBehaviour
         {
             attack.Attack(_hitCollider);
         }
+
+        //最初の衝突が発生した
+        hasCollided = true;
     }
 
     /// <summary>
@@ -201,6 +209,13 @@ public class AttackColliderManager : MonoBehaviour
     {
         get => this.canHit;
         set { this.canHit = value; }
+
+    }
+
+    public bool HasCollided
+    {
+        get => this.hasCollided;
+      
 
     }
 }

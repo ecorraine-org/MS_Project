@@ -15,12 +15,18 @@ public class PlayerSkillState : PlayerState
 
     enum SkillState
     {
+        //ノーマルスキル
+        Normal,
+
+        //長押しスキル
         Charge,
+        ExecuteInit,//初期化
         Execute,
         Finish,
 
     }
-    SkillState skillState = SkillState.Execute;
+    [SerializeField, Header("スキル段階")]
+    SkillState skillState = SkillState.Normal;
 
     public override void Init(PlayerController _playerController)
     {
@@ -34,99 +40,106 @@ public class PlayerSkillState : PlayerState
         //スキルを発動する
         playerController.SkillManager.UseSkill((PlayerSkill)playerModeManager.Mode);
 
+        //スキル段階初期化
         if (playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].canCharge)
         {
-            skillState= SkillState.Charge;
+            skillState = SkillState.Charge;
+        }
+        else
+        {
+            skillState = SkillState.Normal;
         }
 
-        //switch (playerModeManager.Mode)
-        //{
-        //    case PlayerMode.None:
-        //        playerController.SkillManager.UseSkill(PlayerSkill.Sword);
-        //        break;
-        //    case PlayerMode.Sword:
-        //        playerController.SkillManager.UseSkill(PlayerSkill.Sword);
-        //        break;
-        //    case PlayerMode.Hammer:
-        //        playerController.SkillManager.UseSkill(PlayerSkill.Hammer);
-        //        break;
-        //    case PlayerMode.Spear:
-        //        playerController.SkillManager.UseSkill(PlayerSkill.Spear);
-        //        break;
-        //    case PlayerMode.Gauntlet:
-        //        playerController.SkillManager.UseSkill(PlayerSkill.Gauntlet);
-        //        break;
-        //    default:
-        //        break;
-        //}
+    
     }
 
     public override void Tick()
     {
-        bool canCharge = playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].canCharge;
-        bool isCharging = playerSkillManager.DicIsCharge[(PlayerSkill)playerModeManager.Mode];
+      //  bool canCharge = playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].canCharge;
+       // bool isCharging = playerSkillManager.DicIsCharge[(PlayerSkill)playerModeManager.Mode];
 
-       // switch()
-
-       
-
-
-        //条件
-        //ボタンを長押し
-        //該当のモードチャージ可能
-
-        if (inputManager.GetSkillPressed()
-           &&canCharge)
-        {
-            playerSkillManager.ExecuteSkillCharge((PlayerSkill)playerModeManager.Mode);
-
-            //今後秒ごとに
-            statusManager.TakeDamage(0.05f);
-            attackSize *= 1.01f;
-
-            //移動速度取得//test
-            float moveSpeed = statusManager.StatusData.velocity/2;
-
-            //方向取得
-            Vector2 inputDirec = inputManager.GetMoveDirec();
-
-            rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
-
-            return;
-        }
-
-        //移動可能
-        //方向変えないようにする
-
-        if (inputManager.GetSkillReleased() && isCharging)
-        {
-            playerSkillManager.ExecuteSkillChargeFinished((PlayerSkill)playerModeManager.Mode);
-
-            Attack();
-
-          //  attackSize = defaultAttackSize;
-
-            return;
-        }
-
-
-        Attack();
-
-        //アニメーション終了、アイドルへ遷移
         AnimatorStateInfo stateInfo = spriteAnim.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.normalizedTime >= 1f
-            &&(!canCharge||( canCharge&&!isCharging))
-            )
+        switch (skillState)
         {
-            playerController.StateManager.TransitionState(StateType.Idle);
+            case SkillState.Normal:
+
+                Attack();
+
+                //終了
+                if (stateInfo.normalizedTime >= 1f)
+                    skillState = SkillState.Finish;
+           
+                break;
+
+            case SkillState.Charge:
+
+                //長押しチェック
+                if (inputManager.GetSkillPressed())
+                {
+                    playerSkillManager.ExecuteSkillCharge((PlayerSkill)playerModeManager.Mode);
+
+                    //今後秒ごとに変化する
+                    statusManager.TakeDamage(0.05f);
+                    attackSize *= 1.01f;
+
+                    return;
+                }
+
+                if (inputManager.GetSkillReleased())
+                {
+                    skillState = SkillState.ExecuteInit;
+                }
+
+
+                break;
+            case SkillState.ExecuteInit:
+
+                playerSkillManager.ExecuteSkillChargeFinished((PlayerSkill)playerModeManager.Mode);
+                skillState = SkillState.Execute;
+
+                break;
+            case SkillState.Execute:
+
+                Attack();
+
+
+                if (animManager.IsAnimEnd)
+                {
+                    skillState = SkillState.Finish;
+                }
+
+                break;
+            case SkillState.Finish:
+
+                //アニメーション終了、アイドルへ遷移
+                playerController.StateManager.TransitionState(StateType.Idle);
+
+
+                break;   
+            default:
+                break;
         }
+
     }
 
  
 
     public override void FixedTick()
     {
+        //長押し中移動処理
+        if (skillState == SkillState.Charge)
+        {
+            //移動速度取得
+            float moveSpeed = statusManager.StatusData.velocity / 2;
+
+            //方向取得
+            Vector2 inputDirec = inputManager.GetMoveDirec();
+
+            rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
+
+        }
+
 
     }
 
@@ -139,7 +152,6 @@ public class PlayerSkillState : PlayerState
 
     public void Attack()
     {
-
         attackAreaPos = transform.position;
 
         //左右反転か
@@ -161,13 +173,15 @@ public class PlayerSkillState : PlayerState
         Gizmos.DrawWireCube(attackAreaPos, attackSize);
     }
 
+    #region //引き寄せる
+
     //private void AttractEnemiesToPlayer()
     //{
 
     //    float attractRadius = 200f;
     //    float distanceBetweenEnemies = 1f; 
 
-       
+
     //    Collider[] enemies = Physics.OverlapSphere(transform.position, attractRadius, LayerMask.GetMask("Enemy"));
     //    List<Transform> enemyTransforms = new List<Transform>();
 
@@ -182,7 +196,7 @@ public class PlayerSkillState : PlayerState
 
     //    for (int i = 0; i < enemyTransforms.Count; i++)
     //    {
-      
+
     //        float angle = i * angleStep;
     //        Vector3 targetPosition = targetCenter + Quaternion.Euler(0, angle, 0) * Vector3.forward * distanceBetweenEnemies;
 
@@ -202,10 +216,10 @@ public class PlayerSkillState : PlayerState
 
     //        Vector3 enemyPosition = enemy.transform.position;
 
-   
+
     //        Vector3 targetPosition = transform.position + playerController.CurDirecVector * 2f; 
 
-        
+
     //        StartCoroutine(MoveEnemyToTarget(enemy.transform, targetPosition));
     //    }
     //}
@@ -228,4 +242,30 @@ public class PlayerSkillState : PlayerState
 
     //    enemy.position = targetPosition;
     //}
+
+    #endregion
+  
 }
+
+#region //念のためswitch処理を残す
+//switch (playerModeManager.Mode)
+//{
+//    case PlayerMode.None:
+//        playerController.SkillManager.UseSkill(PlayerSkill.Sword);
+//        break;
+//    case PlayerMode.Sword:
+//        playerController.SkillManager.UseSkill(PlayerSkill.Sword);
+//        break;
+//    case PlayerMode.Hammer:
+//        playerController.SkillManager.UseSkill(PlayerSkill.Hammer);
+//        break;
+//    case PlayerMode.Spear:
+//        playerController.SkillManager.UseSkill(PlayerSkill.Spear);
+//        break;
+//    case PlayerMode.Gauntlet:
+//        playerController.SkillManager.UseSkill(PlayerSkill.Gauntlet);
+//        break;
+//    default:
+//        break;
+//}
+#endregion

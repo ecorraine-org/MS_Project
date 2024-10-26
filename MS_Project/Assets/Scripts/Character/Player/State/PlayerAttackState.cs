@@ -27,6 +27,8 @@ public class PlayerAttackState : PlayerState
         //方向変更
         playerController.SetEightDirection();
 
+       
+
         switch (playerModeManager.Mode)
         {
             case PlayerMode.None:

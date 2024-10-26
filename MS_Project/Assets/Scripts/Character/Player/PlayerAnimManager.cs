@@ -13,9 +13,29 @@ public class PlayerAnimManager : MonoBehaviour
     public float startTime;
 
     public float testTime;
+
+    //アニメーション終了したか
+    private bool isAnimEnd = false;
+
     public void Init(PlayerController _playerController)
     {
         playerController = _playerController;
+    }
+
+    /// <summary>
+    /// ステート遷移時のリセット処理
+    /// </summary>
+    public void Reset()
+    {
+        isAnimEnd = false;
+    }
+
+    /// <summary>
+    /// アニメーション終了フラグ設定
+    /// </summary>
+    void EndAnim()
+    {
+        isAnimEnd = true;
     }
 
     /// <summary>
@@ -26,7 +46,6 @@ public class PlayerAnimManager : MonoBehaviour
         AttackColliderManager attackCollider = playerController.AttackCollider;
 
         attackCollider.SetHit(true);
-
     }
 
     /// <summary>
@@ -64,5 +83,11 @@ public class PlayerAnimManager : MonoBehaviour
         PlayerSkillManager skillManager = playerController.SkillManager;
 
         skillManager.DashHandler.EndDash();
+    }
+
+    public bool IsAnimEnd
+    {
+        get => this.isAnimEnd;
+        // set { this.dashDirec = value; }
     }
 }
