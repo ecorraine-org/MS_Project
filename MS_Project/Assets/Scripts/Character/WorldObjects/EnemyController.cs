@@ -116,8 +116,8 @@ public class EnemyController : ObjectController, IHit
             rb.velocity = MovementInput * status.MoveSpeed;
         }
         else
-        {
-            rb.velocity = Vector3.zero;
+        {//一旦消してる速度リセ
+            //rb.velocity = Vector3.zero;
         }
     }
 

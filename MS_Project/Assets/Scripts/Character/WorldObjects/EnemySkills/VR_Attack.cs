@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class VR_Attack : EnemySkill
 {
-    //前にツッコむ
+    [SerializeField, Header("突進スピード")]
+    public float bushvalue = 12.0f; // 前にツッコむスピード
+
     public override void SkillAttack()
     {
-        Vector3 movement = transform.forward * 2.0f * Time.deltaTime;
-        rb.MovePosition(rb.position + movement);
+    }
+
+    //前にツッコむ
+    public void Bush()
+    {
+        //Vector3 movement = transform.forward * 2.0f * Time.deltaTime;
+        //rb.MovePosition(rb.position + movement);
+        rb.AddForce(transform.forward * bushvalue, ForceMode.Impulse);
     }
 }
