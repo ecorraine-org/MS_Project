@@ -188,6 +188,71 @@ public class PlayerStateManager : MonoBehaviour
     }
 
     ///<summary>
+    ///攻撃状態チェック
+    ///</summary>
+    public bool CheckAttack()
+    {
+        //ボタン入力
+        bool isAttack = playerController.InputManager.GetAttackTrigger();
+        if (isAttack)
+        {
+            TransitionState(StateType.Attack);
+            return true;
+        }
+
+        return false;
+    }
+
+    ///<summary>
+    ///スキル状態チェック
+    ///</summary>
+    public bool CheckSkill()
+    {
+        //ボタン入力
+        bool isSkill = playerController.InputManager.GetSkillTrigger();
+        PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
+        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0
+           && playerController.SkillManager.HpCost(skill))
+
+        {
+            TransitionState(StateType.Skill);
+            return true;
+        }
+
+        return false;
+    }
+
+    ///<summary>
+    ///捕食状態チェック
+    ///</summary>
+    public bool CheckEat()
+    {
+        //ボタン入力
+        bool isEat = playerController.InputManager.GetEatTrigger();
+
+        //フィニッシュ
+        if (isEat && playerController.DetectEnemy.CheckKillableEnemy())
+        {
+            TransitionState(StateType.FinishSkill);
+            return true;
+        }
+
+        //捕食
+        if (isEat
+          && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0
+         || playerController.StatusManager.IsFrenzy))
+        {
+            TransitionState(StateType.Eat);
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+    ///<summary>
     ///被ダメージ状態チェック
     ///</summary>
     public bool CheckHit()

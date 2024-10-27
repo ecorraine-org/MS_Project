@@ -17,22 +17,10 @@ public class PlayerDodgeState : PlayerState
     public override void Tick()
     {
         //攻撃へ遷移
-        bool isAttack = inputManager.GetAttackTrigger();
-        if (isAttack)
-        {
-            playerController.StateManager.TransitionState(StateType.Attack);
-            return;
-        }
+        if (playerStateManager.CheckAttack()) return;
 
         //捕食へ遷移
-        bool isEat = inputManager.GetEatTrigger();
-        if (isEat
-            && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0
-            || playerController.StatusManager.IsFrenzy))
-        {
-            playerController.StateManager.TransitionState(StateType.Eat);
-            return;
-        }
+        if (playerStateManager.CheckEat()) return;
 
         //スキルへ遷移
         bool isSkill = inputManager.GetSkillTrigger();

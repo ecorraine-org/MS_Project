@@ -24,6 +24,9 @@ public class PlayerEatState : PlayerState
         base.Init(_playerController);
         Debug.Log("捕食ステート");
 
+        //方向変更
+        playerController.SetEightDirection();
+
         //入力方向取得
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
 
@@ -40,8 +43,6 @@ public class PlayerEatState : PlayerState
             playerController.SkillManager.UseSkill(PlayerSkill.Eat);
         }
        
-     
-        //spriteAnim.Play("Eat");
     }
 
     public override void Tick()
