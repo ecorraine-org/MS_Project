@@ -20,6 +20,13 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, Header("今のスキルのクールタイム")]
     float curSkillCoolTime;
 
+    //攻撃をキャンセルし、コンボできるかどうか
+    [SerializeField, Header("コンボできるか")]
+    bool canCombo=false;
+
+    //当たり判定可能かどうか
+    bool canHit = false;
+
     [SerializeField, Header("弾発射装置")]
     BulletLauncher bulletLauncher;
 
@@ -75,10 +82,10 @@ public class PlayerSkillManager : MonoBehaviour
     /// </summary>
     public void UseSkill(PlayerSkill _skillType)
     {
-        Debug.Log($"{_skillType}クールタイム中");//test
+        //  Debug.Log($"{_skillType}クールタイム中");//test
         if (coolTimers.ContainsKey(_skillType) && coolTimers[_skillType] <= 0f)
         {
-            Debug.Log($"{_skillType}発動");//test
+            // Debug.Log($"{_skillType}発動");//test
 
             //スキル発動
             ExecuteSkill(_skillType);
@@ -153,6 +160,8 @@ public class PlayerSkillManager : MonoBehaviour
     public void Reset()
     {
         if (dash.IsDashing) dash.EndDash();
+
+        canCombo = false;
     }
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
@@ -182,18 +191,15 @@ public class PlayerSkillManager : MonoBehaviour
         dash.Speed = skillData.dicSkill[PlayerSkill.Sword].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Sword].dashDuration;
 
-        Debug.Log("Sword skill executed!");
-
-        bulletLauncher.SpriteFire(playerController.SpriteRenderer);
     }
 
     /// <summary>
     /// 真空連斬
     /// </summary>
-    //public void LaunchWindBlade()
-    //{
-    
-    //}
+    public void LaunchWindBlade()
+    {
+        bulletLauncher.SpriteFire(playerController.SpriteRenderer);
+    }
 
     public void ExecuteHammerSkill()
     {
@@ -308,6 +314,14 @@ public class PlayerSkillManager : MonoBehaviour
         get => this.skillData;
         // set { this.dashDirec = value; }
     }
+
+    public bool CanCombo
+    {
+        get => this.canCombo;
+         set { this.canCombo = value; }
+    }
+
+
 }
 
 

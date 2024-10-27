@@ -29,6 +29,8 @@ public class Bullet : MonoBehaviour
     public virtual void Init()
     {
         InitialPosition = transform.position;
+
+        attackCollider.CanHit = true;
     }
 
     private void Update()
