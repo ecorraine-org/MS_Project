@@ -60,17 +60,13 @@ public class PlayerAttackState : PlayerState
         if (playerStateManager.CheckDodge()) return;
 
         //ダメージチェック
-        playerStateManager.CheckHit();
+        if (playerStateManager.CheckHit()) return;
 
         //スキルへ遷移
-        bool isSkill = inputManager.GetSkillTrigger();
-        PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
-        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0
-            && playerController.SkillManager.HpCost(skill))
-        {
-            playerController.StateManager.TransitionState(StateType.Skill);
-            return;
-        }
+        if (playerStateManager.CheckSkill()) return;
+
+        //捕食へ遷移
+        if (playerStateManager.CheckEat()) return;
 
         Attack();
 

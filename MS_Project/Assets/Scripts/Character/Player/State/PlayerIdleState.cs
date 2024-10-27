@@ -20,45 +20,17 @@ public class PlayerIdleState : PlayerState
 
     public override void Tick()
     {
-      
-
         //ダメージチェック
-        playerController.StateManager.CheckHit();
+        if (playerController.StateManager.CheckHit()) return;
 
         //攻撃へ遷移
-        bool isAttack = inputManager.GetAttackTrigger();
-        if (isAttack)
-        {
-            playerController.StateManager.TransitionState(StateType.Attack);
-            return;
-        }
+        if (playerStateManager.CheckAttack()) return;
 
         //捕食へ遷移
-        bool isEat = inputManager.GetEatTrigger();
-        //フィニッシュ
-        if (isEat&& playerController.DetectEnemy.CheckKillableEnemy())
-        {
-            playerController.StateManager.TransitionState(StateType.FinishSkill);
-            return;
-        }
-
-        if (isEat
-              && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0
-              || playerController.StatusManager.IsFrenzy))
-        {
-            playerController.StateManager.TransitionState(StateType.Eat);
-            return;
-        }
-
+        if (playerStateManager.CheckEat()) return;
+ 
         //スキルへ遷移
-        bool isSkill = inputManager.GetSkillTrigger();
-        PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
-        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0
-            && playerController.SkillManager.HpCost(skill))
-        {
-            playerController.StateManager.TransitionState(StateType.Skill);
-            return;
-        }
+        if (playerStateManager.CheckSkill()) return;
 
         //回避へ遷移
         if (playerStateManager.CheckDodge()) return;

@@ -35,7 +35,9 @@ public class PlayerSkillState : PlayerState
         defaultAttackSize = attackSize;
 
         base.Init(_playerController);
-        Debug.Log("スキルステート");
+
+        //方向変更
+        playerController.SetEightDirection();
 
         //スキルを発動する
         playerController.SkillManager.UseSkill((PlayerSkill)playerModeManager.Mode);
@@ -55,8 +57,11 @@ public class PlayerSkillState : PlayerState
 
     public override void Tick()
     {
-      //  bool canCharge = playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].canCharge;
-       // bool isCharging = playerSkillManager.DicIsCharge[(PlayerSkill)playerModeManager.Mode];
+        //捕食へ遷移
+        if (playerStateManager.CheckEat()) return;
+
+        //  bool canCharge = playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].canCharge;
+        // bool isCharging = playerSkillManager.DicIsCharge[(PlayerSkill)playerModeManager.Mode];
 
         AnimatorStateInfo stateInfo = spriteAnim.GetCurrentAnimatorStateInfo(0);
 
