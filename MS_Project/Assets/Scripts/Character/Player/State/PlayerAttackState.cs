@@ -32,19 +32,19 @@ public class PlayerAttackState : PlayerState
         switch (playerModeManager.Mode)
         {
             case PlayerMode.None:
-                spriteAnim.Play("Attack");
+                spriteAnim.Play("Attack",0,0f);
                 break;
             case PlayerMode.Sword:
-                spriteAnim.Play("Attack");
+                spriteAnim.Play("Attack", 0, 0f);
                 break;
             case PlayerMode.Hammer:
-                spriteAnim.Play("HammerAttack");
+                spriteAnim.Play("HammerAttack", 0, 0f);
                 break;
             case PlayerMode.Spear:
-                spriteAnim.Play("SpearAttack");
+                spriteAnim.Play("SpearAttack", 0, 0f);
                 break;
             case PlayerMode.Gauntlet:
-                spriteAnim.Play("GauntletAttack");
+                spriteAnim.Play("GauntletAttack", 0, 0f);
                 break;
             default:
                 break;
@@ -56,6 +56,14 @@ public class PlayerAttackState : PlayerState
 
     public override void Tick()
     {
+        //自身へ遷移
+        if ( playerSkillManager.CanCombo && playerStateManager.CheckAttack())
+        {
+            playerSkillManager.CanCombo = false;
+            return;
+        }
+           
+
         //回避へ遷移
         if (playerStateManager.CheckDodge()) return;
 

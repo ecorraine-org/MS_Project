@@ -39,6 +39,25 @@ public class PlayerAnimManager : MonoBehaviour
     }
 
     /// <summary>
+    /// 弾を発射、真空連斬
+    /// </summary>
+    void LaunchWindBlade()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+        skillManager.LaunchWindBlade();
+    }
+
+    /// <summary>
+    /// 連撃フレーム
+    /// </summary>
+    void EnableCombo()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+        skillManager.CanCombo=true;
+    }
+
+
+    /// <summary>
     /// 攻撃可能設定
     /// </summary>
     void EnableHit()

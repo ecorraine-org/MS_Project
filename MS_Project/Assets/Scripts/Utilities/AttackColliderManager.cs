@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+///</note>
+///初期処理:canHitを有効する必要がある
+///リセット処理する必要がある
+///</note>
 public class AttackColliderManager : MonoBehaviour
 {
     // 当たり判定を行う際に取得されるコライダーの配列
@@ -20,16 +25,24 @@ public class AttackColliderManager : MonoBehaviour
     bool hasCollided=false;
 
     //当たり判定可能かどうか
-    bool canHit = true;
+    bool canHit = false;
 
 
 
     private void Awake()
     {
         //1. IContainerBuilderを使用して、コンポーネントを取得する
-        // いったんコメントアウト
 
         _cameraBasedHitCorrection = GetComponent<CameraBasedHitCorrection>();
+    }
+
+    public void Reset()
+    {
+        canHit = false;
+
+        // 判定終了後にリストをクリア
+        hitObjects.Clear();
+        hitColliders=new Collider[0];
     }
 
     /// <summary>
@@ -60,6 +73,8 @@ public class AttackColliderManager : MonoBehaviour
             // デバッグ用の可視化
             //_cameraBasedHitCorrection.VisualizeCollider(hitCollider.transform.position, _size, isCorrected);
         }
+
+  
     }
 
     /// <summary>

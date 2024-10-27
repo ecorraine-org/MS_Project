@@ -36,9 +36,6 @@ public class PlayerSkillState : PlayerState
 
         base.Init(_playerController);
 
-        //方向変更
-        playerController.SetEightDirection();
-
         //スキルを発動する
         playerController.SkillManager.UseSkill((PlayerSkill)playerModeManager.Mode);
 
@@ -52,7 +49,7 @@ public class PlayerSkillState : PlayerState
             skillState = SkillState.Normal;
         }
 
-    
+
     }
 
     public override void Tick()

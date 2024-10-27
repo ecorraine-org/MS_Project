@@ -148,7 +148,7 @@ public class PlayerStateManager : MonoBehaviour
     ///</summary>
     private void ResetState()
     {
-        playerController.AttackCollider.CanHit = false;
+        playerController.AttackCollider.Reset();
 
         playerController.SpriteAnim.speed = 1f;
 
@@ -191,7 +191,7 @@ public class PlayerStateManager : MonoBehaviour
     ///攻撃状態チェック
     ///</summary>
     public bool CheckAttack()
-    {
+    {    
         //ボタン入力
         bool isAttack = playerController.InputManager.GetAttackTrigger();
         if (isAttack)
@@ -231,11 +231,11 @@ public class PlayerStateManager : MonoBehaviour
         bool isEat = playerController.InputManager.GetEatTrigger();
 
         //フィニッシュ
-        if (isEat && playerController.DetectEnemy.CheckKillableEnemy())
-        {
-            TransitionState(StateType.FinishSkill);
-            return true;
-        }
+        //if (isEat && playerController.DetectEnemy.CheckKillableEnemy())
+        //{
+        //    TransitionState(StateType.FinishSkill);
+        //    return true;
+        //}
 
         //捕食
         if (isEat

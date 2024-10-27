@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerEatState : PlayerState
 {
+    //[SerializeField, Header("アタックコライダーマネージャー")]
+   // AttackColliderManager attackCollider;
+
     //捕食test
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     UnityEngine.Vector3 attackAreaPos;
@@ -22,7 +25,7 @@ public class PlayerEatState : PlayerState
         SetIsPerformDamage(true);
 
         base.Init(_playerController);
-        Debug.Log("捕食ステート");
+       // Debug.Log("捕食ステート");
 
         //方向変更
         playerController.SetEightDirection();
@@ -71,7 +74,7 @@ public class PlayerEatState : PlayerState
 
     public override void Exit()
     {
-
+       // attackCollider.Reset();
     }
 
     public void Attack()
@@ -85,7 +88,7 @@ public class PlayerEatState : PlayerState
         attackAreaPos += offsetPos;
 
         //コライダーの検出
-        playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
+       playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
 
         //敵との当たり判定
         playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, 1.0f, enemyLayer,false);

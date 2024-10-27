@@ -293,8 +293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34927aa32eba2c8469dae66aff3e8515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSize: {x: 2.5, y: 2, z: 2}
-  offsetPos: {x: 1.5, y: 1, z: 0}
+  attackSize: {x: 2.5, y: 3, z: 2}
+  offsetPos: {x: 1.5, y: 2, z: 0.5}
   attackDamage: 3
   onomatoLayer:
     serializedVersion: 2
@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c284bde37da7c8479028bad0e88bd1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 1
+  mode: 4
 --- !u!1 &5757435390140318096
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,6 +880,7 @@ MonoBehaviour:
   dash: {fileID: 433902212357176194}
   skillData: {fileID: 11400000, guid: 63ba82a4e258c7144a51fb35980ba7a5, type: 2}
   curSkillCoolTime: 0
+  canCombo: 0
   bulletLauncher: {fileID: 6095909578243480502}
 --- !u!114 &433902212357176194
 MonoBehaviour:
