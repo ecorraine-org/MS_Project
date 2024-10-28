@@ -25,12 +25,16 @@ public class EnemyController : ObjectController, IHit
     private CapsuleCollider capsuleCollider;
     protected Rigidbody rb;
 
+    private GameObject spawnPool;
+
     public override void Awake()
     {
         base.Awake();
 
         capsuleCollider = this.GetComponent<CapsuleCollider>();
         rb = this.GetComponent<Rigidbody>();
+
+        spawnPool = GameObject.FindGameObjectWithTag("EnemyCollector").gameObject;
     }
 
     public override void Start()
@@ -173,7 +177,12 @@ public class EnemyController : ObjectController, IHit
             player.GetComponent<PlayerController>().StatusManager.TakeDamage(-5);
 
             //殺す
-            //Destroy(this.gameObject);
+            spawnPool.GetComponent<EnemySpawner>().DespawnEnemy(this.gameObject);
+        }
+
+        if (status.Health <= 0)
+        {
+            spawnPool.GetComponent<EnemySpawner>().DespawnEnemy(this.gameObject);
         }
     }
 

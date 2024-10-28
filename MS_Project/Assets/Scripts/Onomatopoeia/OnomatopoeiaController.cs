@@ -41,7 +41,7 @@ public class OnomatopoeiaController : MonoBehaviour
         onomatoManager = this.gameObject.GetComponent<OnomatoManager>();
 
         objOnomatopoeia = this.gameObject;
-        objOnomatopoeia.transform.rotation = new Quaternion(0, 0, -90, 0);
+        //objOnomatopoeia.transform.rotation = new Quaternion(0, 0, -90, 0);
     }
 
     // Start is called before the first frame update
