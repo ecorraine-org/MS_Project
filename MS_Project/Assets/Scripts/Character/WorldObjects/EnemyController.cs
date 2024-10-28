@@ -21,7 +21,7 @@ public class EnemyController : ObjectController, IHit
 
     public Vector3 MovementInput { get; set; }
 
-    private Animator animator;
+    public Animator animator;
     private CapsuleCollider capsuleCollider;
     protected Rigidbody rb;
 
@@ -202,6 +202,7 @@ public class EnemyController : ObjectController, IHit
         get => this.isKillable;
         //set { this.isKillable = value; }
     }
+
 
     #region Gizmos
     private void OnDrawGizmos()
