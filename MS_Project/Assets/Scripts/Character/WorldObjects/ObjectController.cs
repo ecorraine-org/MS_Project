@@ -6,21 +6,21 @@ using UnityEngine.Events;
 
 public enum ObjectStateType
 {
-    [InspectorName("待機")]Idle,
-    [InspectorName("移動")]Walk,
-    [InspectorName("攻撃")]Attack,
-    [InspectorName("被ダメージ")]Damaged,
-    [InspectorName("破棄")]Destroyed
+    [InspectorName("待機")] Idle,
+    [InspectorName("移動")] Walk,
+    [InspectorName("攻撃")] Attack,
+    [InspectorName("被ダメージ")] Damaged,
+    [InspectorName("破棄")] Destroyed
 }
 
 public abstract class ObjectController : MonoBehaviour
 {
     [HideInInspector]
     protected Transform player;
-    
+
     [ReadOnly, Tooltip("生成されたオブジェクト")]
     public GameObject gameObj;
-    
+
     [HideInInspector, Tooltip("生成するオノマトペオブジェクト")]
     protected GameObject onomatoObj;
 
@@ -31,7 +31,7 @@ public abstract class ObjectController : MonoBehaviour
     public virtual void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if(!this.transform.GetChild(0).gameObject.TryGetComponent<ObjectStatusHandler>(out status))
+        if (!this.transform.GetChild(0).gameObject.TryGetComponent<ObjectStatusHandler>(out status))
             CustomLogger.LogWarning(status.GetType(), status.name);
     }
 
@@ -45,6 +45,12 @@ public abstract class ObjectController : MonoBehaviour
         GameObject onomatoCollector = GameObject.FindGameObjectWithTag("OnomatopoeiaCollector").gameObject;
         onomatoObj.GetComponent<OnomatopoeiaController>().data = status.StatusData.onomatoData;
         onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = status.StatusData.onomatoData.wordToUse;
-        GameObject instance = Instantiate(onomatoObj, this.transform.position, Quaternion.identity, onomatoCollector.transform);
+
+        Transform mainCamera = Camera.main.transform;
+        // カメラと同じ角度
+        Quaternion newRotation = mainCamera.rotation;
+        newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
+
+        GameObject instance = Instantiate(onomatoObj, this.transform.position, newRotation, onomatoCollector.transform);
     }
 }

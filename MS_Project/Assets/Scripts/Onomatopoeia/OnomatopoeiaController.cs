@@ -41,7 +41,6 @@ public class OnomatopoeiaController : MonoBehaviour
         onomatoManager = this.gameObject.GetComponent<OnomatoManager>();
 
         objOnomatopoeia = this.gameObject;
-        //objOnomatopoeia.transform.rotation = new Quaternion(0, 0, -90, 0);
     }
 
     // Start is called before the first frame update
@@ -56,8 +55,6 @@ public class OnomatopoeiaController : MonoBehaviour
 
     void Update()
     {
-        FaceScreen(true);
-
         if (!isAlive)
         {
             Destroy(objOnomatopoeia);
@@ -107,17 +104,6 @@ public class OnomatopoeiaController : MonoBehaviour
     {
         // 速度に乱数
         return baseVelocity + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-    }
-
-    void FaceScreen(bool _value)
-    {
-        if (_value)
-        {
-            Vector3 NewDirection = objOnomatopoeia.transform.position - Camera.main.transform.position;
-            // カメラと同じ方向に向く
-            objOnomatopoeia.transform.LookAt(NewDirection);
-            objOnomatopoeia.transform.Rotate(0, 0, -90);
-        }
     }
 
     public OnomatopoeiaData Data
