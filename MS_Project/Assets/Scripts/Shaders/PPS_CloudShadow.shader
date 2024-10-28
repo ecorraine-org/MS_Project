@@ -19,7 +19,7 @@ Shader "Hidden/CloudShadow"
             ZWrite Off
             ZTest Always
 
-            CGPROGRAM:
+            CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
@@ -58,7 +58,7 @@ Shader "Hidden/CloudShadow"
                 shadow = lerp(1, shadow, _ShadowStrength);
                 return fixed4(shadow, shadow, shadow, 1);
             }
-            CGPROGRAM
+            ENDCG
         }
     }
 }
