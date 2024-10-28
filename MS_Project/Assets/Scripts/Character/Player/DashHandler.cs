@@ -72,7 +72,7 @@ public class DashHandler : MonoBehaviour
             if (!blockDetector.IsColliding && canThrough)
             {
                 Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
-                Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), true);
+               // Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), true);
             }
 
             blockDetector.IsEnabled = false;
@@ -152,7 +152,7 @@ public class DashHandler : MonoBehaviour
         blockDetector.IsEnabled = true;
         isDashing = false;
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), false);
+      //  Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), false);
 
         Debug.Log(dashCoroutine + " !!!DASH END!!!!");
     }
