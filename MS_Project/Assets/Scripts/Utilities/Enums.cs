@@ -25,7 +25,7 @@ public enum PlayerMode
     [InspectorName("剣")] Sword,
     [InspectorName("ハンマー")] Hammer,
     [InspectorName("スピア")] Spear,
-    [InspectorName("ガントレット")] Gauntlet,
+    [InspectorName("メリケンサック")] Gauntlet,
 }
 
 /// <summary>

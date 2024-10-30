@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KN_Attack : EnemySkill
+public class KN_Attack : EnemyAction
 {
     public override void SkillAttack()
     {

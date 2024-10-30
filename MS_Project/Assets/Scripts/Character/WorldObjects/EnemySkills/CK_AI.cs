@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CK_AI : EnemySkill
+public class CK_AI : EnemyAction
 {
     //前にツッコむ
     public override void SkillAttack()

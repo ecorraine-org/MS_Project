@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bedb8d535165f4249b4f9703376e7e39, type: 3}
       propertyPath: m_Name
-      value: Knight
+      value: Knight_1.0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -113,9 +113,9 @@ CapsuleCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1
-  m_Height: 2.5
+  m_Height: 2.75
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.3, z: 0}
 --- !u!114 &3941590831300728245
 MonoBehaviour:
   m_ObjectHideFlags: 0
