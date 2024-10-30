@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemySkill : MonoBehaviour
+public abstract class EnemyAction : MonoBehaviour
 {
+    protected ObjectStatusHandler enemyStatus;
     protected Animator animator;
     protected Transform player;
     protected Rigidbody rb;
@@ -16,6 +17,11 @@ public abstract class EnemySkill : MonoBehaviour
         distanceToPlayer = Vector3.Distance(player.position, transform.position);
     }
 
+    public ObjectStatusHandler EnemyStatus
+    {
+        get { return enemyStatus; }
+        set { enemyStatus = value; }
+    }
     public void SetAnimator(Animator _animator)
     {
         this.animator = _animator;

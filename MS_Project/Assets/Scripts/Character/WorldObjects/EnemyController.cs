@@ -17,7 +17,7 @@ public class EnemyController : ObjectController, IHit
     public UnityEvent OnDamaged;
     public UnityEvent OnAttack;
 
-    private EnemySkill enemySkill;
+    private EnemyAction enemySkill;
 
     public Vector3 MovementInput { get; set; }
 
@@ -49,8 +49,9 @@ public class EnemyController : ObjectController, IHit
         capsuleCollider.height = collider.height;
         capsuleCollider.radius = collider.radius;
 
-        if (gameObj.TryGetComponent<EnemySkill>(out enemySkill))
+        if (gameObj.TryGetComponent<EnemyAction>(out enemySkill))
         {
+            enemySkill.EnemyStatus = status;
             enemySkill.SetAnimator(animator);
             enemySkill.SetPlayer(player);
             enemySkill.SetRigidbody(rb);
