@@ -7,8 +7,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour, IHit, IAttack
 {
-    // インプットシングルトン
+    //シングルトン
     protected PlayerInputManager inputManager;
+    BattleManager battleManager;
 
     [SerializeField, Header("ステータスマネージャー")]
     PlayerStatusManager statusManager;
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour, IHit, IAttack
     void Awake()
     {
         inputManager = PlayerInputManager.Instance;
+        battleManager = BattleManager.Instance;
 
         thisRigidbody = GetComponent<Rigidbody>();
 
@@ -247,11 +249,13 @@ public class PlayerController : MonoBehaviour, IHit, IAttack
 
     public void Attack(Collider _hitCollider)
     {
+   
         if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            // Debug.Log("ヒットストップ");
-            // ヒットストップ
-            StartCoroutine(HitStopCoroutine(0.1f, 0.1f));
+            // ヒットストップ          
+            StartCoroutine(HitStopCoroutine(battleManager.GetPlayerHitReaction().slowSpeed,
+                battleManager.GetPlayerHitReaction().stopDuration));
+     
         }
     }
 
@@ -304,6 +308,11 @@ public class PlayerController : MonoBehaviour, IHit, IAttack
     public PlayerInputManager InputManager
     {
         get => this.inputManager;
+    }
+
+    public BattleManager BattleManager
+    {
+        get => this.battleManager;
     }
 
     public Animator SpriteAnim
