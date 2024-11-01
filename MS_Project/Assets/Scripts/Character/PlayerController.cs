@@ -252,25 +252,12 @@ public class PlayerController : MonoBehaviour, IHit, IAttack
    
         if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
+            HitReaction hitReaction= battleManager.GetPlayerHitReaction();
             // ヒットストップ          
-            StartCoroutine(HitStopCoroutine(battleManager.GetPlayerHitReaction().slowSpeed,
-                battleManager.GetPlayerHitReaction().stopDuration));
-     
+            battleManager.StartHitStop(spriteAnim);
+
         }
     }
-
-    private IEnumerator HitStopCoroutine(float _slowSpeed, float _duration)
-    {
-        // 流す速度を遅くする
-        spriteAnim.speed = _slowSpeed;
-
-        yield return new WaitForSeconds(_duration);
-
-        // 流す速度を戻す
-        spriteAnim.speed = 1f;
-    }
-
-
 
     #region Getter&Setter 
 

@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class EnemyController : ObjectController, IHit
 {
+    //シングルトン
+    BattleManager battleManager;
+
     [SerializeField, Tooltip("攻撃しているか？")]
     private bool canAttack = true;
 
@@ -29,6 +32,8 @@ public class EnemyController : ObjectController, IHit
     public override void Awake()
     {
         base.Awake();
+
+        battleManager = BattleManager.Instance;
 
         capsuleCollider = this.GetComponent<CapsuleCollider>();
         rb = this.GetComponent<Rigidbody>();
@@ -165,9 +170,9 @@ public class EnemyController : ObjectController, IHit
 
     public void Hit(bool _canOneHitKill)
     {
-        // ヒットストップ
-        StartCoroutine(HitStopCoroutine(0.1f, 0.1f));
-        
+        HitReaction hitReaction = battleManager.GetPlayerHitReaction();
+        // ヒットストップ          
+        battleManager.StartHitStop(animator);
 
         if (isKillable && _canOneHitKill)
         {
@@ -182,17 +187,6 @@ public class EnemyController : ObjectController, IHit
         {
             spawnPool.GetComponent<EnemySpawner>().DespawnEnemy(this.gameObject);
         }
-    }
-
-    private IEnumerator HitStopCoroutine(float _slowSpeed, float _duration)
-    {
-        // 流す速度を遅くする
-        animator.speed = _slowSpeed;
-
-        yield return new WaitForSeconds(_duration);
-
-        // 流す速度を戻す
-        animator.speed = 1f;
     }
 
     public bool IsKillable
