@@ -6,6 +6,9 @@ public class UF_Fluffy : EnemyAction
 {
     bool nogravity = true;
 
+    public override void Move()
+    {
+    }
 
     public override void SkillAttack()
     {

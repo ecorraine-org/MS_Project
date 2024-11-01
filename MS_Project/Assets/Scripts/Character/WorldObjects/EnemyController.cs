@@ -16,14 +16,13 @@ public class EnemyController : ObjectController, IHit
     public UnityEvent<Vector3> OnMovementInput;
     public UnityEvent OnDamaged;
     public UnityEvent OnAttack;
+    public Vector3 MovementInput { get; set; }
 
     private EnemyAction enemySkill;
 
-    public Vector3 MovementInput { get; set; }
-
-    public Animator animator;
+    private Animator animator;
     private CapsuleCollider capsuleCollider;
-    protected Rigidbody rb;
+    private Rigidbody rb;
 
     private GameObject spawnPool;
 
@@ -78,7 +77,6 @@ public class EnemyController : ObjectController, IHit
         }
 
         float distance = Vector3.Distance(player.position, transform.position);
-
         if (distance < status.StatusData.chaseDistance)
         {
                 Vector3 direction = player.position - transform.position;
@@ -122,8 +120,7 @@ public class EnemyController : ObjectController, IHit
         }
         else
         {
-            //一旦消してる速度リセ
-            //rb.velocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
         }
     }
 

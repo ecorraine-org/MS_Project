@@ -28,8 +28,6 @@ public abstract class PlayerState : MonoBehaviour
 
     protected SpriteRenderer spriteRenderer;
 
-    protected Transform mainCamera;
-
     private bool isPerformDamage = false;
 
     /// <summary>
@@ -57,8 +55,6 @@ public abstract class PlayerState : MonoBehaviour
         spriteAnim = playerController.SpriteAnim;
 
         spriteRenderer = playerController.SpriteRenderer;
-
-        mainCamera = playerController.MainCamera;
 
         DrawAsOverlay(isPerformDamage);
     }

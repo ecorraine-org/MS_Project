@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IHit,IAttack
+public class PlayerController : MonoBehaviour, IHit, IAttack
 {
     // インプットシングルトン
     protected PlayerInputManager inputManager;
@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
 
     Rigidbody thisRigidbody;
 
-   // public float jumpForce = 3;
+    // public float jumpForce = 3;
 
     public LayerMask terrainLayer;
     public Transform groundCheck;
@@ -44,12 +44,9 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
     // 
     private Transform sprite;
     private SpriteRenderer spriteRenderer;
-    [HideInInspector]public Material material;
+    [HideInInspector] public Material material;
     private Animator spriteAnim;
     private Animator playerFlip;
-
-    // 
-    private Transform mainCamera;
 
     //入力方向
     UnityEngine.Vector2 inputDirec;
@@ -58,7 +55,7 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
     Direction currentDirec = Direction.Left;
 
     //現在の向き(ベクトル)
-    UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1,0,0);
+    UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1, 0, 0);
 
     //ダメージ受けるかどうか
     bool isHit;
@@ -71,8 +68,6 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
         inputManager = PlayerInputManager.Instance;
 
         thisRigidbody = GetComponent<Rigidbody>();
-
-        mainCamera = GameObject.FindWithTag("MainCamera").gameObject.transform;
 
         terrainLayer = LayerMask.GetMask("Terrain");
 
@@ -88,8 +83,6 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
 
         spriteAnim = sprite.GetComponent<Animator>();
 
-       
-
         //依存性注入
         stateManager.Init(this);
         animManager.Init(this);
@@ -102,7 +95,6 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
 
     void Start()
     {
-
         groundCheck = gameObject.transform.GetChild(1).gameObject.transform;
         if (Debug.isDebugBuild)
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
@@ -110,7 +102,7 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
 
     private void FixedUpdate()
     {
-        sprite.transform.rotation = mainCamera.rotation;
+        sprite.transform.rotation = Camera.main.transform.rotation;
         /*
         Debug.Log("CurDirec "+curDirecVector);
 
@@ -210,7 +202,7 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
                 spriteAnim.Play("WalkRight");
                 break;
 
-            case Direction.UpRight:      
+            case Direction.UpRight:
                 spriteAnim.Play("WalkUpRight");
                 break;
 
@@ -250,14 +242,14 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
 
     public void Hit(bool _canOneHitKill)
     {
-       
+
     }
 
     public void Attack(Collider _hitCollider)
     {
         if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-           // Debug.Log("ヒットストップ");
+            // Debug.Log("ヒットストップ");
             // ヒットストップ
             StartCoroutine(HitStopCoroutine(0.1f, 0.1f));
         }
@@ -319,11 +311,6 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
         get => this.spriteAnim;
     }
 
-    public Transform MainCamera
-    {
-        get => this.mainCamera;
-    }
-
     public SpriteRenderer SpriteRenderer
     {
         get => this.spriteRenderer;
@@ -355,8 +342,6 @@ public class PlayerController : MonoBehaviour, IHit,IAttack
     {
         get => this.thisRigidbody;
     }
-
-
 
     #endregion
 }
