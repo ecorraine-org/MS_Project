@@ -85,6 +85,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6571312411927811951, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -5664944545079412126, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
+    - target: {fileID: 6571312411927811951, guid: 49c7d79426249c849bc20bb7d8db2db3, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 8ec20d8ba10ca3441a7a39b77376c402, type: 2}
@@ -167,7 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6079888a8537f944ad5d42c79a9cf9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
   bushvalue: 12
 --- !u!4 &1898475016891599549 stripped
 Transform:

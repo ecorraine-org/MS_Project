@@ -10,6 +10,7 @@ public abstract class EnemyAction : MonoBehaviour
     protected Rigidbody rb;
     protected float distanceToPlayer;
 
+    public abstract void Move();
     public abstract void SkillAttack();
 
     private void Start()

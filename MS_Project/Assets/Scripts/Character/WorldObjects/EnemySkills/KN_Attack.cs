@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class KN_Attack : EnemyAction
 {
+    public override void Move()
+    {
+    }
+
     public override void SkillAttack()
     {
 

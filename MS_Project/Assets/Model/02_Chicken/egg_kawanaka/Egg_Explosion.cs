@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Egg_Explosion : MonoBehaviour
 {
-    public GameObject impactEffect; // ƒGƒtƒFƒNƒgƒvƒŒƒnƒu
+    public GameObject impactEffect; // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ—ãƒ¬ãƒãƒ–
 
-    // OnTriggerEnter‚ÍƒgƒŠƒK[‚ÉN“ü‚µ‚½‚ÉŒÄ‚Î‚ê‚é
+    // OnTriggerEnterã¯ãƒˆãƒªã‚¬ãƒ¼ã«ä¾µå…¥ã—ãŸæ™‚ã«å‘¼ã°ã‚Œã‚‹
     private void OnTriggerEnter(Collider other)
     {
-        // Õ“Ë‚µ‚½ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚ğæ“¾
+        // è¡çªã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã‚’å–å¾—
         string tag = other.gameObject.tag;
 
-        // ƒ^ƒO‚ª"Ground"‚Ü‚½‚Í"Player"‚Ìê‡
+        // ã‚¿ã‚°ãŒ"Ground"ã¾ãŸã¯"Player"ã®å ´åˆ
         if (tag == "Ground" || tag == "Player")
         {
-            // ƒGƒtƒFƒNƒg‚ğ¶¬
+            // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
             Instantiate(impactEffect, transform.position, Quaternion.identity);
-            Debug.Log("ƒGƒtƒFƒNƒgÄ¶");
-            // Õ“Ë‚µ‚½‚ç’e‚ğÁ‚·
+            Debug.Log("ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå†ç”Ÿ");
+            // è¡çªã—ãŸã‚‰å¼¾ã‚’æ¶ˆã™
             Destroy(gameObject);
         }
 

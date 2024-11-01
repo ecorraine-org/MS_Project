@@ -35,6 +35,7 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         radius = this.GetComponent<SphereCollider>().radius;
+        center = this.transform.position + Vector3.up;
 
         enemyCollector = GameObject.FindGameObjectWithTag("EnemyCollector").gameObject;
     }
