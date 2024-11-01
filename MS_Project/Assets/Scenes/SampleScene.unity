@@ -193,7 +193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: elitePool.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: 'mobPool.Array.data[0]'
@@ -215,6 +215,10 @@ PrefabInstance:
       propertyPath: 'elitePool.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: 3402e0fff7f31a047b240c842b107bb4, type: 2}
+    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
+      propertyPath: 'elitePool.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3e34837074d001c42a47e3f4c84a3efa, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
