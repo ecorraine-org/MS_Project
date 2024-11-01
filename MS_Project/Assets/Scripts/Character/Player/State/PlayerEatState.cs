@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerEatState : PlayerState
 {
-    //[SerializeField, Header("アタックコライダーマネージャー")]
-   // AttackColliderManager attackCollider;
-
     //捕食test
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     UnityEngine.Vector3 attackAreaPos;

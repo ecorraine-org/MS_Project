@@ -22,6 +22,30 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
 
     }
 
+    /// <summary>
+    /// ヒットストップのコルーチンを開始
+    /// </summary>
+    public void StartHitStop(Animator _animator)
+    {
+        StartCoroutine(HitStopCoroutine(_animator, GetPlayerHitReaction().slowSpeed, GetPlayerHitReaction().stopDuration));
+    }
+
+    public void StartHitStop(Animator _animator, float _slowSpeed, float _duration)
+    {
+        StartCoroutine(HitStopCoroutine(_animator, _slowSpeed, _duration));
+    }
+
+    private IEnumerator HitStopCoroutine(Animator _animator, float _slowSpeed, float _duration)
+    {
+        // 流す速度を遅くする
+        _animator.speed = _slowSpeed;
+
+        yield return new WaitForSeconds(_duration);
+
+        // 流す速度を戻す
+        _animator.speed = 1f;
+    }
+
     public HitReaction GetPlayerHitReaction()
     {
         return playerHitData.dicHitReac[curPlayerMode];
@@ -31,7 +55,6 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
     public PlayerHitData PlayerHitData
     {
         get => this.playerHitData;
-      //  set { this.lStickVec3 = value; }
     }
 
     public PlayerMode CurPlayerMode
