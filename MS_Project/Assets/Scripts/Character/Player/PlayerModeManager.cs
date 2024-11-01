@@ -28,6 +28,8 @@ public class PlayerModeManager : MonoBehaviour
     {
         playerController = _playerController;
 
+        playerController.BattleManager.CurPlayerMode = mode;
+
      //   playerController.SkillManager.SetCurSkill(mode);
     }
 
@@ -36,8 +38,9 @@ public class PlayerModeManager : MonoBehaviour
     /// </summary>
     private void ModeChange(PlayerMode _mode)
     {
+        //モード設定
         mode = _mode;
-        Debug.Log("Manager: モードチェンジ処理" + mode);
+        playerController.BattleManager.CurPlayerMode = mode;
 
         //プレイヤーの体力を回復
         playerController.StatusManager.TakeDamage(-10);
