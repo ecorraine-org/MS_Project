@@ -9,6 +9,7 @@ public class PlayerAttackState : PlayerState
     UnityEngine.Vector3 attackAreaPos;
     public UnityEngine.Vector3 offsetPos;
     public float attackDamage;
+    public float FrenzyAttackDamage;
     public LayerMask enemyLayer;
     private CameraBasedHitCorrection _CameraBasedHitCorrection;
 
@@ -105,8 +106,12 @@ public class PlayerAttackState : PlayerState
 
         attackAreaPos += offsetPos;
 
+        //仮処理
+        float damage=0;
+        if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
+        else damage = attackDamage;
         //コライダーの検出
-        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, attackDamage, enemyLayer,false);
+        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, damage, enemyLayer,false);
 
     }
 

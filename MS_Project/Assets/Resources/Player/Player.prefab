@@ -561,6 +561,7 @@ MonoBehaviour:
   attackSize: {x: 2.5, y: 2, z: 0.5}
   offsetPos: {x: 1.5, y: 1, z: 0}
   attackDamage: 20
+  FrenzyAttackDamage: 100
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -1215,7 +1216,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSize: {x: 3, y: 2, z: 2}
   offsetPos: {x: 2, y: 1, z: 0}
-  attackDamage: 0
+  attackDamage: 20
+  FrenzyAttackDamage: 100
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
