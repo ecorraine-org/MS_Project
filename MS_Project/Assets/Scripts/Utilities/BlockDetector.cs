@@ -15,17 +15,11 @@ public class BlockDetector : MonoBehaviour
     [SerializeField, Header("自身との距離")]
     private float distance;
 
-    //[SerializeField, Header("自身の方向")]
-   // private Vector3 direc;
-
     [SerializeField, Header("コライダーを検出したか")]
     private bool isColliding = false;
 
     [SerializeField, Header("有効か")]
     private bool isEnabled = true;
-
-    //オブジェクトのTransform 
-    //private Transform owner;
 
     public void DetectUpdate(Transform _owner, Vector3 _direc)
     {
@@ -63,12 +57,6 @@ public class BlockDetector : MonoBehaviour
         get => this.distance;
         set { this.distance = value; }
     }
-
-    //public Vector3 Direc
-    //{
-    //    get => this.direc;
-    //    set { this.direc = value; }
-    //}
 
     /// <summary>
     /// 可視化処理
