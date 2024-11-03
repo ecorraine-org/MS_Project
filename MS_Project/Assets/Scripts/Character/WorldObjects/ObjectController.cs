@@ -12,6 +12,12 @@ public abstract class ObjectController : MonoBehaviour
     [ReadOnly, Tooltip("生成されたオブジェクト")]
     public GameObject gameObj;
 
+    [SerializeField, Tooltip("攻撃しているか？")]
+    private bool canAttack = true;
+
+    [SerializeField, Tooltip("攻撃されているか？")]
+    private bool isDamaged = false;
+
     [HideInInspector, Tooltip("生成するオノマトペオブジェクト")]
     protected GameObject onomatoObj;
 
@@ -43,5 +49,17 @@ public abstract class ObjectController : MonoBehaviour
         newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
 
         GameObject instance = Instantiate(onomatoObj, this.transform.position, newRotation, onomatoCollector.transform);
+    }
+
+    public bool CanAttack
+    {
+        get => canAttack;
+        set { canAttack = value; }
+    }
+
+    public bool IsDamaged
+    {
+        get => isDamaged;
+        set { isDamaged = value; }
     }
 }
