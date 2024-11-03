@@ -100,6 +100,7 @@ public class PlayerController : WorldObject
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
     }
 
+
     private void FixedUpdate()
     {
         sprite.transform.rotation = Camera.main.transform.rotation;
@@ -255,6 +256,14 @@ public class PlayerController : WorldObject
             battleManager.StartHitStop(spriteAnim);
 
         }
+    }
+
+    /// <summary>
+    /// 移動しようとする方向(Lスティック方向)を取得
+    /// </summary>
+    public override UnityEngine.Vector3 GetNextDirec()
+    {
+        return inputManager.GetLStick().normalized;
     }
 
     #region Getter&Setter 
