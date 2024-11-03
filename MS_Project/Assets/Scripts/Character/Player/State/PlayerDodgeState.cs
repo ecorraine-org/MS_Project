@@ -11,7 +11,9 @@ public class PlayerDodgeState : PlayerState
         base.Init(_playerController);
         Debug.Log("回避ステート");
 
-        playerSkillManager. ExecuteDodge(false);
+        //方向、画像反転設定
+        playerController.SetEightDirection();
+        playerSkillManager. ExecuteDodge(false, playerController.CurDirecVector);
     }
 
     public override void Tick()

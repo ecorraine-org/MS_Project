@@ -51,7 +51,7 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController = _playerController;
 
-        dash.Init(playerController, skillData);
+        dash.Init(playerController);
 
     }
 
@@ -172,6 +172,8 @@ public class PlayerSkillManager : MonoBehaviour
         dash.Speed = skillData.dicSkill[PlayerSkill.Dodge].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Dodge].dashDuration;
 
+        //向きによるアニメーション設定(反転するかどうか)
+       // playerController.SetEightDirection();
         dash.StartDash(_canThrough, _direc);
     }
 

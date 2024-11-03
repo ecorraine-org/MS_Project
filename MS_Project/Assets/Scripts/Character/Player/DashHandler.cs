@@ -16,9 +16,6 @@ public class DashHandler : MonoBehaviour
     //コルーチンの参照
     private Coroutine dashCoroutine;
 
-    //ステータスデータ
-    PlayerSkillData skillData;
-
     [SerializeField, Header("ダッシュ持続時間")]
     private float duration = 0.3f;
 
@@ -28,22 +25,18 @@ public class DashHandler : MonoBehaviour
     [SerializeField, Header("ダッシュ速度")]
     private float speed = 4.0f;
 
-
-
     [SerializeField, Header("ターゲットを貫通可能かどうか")]
     private bool canThrough = false;
 
     //ダッシュ方向
-    UnityEngine.Vector3 direc;
+    UnityEngine.Vector3 dashDirec;
 
     //ダッシュ中かどうか
     private bool isDashing = false;
 
-    public void Init(PlayerController _playerController, PlayerSkillData _skillData)
+    public void Init(PlayerController _playerController)
     {
         playerController = _playerController;
-
-        skillData = _skillData;
 
         blockDetector.Distance = speed * duration;
     }
@@ -60,6 +53,7 @@ public class DashHandler : MonoBehaviour
             blockDetector.Distance = speed * duration;
         }
 
+        //移動しようとする方向
         blockDetector.DetectUpdate(playerController.transform, playerController.InputManager.GetLStick());
     }
 
@@ -72,14 +66,14 @@ public class DashHandler : MonoBehaviour
             if (!blockDetector.IsColliding && canThrough)
             {
                 Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
-               // Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), true);
+
             }
 
             blockDetector.IsEnabled = false;
- 
+
 
             //一定距離を移動
-            playerController.RigidBody.MovePosition(playerController.RigidBody.position + direc.normalized * speed * Time.fixedDeltaTime);
+            playerController.RigidBody.MovePosition(playerController.RigidBody.position + dashDirec.normalized * speed * Time.fixedDeltaTime);
 
 
         }
@@ -89,42 +83,21 @@ public class DashHandler : MonoBehaviour
     /// 突進処理
     /// </summary>
     /// /// <param name="canThrough"> ターゲットを貫通可能かどうか </param>
-    public void StartDash(bool _canThrough, Vector3 _direc = default)
+    public void StartDash(bool _canThrough, Vector3 _direc)
     {
         canThrough = _canThrough;
 
-        //向きによるアニメーション設定(反転するかどうか)
-        playerController.SetEightDirection();
+        dashDirec = _direc;
 
-        if (_direc == default)
-        {
-            //引数なかったら、Lスティックの入力方向を使う
-            direc = playerController.InputManager.GetLStick();
-           // Debug.Log("direc"+ direc);
-            //Debug.Log("curDirecVector" + playerController.CurDirecVector);
+        startTime = Time.time;
 
-            //入力しない場合、向きをデフォルト方向にする
-            if (direc == Vector3.zero) direc = playerController.CurDirecVector;
-        }
-        else
-        {
-            direc = _direc;
-        }
+        //ダッシュ処理
+        if (duration != -1)
+            dashCoroutine = StartCoroutine(DashCoroutine());
 
-     
+        isDashing = true;
 
-        //入力をチェック
-        if (direc != UnityEngine.Vector3.zero)
-        {
-            startTime = Time.time;
 
-            //ダッシュ処理
-            if (duration != -1)
-                dashCoroutine = StartCoroutine(DashCoroutine());
-
-            isDashing = true;
-
-        }
     }
 
     public IEnumerator DashCoroutine()
@@ -152,9 +125,7 @@ public class DashHandler : MonoBehaviour
         blockDetector.IsEnabled = true;
         isDashing = false;
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
-      //  Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Onomatopoeia"), false);
 
-        Debug.Log(dashCoroutine + " !!!DASH END!!!!");
     }
 
     public float Duration
@@ -183,7 +154,7 @@ public class DashHandler : MonoBehaviour
 
     public Vector3 Direc
     {
-        get => this.direc;
-        set { this.direc = value; }
+        get => this.dashDirec;
+        set { this.dashDirec = value; }
     }
 }
