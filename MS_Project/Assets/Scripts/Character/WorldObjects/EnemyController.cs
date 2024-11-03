@@ -9,9 +9,6 @@ public class EnemyController : ObjectController, IHit
     //シングルトン
     BattleManager battleManager;
 
-    [SerializeField, Tooltip("攻撃しているか？")]
-    private bool canAttack = true;
-
     [SerializeField, Tooltip("ラストヒットできるかどうか")]
     protected bool isKillable = false;
 
@@ -131,7 +128,7 @@ public class EnemyController : ObjectController, IHit
 
     public void Attack()
     {
-        if (canAttack)
+        if (CanAttack)
         {
             UseSkill();
 
@@ -147,7 +144,7 @@ public class EnemyController : ObjectController, IHit
         if (enemySkill)
             enemySkill.SkillAttack();
 
-        canAttack = false;
+        CanAttack = false;
     }
 
     public void TakeDamage()
@@ -165,7 +162,7 @@ public class EnemyController : ObjectController, IHit
     IEnumerator AttackCoroutine()
     {
         yield return new WaitForSeconds(status.ActionCooldown);
-        canAttack = true;
+        CanAttack = true;
     }
 
     public void Hit(bool _canOneHitKill)
@@ -194,7 +191,6 @@ public class EnemyController : ObjectController, IHit
         get => this.isKillable;
         //set { this.isKillable = value; }
     }
-
 
     #region Gizmos
     private void OnDrawGizmos()

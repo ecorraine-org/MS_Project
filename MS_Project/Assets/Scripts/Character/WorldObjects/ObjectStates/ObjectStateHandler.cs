@@ -24,64 +24,44 @@ public class ObjectStateHandler : MonoBehaviour
     bool isAttacking;
 
     [SerializeField, Header("アイドル状態ビヘイビア")]
-    PlayerIdleState idleState;
-
-    [SerializeField, Header("スキル状態ビヘイビア")]
-    PlayerSkillState skillState;
-
-    [SerializeField, Header("回避状態ビヘイビア")]
-    PlayerDodgeState dodgeState;
-
-    [SerializeField, Header("被撃状態ビヘイビア")]
-    PlayerHitState hitState;
-
-    [SerializeField, Header("死ぬ状態ビヘイビア")]
-    PlayerDeadState deadState;
-
-    [SerializeField, Header("捕食状態ビヘイビア")]
-    PlayerEatState eatState;
-
-    [SerializeField, Header("移動状態ビヘイビア")]
-    PlayerWalkState walkState;
+    StateIdle idleState;
 
     [SerializeField, Header("攻撃状態ビヘイビア")]
-    PlayerAttackState attackState;
+    StateAttack attackState;
 
-    [SerializeField, Header("終結状態ビヘイビア")]
-    PlayerFinishState finishState;
+    [SerializeField, Header("移動状態ビヘイビア")]
+    StateWalk walkState;
 
-    [SerializeField, Header("モードチェンジ状態ビヘイビア")]
-    PlayerModeChangeState modeChangeState;
+    [SerializeField, Header("被撃状態ビヘイビア")]
+    StateDamaged damagedState;
+
+    [SerializeField, Header("死ぬ状態ビヘイビア")]
+    StateDestroyed destroyedState;
 
     //今のステート種類
-    StateType currentStateType;
+    ObjectStateType currentStateType;
 
     //前のステート種類
-    StateType preStateType;
+    ObjectStateType preStateType;
 
     //辞書<キー：ステート種類、値：ステート>
-    Dictionary<StateType, PlayerState> dicStates;
+    Dictionary<ObjectStateType, ObjectState> dicStates;
 
     //PlayerControllerの参照
-    PlayerController playerController;
+    ObjectController objController;
 
-    public void Init(PlayerController _playerController)
+    public void Init(ObjectController _objectController)
     {
-        playerController = _playerController;
+        objController = _objectController;
 
-        dicStates = new Dictionary<StateType, PlayerState>();
+        dicStates = new Dictionary<ObjectStateType, ObjectState>();
 
         //要素追加
-        dicStates.Add(StateType.Idle, idleState);
-        dicStates.Add(StateType.Hit, hitState);
-        dicStates.Add(StateType.Eat, eatState);
-        dicStates.Add(StateType.Skill, skillState);
-        dicStates.Add(StateType.Dodge, dodgeState);
-        dicStates.Add(StateType.Dead, deadState);
-        dicStates.Add(StateType.Walk, walkState);
-        dicStates.Add(StateType.Attack, attackState);
-        dicStates.Add(StateType.ModeChange, modeChangeState);
-        dicStates.Add(StateType.FinishSkill, finishState);
+        dicStates.Add(ObjectStateType.Idle, idleState);
+        dicStates.Add(ObjectStateType.Walk, walkState);
+        dicStates.Add(ObjectStateType.Attack, attackState);
+        dicStates.Add(ObjectStateType.Damaged, damagedState);
+        dicStates.Add(ObjectStateType.Destroyed, destroyedState);
 
 
         //初期状態設定
@@ -95,7 +75,6 @@ public class ObjectStateHandler : MonoBehaviour
 
         //ステート更新
         currentState.Tick();
-        isAttacking = currentState.GetIsPerformDamage();
     }
 
     private void FixedUpdate()
@@ -107,7 +86,7 @@ public class ObjectStateHandler : MonoBehaviour
     }
 
     //状態遷移
-    public void TransitionState(StateType _type)
+    public void TransitionState(ObjectStateType _type)
     {
         if (dicStates[_type] == null)
         {
@@ -132,7 +111,7 @@ public class ObjectStateHandler : MonoBehaviour
         ResetState();
 
         //初期化
-        currentState.Init(playerController);
+        currentState.Init(objController);
     }
 
     ///</summary>
@@ -140,6 +119,7 @@ public class ObjectStateHandler : MonoBehaviour
     ///</summary>
     private void ResetState()
     {
+        /*
         playerController.AttackCollider.Reset();
 
         playerController.SpriteAnim.speed = 1f;
@@ -147,6 +127,7 @@ public class ObjectStateHandler : MonoBehaviour
         playerController.SkillManager.Reset();
 
         playerController.AnimManager.Reset();
+        */
     }
 
     ///<summary>
@@ -163,32 +144,15 @@ public class ObjectStateHandler : MonoBehaviour
     }
 
     ///<summary>
-    ///回避状態チェック
-    ///</summary>
-    public bool CheckDodge()
-    {
-        //ボタン入力
-        bool isDashTrigger = playerController.InputManager.GetDashTrigger();
-        //回避中は再度回避できないようにする
-        if (isDashTrigger && !playerController.SkillManager.IsDashing)
-        {
-            TransitionState(StateType.Dodge);
-            return true;
-        }
-
-        return false;
-    }
-
-    ///<summary>
     ///攻撃状態チェック
     ///</summary>
     public bool CheckAttack()
     {    
         //ボタン入力
-        bool isAttack = playerController.InputManager.GetAttackTrigger();
+        bool isAttack = objController.CanAttack;
         if (isAttack)
         {
-            TransitionState(StateType.Attack);
+            TransitionState(ObjectStateType.Attack);
             return true;
         }
 
@@ -198,6 +162,7 @@ public class ObjectStateHandler : MonoBehaviour
     ///<summary>
     ///スキル状態チェック
     ///</summary>
+    /*
     public bool CheckSkill()
     {
         //ボタン入力
@@ -213,47 +178,18 @@ public class ObjectStateHandler : MonoBehaviour
 
         return false;
     }
-
-    ///<summary>
-    ///捕食状態チェック
-    ///</summary>
-    public bool CheckEat()
-    {
-        //ボタン入力
-        bool isEat = playerController.InputManager.GetEatTrigger();
-
-        //フィニッシュ
-        //if (isEat && playerController.DetectEnemy.CheckKillableEnemy())
-        //{
-        //    TransitionState(StateType.FinishSkill);
-        //    return true;
-        //}
-
-        //捕食
-        if (isEat
-          && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0
-         || playerController.StatusManager.IsFrenzy))
-        {
-            TransitionState(StateType.Eat);
-            return true;
-        }
-
-        return false;
-    }
-
-
-
+     */
 
     ///<summary>
     ///被ダメージ状態チェック
     ///</summary>
     public bool CheckHit()
     {
-        if (playerController.IsHit)
+        if (objController.IsDamaged)
         {
-            playerController.IsHit = false;
+            objController.IsDamaged = false;
 
-            TransitionState(StateType.Hit);
+            TransitionState(ObjectStateType.Damaged);
 
             return true;
         }
@@ -265,9 +201,9 @@ public class ObjectStateHandler : MonoBehaviour
     ///</summary>
     public bool CheckDeath()
     {
-        if (playerController.StatusManager.Health <= 0)
+        if (objController.status.Health <= 0)
         {
-            TransitionState(StateType.Dead);
+            TransitionState(ObjectStateType.Destroyed);
 
             return true;
         }
@@ -277,39 +213,33 @@ public class ObjectStateHandler : MonoBehaviour
 
     #region Getter&Setter 
 
-    public PlayerState CurrentState
+    public ObjectState CurrentState
     {
         get => this.currentState;
         set { this.currentState = value; }
     }
 
-    public PlayerIdleState IdleState
+    public StateIdle IdleState
     {
         get => this.idleState;
-
     }
 
-    //public HitState DamagedState
-    //{
-    //    get => this.hitState;
-    //}
+    public StateDamaged DamagedState
+    {
+        get => this.damagedState;
+    }
 
-    //public BlownAwayState BlownAwayState
-    //{
-    //    get => this.blownAwayState;
-    //}
+    public StateDestroyed DestroyedState
+    {
+        get => this.DestroyedState;
+    }
 
-    //public DeadState DieState
-    //{
-    //    get => this.deadState;
-    //}
-
-    public StateType CurrentStateType
+    public ObjectStateType CurrentStateType
     {
         get => this.currentStateType;
     }
 
-    public StateType PreStateType
+    public ObjectStateType PreStateType
     {
         get => this.preStateType;
     }

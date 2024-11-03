@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateIdle : ObjectState
+public class StateDestroyed : ObjectState
 {
     public override void Init(ObjectController _objectController)
     {

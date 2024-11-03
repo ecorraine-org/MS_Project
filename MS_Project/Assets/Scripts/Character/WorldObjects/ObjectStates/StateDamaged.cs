@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class StateDamaged : ObjectState
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Init(ObjectController _objectController)
     {
-        
+        base.Init(_objectController);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Tick()
     {
-        
+    }
+
+    public override void FixedTick()
+    {
+    }
+
+    public override void Exit()
+    {
     }
 }
