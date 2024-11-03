@@ -128,16 +128,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 494516127638801850, guid: b87b2afec13880e498521216477bfa44, type: 3}
-      propertyPath: 'sceneNames.Array.data[0]'
-      value: Area01
+      propertyPath: sceneNames.Array.size
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3876723761625817652, guid: b87b2afec13880e498521216477bfa44, type: 3}
-      propertyPath: nextSceneName
-      value: Area01
+    - target: {fileID: 494516127638801850, guid: b87b2afec13880e498521216477bfa44, type: 3}
+      propertyPath: 'sceneNames.Array.data[0]'
+      value: Area003
+      objectReference: {fileID: 0}
+    - target: {fileID: 494516127638801850, guid: b87b2afec13880e498521216477bfa44, type: 3}
+      propertyPath: 'sceneNames.Array.data[1]'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3948547931826922655, guid: b87b2afec13880e498521216477bfa44, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32
+      value: 196
       objectReference: {fileID: 0}
     - target: {fileID: 3948547931826922655, guid: b87b2afec13880e498521216477bfa44, type: 3}
       propertyPath: m_LocalPosition.y
@@ -145,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3948547931826922655, guid: b87b2afec13880e498521216477bfa44, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 32
+      value: 248
       objectReference: {fileID: 0}
     - target: {fileID: 3948547931826922655, guid: b87b2afec13880e498521216477bfa44, type: 3}
       propertyPath: m_LocalRotation.w
@@ -177,11 +181,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4631577525897207072, guid: b87b2afec13880e498521216477bfa44, type: 3}
       propertyPath: m_Name
-      value: Area04
+      value: Area004
       objectReference: {fileID: 0}
     - target: {fileID: 6695984465596909924, guid: b87b2afec13880e498521216477bfa44, type: 3}
       propertyPath: nextSceneName
-      value: Area02
+      value: Area003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
