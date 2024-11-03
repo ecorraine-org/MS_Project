@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IHit, IAttack
+public class PlayerController : WorldObject
 {
     //シングルトン
     protected PlayerInputManager inputManager;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour, IHit, IAttack
     [SerializeField, Header("モードマネージャー")]
     PlayerModeManager modeManager;
 
-    private Collider playerCcollider;
+    private Collider playerCollider;
 
     [SerializeField, Header("アタックコライダーマネージャー")]
     AttackColliderManager attackCollider;
@@ -35,8 +35,6 @@ public class PlayerController : MonoBehaviour, IHit, IAttack
     DetectEnemyArea detectEnemy;
 
     Rigidbody thisRigidbody;
-
-    // public float jumpForce = 3;
 
     public LayerMask terrainLayer;
     public Transform groundCheck;
@@ -75,7 +73,7 @@ public class PlayerController : MonoBehaviour, IHit, IAttack
 
         playerFlip = GetComponent<Animator>();
 
-        playerCcollider = GetComponent<Collider>();
+        playerCollider = GetComponent<Collider>();
 
         sprite = gameObject.transform.GetChild(0);
         spriteRenderer = sprite.GetComponent<SpriteRenderer>();
@@ -242,12 +240,12 @@ public class PlayerController : MonoBehaviour, IHit, IAttack
         Gizmos.DrawLine(transform.position, transform.position + curDirecVector);
     }
 
-    public void Hit(bool _canOneHitKill)
+    public override void Hit(bool _canOneHitKill)
     {
 
     }
 
-    public void Attack(Collider _hitCollider)
+    public override void Attack(Collider _hitCollider)
     {
    
         if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
