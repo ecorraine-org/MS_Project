@@ -43,7 +43,7 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
         yield return new WaitForSeconds(_duration);
 
         // 流す速度を戻す
-        _animator.speed = 1f;
+        if (_animator != null) _animator.speed = 1f;
     }
 
     public HitReaction GetPlayerHitReaction()
