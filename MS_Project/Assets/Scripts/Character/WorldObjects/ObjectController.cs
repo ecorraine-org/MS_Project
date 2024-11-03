@@ -4,7 +4,7 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class ObjectController : MonoBehaviour
+public abstract class ObjectController : WorldObject
 {
     [HideInInspector]
     protected Transform player;

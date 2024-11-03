@@ -9,6 +9,9 @@ public class EnemyController : ObjectController, IHit
     //シングルトン
     BattleManager battleManager;
 
+    [SerializeField, Header("アニメーションマネージャー")]
+    EnemyAnimManager animManager;
+
     [SerializeField, Tooltip("ラストヒットできるかどうか")]
     protected bool isKillable = false;
 
@@ -44,6 +47,8 @@ public class EnemyController : ObjectController, IHit
 
         gameObj = Instantiate(Resources.Load<GameObject>(status.StatusData.gameObjPrefab), this.transform);
         animator = gameObj.GetComponent<Animator>();
+
+        animManager = gameObj.GetComponentInChildren<EnemyAnimManager>();
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
@@ -190,6 +195,16 @@ public class EnemyController : ObjectController, IHit
     {
         get => this.isKillable;
         //set { this.isKillable = value; }
+    }
+
+    public override Rigidbody RigidBody
+    {
+        get => rb;
+    }
+
+    public new EnemyAnimManager AnimManager
+    {
+        get => this.animManager;
     }
 
     #region Gizmos

@@ -294,10 +294,11 @@ public class PlayerController : WorldObject
         get => this.modeManager;
     }
 
-    public PlayerAnimManager AnimManager
+    public new PlayerAnimManager AnimManager
     {
         get => this.animManager;
     }
+
 
     public PlayerInputManager InputManager
     {
@@ -341,9 +342,9 @@ public class PlayerController : WorldObject
         get => this.statusManager;
     }
 
-    public Rigidbody RigidBody
+    public override Rigidbody RigidBody
     {
-        get => this.thisRigidbody;
+        get => thisRigidbody;
     }
 
     #endregion

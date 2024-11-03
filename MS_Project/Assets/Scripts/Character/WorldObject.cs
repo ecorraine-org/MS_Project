@@ -16,7 +16,10 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack
     {
         return transform.forward;
     }
-    
+
+    public virtual Rigidbody RigidBody { get => null; }
+
+
 }
 
 

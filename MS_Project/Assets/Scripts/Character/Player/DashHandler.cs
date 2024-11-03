@@ -10,8 +10,8 @@ public class DashHandler : MonoBehaviour
     [SerializeField, Header("障害物検出ディテクター")]
     BlockDetector blockDetector;
 
-    //PlayerControllerの参照
-    PlayerController playerController;
+    //所有者の参照
+    WorldObject owner;
 
     //コルーチンの参照
     private Coroutine dashCoroutine;
@@ -34,18 +34,21 @@ public class DashHandler : MonoBehaviour
     //ダッシュ中かどうか
     private bool isDashing = false;
 
-    public void Init(PlayerController _playerController)
+    public void Init(WorldObject _owner)
     {
-        playerController = _playerController;
+        owner = _owner;
 
-        blockDetector.Distance = speed * duration;
+       if(blockDetector!=null) blockDetector.Distance = speed * duration;
     }
 
     public void Update()
     {
-        if (duration == -1)
+        if (blockDetector == null) return;
+
+            if (duration == -1)
         {
-            blockDetector.Distance = speed * playerController.AnimManager.testTime;
+            if (owner is PlayerController player)
+                blockDetector.Distance = speed * player.AnimManager.testTime;
 
         }
         else
@@ -54,7 +57,7 @@ public class DashHandler : MonoBehaviour
         }
 
         //移動しようとする方向
-        blockDetector.DetectUpdate(playerController.transform, playerController.InputManager.GetLStick());
+        blockDetector.DetectUpdate(owner.transform, owner.GetNextDirec());
     }
 
     private void FixedUpdate()
@@ -63,17 +66,17 @@ public class DashHandler : MonoBehaviour
         {
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
-            if (!blockDetector.IsColliding && canThrough)
+            if ( canThrough&&!blockDetector.IsColliding )
             {
                 Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
 
             }
 
-            blockDetector.IsEnabled = false;
+          if(blockDetector != null)  blockDetector.IsEnabled = false;
 
 
             //一定距離を移動
-            playerController.RigidBody.MovePosition(playerController.RigidBody.position + dashDirec.normalized * speed * Time.fixedDeltaTime);
+            owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * Time.fixedDeltaTime);
 
 
         }
