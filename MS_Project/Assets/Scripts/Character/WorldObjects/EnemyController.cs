@@ -9,14 +9,14 @@ public class EnemyController : ObjectController, IHit
     //シングルトン
     BattleManager battleManager;
 
-    [SerializeField, Header("被ダメージエフェクト")]
-    GameObject hitEffect;
-
     //アニメーションマネージャー
     EnemyAnimManager animManager;
 
     //スキルマネージャー
     EnemySkillManager skillManager;
+
+    //エフェクトマネージャー
+    EnemyEffectManager effectManager;
 
     [SerializeField, Tooltip("ラストヒットできるかどうか")]
     protected bool isKillable = false;
@@ -45,6 +45,8 @@ public class EnemyController : ObjectController, IHit
         rb = this.GetComponent<Rigidbody>();
 
         spawnPool = GameObject.FindGameObjectWithTag("EnemyCollector").gameObject;
+
+
     }
 
     public override void Start()
@@ -59,6 +61,10 @@ public class EnemyController : ObjectController, IHit
 
         skillManager = GetComponentInChildren<EnemySkillManager>();
         skillManager.Init(this);
+
+        effectManager = GetComponentInChildren<EnemyEffectManager>();
+        effectManager.Init(this);
+
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
@@ -186,8 +192,8 @@ public class EnemyController : ObjectController, IHit
         // ヒットストップ          
         battleManager.StartHitStop(animator);
 
-        Instantiate(hitEffect, transform.position, Quaternion.identity);
-
+        //エフェクト生成
+        effectManager.InstantiateHit();
 
         if (isKillable && _canOneHitKill)
         {
@@ -223,6 +229,11 @@ public class EnemyController : ObjectController, IHit
     public EnemySkillManager SkillManager
     {
         get => this.skillManager;
+    }
+
+    public EnemyEffectManager EffectManager
+    {
+        get => this.effectManager;
     }
 
     #region Gizmos
