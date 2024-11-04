@@ -66,9 +66,9 @@ public class DashHandler : MonoBehaviour
         {
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
-            if ( canThrough&&!blockDetector.IsColliding )
+            if ( canThrough )
             {
-                Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+                if(blockDetector != null&&!blockDetector.IsColliding) Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
 
             }
 
@@ -125,7 +125,7 @@ public class DashHandler : MonoBehaviour
             dashCoroutine = null;
         }
 
-        blockDetector.IsEnabled = true;
+        if (blockDetector != null) blockDetector.IsEnabled = true;
         isDashing = false;
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
 

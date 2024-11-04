@@ -15,6 +15,9 @@ public class EnemyController : ObjectController, IHit
     //アニメーションマネージャー
     EnemyAnimManager animManager;
 
+    //スキルマネージャー
+    EnemySkillManager skillManager;
+
     [SerializeField, Tooltip("ラストヒットできるかどうか")]
     protected bool isKillable = false;
 
@@ -51,8 +54,11 @@ public class EnemyController : ObjectController, IHit
         gameObj = Instantiate(Resources.Load<GameObject>(status.StatusData.gameObjPrefab), this.transform);
         animator = gameObj.GetComponent<Animator>();
 
-        animManager = gameObj.GetComponentInChildren<EnemyAnimManager>();
+        animManager = GetComponentInChildren<EnemyAnimManager>();
         animManager.Init(this);
+
+        skillManager = GetComponentInChildren<EnemySkillManager>();
+        skillManager.Init(this);
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
@@ -209,9 +215,14 @@ public class EnemyController : ObjectController, IHit
         get => rb;
     }
 
-    public new EnemyAnimManager AnimManager
+    public EnemyAnimManager AnimManager
     {
         get => this.animManager;
+    }
+
+    public EnemySkillManager SkillManager
+    {
+        get => this.skillManager;
     }
 
     #region Gizmos
