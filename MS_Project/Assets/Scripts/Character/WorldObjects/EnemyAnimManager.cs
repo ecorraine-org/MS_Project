@@ -8,12 +8,19 @@ using UnityEngine;
 public class EnemyAnimManager : AnimManager
 {
 
+    EnemyController enemy;
+
+    public void Init(EnemyController _enemyController)
+    {
+        enemy = _enemyController;
+    }
+
     /// <summary>
     /// 攻撃可能設定
     /// </summary>
     public override void EnableHit()
     {
-
+      
     }
 
     /// <summary>
@@ -38,15 +45,31 @@ public class EnemyAnimManager : AnimManager
     /// </summary>
     public override void StartDash()
     {
+        EnemySkillManager skillManager = enemy.SkillManager;
 
+        skillManager.DashHandler.StartDash(true, enemy.transform.forward);
+
+        Debug.Log("StartDash");
     }
+
+    public void StartDashEnemy()
+    {
+        EnemySkillManager skillManager = enemy.SkillManager;
+
+        skillManager.DashHandler.StartDash(true, enemy.transform.forward);
+
+      //  Debug.Log("StartDash");
+    }
+
 
     /// <summary>
     /// 突進終了
     /// </summary>
     public override void EndDash()
     {
-      
+        EnemySkillManager skillManager = enemy.SkillManager;
+
+        skillManager.DashHandler.EndDash();
     }
 
   
