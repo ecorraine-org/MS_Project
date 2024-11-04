@@ -9,7 +9,10 @@ public class EnemyController : ObjectController, IHit
     //シングルトン
     BattleManager battleManager;
 
-    [SerializeField, Header("アニメーションマネージャー")]
+    [SerializeField, Header("被ダメージエフェクト")]
+    GameObject hitEffect;
+
+    //アニメーションマネージャー
     EnemyAnimManager animManager;
 
     [SerializeField, Tooltip("ラストヒットできるかどうか")]
@@ -49,6 +52,7 @@ public class EnemyController : ObjectController, IHit
         animator = gameObj.GetComponent<Animator>();
 
         animManager = gameObj.GetComponentInChildren<EnemyAnimManager>();
+        animManager.Init(this);
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
@@ -175,6 +179,9 @@ public class EnemyController : ObjectController, IHit
         HitReaction hitReaction = battleManager.GetPlayerHitReaction();
         // ヒットストップ          
         battleManager.StartHitStop(animator);
+
+        Instantiate(hitEffect, transform.position, Quaternion.identity);
+
 
         if (isKillable && _canOneHitKill)
         {

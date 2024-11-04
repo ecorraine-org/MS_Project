@@ -50,7 +50,7 @@ public abstract class AnimManager : MonoBehaviour
     /// <summary>
     /// 突進開始
     /// </summary>
-    public abstract void StartDash();
+    public virtual void StartDash() { }
 
     /// <summary>
     /// 突進終了
