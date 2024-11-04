@@ -47,20 +47,9 @@ public class EnemyAnimManager : AnimManager
     {
         EnemySkillManager skillManager = enemy.SkillManager;
 
-        skillManager.DashHandler.StartDash(true, enemy.transform.forward);
+        skillManager.DashHandler.Begin(true, enemy.transform.forward);
 
-        Debug.Log("StartDash");
     }
-
-    public void StartDashEnemy()
-    {
-        EnemySkillManager skillManager = enemy.SkillManager;
-
-        skillManager.DashHandler.StartDash(true, enemy.transform.forward);
-
-      //  Debug.Log("StartDash");
-    }
-
 
     /// <summary>
     /// 突進終了
@@ -69,7 +58,7 @@ public class EnemyAnimManager : AnimManager
     {
         EnemySkillManager skillManager = enemy.SkillManager;
 
-        skillManager.DashHandler.EndDash();
+        skillManager.DashHandler.End();
     }
 
   
