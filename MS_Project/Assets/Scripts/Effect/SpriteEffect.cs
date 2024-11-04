@@ -7,6 +7,9 @@ public class SpriteEffect : MonoBehaviour
     [SerializeField, Header("スプライトレンダラー")]
     SpriteRenderer spriteRenderer;
 
+    [SerializeField, Header("アニメーター")]
+    Animator animator;
+
     private float randomRotationZ;
 
     private void Awake()
@@ -27,6 +30,10 @@ public class SpriteEffect : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, randomRotationZ) * Camera.main.transform.rotation;
 
 
-
+        //アニメーション終了、消滅
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+        {
+            Destroy(gameObject);
+        }
     }
 }
