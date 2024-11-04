@@ -86,7 +86,7 @@ public class DashHandler : MonoBehaviour
     /// 突進処理
     /// </summary>
     /// /// <param name="canThrough"> ターゲットを貫通可能かどうか </param>
-    public void StartDash(bool _canThrough, Vector3 _direc)
+    public void Begin(bool _canThrough, Vector3 _direc)
     {
         canThrough = _canThrough;
 
@@ -111,13 +111,13 @@ public class DashHandler : MonoBehaviour
         }
 
 
-        EndDash();
+        End();
     }
 
     /// <summary>
     /// 突進終了処理
     /// </summary>
-    public void EndDash()
+    public void End()
     {
         if (dashCoroutine != null)
         {

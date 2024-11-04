@@ -159,7 +159,7 @@ public class PlayerSkillManager : MonoBehaviour
     //キャンセルされた時のリセット処理
     public void Reset()
     {
-        if (dash.IsDashing) dash.EndDash();
+        if (dash.IsDashing) dash.End();
 
         canCombo = false;
     }
@@ -174,7 +174,7 @@ public class PlayerSkillManager : MonoBehaviour
 
         //向きによるアニメーション設定(反転するかどうか)
        // playerController.SetEightDirection();
-        dash.StartDash(_canThrough, _direc);
+        dash.Begin(_canThrough, _direc);
     }
 
     public void ExecuteEat()

@@ -24,7 +24,7 @@ public class EnemySkillManager : MonoBehaviour
     //キャンセルされた時のリセット処理
     public void Reset()
     {
-        if (dash.IsDashing) dash.EndDash();
+        if (dash.IsDashing) dash.End();
 
     }
 
