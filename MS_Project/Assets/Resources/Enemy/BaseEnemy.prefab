@@ -317,6 +317,37 @@ Transform:
   - {fileID: 5074700620607855641}
   m_Father: {fileID: 667500453989820943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3906781863482905144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 70416286009078032}
+  m_Layer: 0
+  m_Name: HitEffectPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &70416286009078032
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3906781863482905144}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.77, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1310192699032804063}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4172605621153465701
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +586,7 @@ GameObject:
   - component: {fileID: 1310192699032804063}
   - component: {fileID: -2375779614366959053}
   - component: {fileID: 5811256355270754045}
+  - component: {fileID: 1045741279000387840}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -578,6 +610,7 @@ Transform:
   - {fileID: 8515904203215165125}
   - {fileID: 5515503790927206284}
   - {fileID: 6169535672116412344}
+  - {fileID: 70416286009078032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &-2375779614366959053
@@ -615,7 +648,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a2760d03debe74bafb78d206dbcc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashHandler: {fileID: 0}
+--- !u!114 &1045741279000387840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8382884063610061644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3baa073fbe86f4e81cd0e361e11bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEffect: {fileID: 6226865062110874252, guid: ec4739d2304e43c4290c7dff46829895, type: 3}
+  hitEffectPoint: {fileID: 70416286009078032}
 --- !u!1 &8468387163380594972
 GameObject:
   m_ObjectHideFlags: 0
