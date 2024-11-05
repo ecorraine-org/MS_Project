@@ -140,7 +140,10 @@ MonoBehaviour:
   spawnPoint: {fileID: 3636370948070680434}
   throwForce: 50
   throwCount: 5
-  throwInterval: 0.2
+  throwInterval: 0.88
+  m_shootPoint: {fileID: 0}
+  m_target: {fileID: 1898475016891599549, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+  m_shootObject: {fileID: 0}
 --- !u!4 &3636370948070680434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4714600277085133615, guid: 9a10273b5f9c4b14d953fabc2f0ab58d, type: 3}
