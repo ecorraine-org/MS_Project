@@ -4,36 +4,29 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyController : ObjectController, IHit
+public class EnemyController : ObjectController
 {
-    //シングルトン
+    // シングルトン
     BattleManager battleManager;
 
-    //アニメーションマネージャー
+    // アニメーションマネージャー
     EnemyAnimManager animManager;
 
-    //スキルマネージャー
+    // スキルマネージャー
     EnemySkillManager skillManager;
 
-    //エフェクトマネージャー
+    // エフェクトマネージャー
     EnemyEffectManager effectManager;
 
-    [SerializeField, Tooltip("ラストヒットできるかどうか")]
+    [SerializeField, Tooltip("ラストヒットできるかどうか？")]
     protected bool isKillable = false;
-
-    [Header("イベント")]
-    public UnityEvent<Vector3> OnMovementInput;
-    public UnityEvent OnDamaged;
-    public UnityEvent OnAttack;
-    public Vector3 MovementInput { get; set; }
 
     private EnemyAction enemySkill;
 
     private Animator animator;
     private CapsuleCollider capsuleCollider;
-    private Rigidbody rb;
 
-    private GameObject spawnPool;
+    private Collector spawnPool;
 
     public override void Awake()
     {
@@ -42,18 +35,16 @@ public class EnemyController : ObjectController, IHit
         battleManager = BattleManager.Instance;
 
         capsuleCollider = this.GetComponent<CapsuleCollider>();
-        rb = this.GetComponent<Rigidbody>();
 
-        spawnPool = GameObject.FindGameObjectWithTag("EnemyCollector").gameObject;
-
-
+        spawnPool = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
     }
 
     public override void Start()
     {
         base.Start();
 
-        gameObj = Instantiate(Resources.Load<GameObject>(status.StatusData.gameObjPrefab), this.transform);
+        gameObj = Instantiate(Resources.Load<GameObject>(Status.StatusData.gameObjPrefab), this.transform);
+
         animator = gameObj.GetComponent<Animator>();
 
         animManager = GetComponentInChildren<EnemyAnimManager>();
@@ -65,7 +56,6 @@ public class EnemyController : ObjectController, IHit
         effectManager = GetComponentInChildren<EnemyEffectManager>();
         effectManager.Init(this);
 
-
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
         capsuleCollider.height = collider.height;
@@ -73,15 +63,17 @@ public class EnemyController : ObjectController, IHit
 
         if (gameObj.TryGetComponent<EnemyAction>(out enemySkill))
         {
-            enemySkill.EnemyStatus = status;
+            enemySkill.EnemyStatus = Status;
             enemySkill.SetAnimator(animator);
-            enemySkill.SetPlayer(player);
-            enemySkill.SetRigidbody(rb);
+            enemySkill.SetRigidbody(rigidBody);
         }
         else
         {
             CustomLogger.LogWarning(gameObj.GetType(), gameObj.name);
         }
+
+        State = GetComponentInChildren<ObjectStateHandler>();
+        State.Init(this);
     }
 
     private void FixedUpdate()
@@ -94,13 +86,13 @@ public class EnemyController : ObjectController, IHit
         if (player == null) return;
 
          //フィニッシュ
-        if (status.Health <= status.StatusData.maxHealth / 2)
+        if (Status.Health <= Status.StatusData.maxHealth / 2)
         {
             isKillable = true;
         }
 
         float distance = Vector3.Distance(player.position, transform.position);
-        if (distance < status.StatusData.chaseDistance)
+        if (distance < Status.StatusData.chaseDistance)
         {
                 Vector3 direction = player.position - transform.position;
                 // 進む方向に向く
@@ -108,7 +100,7 @@ public class EnemyController : ObjectController, IHit
                 newRotation.x = 0;
                 transform.rotation = newRotation;
 
-            if (distance <= status.StatusData.attackDistance)
+            if (distance <= Status.StatusData.attackDistance)
             {
                 OnMovementInput?.Invoke(Vector3.zero);
                 if (enemySkill)
@@ -135,15 +127,15 @@ public class EnemyController : ObjectController, IHit
 
     private void Move()
     {
-        if (MovementInput.magnitude > 0.1f && status.MoveSpeed >= 0)
+        if (MovementInput.magnitude > 0.1f && Status.MoveSpeed >= 0)
         {
             animator.Play("Walk");
             // 前に進む
-            rb.velocity = MovementInput * status.MoveSpeed;
+            rigidBody.velocity = MovementInput * Status.MoveSpeed;
         }
         else
         {
-            rb.velocity = Vector3.zero;
+            rigidBody.velocity = Vector3.zero;
         }
     }
 
@@ -151,15 +143,15 @@ public class EnemyController : ObjectController, IHit
     {
         if (CanAttack)
         {
-            UseSkill();
+            TriggerSkill();
 
-            player.GetComponent<PlayerController>().StatusManager.TakeDamage(status.Damage);
+            player.GetComponent<PlayerController>().StatusManager.TakeDamage(Status.Damage);
 
             StartCoroutine(nameof(AttackCoroutine));
         }
     }
 
-    public void UseSkill()
+    public void TriggerSkill()
     {
         animator.SetTrigger("IsAttack");
         if (enemySkill)
@@ -170,26 +162,26 @@ public class EnemyController : ObjectController, IHit
 
     public void TakeDamage()
     {
-        if (status.IsDamaged)
+        if (Status.IsDamaged)
         {
             animator.Play("Damaged",0,0f);
 
             GenerateOnomatopoeia();
 
-            status.IsDamaged = false;
+            Status.IsDamaged = false;
         }
     }
 
     IEnumerator AttackCoroutine()
     {
-        yield return new WaitForSeconds(status.ActionCooldown);
+        yield return new WaitForSeconds(Status.ActionCooldown);
         CanAttack = true;
     }
 
-    public void Hit(bool _canOneHitKill)
+    public override void Hit(bool _canOneHitKill)
     {
         HitReaction hitReaction = battleManager.GetPlayerHitReaction();
-        // ヒットストップ          
+        // ヒットストップ
         battleManager.StartHitStop(animator);
 
         //エフェクト生成
@@ -201,14 +193,16 @@ public class EnemyController : ObjectController, IHit
             player.GetComponent<PlayerController>().StatusManager.TakeDamage(-5);
 
             //殺す
-            spawnPool.GetComponent<EnemySpawner>().DespawnEnemy(this.gameObject);
+            spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
 
-        if (status.Health <= 0)
+        if (Status.Health <= 0)
         {
-            spawnPool.GetComponent<EnemySpawner>().DespawnEnemy(this.gameObject);
+            spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
     }
+
+    #region Getter & Setter
 
     public bool IsKillable
     {
@@ -216,9 +210,14 @@ public class EnemyController : ObjectController, IHit
         //set { this.isKillable = value; }
     }
 
+    public Animator Anim
+    {
+        get => this.animator;
+    }
+
     public override Rigidbody RigidBody
     {
-        get => rb;
+        get => rigidBody;
     }
 
     public EnemyAnimManager AnimManager
@@ -236,17 +235,19 @@ public class EnemyController : ObjectController, IHit
         get => this.effectManager;
     }
 
+    #endregion
+
     #region Gizmos
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, status.StatusData.attackDistance);
+        Gizmos.DrawWireSphere(transform.position, Status.StatusData.attackDistance);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, status.StatusData.chaseDistance);
+        Gizmos.DrawWireSphere(transform.position, Status.StatusData.chaseDistance);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position + new Vector3(0f, 1f, 0f), transform.position + transform.forward * status.StatusData.chaseDistance);
+        Gizmos.DrawLine(transform.position + new Vector3(0f, 1f, 0f), transform.position + transform.forward * Status.StatusData.chaseDistance);
     }
     #endregion
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AnimThrowEgg : EnemyAction
 {
-    public GameObject axePrefab;         // 投げるプレハブ
+    public GameObject eggPrefab;         // 投げるプレハブ
     public Transform spawnPoint;         // プレハブの生成位置
     public float throwForce = 10f;       // 投げる力
     public int throwCount = 3;           // 連続して投げる回数（publicで調整可能）
@@ -31,32 +31,33 @@ public class AnimThrowEgg : EnemyAction
         {
             currentThrow = 0;
             isThrowing = true;
-            InvokeRepeating(nameof(ThrowAxe), 0f, throwInterval);
+            InvokeRepeating(nameof(ThrowEgg), 0f, throwInterval);
         }
     }
 
     // 投擲処理
-    private void ThrowAxe()
+    private void ThrowEgg()
     {
         if (currentThrow < throwCount)
         {
-            if (axePrefab != null && spawnPoint != null)
+            if (eggPrefab != null && spawnPoint != null)
             {
                 // プレハブのインスタンスを生成
-                GameObject thrownAxe = Instantiate(axePrefab, spawnPoint.position, spawnPoint.rotation);
-                // 投げる方向に力を加える
-                Rigidbody rbEgg = thrownAxe.GetComponent<Rigidbody>();
+                GameObject thrownEgg = Instantiate(eggPrefab, spawnPoint.position, spawnPoint.rotation, collector.transform);
+                Rigidbody rbEgg = thrownEgg.GetComponent<Rigidbody>();
                 if (rbEgg != null)
                 {
+                    // 投げる方向に力を加える
                     rbEgg.AddForce(spawnPoint.forward * throwForce, ForceMode.Impulse);
                 }
+                collector.GetComponent<Collector>().otherObjectPool.Add(thrownEgg);
             }
             currentThrow++;
         }
         else
         {
             // 投擲が指定回数に達したら終了
-            CancelInvoke(nameof(ThrowAxe));
+            CancelInvoke(nameof(ThrowEgg));
             isThrowing = false;
         }
     }

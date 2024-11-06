@@ -11,6 +11,7 @@ public class StateDamaged : ObjectState
 
     public override void Tick()
     {
+        objController.State.TransitionState(ObjectStateType.Idle);
     }
 
     public override void FixedTick()

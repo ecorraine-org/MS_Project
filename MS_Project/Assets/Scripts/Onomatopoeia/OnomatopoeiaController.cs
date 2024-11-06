@@ -30,7 +30,7 @@ public class OnomatopoeiaController : MonoBehaviour
     private Rigidbody rb;
     private GameObject player;
 
-    private OnomatoManager onomatoManager;
+    private Collector collector;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class OnomatopoeiaController : MonoBehaviour
         initialPosition = this.transform.position - player.GetComponent<PlayerController>().CurDirecVector * 1.5f;
         initialPosition = new Vector3(initialPosition.x, initialPosition.y / 1.5f, player.transform.position.z);
 
-        onomatoManager = this.gameObject.GetComponent<OnomatoManager>();
+        collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
 
         objOnomatopoeia = this.gameObject;
     }
@@ -57,7 +57,7 @@ public class OnomatopoeiaController : MonoBehaviour
     {
         if (!isAlive)
         {
-            Destroy(objOnomatopoeia);
+            collector.DestroyOtherObjectFromPool(objOnomatopoeia);
         }
         else
         {

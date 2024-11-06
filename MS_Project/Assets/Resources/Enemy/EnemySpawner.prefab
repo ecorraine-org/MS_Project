@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8909902654584031655}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: EnemyCollector
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Radius: 100
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8909902654584031655
 MonoBehaviour:
@@ -70,5 +70,3 @@ MonoBehaviour:
   mobPool: []
   eliteMaxCount: 0
   elitePool: []
-  totalEnemyCount: 0
-  enemyPool: []

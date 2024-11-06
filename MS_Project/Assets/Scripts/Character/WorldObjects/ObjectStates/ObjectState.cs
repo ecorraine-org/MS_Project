@@ -8,17 +8,26 @@ public abstract class ObjectState : MonoBehaviour
 
     protected ObjectStatusHandler objStatusHandler;
     protected ObjectStateHandler objStateHandler;
-    protected ObjectAnimHandler objAnimHandler;
 
-    /// <summary>
+    protected EnemyAnimManager animHandler;
+
+    ///<summary>
     ///ステートの初期化処理
-    /// </summary>
+    ///</summary>
     public virtual void Init(ObjectController _objectController)
     {
+        if (objController != null) return;
+
         //マネージャー取得
-        //objStatusHandler = objController.StatusManager;
-        //objStateHandler = objController.StateManager;
-        //objAnimHandler = objController.AnimManager;
+        objController = _objectController;
+        objStatusHandler = objController.Status;
+        objStateHandler = objController.State;
+
+        if (objStatusHandler.StatusData.ObjectType == WorldObjectType.Enemy)
+        {
+            EnemyController enemy = objController as EnemyController;
+            animHandler = enemy.AnimManager;
+        }
     }
 
     /// <summary>
@@ -26,14 +35,14 @@ public abstract class ObjectState : MonoBehaviour
     /// </summary>
     public abstract void Tick();
 
-    /// <summary>
+    ///<summary>
     ///ステートの更新処理
-    /// </summary>
+    ///</summary>
     public abstract void FixedTick();
 
-    /// <summary>
+    ///<summary>
     ///ステートの終了処理
-    /// </summary>
+    ///</summary>
     public abstract void Exit();
 
 }

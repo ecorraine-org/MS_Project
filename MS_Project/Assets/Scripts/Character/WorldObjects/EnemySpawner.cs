@@ -22,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
     public List<EnemyStatusData> elitePool;
     private int eliteCount = 0;
 
+    /*
     [Space]
     [Space]
     [Header("敵合計数（合計２５匹まで）")]
@@ -29,15 +30,15 @@ public class EnemySpawner : MonoBehaviour
 
     public List<GameObject> enemyPool;
     private int maxPoolSize = 25;
-
-    private GameObject enemyCollector;
+    */
+    private Collector enemyCollector;
 
     private void Awake()
     {
         radius = this.GetComponent<SphereCollider>().radius;
         center = this.transform.position + Vector3.up;
 
-        enemyCollector = GameObject.FindGameObjectWithTag("EnemyCollector").gameObject;
+        enemyCollector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
     }
 
     private void Start()
@@ -79,20 +80,20 @@ public class EnemySpawner : MonoBehaviour
             maxPoolSize
         );
         */
-        if (_enemydata == null || totalEnemyCount >= maxPoolSize)
+        if (_enemydata == null || enemyCollector.totalEnemyCount >= enemyCollector.MaxPoolSize)
         {
             CustomLogger.Log("スポーンが失敗しました。");
             return;
         }
 
-        enemyPool.Add(InstantiateEnemy(_enemydata, _position));
-        totalEnemyCount++;
+        enemyCollector.enemyPool.Add(InstantiateEnemy(_enemydata, _position));
+        enemyCollector.totalEnemyCount++;
     }
 
     GameObject InstantiateEnemy(EnemyStatusData _data, Vector3 _position)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("Enemy/EnemyContainer"), _position, Quaternion.identity, enemyCollector.transform);
-        obj.GetComponent<EnemyController>().status.StatusData = _data;
+        obj.GetComponent<EnemyController>().Status.StatusData = _data;
         return obj;
     }
 
@@ -106,11 +107,6 @@ public class EnemySpawner : MonoBehaviour
         return randomDirection;
     }
 
-    public void DespawnEnemy(GameObject _self)
-    {
-        enemyPool.Remove(_self);
-        Destroy(_self);
-    }
     /*
     void Initialize(Transform _container, MonoBehaviour _monoBehaviour);
     void Stop();
