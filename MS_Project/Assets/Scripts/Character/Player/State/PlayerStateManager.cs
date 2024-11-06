@@ -14,7 +14,7 @@ public enum StateType
     [InspectorName("移動")] Walk,                 //移動
     [InspectorName("攻撃")] Attack,               //攻撃
     [InspectorName("スキル")] Skill,               //技能(スキル)
-    [InspectorName("終結")] FinishSkill,         //終結(フィニッシュスキル)
+    [InspectorName("終結")] FinishSkill,          //終結(フィニッシュスキル)
     [InspectorName("捕食")] Eat,                  //捕食(食べる)
     [InspectorName("モードチェンジ")] ModeChange,   //切替(モードチェンジ)
     [InspectorName("回避")] Dodge                 //回避
@@ -143,9 +143,9 @@ public class PlayerStateManager : MonoBehaviour
         currentState.Init(playerController);
     }
 
-    ///</summary>
-    ///状態リセット処理
-    ///</summary>
+    /// <summary>
+    /// 状態リセット処理
+    /// </summary>
     private void ResetState()
     {
         playerController.AttackCollider.Reset();
@@ -157,9 +157,9 @@ public class PlayerStateManager : MonoBehaviour
         playerController.AnimManager.Reset();
     }
 
-    ///<summary>
-    ///ダメージによるステート遷移
-    ///</summary>
+    /// <summary>
+    /// ダメージによるステート遷移
+    /// </summary>
     public bool CheckDamageReaction()
     {
         //if (CheckDeath()) return true;
@@ -170,9 +170,9 @@ public class PlayerStateManager : MonoBehaviour
         return false;
     }
 
-    ///<summary>
-    ///回避状態チェック
-    ///</summary>
+    /// <summary>
+    /// 回避状態チェック
+    /// </summary>
     public bool CheckDodge()
     {
         //ボタン入力
@@ -187,9 +187,9 @@ public class PlayerStateManager : MonoBehaviour
         return false;
     }
 
-    ///<summary>
-    ///攻撃状態チェック
-    ///</summary>
+    /// <summary>
+    /// 攻撃状態チェック
+    /// </summary>
     public bool CheckAttack()
     {    
         //ボタン入力
@@ -203,9 +203,9 @@ public class PlayerStateManager : MonoBehaviour
         return false;
     }
 
-    ///<summary>
-    ///スキル状態チェック
-    ///</summary>
+    /// <summary>
+    /// スキル状態チェック
+    /// </summary>
     public bool CheckSkill()
     {
         //ボタン入力
@@ -222,9 +222,9 @@ public class PlayerStateManager : MonoBehaviour
         return false;
     }
 
-    ///<summary>
-    ///捕食状態チェック
-    ///</summary>
+    /// <summary>
+    /// 捕食状態チェック
+    /// </summary>
     public bool CheckEat()
     {
         //ボタン入力
@@ -252,9 +252,9 @@ public class PlayerStateManager : MonoBehaviour
 
 
 
-    ///<summary>
-    ///被ダメージ状態チェック
-    ///</summary>
+    /// <summary>
+    /// 被ダメージ状態チェック
+    /// </summary>
     public bool CheckHit()
     {
         if (playerController.IsHit)
@@ -268,9 +268,9 @@ public class PlayerStateManager : MonoBehaviour
         return false;
     }
 
-    ///<summary>
-    ///死亡状態チェック
-    ///</summary>
+    /// <summary>
+    /// 死亡状態チェック
+    /// </summary>
     public bool CheckDeath()
     {
         if (playerController.StatusManager.Health <= 0)

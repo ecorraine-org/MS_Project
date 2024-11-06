@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// エネミー用コントローラー
+/// </summary>
 public class EnemyController : ObjectController
 {
     // シングルトン

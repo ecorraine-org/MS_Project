@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -8,7 +8,7 @@ using System;
 /// </summary>
 public class PlayerSkillManager : MonoBehaviour
 {
-    //PlayerControllerの参照
+    // PlayerControllerの参照
     PlayerController playerController;
 
     [SerializeField, Header("突進処理ビヘイビア")]
@@ -20,11 +20,11 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, Header("今のスキルのクールタイム")]
     float curSkillCoolTime;
 
-    //攻撃をキャンセルし、コンボできるかどうか
+    // 攻撃をキャンセルし、コンボできるかどうか
     [SerializeField, Header("コンボできるか")]
     bool canCombo=false;
 
-    //当たり判定可能かどうか
+    // 当たり判定可能かどうか
     bool canHit = false;
 
     [SerializeField, Header("弾発射装置")]
@@ -32,7 +32,7 @@ public class PlayerSkillManager : MonoBehaviour
 
 
 
-    //辞書<キー：スキル種類、値：クールタイム>
+    // 辞書<キー：スキル種類、値：クールタイム>
     private Dictionary<PlayerSkill, float> coolTimers = new Dictionary<PlayerSkill, float>();
 
     private Dictionary<PlayerSkill, bool> dicIsCharge = new Dictionary<PlayerSkill, bool>();
@@ -66,7 +66,7 @@ public class PlayerSkillManager : MonoBehaviour
             var life = playerController.GetComponentInChildren<ILife>();
             if (life != null)
             {
-                //hp消費
+                // hp消費
                 life.TakeDamage(skillData.dicSkill[_skillType].hpCost);
             }
 
@@ -87,10 +87,10 @@ public class PlayerSkillManager : MonoBehaviour
         {
             // Debug.Log($"{_skillType}発動");//test
 
-            //スキル発動
+            // スキル発動
             ExecuteSkill(_skillType);
 
-            //クールタイム処理
+            // クールタイム処理
             StartCoroutine(SkillCooldown(_skillType));
         }
     }
@@ -156,7 +156,7 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
-    //キャンセルされた時のリセット処理
+    // キャンセルされた時のリセット処理
     public void Reset()
     {
         if (dash.IsDashing) dash.End();
@@ -168,12 +168,12 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("WalkRight");
 
-        //突進初期化
+        // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Dodge].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Dodge].dashDuration;
 
-        //向きによるアニメーション設定(反転するかどうか)
-       // playerController.SetEightDirection();
+        // 向きによるアニメーション設定(反転するかどうか)
+        //playerController.SetEightDirection();
         dash.Begin(_canThrough, _direc);
     }
 
@@ -189,7 +189,7 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("SwordSkill");
         playerController.SpriteRenderer.color = Color.red;
 
-        //突進初期化
+        // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Sword].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Sword].dashDuration;
 
@@ -238,7 +238,7 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("SpearSkill");
         playerController.SpriteRenderer.color = Color.red;
 
-        //突進初期化
+        // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Spear].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Spear].dashDuration;
     }
@@ -255,10 +255,10 @@ public class PlayerSkillManager : MonoBehaviour
 
     private IEnumerator SkillCooldown( PlayerSkill _skillType)
     {
-        //データからクールタイムを取得
+        // データからクールタイムを取得
         float coolTime = skillData.dicSkill.ContainsKey(_skillType) ? skillData.dicSkill[_skillType].coolTime : 0f;
 
-        //クールタイム設定
+        // クールタイム設定
         coolTimers[_skillType] = coolTime;
 
         while (coolTimers[_skillType] > 0f)
@@ -268,7 +268,7 @@ public class PlayerSkillManager : MonoBehaviour
             // クールタイムを0以上にする
             coolTimers[_skillType] = Mathf.Max(coolTimers[_skillType], 0f);
 
-            //スキルクールタイムを記録  
+            // スキルクールタイムを記録
              curSkillCoolTime = coolTimers[_skillType];
 
             yield return null;

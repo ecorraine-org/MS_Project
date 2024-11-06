@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -84,8 +84,8 @@ public class DashHandler : MonoBehaviour
 
     /// <summary>
     /// 突進処理
+    /// <param name="canThrough"> ターゲットを貫通可能かどうか </param>
     /// </summary>
-    /// /// <param name="canThrough"> ターゲットを貫通可能かどうか </param>
     public void Begin(bool _canThrough, Vector3 _direc)
     {
         canThrough = _canThrough;

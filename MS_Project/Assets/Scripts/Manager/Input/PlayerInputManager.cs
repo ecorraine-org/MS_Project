@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 /// <summary>
 /// プレイヤー操作管理シングルトン
 /// </summary>

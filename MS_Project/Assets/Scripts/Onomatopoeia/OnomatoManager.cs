@@ -94,7 +94,7 @@ public class OnomatoManager : MonoBehaviour, IHit
                 nextMode = PlayerMode.Spear.ToString();
                 OnModeChangeEvent?.Invoke(PlayerMode.Spear);
                 break;
-            case OnomatoType.HandType:
+            case OnomatoType.PunchType:
                 nextMode = PlayerMode.Gauntlet.ToString();
                 OnModeChangeEvent?.Invoke(PlayerMode.Gauntlet);
                 break;

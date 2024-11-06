@@ -31,7 +31,7 @@ public abstract class PlayerState : MonoBehaviour
     private bool isPerformDamage = false;
 
     /// <summary>
-    ///ステートの初期化処理
+    /// ステートの初期化処理
     /// </summary>
     public virtual void Init(PlayerController _playerController)
     {
@@ -84,17 +84,17 @@ public abstract class PlayerState : MonoBehaviour
     }
 
     /// <summary>
-    ///ステートの更新処理
+    /// ステートの更新処理
     /// </summary>
     public abstract void Tick();
 
     /// <summary>
-    ///ステートの更新処理
+    /// ステートの更新処理
     /// </summary>
     public abstract void FixedTick();
 
     /// <summary>
-    ///ステートの終了処理
+    /// ステートの終了処理
     /// </summary>
     public abstract void Exit();
 }

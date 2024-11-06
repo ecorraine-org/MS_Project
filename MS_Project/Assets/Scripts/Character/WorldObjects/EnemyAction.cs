@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// エネミーアクション基底クラス
+/// </summary>
 public abstract class EnemyAction : MonoBehaviour
 {
     protected EnemyController enemy;
