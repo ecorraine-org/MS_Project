@@ -38,33 +38,6 @@ public class AnimThrowEgg : EnemyAction
         }
     }
 
-    private void ThrowEgg()
-    {
-        //if (currentThrow < throwCount)
-        {
-            // プレハブのインスタンスを生成
-            GameObject thrownAxe = Instantiate(axePrefab, spawnPoint.position, spawnPoint.rotation);
-            // 投げる方向に力を加える
-            Rigidbody rbEgg = thrownAxe.GetComponent<Rigidbody>();
-            rbEgg.useGravity = true;
-
-            Vector3 forceDirection = new Vector3(1.0f, 1.0f, 0f);
-
-            // 上の向きに加わる力の大きさを定義
-            float forceMagnitude = 10.0f;
-
-            // 向きと大きさからSphereに加わる力を計算する
-            Vector3 force = forceMagnitude * forceDirection;
-
-            // 力を加えるメソッド
-            // ForceMode.Impulseは撃力
-            rbEgg.AddForce(force, ForceMode.Impulse);
-
-        }
-        currentThrow++;
-
-    }
-
     // 投擲処理
     private void ThrowEgg()
     {
