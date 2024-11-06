@@ -238,7 +238,7 @@ public class PlayerController : WorldObject
     {
         Gizmos.color = Color.red;
 
-        Gizmos.DrawLine(transform.position, transform.position + curDirecVector);
+        Gizmos.DrawLine(transform.position, transform.position + GetForward());
     }
 
     public override void Hit(bool _canOneHitKill)
@@ -248,15 +248,19 @@ public class PlayerController : WorldObject
 
     public override void Attack(Collider _hitCollider)
     {
-   
+
         if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            HitReaction hitReaction= battleManager.GetPlayerHitReaction();
+            HitReaction hitReaction = battleManager.GetPlayerHitReaction();
             // ヒットストップ          
             battleManager.StartHitStop(spriteAnim);
 
         }
     }
+
+
+
+    #region Getter&Setter 
 
     /// <summary>
     /// 移動しようとする方向(Lスティック方向)を取得
@@ -266,7 +270,30 @@ public class PlayerController : WorldObject
         return inputManager.GetLStick().normalized;
     }
 
-    #region Getter&Setter 
+    /// <summary>
+    /// 前方向を取得
+    /// </summary>
+    public override UnityEngine.Vector3 GetForward()
+    {
+        
+        if (stateManager.CurrentStateType == StateType.Walk
+            || stateManager.CurrentStateType == StateType.Idle)
+        {
+            return curDirecVector;
+        }
+        //移動とアイドルではない時、左右方向だけ
+        else
+        {
+            if (spriteRenderer.flipX == true)
+                return new UnityEngine.Vector3(1, 0, 0);
+
+            if (spriteRenderer.flipX == false)
+                return new UnityEngine.Vector3(-1, 0, 0);
+        }
+
+        //エラーの場合
+        return new UnityEngine.Vector3(0, 1, 0);
+    }
 
     public bool IsHit
     {
