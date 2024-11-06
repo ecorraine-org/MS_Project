@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
+/// <summary>
+/// オブジェクトの状態
+/// </summary>
 public enum ObjectStateType
 {
     [InspectorName("待機")] Idle,
@@ -13,6 +16,9 @@ public enum ObjectStateType
     [InspectorName("破棄")] Destroyed,
 }
 
+/// <summary>
+/// オブジェクトの状態管理
+/// </summary>
 public class ObjectStateHandler : MonoBehaviour
 {
     [SerializeField, Header("初期状態")]

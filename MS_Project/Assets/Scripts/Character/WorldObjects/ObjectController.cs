@@ -4,9 +4,11 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// 
+/// </summary>
 public abstract class ObjectController : WorldObject
 {
-
     [HideInInspector]
     protected Transform player;
 

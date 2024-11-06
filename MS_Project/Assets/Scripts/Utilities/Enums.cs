@@ -37,12 +37,12 @@ public enum PlayerMode
 public enum PlayerSkill
 {
     None,
-    Sword,
-    Hammer,
-    Spear,
-    Gauntlet,
-    Eat,
-    Dodge
+    [InspectorName("剣スキル")] Sword,
+    [InspectorName("ハンマースキル")] Hammer,
+    [InspectorName("スピアスキル")] Spear,
+    [InspectorName("メリケンサックスキル")] Gauntlet,
+    [InspectorName("捕食")] Eat,
+    [InspectorName("回避")] Dodge
 }
 
 /// <summary>
@@ -51,15 +51,15 @@ public enum PlayerSkill
 public enum OnomatoType
 {
     None,
-    [InspectorName("剣")] SlashType,
-    [InspectorName("ハンマー")] SmashType,
-    [InspectorName("スピアー")] PierceType,
-    [InspectorName("殴り")] HandType,
+    [InspectorName("斬撃系")] SlashType,
+    [InspectorName("打撃系")] SmashType,
+    [InspectorName("突撃系")] PierceType,
+    [InspectorName("殴打系")] PunchType,
     [InspectorName("その他")] OtherType
 }
 
 /// <summary>
-/// 
+/// オブジェクト種類
 /// </summary>
 public enum WorldObjectType
 {

@@ -11,9 +11,9 @@ public abstract class ObjectState : MonoBehaviour
 
     protected EnemyAnimManager animHandler;
 
-    ///<summary>
-    ///ステートの初期化処理
-    ///</summary>
+    /// <summary>
+    /// ステートの初期化処理
+    /// </summary>
     public virtual void Init(ObjectController _objectController)
     {
         if (objController != null) return;
@@ -31,18 +31,18 @@ public abstract class ObjectState : MonoBehaviour
     }
 
     /// <summary>
-    ///ステートの更新処理
+    /// ステートの更新処理
     /// </summary>
     public abstract void Tick();
 
-    ///<summary>
-    ///ステートの更新処理
-    ///</summary>
+    /// <summary>
+    /// ステートの更新処理
+    /// </summary>
     public abstract void FixedTick();
 
-    ///<summary>
-    ///ステートの終了処理
-    ///</summary>
+    /// <summary>
+    /// ステートの終了処理
+    /// </summary>
     public abstract void Exit();
 
 }
