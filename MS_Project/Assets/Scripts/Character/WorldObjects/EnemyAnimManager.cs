@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 public class EnemyAnimManager : AnimManager
 {
-
     EnemyController enemy;
 
     public void Init(EnemyController _enemyController)
@@ -18,27 +17,17 @@ public class EnemyAnimManager : AnimManager
     /// <summary>
     /// 攻撃可能設定
     /// </summary>
-    public override void EnableHit()
-    {
-      
-    }
+    public override void EnableHit() { }
 
     /// <summary>
     /// 攻撃不可設定
     /// </summary>
-    public override void DisableHit()
-    {
-        
-    }
+    public override void DisableHit() { }
 
     /// <summary>
     /// 連撃フレーム
     /// </summary>
-    public override void EnableCombo()
-    {
-        
-    }
-
+    public override void EnableCombo() { }
 
     /// <summary>
     /// 突進開始
@@ -48,7 +37,6 @@ public class EnemyAnimManager : AnimManager
         EnemySkillManager skillManager = enemy.SkillManager;
 
         skillManager.DashHandler.Begin(true, enemy.transform.forward);
-
     }
 
     /// <summary>
@@ -60,6 +48,4 @@ public class EnemyAnimManager : AnimManager
 
         skillManager.DashHandler.End();
     }
-
-  
 }

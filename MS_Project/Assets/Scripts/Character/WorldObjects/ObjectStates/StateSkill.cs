@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateIdle : ObjectState
+public class StateSkill : ObjectState
 {
     public override void Init(ObjectController _objectController)
     {
@@ -20,10 +20,10 @@ public class StateIdle : ObjectState
         // スキルへ遷移
         if (objStateHandler.CheckSkill()) return;
 
-        // 移動へ遷移
-        if (objController.MovementInput.magnitude > 0.1f)
+        // アイドルへ遷移
+        if (objController.MovementInput.magnitude < 0f)
         {
-            objController.State.TransitionState(ObjectStateType.Walk);
+            objController.State.TransitionState(ObjectStateType.Idle);
         };
     }
 

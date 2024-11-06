@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public abstract class AnimManager : MonoBehaviour
 {
-    //アニメーション終了したか
+    // アニメーション終了したか
     protected bool isAnimEnd = false;
 
     public bool IsAnimEnd
@@ -40,7 +40,6 @@ public abstract class AnimManager : MonoBehaviour
     /// 攻撃可能設定
     /// </summary>
     public abstract void EnableHit();
-
 
     /// <summary>
     /// 攻撃不可設定

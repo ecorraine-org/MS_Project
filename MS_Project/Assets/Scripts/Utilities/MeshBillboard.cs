@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeshBillboard : MonoBehaviour
 {
     [SerializeField]
-    private EnemyAction enemy;
+    private EnemyController enemy;
 
     Material mat;
 
@@ -13,6 +13,7 @@ public class MeshBillboard : MonoBehaviour
     void Start()
     {
         mat = this.GetComponent<MeshRenderer>().materials[0];
+        enemy = this.GetComponentInParent<EnemyController>();
     }
 
     // Update is called once per frame
@@ -20,7 +21,7 @@ public class MeshBillboard : MonoBehaviour
     {
         this.transform.rotation = Camera.main.transform.rotation;
 
-        float normalizedValue = (float)(enemy.EnemyStatus.Health / enemy.EnemyStatus.StatusData.maxHealth);
+        float normalizedValue = (float)(enemy.Status.Health / enemy.Status.StatusData.maxHealth);
         mat.SetFloat("_Value", normalizedValue);
 
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;

@@ -11,6 +11,20 @@ public class StateWalk : ObjectState
 
     public override void Tick()
     {
+        // ダメージチェック
+        if (objController.State.CheckHit()) return;
+
+        // 攻撃へ遷移
+        if (objStateHandler.CheckAttack()) return;
+
+        // スキルへ遷移
+        if (objStateHandler.CheckSkill()) return;
+
+        // 移動へ遷移
+        if (objController.MovementInput.magnitude <= 0f)
+        {
+            objController.State.TransitionState(ObjectStateType.Idle);
+        };
     }
 
     public override void FixedTick()

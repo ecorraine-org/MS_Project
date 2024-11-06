@@ -181,19 +181,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: mobMaxCount
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: eliteMaxCount
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: mobPool.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: elitePool.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: 'mobPool.Array.data[0]'
@@ -1004,9 +1004,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1480900918}
+  - component: {fileID: 1480900919}
   m_Layer: 0
-  m_Name: OnomatoCollector
-  m_TagString: OnomatopoeiaCollector
+  m_Name: Collector
+  m_TagString: GarbageCollector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1026,6 +1027,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1480900919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1480900917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c003a5052930094eaf6f5a0543e14ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalEnemyCount: 0
+  enemyPool: []
+  otherObjectPool: []
 --- !u!1 &1792959530
 GameObject:
   m_ObjectHideFlags: 0

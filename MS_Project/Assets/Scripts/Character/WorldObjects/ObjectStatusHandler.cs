@@ -51,6 +51,7 @@ public class ObjectStatusHandler : StatusManager
         {
             CustomLogger.Log("Found " + StatusData.ToString() + "\nInstantiating...");
         }
+
         statusData = enemyStatusData;
         currentHealth = enemyStatusData.maxHealth;
         moveSpeed = enemyStatusData.velocity;
@@ -66,6 +67,8 @@ public class ObjectStatusHandler : StatusManager
         isDamaged = true;
         base.TakeDamage(_damage);
     }
+
+    #region Getter & Setter
 
     public new EnemyStatusData StatusData
     {
@@ -102,4 +105,6 @@ public class ObjectStatusHandler : StatusManager
         get => isAlive;
         set { isAlive = value; }
     }
+
+    #endregion
 }
