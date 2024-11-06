@@ -17,6 +17,14 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack
         return transform.forward;
     }
 
+    /// <summary>
+    /// 前方向を取得
+    /// </summary>
+    public virtual Vector3 GetForward()
+    {
+        return transform.forward;
+    }
+
     public virtual Rigidbody RigidBody { get => null; }
 
 

@@ -13,12 +13,12 @@ public class EnemyEffectManager : MonoBehaviour
     [SerializeField, Header("エフェクト生成位置")]
     Transform hitEffectPoint;
 
-    //EnemyControllerの参照
-    EnemyController enemyController;
+    //所有者の参照
+    WorldObject owner;
 
-    public void Init(EnemyController _enemy)
+    public void Init(WorldObject _owner)
     {
-        enemyController = _enemy;
+        owner = _owner;
 
     }
 
