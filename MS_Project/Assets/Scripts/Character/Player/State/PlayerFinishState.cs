@@ -8,9 +8,6 @@ public class PlayerFinishState : PlayerState
     HitCollider hitCollider;
 
     //捕食test
-    public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
-    UnityEngine.Vector3 attackAreaPos;
-    public UnityEngine.Vector3 offsetPos;
     public float attackDamage;
 
     [SerializeField, Header("敵レイヤー")]
@@ -61,14 +58,6 @@ public class PlayerFinishState : PlayerState
 
     public void Attack()
     {
-
-        attackAreaPos = transform.position;
-
-        //左右反転か
-        offsetPos.x = spriteRenderer.flipX ? Mathf.Abs(offsetPos.x) : -Mathf.Abs(offsetPos.x);
-
-        attackAreaPos += offsetPos;
-
         //コライダーの検出
         //playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
 
@@ -76,14 +65,7 @@ public class PlayerFinishState : PlayerState
         playerController.AttackColliderV2.DetectColliders( 1.0f, enemyLayer,true);
     }
 
-    /// <summary>
-    /// 描画test
-    /// </summary>
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(attackAreaPos, attackSize);
-    }
+ 
 
     // Gizmosを使用してベクトルを描画
     private void OnDrawGizmos()
