@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerState
 {
+    [SerializeField, Header("コライダー")]
+    HitCollider hitCollider;
+
     //攻撃test
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     UnityEngine.Vector3 attackAreaPos;
@@ -21,6 +24,8 @@ public class PlayerAttackState : PlayerState
         SetIsPerformDamage(true);
 
         base.Init(_playerController);
+
+        playerController.AttackColliderV2.HitCollidersList = hitCollider;
 
         //コンポーネントの取得
         _CameraBasedHitCorrection = GetComponent<CameraBasedHitCorrection>();
@@ -93,7 +98,6 @@ public class PlayerAttackState : PlayerState
 
     public override void Exit()
     {
-
     }
 
     public void Attack()
@@ -107,11 +111,11 @@ public class PlayerAttackState : PlayerState
         attackAreaPos += offsetPos;
 
         //仮処理
-        float damage=0;
+        float damage = 0;
         if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
         else damage = attackDamage;
         //コライダーの検出
-        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, damage, enemyLayer,false);
+        playerController.AttackColliderV2.DetectColliders(  damage, enemyLayer, false);
 
     }
 
@@ -126,8 +130,8 @@ public class PlayerAttackState : PlayerState
         }
         else
         {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(attackAreaPos, attackSize);
+           // Gizmos.color = Color.yellow;
+           // Gizmos.DrawWireCube(attackAreaPos, attackSize);
         }
     }
 

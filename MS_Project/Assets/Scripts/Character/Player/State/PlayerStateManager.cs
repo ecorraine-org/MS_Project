@@ -148,7 +148,9 @@ public class PlayerStateManager : MonoBehaviour
     /// </summary>
     private void ResetState()
     {
-        playerController.AttackCollider.Reset();
+       // playerController.AttackCollider.Reset();
+
+        playerController.AttackColliderV2.Reset();
 
         playerController.SpriteAnim.speed = 1f;
 

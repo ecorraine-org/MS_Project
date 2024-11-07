@@ -44,9 +44,10 @@ public class PlayerAnimManager : AnimManager
     /// </summary>
     public override void EnableHit()
     {
-        AttackColliderManager attackCollider = playerController.AttackCollider;
+ 
+        AttackColliderManagerV2 attackColliderV2 = playerController.AttackColliderV2;
+        attackColliderV2.SetHit(true);
 
-        attackCollider.SetHit(true);
     }
 
     /// <summary>
@@ -54,9 +55,9 @@ public class PlayerAnimManager : AnimManager
     /// </summary>
     public override void DisableHit()
     {
-        AttackColliderManager attackCollider = playerController.AttackCollider;
+        AttackColliderManagerV2 attackColliderV2 = playerController.AttackColliderV2;
+        attackColliderV2.SetHit(false);
 
-        attackCollider.SetHit(false);
     }
 
     /// <summary>

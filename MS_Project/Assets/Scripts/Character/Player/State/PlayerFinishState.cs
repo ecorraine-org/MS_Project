@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerFinishState : PlayerState
 {
+    [SerializeField, Header("コライダー")]
+    HitCollider hitCollider;
+
     //捕食test
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     UnityEngine.Vector3 attackAreaPos;
@@ -22,6 +25,8 @@ public class PlayerFinishState : PlayerState
 
         base.Init(_playerController);
         Debug.Log("終結ステート");
+
+        playerController.AttackColliderV2.HitCollidersList = hitCollider;
 
         //入力方向取得
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
@@ -68,7 +73,7 @@ public class PlayerFinishState : PlayerState
         //playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
 
         //敵との当たり判定
-        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, 1.0f, enemyLayer,true);
+        playerController.AttackColliderV2.DetectColliders( 1.0f, enemyLayer,true);
     }
 
     /// <summary>

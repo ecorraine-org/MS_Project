@@ -32,7 +32,10 @@ public class PlayerController : WorldObject
     private Collider playerCollider;
 
     [SerializeField, Header("アタックコライダーマネージャー")]
-    AttackColliderManager attackCollider;
+    AttackColliderManagerV2 attackColliderV2;
+
+    //[SerializeField, Header("ヒットコライダー")]
+    //HitCollider hitCollider;
 
     [SerializeField, Header("エネミーディテクター")]
     DetectEnemyArea detectEnemy;
@@ -98,6 +101,8 @@ public class PlayerController : WorldObject
 
     void Start()
     {
+     
+
         groundCheck = gameObject.transform.GetChild(1).gameObject.transform;
         if (Debug.isDebugBuild)
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
@@ -326,9 +331,9 @@ public class PlayerController : WorldObject
         get => this.skillManager;
     }
 
-    public AttackColliderManager AttackCollider
+    public AttackColliderManagerV2 AttackColliderV2
     {
-        get => this.attackCollider;
+        get => this.attackColliderV2;
     }
 
     public PlayerModeManager ModeManager
