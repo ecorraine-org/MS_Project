@@ -66,6 +66,8 @@ public class AttackColliderManager : MonoBehaviour
 
             // if (isCorrected)
             {
+                //重複処理を避けるため
+                //既に当たり判定を処理したオブジェクトをリストに入れる
                 hitObjects.Add(hitCollider);
                 Hit(hitCollider, _damage, _oneHitKill);
             }
@@ -132,11 +134,6 @@ public class AttackColliderManager : MonoBehaviour
         var hit = _hitCollider.GetComponentInChildren<IHit>();
         if (hit != null)
         {
-            //if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Onomatopoeia"))
-            //{
-            //    CustomLogger.Log(_hitCollider.gameObject.name + "is detected.");
-            //    _hitCollider.gameObject.GetComponent<OnomatoManager>().NextDataType = _hitCollider.gameObject.GetComponent<OnomatopoeiaController>().Data.type;
-            //}
 
             hit.Hit(_canOneHitKill);
         }

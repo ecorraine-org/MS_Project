@@ -11,6 +11,9 @@ public class PlayerController : WorldObject
     protected PlayerInputManager inputManager;
     BattleManager battleManager;
 
+    [SerializeField, Header("スプライトオブジェクト")]
+    GameObject spriteObject;
+
     [SerializeField, Header("ステータスマネージャー")]
     PlayerStatusManager statusManager;
 
@@ -100,10 +103,19 @@ public class PlayerController : WorldObject
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
     }
 
+    private void Update()
+    {
+        //前方向で向き設定
+       UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.LookRotation(GetForward());
+        transform.rotation = UnityEngine.Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+
+        //スプライトをカメラに向く
+        spriteObject.transform.rotation = Camera.main.transform.rotation;
+    }
 
     private void FixedUpdate()
     {
-        sprite.transform.rotation = Camera.main.transform.rotation;
+        //sprite.transform.rotation = Camera.main.transform.rotation;
         /*
         Debug.Log("CurDirec "+curDirecVector);
 
@@ -236,9 +248,11 @@ public class PlayerController : WorldObject
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
 
-        Gizmos.DrawLine(transform.position, transform.position + GetForward());
+      //  Gizmos.DrawLine(transform.position, transform.position + GetForward());
+
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward);
     }
 
     public override void Hit(bool _canOneHitKill)
@@ -277,7 +291,8 @@ public class PlayerController : WorldObject
     {
         
         if (stateManager.CurrentStateType == StateType.Walk
-            || stateManager.CurrentStateType == StateType.Idle)
+            || stateManager.CurrentStateType == StateType.Idle
+             || stateManager.CurrentStateType == StateType.Dodge)
         {
             return curDirecVector;
         }
@@ -321,7 +336,7 @@ public class PlayerController : WorldObject
         get => this.modeManager;
     }
 
-    public new PlayerAnimManager AnimManager
+    public PlayerAnimManager AnimManager
     {
         get => this.animManager;
     }

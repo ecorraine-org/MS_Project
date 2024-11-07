@@ -27,18 +27,18 @@ public class DetectEnemyArea : DetectArea
     private void Update()
     {
         //方向を一致させる仮処理
-        Vector3 currentCenter = boxCollider.center;
-        if (playerController.SpriteRenderer.flipX)
-        {
-            currentCenter.x = Mathf.Abs(currentCenter.x) ; 
+        //Vector3 currentCenter = boxCollider.center;
+        //if (playerController.SpriteRenderer.flipX)
+        //{
+        //    currentCenter.x = Mathf.Abs(currentCenter.x) ; 
          
-        }
-        else
-        {
-            currentCenter.x = Mathf.Abs(currentCenter.x) * -1;
-        }
+        //}
+        //else
+        //{
+        //    currentCenter.x = Mathf.Abs(currentCenter.x) * -1;
+        //}
 
-        boxCollider.center = currentCenter;
+        //boxCollider.center = currentCenter;
 
     }
 
