@@ -8,9 +8,6 @@ public class PlayerAttackState : PlayerState
     HitCollider hitCollider;
 
     //攻撃test
-    public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
-    UnityEngine.Vector3 attackAreaPos;
-    public UnityEngine.Vector3 offsetPos;
     public float attackDamage;
     public float FrenzyAttackDamage;
     public LayerMask enemyLayer;
@@ -103,13 +100,6 @@ public class PlayerAttackState : PlayerState
     public void Attack()
     {
 
-        attackAreaPos = transform.position;
-
-        //左右反転か
-        offsetPos.x = spriteRenderer.flipX ? Mathf.Abs(offsetPos.x) : -Mathf.Abs(offsetPos.x);
-
-        attackAreaPos += offsetPos;
-
         //仮処理
         float damage = 0;
         if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
@@ -126,7 +116,7 @@ public class PlayerAttackState : PlayerState
     {
         if (_CameraBasedHitCorrection != null)
         {
-            _CameraBasedHitCorrection.VisualizeCollider(attackAreaPos, attackSize, false);
+          //  _CameraBasedHitCorrection.VisualizeCollider(attackAreaPos, attackSize, false);
         }
         else
         {
