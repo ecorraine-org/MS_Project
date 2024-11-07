@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerSkillState : PlayerState
 {
+    [SerializeField, Header("コライダー")]
+    HitCollider hitCollider;
+
     private bool isHammerSkillExecuting = false; 
     //攻撃test
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
@@ -36,6 +39,8 @@ public class PlayerSkillState : PlayerState
         defaultAttackSize = attackSize;
 
         base.Init(_playerController);
+
+        playerController.AttackColliderV2.HitCollidersList = hitCollider;
 
         //スキルを発動する
         playerController.SkillManager.UseSkill((PlayerSkill)playerModeManager.Mode);
@@ -167,18 +172,18 @@ public class PlayerSkillState : PlayerState
         if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
         else damage = attackDamage;
         //コライダーの検出
-        playerController.AttackCollider.DetectColliders(attackAreaPos, attackSize, damage, enemyLayer,false);
+        playerController.AttackColliderV2.DetectColliders( damage, enemyLayer,false);
 
     }
 
     /// <summary>
     /// 描画test
     /// </summary>
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(attackAreaPos, attackSize);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireCube(attackAreaPos, attackSize);
+    //}
 
     #region //引き寄せる
 
