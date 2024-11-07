@@ -247,8 +247,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.7, z: 0.5}
-  m_Center: {x: -0.75, y: 0.39, z: 0}
+  m_Size: {x: 1, y: 0.7, z: 2.35}
+  m_Center: {x: 0, y: 0.39, z: 0.96}
 --- !u!1 &3115044779377313445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1069,7 +1069,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836845501146020627}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 829d320e6d2d95745b2077f82a9e8130, type: 2}
   m_CullingMode: 0
@@ -1095,6 +1095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58eb9bfa86b327a4fb2811fea5a9f0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteObject: {fileID: 6777233189667550420}
   statusManager: {fileID: 2584761046635776466}
   stateManager: {fileID: 2304777744165196105}
   animManager: {fileID: 9057627101419881283}
