@@ -39,6 +39,10 @@ public class CameraBasedHitCorrection : MonoBehaviour
                Mathf.Abs(attackerScreenPos.z - targetScreenPos.z) <= depthTolerance;
     }
 
+    //カメラ補正を行う関数
+    //
+
+
     /// <summary>
     /// デバッグ用にコライダーを可視化する
     /// </summary>
