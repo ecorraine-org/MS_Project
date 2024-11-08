@@ -7,7 +7,7 @@ public class PlayerSkillState : PlayerState
     [SerializeField, Header("コライダー")]
     HitCollider hitCollider;
 
-    private bool isHammerSkillExecuting = false; 
+    private bool isHammerSkillExecuting = false;
     //攻撃test
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     UnityEngine.Vector3 defaultAttackSize;
@@ -64,6 +64,11 @@ public class PlayerSkillState : PlayerState
         //捕食へ遷移
         if (playerStateManager.CheckEat()) return;
 
+        //回避キャンセル
+        //回避へ遷移
+        if (playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].canCancel
+            && playerStateManager.CheckDodge()) return;
+
         //  bool canCharge = playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].canCharge;
         // bool isCharging = playerSkillManager.DicIsCharge[(PlayerSkill)playerModeManager.Mode];
 
@@ -78,7 +83,7 @@ public class PlayerSkillState : PlayerState
                 //終了
                 if (stateInfo.normalizedTime >= 1f)
                     skillState = SkillState.Finish;
-           
+
                 break;
 
             case SkillState.Charge:
@@ -90,7 +95,7 @@ public class PlayerSkillState : PlayerState
 
                     //今後秒ごとに変化する
                     statusManager.TakeDamage(0.05f);
-                  //  attackSize *= 1.01f;
+                    //  attackSize *= 1.01f;
                     hitCollider.transform.localScale *= 1.01f;
 
                     return;
@@ -126,14 +131,14 @@ public class PlayerSkillState : PlayerState
                 playerController.StateManager.TransitionState(StateType.Idle);
 
 
-                break;   
+                break;
             default:
                 break;
         }
 
     }
 
- 
+
 
     public override void FixedTick()
     {
@@ -175,7 +180,7 @@ public class PlayerSkillState : PlayerState
         else damage = playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].damage;
 
         //コライダーの検出
-        playerController.AttackColliderV2.DetectColliders( damage, enemyLayer,false);
+        playerController.AttackColliderV2.DetectColliders(damage, enemyLayer, false);
 
     }
 
@@ -259,7 +264,7 @@ public class PlayerSkillState : PlayerState
     //}
 
     #endregion
-  
+
 }
 
 #region //念のためswitch処理を残す
