@@ -30,9 +30,11 @@ public class AttackColliderManagerV2 : MonoBehaviour
 
     private void Awake()
     {
-        //1. IContainerBuilderを使用して、コンポーネントを取得する
-
+        //コンポーネントの取得
         _cameraBasedHitCorrection = GetComponent<CameraBasedHitCorrection>();
+
+        //Logで_cameraBasedHitCorrectionがnullかどうかを確認
+        Debug.Log("CameraBasedHitCorrection:" + _cameraBasedHitCorrection);
     }
 
     /// <summary>
@@ -55,7 +57,11 @@ public class AttackColliderManagerV2 : MonoBehaviour
 
             if (hitObjects.Contains(hitCollider)) continue;
 
-            // bool isCorrected = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, _size);
+            //カメラベースの当たり判定補正を行う
+            bool isHit = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, hitCollider.bounds.size);
+
+            //Logで確認
+            Debug.Log("isHit:" + isHit);
 
             // if (isCorrected)
             {
@@ -65,8 +71,6 @@ public class AttackColliderManagerV2 : MonoBehaviour
                 Hit(hitCollider, _damage, _oneHitKill);
             }
 
-            // デバッグ用の可視化
-            //_cameraBasedHitCorrection.VisualizeCollider(hitCollider.transform.position, _size, isCorrected);
         }
 
 
