@@ -12,6 +12,7 @@ public struct SkillStatus
     public float hpCost;//hp消費量
     public float damage;//攻撃力
     public bool canCharge;//長押し(チャージ)可能かどうか
+    public bool canCancel;//回避でキャンセル可能かどうか
 }
 
 [CreateAssetMenu(fileName = "PlayerSkillData", menuName = "ScriptableObjects/Character/Player/SkillData", order = 0)]
