@@ -8,7 +8,8 @@ public class PlayerAttackState : PlayerState
     HitCollider hitCollider;
 
     //攻撃test
-    public float attackDamage;
+    [SerializeField, Header("攻撃力")]
+    float attackDamage;
     public float FrenzyAttackDamage;
     public LayerMask enemyLayer;
     private CameraBasedHitCorrection _CameraBasedHitCorrection;
@@ -35,18 +36,23 @@ public class PlayerAttackState : PlayerState
         switch (playerModeManager.Mode)
         {
             case PlayerMode.None:
+                attackDamage = 1;
                 spriteAnim.Play("Attack",0,0f);
                 break;
             case PlayerMode.Sword:
+                attackDamage = statusManager.StatusData.swordAtk;
                 spriteAnim.Play("Attack", 0, 0f);
                 break;
             case PlayerMode.Hammer:
+                attackDamage = statusManager.StatusData.hammerAtk;
                 spriteAnim.Play("HammerAttack", 0, 0f);
                 break;
             case PlayerMode.Spear:
+                attackDamage = statusManager.StatusData.spearAtk;
                 spriteAnim.Play("SpearAttack", 0, 0f);
                 break;
             case PlayerMode.Gauntlet:
+                attackDamage = statusManager.StatusData.gauntletAtk;
                 spriteAnim.Play("GauntletAttack", 0, 0f);
                 break;
             default:
