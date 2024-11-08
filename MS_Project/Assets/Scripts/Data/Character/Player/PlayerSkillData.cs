@@ -10,6 +10,7 @@ public struct SkillStatus
     public float dashSpeed;//突進速度
     public float dashDuration;//突進持続時間(-1:自動で停止しない)
     public float hpCost;//hp消費量
+    public float damage;//攻撃力
     public bool canCharge;//長押し(チャージ)可能かどうか
 }
 

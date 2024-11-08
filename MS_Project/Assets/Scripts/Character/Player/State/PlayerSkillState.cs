@@ -170,7 +170,8 @@ public class PlayerSkillState : PlayerState
         //仮処理
         float damage = 0;
         if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
-        else damage = attackDamage;
+        else damage = playerSkillManager.SkillData.dicSkill[(PlayerSkill)playerModeManager.Mode].damage;
+
         //コライダーの検出
         playerController.AttackColliderV2.DetectColliders( damage, enemyLayer,false);
 
