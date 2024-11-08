@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
+[RequireComponent(typeof(CinemachineVirtualCamera))]
 public class CameraController : MonoBehaviour
 {
     [Header("オフセット")]
@@ -12,12 +14,12 @@ public class CameraController : MonoBehaviour
     public float blendFactor = 0.125f;
     private Transform playerPos;
 
-    private Camera mainCamera;
+    private CinemachineVirtualCamera _mainCamera;
 
     void Awake()
     {
-        mainCamera = Camera.main;
-        mainCamera.depthTextureMode = DepthTextureMode.Depth;
+        _mainCamera = GetComponent<CinemachineVirtualCamera>();
+        //_mainCamera.depthTextureMode = DepthTextureMode.Depth;
     }
 
     // Start is called before the first frame update
@@ -35,6 +37,6 @@ public class CameraController : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, blendFactor);
         transform.position = smoothedPosition;
 
-        mainCamera.transform.LookAt(playerPos);
+        _mainCamera.transform.LookAt(playerPos);
     }
 }
