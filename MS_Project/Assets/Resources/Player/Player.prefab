@@ -89,8 +89,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitCollider: {fileID: 2986672402212135855}
-  attackSize: {x: 1, y: 1, z: 1}
-  offsetPos: {x: 0, y: 0, z: 0}
   attackDamage: 0
   enemyLayer:
     serializedVersion: 2
@@ -296,8 +294,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitCollider: {fileID: 6621008950464217410}
-  attackSize: {x: 2.5, y: 3, z: 2}
-  offsetPos: {x: 1.5, y: 2, z: 0.5}
   attackDamage: 3
   onomatoLayer:
     serializedVersion: 2
@@ -563,8 +559,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitCollider: {fileID: 2986672402212135855}
-  attackSize: {x: 2.5, y: 2, z: 1.5}
-  offsetPos: {x: 1.5, y: 1, z: 0}
   attackDamage: 20
   FrenzyAttackDamage: 100
   enemyLayer:
@@ -1126,7 +1120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411b07da092992c43838d2f28cf78e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitCollidersList: {fileID: 2986672402212135855}
+  hitCollider: {fileID: 0}
   closestCollider: {fileID: 0}
   hasCollided: 0
 --- !u!1 &8929522941215182088
@@ -1220,7 +1214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae31d5e5659c0bf4892a1b1efd2b6952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitCollider: {fileID: 0}
+  hitCollider: {fileID: 2986672402212135855}
   attackSize: {x: 3, y: 2, z: 2}
   offsetPos: {x: 2, y: 1, z: 0}
   attackDamage: 20
