@@ -13,4 +13,16 @@ public class PlayerStatusData : CharacterStatusData
 
     [Header("暴走時間(秒)")]
     public float frenzyTime = 5;
+
+    [Header("剣の攻撃力")]
+    public float swordAtk = 1;
+
+    [Header("ハンマーの攻撃力")]
+    public float hammerAtk = 1;
+
+    [Header("スピアの攻撃力")]
+    public float spearAtk = 1;
+
+    [Header("メリケンサックの攻撃力")]
+    public float gauntletAtk = 1;
 }
