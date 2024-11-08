@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AnimThrowEgg : EnemyAction
 {
-    public GameObject eggPrefab;         // 投げるプレハブ
+    public GameObject axePrefab;         // 投げるプレハブ
     public Transform spawnPoint;         // プレハブの生成位置
     public float throwForce = 10f;       // 投げる力
     public int throwCount = 3;           // 連続して投げる回数（publicで調整可能）
@@ -34,34 +34,38 @@ public class AnimThrowEgg : EnemyAction
         {
             currentThrow = 0;
             isThrowing = true;
-            InvokeRepeating(nameof(ThrowEgg), 0f, throwInterval);
+            InvokeRepeating(nameof(ThrowEggAI), 0f, throwInterval);
         }
     }
 
-    // 投擲処理
-    private void ThrowEgg()
+    private void ThrowEggAI()
     {
-        if (currentThrow < throwCount)
-        {
-            if (eggPrefab != null && spawnPoint != null)
-            {
-                // プレハブのインスタンスを生成
-                GameObject thrownEgg = Instantiate(eggPrefab, spawnPoint.position, spawnPoint.rotation, collector.transform);
-                Rigidbody rbEgg = thrownEgg.GetComponent<Rigidbody>();
-                if (rbEgg != null)
-                {
-                    // 投げる方向に力を加える
-                    rbEgg.AddForce(spawnPoint.forward * throwForce, ForceMode.Impulse);
-                }
-                collector.GetComponent<Collector>().otherObjectPool.Add(thrownEgg);
-            }
-            currentThrow++;
-        }
-        else
-        {
-            // 投擲が指定回数に達したら終了
-            CancelInvoke(nameof(ThrowEgg));
-            isThrowing = false;
-        }
+        // プレハブのインスタンスを生成
+        GameObject thrownAxe = Instantiate(axePrefab, spawnPoint.position, spawnPoint.rotation);
+        Rigidbody rbEgg = thrownAxe.GetComponent<Rigidbody>();
+        rbEgg.useGravity = true;
+
+        // 投げる力の大きさ
+        float forceMagnitude = 20.0f;
+        float gravityScale = 50.0f; // 重力を通常より強くする
+
+        // 指定した角度で前方に飛ばす
+        float angle = 85.0f; // 前方に対して30度上向きに飛ばす
+        float radianAngle = angle * Mathf.Deg2Rad;
+
+        // 指定角度に応じた方向を計算
+        Vector3 forceDirection = (spawnPoint.forward * Mathf.Cos(radianAngle) + spawnPoint.up * Mathf.Sin(radianAngle)).normalized;
+
+        // 力を計算して加える
+        Vector3 force = forceMagnitude * forceDirection;
+        rbEgg.AddForce(force, ForceMode.Impulse);
+
+        // 重力の強化（重力を上乗せするために下方向の追加力を適用）
+        Vector3 additionalGravity = Physics.gravity * (gravityScale - 1.0f); // gravityScaleが1なら通常重力、2なら2倍
+        rbEgg.AddForce(additionalGravity, ForceMode.Acceleration);
+
+        // 回転を加える
+        Vector3 torque = new Vector3(0, 0, 40.0f); // Z軸を中心に回転するトルク
+        rbEgg.AddTorque(torque, ForceMode.Impulse);
     }
 }
