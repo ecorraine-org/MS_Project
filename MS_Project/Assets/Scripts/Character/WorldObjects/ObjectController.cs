@@ -25,8 +25,8 @@ public abstract class ObjectController : WorldObject
     [SerializeField, Tooltip("破壊できるかどうか？")]
     private bool isInvincible = false;
 
-    [SerializeField, Tooltip("攻撃しているか？")]
-    private bool canAttack = false;
+    [SerializeField, Tooltip("攻撃できるか？")]
+    private bool canAttack = true;
 
     [SerializeField, Tooltip("スキル使用中なのか？")]
     private bool useSkill = false;

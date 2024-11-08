@@ -8,6 +8,8 @@ public class StateAttack : ObjectState
     public override void Init(ObjectController _objectController)
     {
         base.Init(_objectController);
+
+        objStateHandler.isAttacking = true;
     }
 
     public override void Tick()
@@ -16,6 +18,8 @@ public class StateAttack : ObjectState
         {
             if(!enemy.CanAttack)
                 enemy.State.TransitionState(ObjectStateType.Idle);
+
+            enemy.OnAttack?.Invoke();
         }
         else
         {

@@ -14,6 +14,7 @@ public class StateWalk : ObjectState
         if (enemy != null)
         {
             enemy.Anim.Play("Walk");
+            enemy.EnemyAction.Move();
         }
 
         // ダメージチェック

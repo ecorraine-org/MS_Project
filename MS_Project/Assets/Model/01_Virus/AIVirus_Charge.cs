@@ -15,6 +15,6 @@ public class AIVirus_Charge : EnemyAction
     // 前にツッコむ
     private void Charge()
     {
-        enemy.RigidBody.AddForce(enemy.transform.forward * bushvalue, ForceMode.Acceleration);
+        enemy.RigidBody.AddForce(enemy.transform.forward * bushvalue, ForceMode.Impulse);
     }
 }
