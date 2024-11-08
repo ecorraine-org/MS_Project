@@ -9,7 +9,7 @@ public class EnemyActionTemplate : EnemyAction
         Debug.Log("Move");
     }
 
-    public override void SkillAttack()
+    public override void Attack()
     {
         Debug.Log("UseSkill");
     }

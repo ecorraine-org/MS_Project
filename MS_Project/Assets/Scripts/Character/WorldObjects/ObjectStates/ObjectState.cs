@@ -9,6 +9,7 @@ public abstract class ObjectState : MonoBehaviour
     protected ObjectStatusHandler objStatusHandler;
     protected ObjectStateHandler objStateHandler;
 
+    protected EnemyController enemy;
     protected EnemyAnimManager animHandler;
 
     /// <summary>
@@ -23,9 +24,9 @@ public abstract class ObjectState : MonoBehaviour
         objStatusHandler = objController.Status;
         objStateHandler = objController.State;
 
-        if (objStatusHandler.StatusData.ObjectType == WorldObjectType.Enemy)
+        if (objStatusHandler.StatusData.objectType == WorldObjectType.Enemy)
         {
-            EnemyController enemy = objController as EnemyController;
+            enemy = objController as EnemyController;
             animHandler = enemy.AnimManager;
         }
     }

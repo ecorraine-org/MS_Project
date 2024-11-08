@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class AnimThrowEgg : EnemyAction
+public class AIChicken_ThrowEggAction : EnemyAction
 {
-    public GameObject axePrefab;         // 投げるプレハブ
+    public GameObject eggPrefab;         // 投げるプレハブ
     public Transform spawnPoint;         // プレハブの生成位置
     public float throwForce = 10f;       // 投げる力
     public int throwCount = 3;           // 連続して投げる回数（publicで調整可能）
@@ -11,20 +11,24 @@ public class AnimThrowEgg : EnemyAction
     private int currentThrow = 0;        // 現在の投擲回数
     private bool isThrowing = false;     // 投擲中フラグ
 
-    //--------------------------------------------------------------
-    //斜方投射
-
-    public override void Move()
+    public override void Attack()
     {
-        if (distanceToPlayer < EnemyStatus.StatusData.attackDistance)
+        // 逃げる
+        if (distanceToPlayer < enemy.Status.StatusData.attackDistance)
         {
-            // 逃げる
-            Vector3 movement = -transform.forward * 0.88f * Time.deltaTime;
-            rb.MovePosition(rb.position + movement);
+            enemy.CanAttack = false;
+            enemy.Anim.Play("Walk");
+            Vector3 direction = player.position - enemy.transform.position;
+            // 進む方向に向く
+            Quaternion newRotation = Quaternion.LookRotation(-direction.normalized);
+            newRotation.x = 0;
+            enemy.transform.rotation = newRotation;
+
+            Vector3 newMovement = enemy.transform.forward * 0.88f * Time.deltaTime;
+            enemy.RigidBody.MovePosition(enemy.RigidBody.position + newMovement);
         }
-    }
-    public override void SkillAttack()
-    {
+        else
+            ThrowEgg();
     }
 
     // アニメーションイベントから呼び出すメソッド
@@ -34,16 +38,20 @@ public class AnimThrowEgg : EnemyAction
         {
             currentThrow = 0;
             isThrowing = true;
-            InvokeRepeating(nameof(ThrowEggAI), 0f, throwInterval);
+            InvokeRepeating(nameof(ThrowEgg), 0f, throwInterval);
         }
     }
 
-    private void ThrowEggAI()
+    //--------------------------------------------------------------
+    // 斜方投射
+    private void ThrowEgg()
     {
         // プレハブのインスタンスを生成
-        GameObject thrownAxe = Instantiate(axePrefab, spawnPoint.position, spawnPoint.rotation);
-        Rigidbody rbEgg = thrownAxe.GetComponent<Rigidbody>();
+        GameObject thrownEgg = Instantiate(eggPrefab, spawnPoint.position, spawnPoint.rotation, collector.transform);
+        Rigidbody rbEgg = thrownEgg.GetComponent<Rigidbody>();
         rbEgg.useGravity = true;
+
+        collector.GetComponent<Collector>().otherObjectPool.Add(thrownEgg);
 
         // 投げる力の大きさ
         float forceMagnitude = 20.0f;

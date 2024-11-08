@@ -24,7 +24,7 @@ public class EnemyController : ObjectController
     [SerializeField, Tooltip("ラストヒットできるかどうか？")]
     protected bool isKillable = false;
 
-    private EnemyAction enemySkill;
+    private EnemyAction enemyAction;
 
     private Animator animator;
     private CapsuleCollider capsuleCollider;
@@ -48,7 +48,7 @@ public class EnemyController : ObjectController
 
         gameObj = Instantiate(Resources.Load<GameObject>(Status.StatusData.gameObjPrefab), this.transform);
 
-        animator = gameObj.GetComponent<Animator>();
+        animator = gameObj.GetComponentInChildren<Animator>();
 
         animManager = GetComponentInChildren<EnemyAnimManager>();
         animManager.Init(this);
@@ -64,11 +64,10 @@ public class EnemyController : ObjectController
         capsuleCollider.height = collider.height;
         capsuleCollider.radius = collider.radius;
 
-        if (gameObj.TryGetComponent<EnemyAction>(out enemySkill))
+        if (gameObj.TryGetComponent<EnemyAction>(out enemyAction))
         {
-            enemySkill.EnemyStatus = Status;
-            enemySkill.SetAnimator(animator);
-            enemySkill.SetRigidbody(rigidBody);
+            enemyAction.Enemy = this;
+            enemyAction.EnemyStatus = Status;
         }
         else
         {
@@ -82,13 +81,14 @@ public class EnemyController : ObjectController
     private void FixedUpdate()
     {
         Move();
+        Debug.Log(Anim.GetCurrentAnimatorStateInfo(0).shortNameHash.ToString());
     }
 
     private void Update()
     {
         if (player == null) return;
 
-         //フィニッシュ
+        //フィニッシュ
         if (Status.Health <= Status.StatusData.maxHealth / 2)
         {
             isKillable = true;
@@ -97,24 +97,25 @@ public class EnemyController : ObjectController
         float distance = Vector3.Distance(player.position, transform.position);
         if (distance < Status.StatusData.chaseDistance)
         {
-                Vector3 direction = player.position - transform.position;
-                // 進む方向に向く
-                Quaternion newRotation = Quaternion.LookRotation(direction.normalized);
-                newRotation.x = 0;
-                transform.rotation = newRotation;
+            Vector3 direction = player.position - transform.position;
+            // 進む方向に向く
+            Quaternion newRotation = Quaternion.LookRotation(direction.normalized);
+            newRotation.x = 0;
+            transform.rotation = newRotation;
 
             if (distance <= Status.StatusData.attackDistance)
             {
                 OnMovementInput?.Invoke(Vector3.zero);
-                if (enemySkill)
-                {
-                    enemySkill.SetDistanceToPlayer(distance);
-                }
+
                 // 攻撃
-                OnAttack?.Invoke();
+                CanAttack = true;
+                if(CanAttack)
+                    OnAttack?.Invoke();
             }
             else
             {
+                CanAttack = false;
+
                 // 追跡
                 OnMovementInput?.Invoke(direction.normalized);
             }
@@ -128,13 +129,15 @@ public class EnemyController : ObjectController
         OnDamaged?.Invoke();
     }
 
-    private void Move()
+    public void Move()
     {
         if (MovementInput.magnitude > 0.1f && Status.MoveSpeed >= 0)
         {
-            animator.Play("Walk");
-            // 前に進む
-            rigidBody.velocity = MovementInput * Status.MoveSpeed;
+            if (enemyAction)
+            {
+                animator.Play("Walk");
+                enemyAction.Move();
+            }
         }
         else
         {
@@ -142,36 +145,39 @@ public class EnemyController : ObjectController
         }
     }
 
-    public void Attack()
-    {
-        if (CanAttack)
-        {
-            TriggerSkill();
-
-            player.GetComponent<PlayerController>().StatusManager.TakeDamage(Status.Damage);
-
-            StartCoroutine(nameof(AttackCoroutine));
-        }
-    }
-
-    public void TriggerSkill()
-    {
-        animator.SetTrigger("IsAttack");
-        if (enemySkill)
-            enemySkill.SkillAttack();
-
-        CanAttack = false;
-    }
-
     public void TakeDamage()
     {
         if (Status.IsDamaged)
         {
-            animator.Play("Damaged",0,0f);
+            if (enemyAction)
+                animator.Play("Damaged");
 
             GenerateOnomatopoeia();
 
             Status.IsDamaged = false;
+        }
+    }
+
+    public void Attack()
+    {
+        TriggerAttack();
+
+        player.GetComponent<PlayerController>().StatusManager.TakeDamage(Status.Damage);
+
+        StartCoroutine(nameof(AttackCoroutine));
+
+        CanAttack = false;
+    }
+
+    public void TriggerAttack()
+    {
+        if (enemyAction)
+        {
+            animator.SetTrigger("IsAttack");
+
+            enemyAction.Attack();
+
+            CanAttack = false;
         }
     }
 

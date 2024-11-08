@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ObjectData", menuName = "ScriptableObjects/WorldObjects/ObjectStatusData", order = 1)]
 public class ObjectStatusData : CharacterStatusData
 {
-    [SerializeField, Header("オブジェクトタイプ")]
-    const WorldObjectType objectType = WorldObjectType.StaticObject;
+    [Header("オブジェクトタイプ")]
+    public readonly WorldObjectType objectType = WorldObjectType.StaticObject;
 
     [Header("オブジェクトプレハブ")]
     public string gameObjPrefab;

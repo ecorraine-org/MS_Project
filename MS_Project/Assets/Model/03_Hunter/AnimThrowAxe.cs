@@ -10,7 +10,7 @@ public class AnimThrowAxe : EnemyAction
     {
     }
 
-    public override void SkillAttack()
+    public override void Attack()
     {
     }
 

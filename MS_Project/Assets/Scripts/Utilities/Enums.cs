@@ -68,3 +68,14 @@ public enum WorldObjectType
     [InspectorName("敵")] Enemy,
     [InspectorName("その他")] StaticObject
 }
+
+/// <summary>
+/// エネミー階級
+/// </summary>
+public enum EnemyRank
+{
+    None,
+    [InspectorName("雑魚")] Normal,
+    [InspectorName("エリート")] Elite,
+    [InspectorName("ボス")] Boss,
+}

@@ -30,10 +30,7 @@ public class StatusManager : MonoBehaviour, ILife
         }
     }
 
-    public void OnDeath()
-    {
-
-    }
+    public void OnDeath() { }
 
     public float Health
     {
@@ -44,11 +41,6 @@ public class StatusManager : MonoBehaviour, ILife
     public virtual CharacterStatusData StatusData
     {
         get => statusData;
-    }
-
-    public virtual WorldObjectType ObjectType
-    {
-        get => statusData.ObjectType;
     }
 
 }
