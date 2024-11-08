@@ -37,6 +37,7 @@ public class PlayerSkillState : PlayerState
         SetIsPerformDamage(true);
 
         defaultAttackSize = attackSize;
+        defaultAttackSize = hitCollider.transform.localScale;
 
         base.Init(_playerController);
 
@@ -89,7 +90,8 @@ public class PlayerSkillState : PlayerState
 
                     //今後秒ごとに変化する
                     statusManager.TakeDamage(0.05f);
-                    attackSize *= 1.01f;
+                  //  attackSize *= 1.01f;
+                    hitCollider.transform.localScale *= 1.01f;
 
                     return;
                 }
@@ -155,7 +157,7 @@ public class PlayerSkillState : PlayerState
     {
         playerController.SpriteRenderer.color = Color.white;
 
-        attackSize= defaultAttackSize;
+        hitCollider.transform.localScale = defaultAttackSize;
     }
 
     public void Attack()
