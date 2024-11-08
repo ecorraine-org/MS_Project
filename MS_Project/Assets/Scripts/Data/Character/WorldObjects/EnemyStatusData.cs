@@ -5,8 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/WorldObjects/EnemyStatusData", order = 2)]
 public class EnemyStatusData : ObjectStatusData
 {
-    [SerializeField, Header("オブジェクトタイプ")]
-    const WorldObjectType objectType = WorldObjectType.Enemy;
+    [Header("オブジェクトタイプ")]
+    public readonly WorldObjectType objectType = WorldObjectType.Enemy;
+
+    [Header("エネミー階級")]
+    public EnemyRank enemyRank = EnemyRank.None;
 
     [Header("攻撃力")]
     public float damage = 1f;

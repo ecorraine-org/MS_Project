@@ -11,6 +11,11 @@ public class StateIdle : ObjectState
 
     public override void Tick()
     {
+        if (enemy != null)
+        {
+            enemy.Anim.Play("Idle");
+        }
+
         // ダメージチェック
         if (objStateHandler.CheckHit()) return;
 

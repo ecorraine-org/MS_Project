@@ -8,7 +8,7 @@ public class KN_Attack : EnemyAction
     {
     }
 
-    public override void SkillAttack()
+    public override void Attack()
     {
 
     }
@@ -19,7 +19,7 @@ public class KN_Attack : EnemyAction
         int rnd = Random.Range(1, 10);
         if (rnd >= 5)
         {
-            animator.Play("Guard", 0, 0f);
+            enemy.Anim.Play("Guard", 0, 0f);
         }
     }
 }

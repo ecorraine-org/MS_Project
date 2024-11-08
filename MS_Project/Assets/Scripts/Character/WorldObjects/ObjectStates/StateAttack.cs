@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class StateAttack : ObjectState
@@ -11,25 +12,23 @@ public class StateAttack : ObjectState
 
     public override void Tick()
     {
-        if (objController.Status.StatusData.ObjectType == WorldObjectType.Enemy)
+        if (enemy != null)
         {
-            EnemyController enemy = objController as EnemyController;
-            AnimatorStateInfo stateInfo = enemy.Anim.GetCurrentAnimatorStateInfo(0);
-
+            if(!enemy.CanAttack)
+                enemy.State.TransitionState(ObjectStateType.Idle);
+        }
+        else
+        {
             // ダメージチェック
-            if (enemy.State.CheckHit()) return;
+            if (objStateHandler.CheckHit()) return;
 
             // スキルへ遷移
             if (objStateHandler.CheckSkill()) return;
 
             // アイドルへ遷移
-            if (enemy.MovementInput.magnitude < 0f)
-            {
-                enemy.State.TransitionState(ObjectStateType.Idle);
-            };
+            if (objController.MovementInput.magnitude <= 0f && !objController.CanAttack)
+                objStateHandler.TransitionState(ObjectStateType.Idle);
         }
-        else
-            return;
     }
 
     public override void FixedTick()

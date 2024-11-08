@@ -42,7 +42,7 @@ public class ObjectStatusHandler : StatusManager
 
     protected virtual void Start()
     {
-        if(!StatusData)
+        if (!StatusData)
         {
             CustomLogger.Log("No status data found. Instantiating from new.");
             StatusData = (EnemyStatusData)base.StatusData;

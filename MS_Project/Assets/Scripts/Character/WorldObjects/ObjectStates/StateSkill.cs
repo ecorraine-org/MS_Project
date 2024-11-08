@@ -11,20 +11,30 @@ public class StateSkill : ObjectState
 
     public override void Tick()
     {
-        // ダメージチェック
-        if (objStateHandler.CheckHit()) return;
-
-        // 攻撃へ遷移
-        if (objStateHandler.CheckAttack()) return;
-
-        // スキルへ遷移
-        if (objStateHandler.CheckSkill()) return;
-
-        // アイドルへ遷移
-        if (objController.MovementInput.magnitude < 0f)
+        if (enemy != null)
         {
-            objController.State.TransitionState(ObjectStateType.Idle);
-        };
+            AnimatorStateInfo stateInfo = enemy.Anim.GetCurrentAnimatorStateInfo(0);
+
+            if (stateInfo.normalizedTime >= 1f)
+            {
+                enemy.State.TransitionState(ObjectStateType.Idle);
+            }
+        }
+        else
+        {
+            // ダメージチェック
+            if (objStateHandler.CheckHit()) return;
+
+            // 攻撃へ遷移
+            if (objStateHandler.CheckAttack()) return;
+
+            // スキルへ遷移
+            if (objStateHandler.CheckSkill()) return;
+
+            // アイドルへ遷移
+            if (objController.MovementInput.magnitude <= 0f)
+                objController.State.TransitionState(ObjectStateType.Idle);
+        }
     }
 
     public override void FixedTick()

@@ -43,6 +43,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        if (mobPool.Count <=0 && elitePool.Count <= 0)
+        {
+            CustomLogger.Log("配列が空のため、スポーンする敵がありません。");
+            return;
+        }
+
         if (mobPool.Count > 0)
         {
             for (mobCount = 0; mobCount < mobMaxCount; mobCount++)
@@ -59,8 +65,6 @@ public class EnemySpawner : MonoBehaviour
                 Spawn(elitePool[random], RandomizeWithinRadius());
             }
         }
-        else
-            CustomLogger.Log("配列が空のため、スポーンする敵がありません。");
     }
 
     private void Update()
