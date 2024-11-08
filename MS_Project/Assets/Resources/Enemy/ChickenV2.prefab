@@ -62,11 +62,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 823636910253614152, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
   m_PrefabInstance: {fileID: 5035486985306327981}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5665163910224107527 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 828398674014639018, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
-  m_PrefabInstance: {fileID: 5035486985306327981}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5504142795157151855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -157,35 +152,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1143648682989078331, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5660886038887296997}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 410899465779312302, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 7354719305935167489}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
 --- !u!4 &4881245446887335764 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1143648682989078331, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
   m_PrefabInstance: {fileID: 5504142795157151855}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5319149556165924545 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 410899465779312302, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
-  m_PrefabInstance: {fileID: 5504142795157151855}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7354719305935167489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5319149556165924545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f0cd66af876f0c4cb46cf566ebc1165, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eggPrefab: {fileID: 6527491200872005495, guid: 4b26bb1dc81c4f24dace5d72f67e1c71, type: 3}
-  spawnPoint: {fileID: 5665163910224107527}
-  throwForce: 10
-  throwCount: 3
-  throwInterval: 0.5

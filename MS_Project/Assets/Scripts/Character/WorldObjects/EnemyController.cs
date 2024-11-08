@@ -64,7 +64,8 @@ public class EnemyController : ObjectController
         capsuleCollider.height = collider.height;
         capsuleCollider.radius = collider.radius;
 
-        if (gameObj.TryGetComponent<EnemyAction>(out enemyAction))
+        enemyAction = gameObj.GetComponentInChildren<EnemyAction>();
+        if (enemyAction)
         {
             enemyAction.Enemy = this;
             enemyAction.EnemyStatus = Status;
@@ -80,8 +81,10 @@ public class EnemyController : ObjectController
 
     private void FixedUpdate()
     {
+        /*
         Move();
         Debug.Log(Anim.GetCurrentAnimatorStateInfo(0).shortNameHash.ToString());
+        */
     }
 
     private void Update()
@@ -94,6 +97,7 @@ public class EnemyController : ObjectController
             isKillable = true;
         }
 
+        /*
         float distance = Vector3.Distance(player.position, transform.position);
         if (distance < Status.StatusData.chaseDistance)
         {
@@ -108,14 +112,10 @@ public class EnemyController : ObjectController
                 OnMovementInput?.Invoke(Vector3.zero);
 
                 // 攻撃
-                CanAttack = true;
-                if(CanAttack)
-                    OnAttack?.Invoke();
+                OnAttack?.Invoke();
             }
             else
             {
-                CanAttack = false;
-
                 // 追跡
                 OnMovementInput?.Invoke(direction.normalized);
             }
@@ -127,22 +127,13 @@ public class EnemyController : ObjectController
         }
 
         OnDamaged?.Invoke();
+        */
     }
 
     public void Move()
     {
-        if (MovementInput.magnitude > 0.1f && Status.MoveSpeed >= 0)
-        {
-            if (enemyAction)
-            {
-                animator.Play("Walk");
-                enemyAction.Move();
-            }
-        }
-        else
-        {
-            rigidBody.velocity = Vector3.zero;
-        }
+        if (enemyAction)
+            enemyAction.Move();
     }
 
     public void TakeDamage()
@@ -175,9 +166,7 @@ public class EnemyController : ObjectController
         {
             animator.SetTrigger("IsAttack");
 
-            enemyAction.Attack();
-
-            CanAttack = false;
+            //enemyAction.Attack();
         }
     }
 
@@ -219,6 +208,11 @@ public class EnemyController : ObjectController
         //set { this.isKillable = value; }
     }
 
+    public EnemyAction EnemyAction
+    {
+        get => this.enemyAction;
+    }
+
     public Animator Anim
     {
         get => this.animator;
@@ -226,7 +220,7 @@ public class EnemyController : ObjectController
 
     public override Rigidbody RigidBody
     {
-        get => rigidBody;
+        get => this.rigidBody;
     }
 
     public EnemyAnimManager AnimManager

@@ -27,7 +27,7 @@ public class ObjectStateHandler : MonoBehaviour
     [SerializeField, Header("今の状態")]
     ObjectState currentState;
     [SerializeField, ReadOnly]
-    bool isAttacking;
+    public bool isAttacking;
 
     [SerializeField, Header("アイドル状態ビヘイビア")]
     StateIdle idleState;
@@ -155,8 +155,7 @@ public class ObjectStateHandler : MonoBehaviour
     public bool CheckAttack()
     {
         //
-        bool isAttack = objController.CanAttack;
-        if (isAttack)
+        if (objController.CanAttack)
         {
             TransitionState(ObjectStateType.Attack);
 

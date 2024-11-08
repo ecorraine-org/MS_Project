@@ -29,6 +29,8 @@ public abstract class ObjectState : MonoBehaviour
             enemy = objController as EnemyController;
             animHandler = enemy.AnimManager;
         }
+
+        objStateHandler.isAttacking = false;
     }
 
     /// <summary>

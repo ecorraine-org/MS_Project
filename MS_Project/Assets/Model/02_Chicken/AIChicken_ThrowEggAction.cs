@@ -14,7 +14,7 @@ public class AIChicken_ThrowEggAction : EnemyAction
     public override void Attack()
     {
         // 逃げる
-        if (distanceToPlayer < enemy.Status.StatusData.attackDistance)
+        if (distanceToPlayer < enemy.Status.StatusData.attackDistance / 1.2f)
         {
             enemy.CanAttack = false;
             enemy.Anim.Play("Walk");
@@ -24,11 +24,12 @@ public class AIChicken_ThrowEggAction : EnemyAction
             newRotation.x = 0;
             enemy.transform.rotation = newRotation;
 
-            Vector3 newMovement = enemy.transform.forward * 0.88f * Time.deltaTime;
-            enemy.RigidBody.MovePosition(enemy.RigidBody.position + newMovement);
+            enemy.OnMovementInput?.Invoke(-direction.normalized);
+            //Vector3 newMovement = -enemy.transform.forward * 0.88f * Time.deltaTime;
+            //enemy.RigidBody.MovePosition(enemy.RigidBody.position + newMovement);
         }
         else
-            ThrowEgg();
+            StartThrowSequence();
     }
 
     // アニメーションイベントから呼び出すメソッド

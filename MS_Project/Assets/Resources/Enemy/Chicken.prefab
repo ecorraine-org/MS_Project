@@ -51,6 +51,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9a10273b5f9c4b14d953fabc2f0ab58d, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2381991701836067295}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9a10273b5f9c4b14d953fabc2f0ab58d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9107494891047897586}
   m_SourcePrefab: {fileID: 100100000, guid: 9a10273b5f9c4b14d953fabc2f0ab58d, type: 3}
 --- !u!1 &10684828129263346 stripped
 GameObject:
@@ -79,3 +82,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9107494891047897586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10684828129263346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f0cd66af876f0c4cb46cf566ebc1165, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggPrefab: {fileID: 4265737109902605231, guid: 6920fb4ad5b0f3549a5969680d9a14bd, type: 3}
+  spawnPoint: {fileID: 4779650884814015774}
+  throwForce: 10
+  throwCount: 3
+  throwInterval: 0.5
+--- !u!4 &4779650884814015774 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3553296960925151555, guid: 9a10273b5f9c4b14d953fabc2f0ab58d, type: 3}
+  m_PrefabInstance: {fileID: 929039060996735907}
+  m_PrefabAsset: {fileID: 0}

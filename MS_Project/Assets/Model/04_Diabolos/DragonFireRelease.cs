@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class DragonFireRelease : MonoBehaviour
 {
-    public GameObject firePrefab;        // “Š‚°‚éƒvƒŒƒnƒu
-    public Transform spawnPoint;         // ƒvƒŒƒnƒu‚Ì¶¬ˆÊ’u
-    public float throwForce = 10f;       // “Š‚°‚é—Í
-    public int throwCount = 3;           // ˜A‘±‚µ‚Ä“Š‚°‚é‰ñ”ipublic‚Å’²®‰Â”\j
-    public float throwInterval = 0.5f;   // “Š±‚ÌŠÔŠui•bj
+    public GameObject firePrefab;        // æŠ•ã’ã‚‹ãƒ—ãƒ¬ãƒãƒ–
+    public Transform spawnPoint;         // ãƒ—ãƒ¬ãƒãƒ–ã®ç”Ÿæˆä½ç½®
+    public float throwForce = 10f;       // æŠ•ã’ã‚‹åŠ›
+    public int throwCount = 3;           // é€£ç¶šã—ã¦æŠ•ã’ã‚‹å›æ•°ï¼ˆpublicã§èª¿æ•´å¯èƒ½ï¼‰
+    public float throwInterval = 0.5f;   // æŠ•æ“²ã®é–“éš”ï¼ˆç§’ï¼‰
 
-    private int currentThrow = 0;        // Œ»İ‚Ì“Š±‰ñ”
-    private bool isThrowing = false;     // “Š±’†ƒtƒ‰ƒO
+    private int currentThrow = 0;        // ç¾åœ¨ã®æŠ•æ“²å›æ•°
+    private bool isThrowing = false;     // æŠ•æ“²ä¸­ãƒ•ãƒ©ã‚°
 
-    // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚©‚çŒÄ‚Ño‚·ƒƒ\ƒbƒh
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã‹ã‚‰å‘¼ã³å‡ºã™ãƒ¡ã‚½ãƒƒãƒ‰
     public void StartThrowSequence()
     {
         if (!isThrowing)
@@ -22,17 +22,17 @@ public class DragonFireRelease : MonoBehaviour
         }
     }
 
-    // “Š±ˆ—
-    // ˜A‘±‰Î“Ù
+    // æŠ•æ“²å‡¦ç†
+    // é€£ç¶šç«é
     private void ThrowFire()
     {
         if (currentThrow < throwCount)
         {
             if (firePrefab != null && spawnPoint != null)
             {
-                // ƒvƒŒƒnƒu‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+                // ãƒ—ãƒ¬ãƒãƒ–ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
                 GameObject thrownFire = Instantiate(firePrefab, spawnPoint.position, spawnPoint.rotation);
-                // “Š‚°‚é•ûŒü‚É—Í‚ğ‰Á‚¦‚é
+                // æŠ•ã’ã‚‹æ–¹å‘ã«åŠ›ã‚’åŠ ãˆã‚‹
                 Rigidbody rb = thrownFire.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
@@ -43,20 +43,20 @@ public class DragonFireRelease : MonoBehaviour
         }
         else
         {
-            // “Š±‚ªw’è‰ñ”‚É’B‚µ‚½‚çI—¹
+            // æŠ•æ“²ãŒæŒ‡å®šå›æ•°ã«é”ã—ãŸã‚‰çµ‚äº†
             CancelInvoke(nameof(ThrowFire));
             isThrowing = false;
         }
     }
 
-    // ƒVƒ“ƒOƒ‹‰Î“Ù
+    // ã‚·ãƒ³ã‚°ãƒ«ç«é
     public void SingleFire()
     {
         if (firePrefab != null && spawnPoint != null)
         {
-            // ƒvƒŒƒnƒu‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+            // ãƒ—ãƒ¬ãƒãƒ–ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
             GameObject thrownFire = Instantiate(firePrefab, spawnPoint.position, spawnPoint.rotation);
-            // “Š‚°‚é•ûŒü‚É—Í‚ğ‰Á‚¦‚é
+            // æŠ•ã’ã‚‹æ–¹å‘ã«åŠ›ã‚’åŠ ãˆã‚‹
             Rigidbody rbFire = thrownFire.GetComponent<Rigidbody>();
             if (rbFire != null)
             {
