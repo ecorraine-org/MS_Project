@@ -65,7 +65,7 @@ public class AnimThrowEgg : EnemyAction
         rbEgg.AddForce(additionalGravity, ForceMode.Acceleration);
 
         // 回転を加える
-        Vector3 torque = new Vector3(0, 0, 40.0f); // Z軸を中心に回転するトルク
+        Vector3 torque = new Vector3(400.0f, spawnPoint.forward.y, 0.0f); // Z軸を中心に回転するトルク
         rbEgg.AddTorque(torque, ForceMode.Impulse);
     }
 }
