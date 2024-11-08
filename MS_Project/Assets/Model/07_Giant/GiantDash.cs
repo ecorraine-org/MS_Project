@@ -2,6 +2,7 @@
 
 public class GiantDash : MonoBehaviour
 {
+                                      //挙動おかしいので、修正中
     public float dashSpeed = 10f;     // ダッシュのスピード
     public float dashDuration = 0.5f; // ダッシュの持続時間
     private bool isDashing = false;   // ダッシュ中かどうかのフラグ
