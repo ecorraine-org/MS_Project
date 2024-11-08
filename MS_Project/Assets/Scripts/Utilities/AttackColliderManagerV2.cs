@@ -19,6 +19,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
 
     [SerializeField, Header("最も近いオブジェクト")]
     Collider closestCollider;
+
     private CameraBasedHitCorrection _cameraBasedHitCorrection;
 
     [SerializeField, Header("最初の衝突が発生したかどうかを示す")]
@@ -31,10 +32,10 @@ public class AttackColliderManagerV2 : MonoBehaviour
     private void Awake()
     {
         //コンポーネントの取得
-        _cameraBasedHitCorrection = GetComponent<CameraBasedHitCorrection>();
+        _cameraBasedHitCorrection = GetComponentInChildren<CameraBasedHitCorrection>();
 
         //Logで_cameraBasedHitCorrectionがnullかどうかを確認
-        Debug.Log("CameraBasedHitCorrection:" + _cameraBasedHitCorrection);
+       // Debug.Log("CameraBasedHitCorrection:" + _cameraBasedHitCorrection);
     }
 
     /// <summary>
