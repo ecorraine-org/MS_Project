@@ -7,7 +7,7 @@ public class AIChicken : EnemyAction
     public override void Move()
     {
         // 逃げる
-        if (distanceToPlayer < enemy.Status.StatusData.attackDistance)
+        if (distanceToPlayer < enemy.EnemyStatus.StatusData.attackDistance)
         {
             Vector3 newMovement = -transform.forward * 0.88f * Time.deltaTime;
             enemy.RigidBody.MovePosition(enemy.RigidBody.position + newMovement);

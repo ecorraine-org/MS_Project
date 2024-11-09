@@ -275,7 +275,7 @@ public class PlayerStateManager : MonoBehaviour
     /// </summary>
     public bool CheckDeath()
     {
-        if (playerController.StatusManager.Health <= 0)
+        if (playerController.StatusManager.CurrentHealth <= 0)
         {
             TransitionState(StateType.Dead);
 

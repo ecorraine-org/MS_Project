@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// <summary>
 /// 
 /// </summary>
-public abstract class ObjectController : WorldObject
+public abstract class WorldObjectController : WorldObject
 {
     [HideInInspector]
     protected Transform player;
@@ -15,18 +15,21 @@ public abstract class ObjectController : WorldObject
     [ReadOnly, Tooltip("生成されたオブジェクト")]
     public GameObject gameObj;
 
-    [HideInInspector, Tooltip("ステータスマネージャー")]
-    ObjectStatusHandler objStatus;
+    [HideInInspector]
+    protected WorldObjectType type;
 
     [HideInInspector, Tooltip("ステートマネージャー")]
     ObjectStateHandler objState;
 
-    [Header("")]
-    [SerializeField, Tooltip("破壊できるかどうか？")]
+    [Header("簡易ステート")]
+    [SerializeField, Tooltip("無敵かどうか？")]
     private bool isInvincible = false;
 
     [SerializeField, Tooltip("攻撃できるか？")]
     private bool canAttack = true;
+
+    [SerializeField, Tooltip("攻撃しているか？")]
+    private bool isAttacking = false;
 
     [SerializeField, Tooltip("スキル使用中なのか？")]
     private bool useSkill = false;
@@ -48,23 +51,16 @@ public abstract class ObjectController : WorldObject
     public virtual void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (!this.transform.GetChild(0).gameObject.TryGetComponent<ObjectStatusHandler>(out objStatus))
-            CustomLogger.LogWarning(Status.GetType(), Status.name);
-
         rigidBody = this.GetComponent<Rigidbody>();
-    }
 
-    // Start is called before the first frame update
-    public virtual void Start()
-    {
         onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItem");
     }
 
-    protected void GenerateOnomatopoeia()
+    protected void GenerateOnomatopoeia(OnomatopoeiaData _onomatopoeiaData)
     {
         GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
-        onomatoObj.GetComponent<OnomatopoeiaController>().data = Status.StatusData.onomatoData;
-        onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = Status.StatusData.onomatoData.wordToUse;
+        onomatoObj.GetComponent<OnomatopoeiaController>().data = _onomatopoeiaData;
+        onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = _onomatopoeiaData.wordToUse;
 
         Transform mainCamera = Camera.main.transform;
         // カメラと同じ角度
@@ -76,6 +72,11 @@ public abstract class ObjectController : WorldObject
     }
 
     #region Getter & Setter
+
+    public WorldObjectType Type
+    {
+        get => type;
+    }
 
     public bool IsInvincible
     {
@@ -99,11 +100,6 @@ public abstract class ObjectController : WorldObject
     {
         get => isDamaged;
         set { isDamaged = value; }
-    }
-
-    public ObjectStatusHandler Status
-    {
-        get => objStatus;
     }
 
     public ObjectStateHandler State

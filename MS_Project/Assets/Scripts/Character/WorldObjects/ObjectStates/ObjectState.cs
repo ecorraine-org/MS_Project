@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class ObjectState : MonoBehaviour
 {
-    protected ObjectController objController;
-
-    protected ObjectStatusHandler objStatusHandler;
+    protected WorldObjectController objController;
     protected ObjectStateHandler objStateHandler;
+
+    protected EnemyStatusHandler objStatusHandler;
 
     protected EnemyController enemy;
     protected EnemyAnimManager animHandler;
@@ -15,22 +15,20 @@ public abstract class ObjectState : MonoBehaviour
     /// <summary>
     /// ステートの初期化処理
     /// </summary>
-    public virtual void Init(ObjectController _objectController)
+    public virtual void Init(WorldObjectController _objectController)
     {
         if (objController != null) return;
 
         //マネージャー取得
         objController = _objectController;
-        objStatusHandler = objController.Status;
         objStateHandler = objController.State;
 
-        if (objStatusHandler.StatusData.objectType == WorldObjectType.Enemy)
+        if (objController.Type == WorldObjectType.Enemy)
         {
             enemy = objController as EnemyController;
+            objStatusHandler = enemy.EnemyStatus;
             animHandler = enemy.AnimManager;
         }
-
-        objStateHandler.isAttacking = false;
     }
 
     /// <summary>

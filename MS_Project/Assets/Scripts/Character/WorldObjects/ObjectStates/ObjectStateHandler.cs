@@ -26,8 +26,6 @@ public class ObjectStateHandler : MonoBehaviour
 
     [SerializeField, Header("今の状態")]
     ObjectState currentState;
-    [SerializeField, ReadOnly]
-    public bool isAttacking;
 
     [SerializeField, Header("アイドル状態ビヘイビア")]
     StateIdle idleState;
@@ -57,9 +55,9 @@ public class ObjectStateHandler : MonoBehaviour
     Dictionary<ObjectStateType, ObjectState> dicStates;
 
     // ObjectControllerの参照
-    ObjectController objController;
+    WorldObjectController objController;
 
-    public void Init(ObjectController _objectController)
+    public void Init(WorldObjectController _objectController)
     {
         objController = _objectController;
 
@@ -201,7 +199,8 @@ public class ObjectStateHandler : MonoBehaviour
     /// </summary>
     public bool CheckDeath()
     {
-        if (objController.Status.Health <= 0)
+        EnemyController enemy = objController as EnemyController;
+        if (enemy.EnemyStatus.CurrentHealth <= 0)
         {
             TransitionState(ObjectStateType.Destroyed);
 

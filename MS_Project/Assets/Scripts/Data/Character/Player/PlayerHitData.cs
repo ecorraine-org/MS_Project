@@ -13,7 +13,7 @@ public struct HitReaction
 /// <summary>
 /// プレイヤーのヒット感に関する設定
 /// </summary>
-[CreateAssetMenu(fileName = "PlayerHitData", menuName = "ScriptableObjects/Character/Player/HitData", order = 0)]
+[CreateAssetMenu(fileName = "PlayerHitData", menuName = "ScriptableObjects/Player/HitData", order = 0)]
 public class PlayerHitData : ScriptableObject
 {
     [Header("スキルリスト")]

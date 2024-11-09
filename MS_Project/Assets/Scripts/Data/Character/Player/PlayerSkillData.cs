@@ -15,7 +15,7 @@ public struct SkillStatus
     public bool canCancel;//回避でキャンセル可能かどうか
 }
 
-[CreateAssetMenu(fileName = "PlayerSkillData", menuName = "ScriptableObjects/Character/Player/SkillData", order = 0)]
+[CreateAssetMenu(fileName = "PlayerSkillData", menuName = "ScriptableObjects/Player/SkillData", order = 0)]
 public class PlayerSkillData : ScriptableObject
 {
     [Header("スキルリスト")]

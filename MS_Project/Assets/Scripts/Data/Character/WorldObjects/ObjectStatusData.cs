@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ObjectData", menuName = "ScriptableObjects/WorldObjects/ObjectStatusData", order = 1)]
-public class ObjectStatusData : CharacterStatusData
+public class ObjectStatusData : BaseStatusData
 {
-    [Header("オブジェクトタイプ")]
-    public readonly WorldObjectType objectType = WorldObjectType.StaticObject;
-
     [Header("オブジェクトプレハブ")]
     public string gameObjPrefab;
 
@@ -28,4 +25,10 @@ public class ObjectStatusData : CharacterStatusData
 
     [Header("行動クールタイム")]
     public float timeTillNextAction = 1f;
+
+    private void Awake()
+    {
+        ObjectType = WorldObjectType.StaticObject;
+        CustomLogger.Log("オブジェクトタイプを初期化");
+    }
 }
