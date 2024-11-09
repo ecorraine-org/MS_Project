@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerStatusData", menuName = "ScriptableObjects/Character/Player/StatusData", order = 1)]
-public class PlayerStatusData : CharacterStatusData
+[CreateAssetMenu(fileName = "PlayerStatusData", menuName = "ScriptableObjects/Player/PlayerStatusData", order = 1)]
+public class PlayerStatusData : BaseStatusData
 {
+    [Header("オブジェクトタイプ")]
+    public WorldObjectType objectType = WorldObjectType.Player;
+
     [Header("移動速度")]
     public float velocity = 1.0f;
 

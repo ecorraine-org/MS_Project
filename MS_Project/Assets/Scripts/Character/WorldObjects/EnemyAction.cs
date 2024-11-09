@@ -9,7 +9,7 @@ using UnityEngine;
 public abstract class EnemyAction : MonoBehaviour
 {
     protected EnemyController enemy;
-    protected ObjectStatusHandler enemyStatus;
+    protected EnemyStatusHandler enemyStatus;
 
     protected Transform player;
     protected float distanceToPlayer;
@@ -18,8 +18,8 @@ public abstract class EnemyAction : MonoBehaviour
 
     public virtual void Move()
     {
-        if (enemy != null && enemy.MovementInput.magnitude > 0.1f && enemy.Status.MoveSpeed > 0)
-            enemy.RigidBody.velocity = enemy.MovementInput * enemy.Status.MoveSpeed;
+        if (enemy != null && enemy.MovementInput.magnitude > 0.1f && enemy.EnemyStatus.MoveSpeed > 0)
+            enemy.RigidBody.velocity = enemy.MovementInput * enemy.EnemyStatus.MoveSpeed;
     }
 
     public abstract void Attack();
@@ -32,15 +32,15 @@ public abstract class EnemyAction : MonoBehaviour
         collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         distanceToPlayer = Vector3.Distance(player.position, transform.position);
     }
 
-    protected void Update()
+    protected virtual void Update()
     {
         distanceToPlayer = Vector3.Distance(player.position, transform.position);
-        if (distanceToPlayer < enemy.Status.StatusData.chaseDistance)
+        if (distanceToPlayer < enemy.EnemyStatus.StatusData.chaseDistance)
         {
             Vector3 direction = player.position - enemy.transform.position;
             // 進む方向に向く
@@ -48,7 +48,7 @@ public abstract class EnemyAction : MonoBehaviour
             newRotation.x = 0;
             enemy.transform.rotation = newRotation;
 
-            if (distanceToPlayer <= enemy.Status.StatusData.attackDistance)
+            if (distanceToPlayer <= enemy.EnemyStatus.StatusData.attackDistance)
             {
                 enemy.OnMovementInput?.Invoke(Vector3.zero);
 
@@ -66,7 +66,6 @@ public abstract class EnemyAction : MonoBehaviour
             // 停止
             enemy.OnMovementInput?.Invoke(Vector3.zero);
         }
-
     }
 
     public EnemyController Enemy
@@ -75,7 +74,7 @@ public abstract class EnemyAction : MonoBehaviour
         set { enemy = value; }
     }
 
-    public ObjectStatusHandler EnemyStatus
+    public EnemyStatusHandler EnemyStatus
     {
         get { return enemyStatus; }
         set { enemyStatus = value; }

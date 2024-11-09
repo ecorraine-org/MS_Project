@@ -21,7 +21,7 @@ public class MeshBillboard : MonoBehaviour
     {
         this.transform.rotation = Camera.main.transform.rotation;
 
-        float normalizedValue = (float)(enemy.Status.Health / enemy.Status.StatusData.maxHealth);
+        float normalizedValue = (float)(enemy.EnemyStatus.CurrentHealth / enemy.EnemyStatus.StatusData.maxHealth);
         mat.SetFloat("_Value", normalizedValue);
 
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;

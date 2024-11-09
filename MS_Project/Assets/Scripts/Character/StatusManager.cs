@@ -8,39 +8,53 @@ using UnityEngine;
 public class StatusManager : MonoBehaviour, ILife
 {
     [SerializeField, Header("ステータスデータ")]
-    protected CharacterStatusData statusData;
+    protected BaseStatusData statusData;
+
+    [SerializeField, Tooltip("無敵かどうか")]
+    protected bool isInvincible;
 
     [SerializeField, Tooltip("体力")]
     protected float currentHealth;
 
     protected virtual void Awake()
     {
+        isInvincible = statusData.isInvincible;
         currentHealth = statusData.maxHealth;
     }
 
     public virtual void TakeDamage(float _damage)
     {
         currentHealth -= _damage;
-       // Debug.Log("Damage:" + _damage);//test
+       //Debug.Log("Damage:" + _damage);    // test
 
         if (currentHealth <= 0)
         {
-            //死亡
-
+            // 死亡
         }
     }
 
     public void OnDeath() { }
 
-    public float Health
+    /// <summary>
+    /// 無敵かどうか
+    /// </summary>
+    public bool IsInvincible
+    {
+        get => isInvincible;
+        set { isInvincible = value; }
+    }
+
+    /// <summary>
+    /// 現在のＨＰ
+    /// </summary>
+    public float CurrentHealth
     {
         get => currentHealth;
         set { currentHealth = value; }
     }
 
-    public virtual CharacterStatusData StatusData
+    public virtual BaseStatusData StatusData
     {
         get => statusData;
     }
-
 }

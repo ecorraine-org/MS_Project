@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateSkill : ObjectState
 {
-    public override void Init(ObjectController _objectController)
+    public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
     }

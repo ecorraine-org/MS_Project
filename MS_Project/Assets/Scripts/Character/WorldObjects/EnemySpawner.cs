@@ -97,7 +97,7 @@ public class EnemySpawner : MonoBehaviour
     GameObject InstantiateEnemy(EnemyStatusData _data, Vector3 _position)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("Enemy/EnemyContainer"), _position, Quaternion.identity, enemyCollector.transform);
-        obj.GetComponent<EnemyController>().Status.StatusData = _data;
+        obj.GetComponent<EnemyController>().EnemyStatus.StatusData = _data;
         return obj;
     }
 

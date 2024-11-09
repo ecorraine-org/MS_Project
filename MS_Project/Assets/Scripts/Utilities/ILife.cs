@@ -17,5 +17,5 @@ public interface ILife
     /// </summary>
     void OnDeath();
 
-    float Health { get; set; }
+    float CurrentHealth { get; set; }
 }

@@ -7,8 +7,11 @@ using UnityEngine.Events;
 /// <summary>
 /// エネミー用コントローラー
 /// </summary>
-public class EnemyController : ObjectController
+public class EnemyController : WorldObjectController
 {
+    [HideInInspector, Tooltip("エネミーステータスマネージャー")]
+    EnemyStatusHandler enemyStatus;
+
     // シングルトン
     BattleManager battleManager;
 
@@ -35,6 +38,9 @@ public class EnemyController : ObjectController
     {
         base.Awake();
 
+        if (!this.transform.GetChild(0).gameObject.TryGetComponent<EnemyStatusHandler>(out enemyStatus))
+            CustomLogger.LogWarning(EnemyStatus.GetType(), EnemyStatus.name);
+
         battleManager = BattleManager.Instance;
 
         capsuleCollider = this.GetComponent<CapsuleCollider>();
@@ -42,11 +48,11 @@ public class EnemyController : ObjectController
         spawnPool = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
     }
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
+        gameObj = Instantiate(Resources.Load<GameObject>(EnemyStatus.StatusData.gameObjPrefab), this.transform);
 
-        gameObj = Instantiate(Resources.Load<GameObject>(Status.StatusData.gameObjPrefab), this.transform);
+        type = EnemyStatus.StatusData.ObjectType;
 
         animator = gameObj.GetComponentInChildren<Animator>();
 
@@ -68,7 +74,7 @@ public class EnemyController : ObjectController
         if (enemyAction)
         {
             enemyAction.Enemy = this;
-            enemyAction.EnemyStatus = Status;
+            enemyAction.EnemyStatus = EnemyStatus;
         }
         else
         {
@@ -85,6 +91,15 @@ public class EnemyController : ObjectController
         Move();
         Debug.Log(Anim.GetCurrentAnimatorStateInfo(0).shortNameHash.ToString());
         */
+        float distance = Vector3.Distance(player.position, transform.position);
+        if (distance > EnemyStatus.StatusData.chaseDistance)
+        {
+            CanAttack = false;
+        }
+        else
+        {
+            CanAttack = true;
+        }
     }
 
     private void Update()
@@ -92,7 +107,7 @@ public class EnemyController : ObjectController
         if (player == null) return;
 
         //フィニッシュ
-        if (Status.Health <= Status.StatusData.maxHealth / 2)
+        if (EnemyStatus.CurrentHealth <= EnemyStatus.StatusData.maxHealth / 2)
         {
             isKillable = true;
         }
@@ -138,14 +153,14 @@ public class EnemyController : ObjectController
 
     public void TakeDamage()
     {
-        if (Status.IsDamaged)
+        if (EnemyStatus.IsDamaged)
         {
             if (enemyAction)
                 animator.Play("Damaged");
 
-            GenerateOnomatopoeia();
+            GenerateOnomatopoeia(enemyStatus.StatusData.onomatoData);
 
-            Status.IsDamaged = false;
+            EnemyStatus.IsDamaged = false;
         }
     }
 
@@ -153,7 +168,7 @@ public class EnemyController : ObjectController
     {
         TriggerAttack();
 
-        player.GetComponent<PlayerController>().StatusManager.TakeDamage(Status.Damage);
+        player.GetComponent<PlayerController>().StatusManager.TakeDamage(EnemyStatus.Damage);
 
         StartCoroutine(nameof(AttackCoroutine));
 
@@ -172,7 +187,7 @@ public class EnemyController : ObjectController
 
     IEnumerator AttackCoroutine()
     {
-        yield return new WaitForSeconds(Status.ActionCooldown);
+        yield return new WaitForSeconds(EnemyStatus.ActionCooldown);
         CanAttack = true;
     }
 
@@ -194,13 +209,18 @@ public class EnemyController : ObjectController
             spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
 
-        if (Status.Health <= 0)
+        if (EnemyStatus.CurrentHealth <= 0)
         {
             spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
     }
 
     #region Getter & Setter
+
+    public EnemyStatusHandler EnemyStatus
+    {
+        get => enemyStatus;
+    }
 
     public bool IsKillable
     {
@@ -244,13 +264,13 @@ public class EnemyController : ObjectController
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Status.StatusData.attackDistance);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, Status.StatusData.chaseDistance);
+        Gizmos.DrawWireSphere(transform.position, EnemyStatus.StatusData.attackDistance);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position + new Vector3(0f, 1f, 0f), transform.position + transform.forward * Status.StatusData.chaseDistance);
+        Gizmos.DrawWireSphere(transform.position, EnemyStatus.StatusData.chaseDistance);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(transform.position + new Vector3(0f, 1f, 0f), transform.position + transform.forward * EnemyStatus.StatusData.chaseDistance);
     }
     #endregion
 }

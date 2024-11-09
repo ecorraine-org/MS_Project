@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class StateAttack : ObjectState
 {
-    public override void Init(ObjectController _objectController)
+    public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
-
-        objStateHandler.isAttacking = true;
     }
 
     public override void Tick()

@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 敵のステータスを管理するビヘイビア
 /// </summary>
-public class ObjectStatusHandler : StatusManager
+public class EnemyStatusHandler : StatusManager
 {
     [Tooltip("攻撃されたか？")]
     private bool isDamaged = false;
@@ -54,6 +54,7 @@ public class ObjectStatusHandler : StatusManager
 
         statusData = enemyStatusData;
         currentHealth = enemyStatusData.maxHealth;
+        isInvincible = enemyStatusData.isInvincible;
         moveSpeed = enemyStatusData.velocity;
         damage = enemyStatusData.damage;
         actionCooldown = enemyStatusData.timeTillNextAction;
@@ -68,13 +69,13 @@ public class ObjectStatusHandler : StatusManager
         base.TakeDamage(_damage);
     }
 
-    #region Getter & Setter
-
     public new EnemyStatusData StatusData
     {
         get => (EnemyStatusData)enemyStatusData;
         set { enemyStatusData = value; }
     }
+
+    #region Getter & Setter
 
     public float MoveSpeed
     {

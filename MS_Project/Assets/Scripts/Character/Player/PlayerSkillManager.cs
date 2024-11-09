@@ -61,7 +61,7 @@ public class PlayerSkillManager : MonoBehaviour
     public bool HpCost(PlayerSkill _skillType)
     {
         // スキルのHPコストが現在のHPより少ないか
-        if (skillData.dicSkill[_skillType].hpCost < playerController.StatusManager.Health)
+        if (skillData.dicSkill[_skillType].hpCost < playerController.StatusManager.CurrentHealth)
         {
             var life = playerController.GetComponentInChildren<ILife>();
             if (life != null)

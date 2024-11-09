@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2a201c6ebcc254db8f07456f46242d, type: 3}
   m_Name: Obj_
   m_EditorClassIdentifier: 
+  isInvincible: 0
   maxHealth: 100
+  objectType: 3
   gameObjPrefab: 
   SelfType: 5
   onomatoData: {fileID: 11400000, guid: 8b0c05c99c42b564da4b9d77695334b1, type: 2}
   tolerance: 0
   sfxClip: 
   vfxClip: 
-  actionCooldown: 1
+  timeTillNextAction: 1
