@@ -21,7 +21,7 @@ public class PlayerSkillManager : MonoBehaviour
     float curSkillCoolTime;
 
     // 攻撃をキャンセルし、コンボできるかどうか
-    [SerializeField, Header("コンボできるか")]
+    [SerializeField, Header("キャンセルできるか")]
     bool canComboCancel=false;
 
     // コンボ入力できるかどうか
