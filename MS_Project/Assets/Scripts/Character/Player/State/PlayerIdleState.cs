@@ -13,7 +13,9 @@ public class PlayerIdleState : PlayerState
 
         base.Init(_playerController);
 
-        // inputManager.BindAction(inputManager.InputControls.GamePlay.Attack, ExecuteAttack);
+      // Debug.Log("アイドル状態");
+
+        spriteAnim.Play("Idle", 0, 0f);
     }
 
 
@@ -37,7 +39,7 @@ public class PlayerIdleState : PlayerState
 
 
         //アニメーション設定
-        if (!playerSkillManager.IsDashing) playerController.SetWalkAnimation();
+      //  if (!playerSkillManager.IsDashing) playerController.SetWalkAnimation();
 
         inputDirec = inputManager.GetMoveDirec();
 

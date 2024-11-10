@@ -9,7 +9,9 @@ public class PlayerDodgeState : PlayerState
         SetIsPerformDamage(false);
 
         base.Init(_playerController);
-        Debug.Log("回避ステート");
+
+        spriteAnim.Play("Dash", 0, 0f);
+     
 
         //方向、画像反転設定
         playerController.SetEightDirection();
@@ -30,6 +32,15 @@ public class PlayerDodgeState : PlayerState
         if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0)
         {
             playerController.StateManager.TransitionState(StateType.Skill);
+            return;
+        }
+
+
+        //移動へ遷移
+        Vector2 inputDirec=inputManager.GetMoveDirec();
+        if (inputDirec.magnitude > 0 && !playerSkillManager.IsDashing)
+        { 
+            playerController.StateManager.TransitionState(StateType.Walk);
             return;
         }
 

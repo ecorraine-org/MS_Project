@@ -212,43 +212,45 @@ public class PlayerController : WorldObject
     /// </summary>
     public void SetWalkAnimation()
     {
-        spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
+        // spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
 
-        switch (currentDirec)
-        {
-            case Direction.Right:
-                spriteAnim.Play("WalkRight");
-                break;
+        spriteAnim.Play("WalkRight");
 
-            case Direction.UpRight:
-                spriteAnim.Play("WalkUpRight");
-                break;
+        //switch (currentDirec)
+        //{
+        //    case Direction.Right:
+        //        spriteAnim.Play("WalkRight");
+        //        break;
 
-            case Direction.Up:
-                spriteAnim.Play("WalkUp");
-                break;
+        //    case Direction.UpRight:
+        //        spriteAnim.Play("WalkUpRight");
+        //        break;
 
-            case Direction.UpLeft:
+        //    case Direction.Up:
+        //        spriteAnim.Play("WalkUp");
+        //        break;
 
-                spriteAnim.Play("WalkUpRight");
-                break;
+        //    case Direction.UpLeft:
 
-            case Direction.Left:
-                spriteAnim.Play("WalkRight");
-                break;
+        //        spriteAnim.Play("WalkUpRight");
+        //        break;
 
-            case Direction.DownLeft:
-                spriteAnim.Play("WalkDownRight");
-                break;
+        //    case Direction.Left:
+        //        spriteAnim.Play("WalkRight");
+        //        break;
 
-            case Direction.Down:
-                spriteAnim.Play("WalkDown");
-                break;
+        //    case Direction.DownLeft:
+        //        spriteAnim.Play("WalkDownRight");
+        //        break;
 
-            case Direction.DownRight:
-                spriteAnim.Play("WalkDownRight");
-                break;
-        }
+        //    case Direction.Down:
+        //        spriteAnim.Play("WalkDown");
+        //        break;
+
+        //    case Direction.DownRight:
+        //        spriteAnim.Play("WalkDownRight");
+        //        break;
+        //}
     }
 
     private void OnDrawGizmos()
