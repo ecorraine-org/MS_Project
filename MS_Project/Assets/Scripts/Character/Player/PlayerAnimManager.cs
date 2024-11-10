@@ -14,7 +14,6 @@ public class PlayerAnimManager : AnimManager
 
     public float testTime;
 
-
     public void Init(PlayerController _playerController)
     {
         playerController = _playerController;
@@ -30,14 +29,34 @@ public class PlayerAnimManager : AnimManager
     }
 
     /// <summary>
-    /// 連撃フレーム
+    /// 連撃キャンセルフレーム
     /// </summary>
     public override void EnableCombo()
     {
         PlayerSkillManager skillManager = playerController.SkillManager;
-        skillManager.CanCombo=true;
+        skillManager.CanComboCancel=true;
+        Debug.Log("EnableCombo");
     }
 
+    /// <summary>
+    /// 連撃キャンセルフレーム
+    /// </summary>
+    public void DisableCombo()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+        skillManager.CanComboCancel = false;
+    }
+
+    /// <summary>
+    /// コンボ受付フレーム
+    /// </summary>
+    public void EnableComboInput()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+        skillManager.CanComboInput = true;
+        Debug.Log("EnableComboInput");
+    }
+ 
 
     /// <summary>
     /// 攻撃可能設定

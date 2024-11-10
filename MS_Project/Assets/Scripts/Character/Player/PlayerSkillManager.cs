@@ -22,7 +22,11 @@ public class PlayerSkillManager : MonoBehaviour
 
     // 攻撃をキャンセルし、コンボできるかどうか
     [SerializeField, Header("コンボできるか")]
-    bool canCombo=false;
+    bool canComboCancel=false;
+
+    // コンボ入力できるかどうか
+    [SerializeField, Header("コンボできるか")]
+    bool canComboInput = false;
 
     // 当たり判定可能かどうか
     bool canHit = false;
@@ -161,7 +165,9 @@ public class PlayerSkillManager : MonoBehaviour
     {
         if (dash.IsDashing) dash.End();
 
-        canCombo = false;
+        canComboCancel = false;
+
+        canComboInput = false;
     }
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
@@ -317,13 +323,17 @@ public class PlayerSkillManager : MonoBehaviour
         // set { this.dashDirec = value; }
     }
 
-    public bool CanCombo
+    public bool CanComboCancel
     {
-        get => this.canCombo;
-         set { this.canCombo = value; }
+        get => this.canComboCancel;
+         set { this.canComboCancel = value; }
     }
 
-
+    public bool CanComboInput
+    {
+        get => this.canComboInput;
+        set { this.canComboInput = value; }
+    }
 }
 
 

@@ -7,6 +7,12 @@ public class PlayerAttackState : PlayerState
     [SerializeField, Header("コライダー")]
     HitCollider hitCollider;
 
+    [SerializeField, Header("攻撃段階")]
+    int attackStage = 0;
+
+    //受付時間内にボタンを押すと、次のコンボが発動する
+    bool willNextStage = false;
+
     //攻撃test
     [SerializeField, Header("攻撃力")]
     float attackDamage;
@@ -31,17 +37,26 @@ public class PlayerAttackState : PlayerState
         //方向変更
         playerController.SetEightDirection();
 
-       
+        //攻撃段階リセット
+        if (playerStateManager.PreStateType != StateType.Attack) attackStage = 0;
+
+
 
         switch (playerModeManager.Mode)
         {
             case PlayerMode.None:
                 attackDamage = 1;
-                spriteAnim.Play("Attack",0,0f);
+                spriteAnim.Play("Attack", 0, 0f);
                 break;
             case PlayerMode.Sword:
                 attackDamage = statusManager.StatusData.swordAtk;
-                spriteAnim.Play("Attack", 0, 0f);
+                if (attackStage == 0) spriteAnim.Play("Attack", 0, 0f);
+                if (attackStage == 1)
+                {
+                    Debug.Log("SwordAttack2");
+                    spriteAnim.Play("SwordAttack2", 0, 0f);
+                }
+
                 break;
             case PlayerMode.Hammer:
                 attackDamage = statusManager.StatusData.hammerAtk;
@@ -65,13 +80,37 @@ public class PlayerAttackState : PlayerState
 
     public override void Tick()
     {
-        //自身へ遷移
-        if ( playerSkillManager.CanCombo && playerStateManager.CheckAttack())
+        //コンボ受付
+        if (playerSkillManager.CanComboInput && playerController.InputManager.GetAttackTrigger())
         {
-            playerSkillManager.CanCombo = false;
+            playerSkillManager.CanComboInput = false;
+
+            //キャンセルフレームに達したら、コンボする
+            willNextStage = true;
+        } 
+
+        //自身へ遷移
+        if (willNextStage && playerSkillManager.CanComboCancel)
+        {
+            playerSkillManager.CanComboCancel = false;
+            willNextStage = false;
+
+            switch (playerModeManager.Mode)
+            {
+                case PlayerMode.Sword:
+
+                    if (attackStage < 1) attackStage++;
+                    else attackStage = 0;
+
+                    playerStateManager.TransitionState(StateType.Attack);
+                    break;
+                default:
+                    break;
+            }
+
             return;
         }
-           
+
 
         //回避へ遷移
         if (playerStateManager.CheckDodge()) return;
@@ -101,6 +140,7 @@ public class PlayerAttackState : PlayerState
 
     public override void Exit()
     {
+        willNextStage = false;
     }
 
     public void Attack()
@@ -111,7 +151,7 @@ public class PlayerAttackState : PlayerState
         if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
         else damage = attackDamage;
         //コライダーの検出
-        playerController.AttackColliderV2.DetectColliders(  damage, enemyLayer, false);
+        playerController.AttackColliderV2.DetectColliders(damage, enemyLayer, false);
 
     }
 
@@ -122,12 +162,12 @@ public class PlayerAttackState : PlayerState
     {
         if (_CameraBasedHitCorrection != null)
         {
-          //  _CameraBasedHitCorrection.VisualizeCollider(attackAreaPos, attackSize, false);
+            //  _CameraBasedHitCorrection.VisualizeCollider(attackAreaPos, attackSize, false);
         }
         else
         {
-           // Gizmos.color = Color.yellow;
-           // Gizmos.DrawWireCube(attackAreaPos, attackSize);
+            // Gizmos.color = Color.yellow;
+            // Gizmos.DrawWireCube(attackAreaPos, attackSize);
         }
     }
 
