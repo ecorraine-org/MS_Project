@@ -390,6 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusData: {fileID: 11400000, guid: 9812a4044002bd149a42f65e8b7ef15f, type: 2}
+  isInvincible: 0
   currentHealth: 100
   playerStatusData: {fileID: 11400000, guid: 9812a4044002bd149a42f65e8b7ef15f, type: 2}
   frenzyValue: 0
@@ -559,7 +560,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitCollider: {fileID: 2986672402212135855}
+  attackStage: 0
   attackDamage: 20
+  moveSpeed: 0
   FrenzyAttackDamage: 100
   enemyLayer:
     serializedVersion: 2
@@ -880,7 +883,8 @@ MonoBehaviour:
   dash: {fileID: 433902212357176194}
   skillData: {fileID: 11400000, guid: 63ba82a4e258c7144a51fb35980ba7a5, type: 2}
   curSkillCoolTime: 0
-  canCombo: 0
+  canComboCancel: 0
+  canComboInput: 0
   bulletLauncher: {fileID: 6095909578243480502}
 --- !u!114 &433902212357176194
 MonoBehaviour:
@@ -897,6 +901,7 @@ MonoBehaviour:
   blockDetector: {fileID: 4851914542046528324}
   duration: 0.3
   speed: 4
+  slowFactor: 1
   canThrough: 0
 --- !u!1 &7667086179420449206
 GameObject:

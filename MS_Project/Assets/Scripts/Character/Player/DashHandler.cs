@@ -10,6 +10,9 @@ public class DashHandler : MonoBehaviour
     [SerializeField, Header("障害物検出ディテクター")]
     BlockDetector blockDetector;
 
+    // シングルトン
+    BattleManager battleManager;
+
     //所有者の参照
     WorldObject owner;
 
@@ -25,6 +28,9 @@ public class DashHandler : MonoBehaviour
     [SerializeField, Header("ダッシュ速度")]
     private float speed = 4.0f;
 
+    [SerializeField, Header("ヒットストップによる影響")]
+    private float slowFactor = 1.0f;
+
     [SerializeField, Header("ターゲットを貫通可能かどうか")]
     private bool canThrough = false;
 
@@ -38,22 +44,28 @@ public class DashHandler : MonoBehaviour
     {
         owner = _owner;
 
-       if(blockDetector!=null) blockDetector.Distance = speed * duration;
+        battleManager = BattleManager.Instance;
+
+        if (blockDetector!=null) blockDetector.Distance = speed * duration;
     }
 
     public void Update()
     {
+        HitReaction hitReaction = battleManager.GetPlayerHitReaction();
+        if (battleManager.IsHitStop/*&& hitReaction.stopDuration!=0*/) slowFactor = hitReaction.slowSpeed;
+        else slowFactor = 1;
+
         if (blockDetector == null) return;
 
             if (duration == -1)
         {
             if (owner is PlayerController player)
-                blockDetector.Distance = speed * player.AnimManager.testTime;
+                blockDetector.Distance = speed * slowFactor * player.AnimManager.testTime;
 
         }
         else
         {
-            blockDetector.Distance = speed * duration;
+            blockDetector.Distance = speed * slowFactor * duration;
         }
 
         //移動しようとする方向
@@ -74,9 +86,8 @@ public class DashHandler : MonoBehaviour
 
           if(blockDetector != null)  blockDetector.IsEnabled = false;
 
-
             //一定距離を移動
-            owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * Time.fixedDeltaTime);
+            owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * slowFactor * Time.fixedDeltaTime);
 
 
         }

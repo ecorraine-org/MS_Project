@@ -16,6 +16,9 @@ public class PlayerAttackState : PlayerState
     //攻撃test
     [SerializeField, Header("攻撃力")]
     float attackDamage;
+
+    [SerializeField, Header("攻撃中進む速度")]
+    float moveSpeed=10;
     public float FrenzyAttackDamage;
     public LayerMask enemyLayer;
     private CameraBasedHitCorrection _CameraBasedHitCorrection;
@@ -28,6 +31,10 @@ public class PlayerAttackState : PlayerState
         SetIsPerformDamage(true);
 
         base.Init(_playerController);
+
+        // 突進初期化
+        playerSkillManager.DashHandler.Speed = moveSpeed;
+        playerSkillManager.DashHandler.Duration = -1;
 
         playerController.AttackColliderV2.HitCollidersList = hitCollider;
 
@@ -50,7 +57,13 @@ public class PlayerAttackState : PlayerState
                 break;
             case PlayerMode.Sword:
                 attackDamage = statusManager.StatusData.swordAtk;
-                if (attackStage == 0) spriteAnim.Play("Attack", 0, 0f);
+                if (attackStage == 0)
+                {
+                    spriteAnim.Play("Attack", 0, 0f);
+
+                  
+                }
+                  
                 if (attackStage == 1)
                 {
                     Debug.Log("SwordAttack2");
