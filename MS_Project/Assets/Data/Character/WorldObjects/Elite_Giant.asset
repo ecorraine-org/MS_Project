@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInvincible: 0
   maxHealth: 180
-  gameObjPrefab: Enemy/Giant
+  mass: 400
+  gameObjPrefab: Enemy/GiantV2
   enemyRank: 0
   SelfType: 3
   timeTillNextAction: 1

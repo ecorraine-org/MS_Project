@@ -41,10 +41,9 @@ public class EnemyStatusData : BaseStatusData
     [Header("VFX")]
     public string vfxClip;
 
-
-    private void Awake()
+    private void OnEnable()
     {
         ObjectType = WorldObjectType.Enemy;
-        CustomLogger.Log("オブジェクトタイプを初期化");
+        CustomLogger.Log(gameObjPrefab + "オブジェクトタイプを初期化");
     }
 }

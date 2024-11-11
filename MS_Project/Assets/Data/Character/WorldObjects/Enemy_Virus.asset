@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
   m_Name: Enemy_Virus
   m_EditorClassIdentifier: 
+  isInvincible: 0
   maxHealth: 100
+  mass: 100
   gameObjPrefab: Enemy/VirusV2
-  SelfType: 4
-  onomatoData: {fileID: 11400000, guid: fb53a12273cb0b24da0e66007f7d763a, type: 2}
-  tolerance: 1
-  sfxClip: 
-  vfxClip: 
-  timeTillNextAction: 3
   enemyRank: 1
+  SelfType: 4
+  timeTillNextAction: 3
   damage: 1
   attackDistance: 5
   velocity: 1
   chaseDistance: 10
+  onomatoData: {fileID: 11400000, guid: fb53a12273cb0b24da0e66007f7d763a, type: 2}
+  tolerance: 1
+  sfxClip: 
+  vfxClip: 

@@ -118,6 +118,7 @@ MonoBehaviour:
   gameObj: {fileID: 0}
   isInvincible: 0
   canAttack: 1
+  isAttacking: 0
   useSkill: 0
   isDamaged: 0
   OnDamaged:
@@ -175,7 +176,7 @@ Rigidbody:
   m_GameObject: {fileID: 817043426095150827}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 10
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -192,7 +193,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!1 &961335562740166571
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +243,7 @@ MonoBehaviour:
   blockDetector: {fileID: 0}
   duration: -1
   speed: 10
+  slowFactor: 1
   canThrough: 0
 --- !u!114 &660626239387354290
 MonoBehaviour:
@@ -364,7 +366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initStateType: 0
   currentState: {fileID: 0}
-  isAttacking: 0
   idleState: {fileID: 2417284354947180187}
   walkState: {fileID: 267252309163592591}
   attackState: {fileID: 2704366901332875666}
@@ -504,6 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusData: {fileID: 0}
+  isInvincible: 0
   currentHealth: 0
   moveSpeed: 0
   damage: 0

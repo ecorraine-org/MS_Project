@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
   m_Name: Enemy_Chicken
   m_EditorClassIdentifier: 
+  isInvincible: 0
   maxHealth: 100
+  mass: 200
   gameObjPrefab: Enemy/ChickenV2
-  SelfType: 3
-  onomatoData: {fileID: 11400000, guid: edf6d2473c040c64384dacf4a34215a7, type: 2}
-  tolerance: 2
-  sfxClip: 
-  vfxClip: 
-  timeTillNextAction: 1
   enemyRank: 1
+  SelfType: 3
+  timeTillNextAction: 1
   damage: 1
   attackDistance: 10
   velocity: 1
   chaseDistance: 15
+  onomatoData: {fileID: 11400000, guid: edf6d2473c040c64384dacf4a34215a7, type: 2}
+  tolerance: 2
+  sfxClip: 
+  vfxClip: 

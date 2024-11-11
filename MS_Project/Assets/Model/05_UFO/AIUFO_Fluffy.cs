@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UF_Fluffy : EnemyAction
+public class AIUFO_Fluffy : EnemyAction
 {
     bool nogravity = true;
 
-    public override void Attack()
+    public void Attack()
     {
         if(nogravity)//浮いてます
         {

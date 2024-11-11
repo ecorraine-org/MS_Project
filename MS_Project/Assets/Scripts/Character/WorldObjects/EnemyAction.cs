@@ -16,14 +16,6 @@ public abstract class EnemyAction : MonoBehaviour
 
     protected GameObject collector;
 
-    public virtual void Move()
-    {
-        if (enemy != null && enemy.MovementInput.magnitude > 0.1f && enemy.EnemyStatus.MoveSpeed > 0)
-            enemy.RigidBody.velocity = enemy.MovementInput * enemy.EnemyStatus.MoveSpeed;
-    }
-
-    public abstract void Attack();
-
     private void Awake()
     {
         enemy = GetComponentInParent<EnemyController>();
@@ -34,38 +26,45 @@ public abstract class EnemyAction : MonoBehaviour
 
     protected virtual void Start()
     {
-        distanceToPlayer = Vector3.Distance(player.position, transform.position);
+        distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
     }
 
-    protected virtual void Update()
+    public virtual void Chase()
     {
-        distanceToPlayer = Vector3.Distance(player.position, transform.position);
-        if (distanceToPlayer < enemy.EnemyStatus.StatusData.chaseDistance)
+        if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
         {
             Vector3 direction = player.position - enemy.transform.position;
             // 進む方向に向く
-            Quaternion newRotation = Quaternion.LookRotation(direction.normalized);
-            newRotation.x = 0;
-            enemy.transform.rotation = newRotation;
+            Quaternion forwardRotation = Quaternion.LookRotation(direction.normalized);
+            forwardRotation.x = 0f;
+            enemy.transform.rotation = forwardRotation;
 
-            if (distanceToPlayer <= enemy.EnemyStatus.StatusData.attackDistance)
+            if (distanceToPlayer <= EnemyStatus.StatusData.attackDistance)
             {
                 enemy.OnMovementInput?.Invoke(Vector3.zero);
 
                 // 攻撃
-                enemy.State.TransitionState(ObjectStateType.Attack);
+                enemy.OnAttack?.Invoke();
             }
             else
             {
+                enemy.IsAttacking = false;
                 // 追跡
                 enemy.OnMovementInput?.Invoke(direction.normalized);
             }
         }
         else
         {
+            enemy.IsAttacking = false;
             // 停止
             enemy.OnMovementInput?.Invoke(Vector3.zero);
+            enemy.State.TransitionState(ObjectStateType.Idle);
         }
+    }
+
+    private void Update()
+    {
+        distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
     }
 
     public EnemyController Enemy

@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
   m_Name: Enemy_UFO
   m_EditorClassIdentifier: 
+  isInvincible: 0
   maxHealth: 100
+  mass: 500
   gameObjPrefab: Enemy/UFOV2
-  SelfType: 0
-  onomatoData: {fileID: 0}
-  tolerance: 0
-  sfxClip: 
-  vfxClip: 
-  timeTillNextAction: 5
   enemyRank: 1
+  SelfType: 0
+  timeTillNextAction: 5
   damage: 1
   attackDistance: 10
   velocity: 1
   chaseDistance: 14
+  onomatoData: {fileID: 0}
+  tolerance: 0
+  sfxClip: 
+  vfxClip: 
