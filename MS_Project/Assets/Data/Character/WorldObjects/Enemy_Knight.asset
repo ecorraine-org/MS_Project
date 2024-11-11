@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
   m_Name: Enemy_Knight
   m_EditorClassIdentifier: 
+  isInvincible: 0
   maxHealth: 100
-  gameObjPrefab: Enemy/Knight
-  SelfType: 1
-  onomatoData: {fileID: 11400000, guid: ab608adfc7c4b7842b9e89a7840a1f43, type: 2}
-  tolerance: 1
-  sfxClip: 
-  vfxClip: 
-  timeTillNextAction: 1
+  mass: 400
+  gameObjPrefab: Enemy/Kngiht
   enemyRank: 1
+  SelfType: 1
+  timeTillNextAction: 1
   damage: 1
   attackDistance: 2
   velocity: 1
   chaseDistance: 5
+  onomatoData: {fileID: 11400000, guid: ab608adfc7c4b7842b9e89a7840a1f43, type: 2}
+  tolerance: 1
+  sfxClip: 
+  vfxClip: 

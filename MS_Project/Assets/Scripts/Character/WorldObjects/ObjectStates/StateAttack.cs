@@ -14,23 +14,19 @@ public class StateAttack : ObjectState
     {
         if (enemy != null)
         {
-            if(!enemy.CanAttack)
-                enemy.State.TransitionState(ObjectStateType.Idle);
-
-            enemy.OnAttack?.Invoke();
+            enemy.IsAttacking = true;
+            enemy.Anim.SetTrigger("IsAttack");
         }
-        else
-        {
-            // ダメージチェック
-            if (objStateHandler.CheckHit()) return;
 
-            // スキルへ遷移
-            if (objStateHandler.CheckSkill()) return;
+        // ダメージチェック
+        if (objStateHandler.CheckHit()) return;
 
-            // アイドルへ遷移
-            if (objController.MovementInput.magnitude <= 0f && !objController.CanAttack)
-                objStateHandler.TransitionState(ObjectStateType.Idle);
-        }
+        // スキルへ遷移
+        if (objStateHandler.CheckSkill()) return;
+
+        // アイドルへ遷移
+        if (objController.MovementInput.magnitude <= 0f /*&& !objController.IsAttacking*/)
+            objStateHandler.TransitionState(ObjectStateType.Idle);
     }
 
     public override void FixedTick()

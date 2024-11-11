@@ -52,6 +52,7 @@ public class EnemyController : WorldObjectController
     {
         gameObj = Instantiate(Resources.Load<GameObject>(EnemyStatus.StatusData.gameObjPrefab), this.transform);
 
+        rigidBody.mass = EnemyStatus.StatusData.mass;
         type = EnemyStatus.StatusData.ObjectType;
 
         animator = gameObj.GetComponentInChildren<Animator>();
@@ -87,42 +88,34 @@ public class EnemyController : WorldObjectController
 
     private void FixedUpdate()
     {
-        /*
         Move();
-        Debug.Log(Anim.GetCurrentAnimatorStateInfo(0).shortNameHash.ToString());
-        */
-        float distance = Vector3.Distance(player.position, transform.position);
-        if (distance > EnemyStatus.StatusData.chaseDistance)
-        {
-            CanAttack = false;
-        }
-        else
-        {
-            CanAttack = true;
-        }
+
+        Vector3 gravity = Physics.gravity * (rigidBody.mass * rigidBody.mass);
+        rigidBody.AddForce(gravity * Time.deltaTime);
     }
 
     private void Update()
     {
         if (player == null) return;
 
-        //フィニッシュ
+        // フィニッシュ
         if (EnemyStatus.CurrentHealth <= EnemyStatus.StatusData.maxHealth / 2)
         {
             isKillable = true;
         }
 
+        Chase();
         /*
         float distance = Vector3.Distance(player.position, transform.position);
-        if (distance < Status.StatusData.chaseDistance)
+        if (distance <= EnemyStatus.StatusData.chaseDistance)
         {
             Vector3 direction = player.position - transform.position;
             // 進む方向に向く
             Quaternion newRotation = Quaternion.LookRotation(direction.normalized);
-            newRotation.x = 0;
+            newRotation.x = 0f;
             transform.rotation = newRotation;
 
-            if (distance <= Status.StatusData.attackDistance)
+            if (distance <= EnemyStatus.StatusData.attackDistance)
             {
                 OnMovementInput?.Invoke(Vector3.zero);
 
@@ -131,24 +124,21 @@ public class EnemyController : WorldObjectController
             }
             else
             {
+                IsAttacking = false;
                 // 追跡
                 OnMovementInput?.Invoke(direction.normalized);
             }
         }
         else
         {
+            IsAttacking = false;
             // 停止
             OnMovementInput?.Invoke(Vector3.zero);
+            State.TransitionState(ObjectStateType.Idle);
         }
+        */
 
         OnDamaged?.Invoke();
-        */
-    }
-
-    public void Move()
-    {
-        if (enemyAction)
-            enemyAction.Move();
     }
 
     public void TakeDamage()
@@ -161,34 +151,42 @@ public class EnemyController : WorldObjectController
             GenerateOnomatopoeia(enemyStatus.StatusData.onomatoData);
 
             EnemyStatus.IsDamaged = false;
+
+            State.TransitionState(ObjectStateType.Damaged);
         }
+    }
+
+    public void Move()
+    {
+        State.TransitionState(ObjectStateType.Walk);
+        /*
+        if (MovementInput.magnitude > 0.1f && EnemyStatus.MoveSpeed > 0)
+            RigidBody.velocity = MovementInput * EnemyStatus.MoveSpeed;
+        */
+    }
+
+    public void Chase()
+    {
+        if (enemyAction)
+            enemyAction.Chase();
     }
 
     public void Attack()
     {
-        TriggerAttack();
+        if (IsAttacking && enemyAction)
+            State.TransitionState(ObjectStateType.Attack);
 
         player.GetComponent<PlayerController>().StatusManager.TakeDamage(EnemyStatus.Damage);
 
         StartCoroutine(nameof(AttackCoroutine));
 
-        CanAttack = false;
-    }
-
-    public void TriggerAttack()
-    {
-        if (enemyAction)
-        {
-            animator.SetTrigger("IsAttack");
-
-            //enemyAction.Attack();
-        }
+        IsAttacking = false;
     }
 
     IEnumerator AttackCoroutine()
     {
         yield return new WaitForSeconds(EnemyStatus.ActionCooldown);
-        CanAttack = true;
+        IsAttacking = true;
     }
 
     public override void Hit(bool _canOneHitKill)

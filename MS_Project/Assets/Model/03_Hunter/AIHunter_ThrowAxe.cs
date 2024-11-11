@@ -1,18 +1,10 @@
 using UnityEngine;
 
-public class AnimThrowAxe : EnemyAction
+public class AIHunter_ThrowAxe : EnemyAction
 {
     public GameObject axePrefab; // 投げるプレハブ
     public Transform spawnPoint; // プレハブの生成位置
     public float throwForce = 10f; // 投げる力
-
-    public override void Move()
-    {
-    }
-
-    public override void Attack()
-    {
-    }
 
     // アニメーションイベントから呼び出すメソッド
     public void ThrowAxe()

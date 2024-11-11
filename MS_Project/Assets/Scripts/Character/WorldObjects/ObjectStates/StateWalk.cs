@@ -14,7 +14,9 @@ public class StateWalk : ObjectState
         if (enemy != null)
         {
             enemy.Anim.Play("Walk");
-            enemy.EnemyAction.Move();
+
+            if (enemy.MovementInput.magnitude > 0.1f && enemy.EnemyStatus.MoveSpeed > 0)
+                enemy.RigidBody.velocity = enemy.MovementInput * enemy.EnemyStatus.MoveSpeed;
         }
 
         // ダメージチェック

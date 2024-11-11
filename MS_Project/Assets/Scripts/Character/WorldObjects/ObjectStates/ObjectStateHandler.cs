@@ -153,7 +153,7 @@ public class ObjectStateHandler : MonoBehaviour
     public bool CheckAttack()
     {
         //
-        if (objController.CanAttack)
+        if (objController.IsAttacking)
         {
             TransitionState(ObjectStateType.Attack);
 

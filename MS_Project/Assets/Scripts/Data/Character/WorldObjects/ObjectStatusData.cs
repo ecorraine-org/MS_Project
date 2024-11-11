@@ -26,9 +26,9 @@ public class ObjectStatusData : BaseStatusData
     [Header("行動クールタイム")]
     public float timeTillNextAction = 1f;
 
-    private void Awake()
+    private void OnEnable()
     {
         ObjectType = WorldObjectType.StaticObject;
-        CustomLogger.Log("オブジェクトタイプを初期化");
+        CustomLogger.Log(gameObjPrefab + "オブジェクトタイプを初期化");
     }
 }

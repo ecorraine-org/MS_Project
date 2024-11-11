@@ -25,9 +25,6 @@ public abstract class WorldObjectController : WorldObject
     [SerializeField, Tooltip("無敵かどうか？")]
     private bool isInvincible = false;
 
-    [SerializeField, Tooltip("攻撃できるか？")]
-    private bool canAttack = true;
-
     [SerializeField, Tooltip("攻撃しているか？")]
     private bool isAttacking = false;
 
@@ -56,7 +53,7 @@ public abstract class WorldObjectController : WorldObject
         onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItem");
     }
 
-    protected void GenerateOnomatopoeia(OnomatopoeiaData _onomatopoeiaData)
+    public void GenerateOnomatopoeia(OnomatopoeiaData _onomatopoeiaData)
     {
         GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
         onomatoObj.GetComponent<OnomatopoeiaController>().data = _onomatopoeiaData;
@@ -84,10 +81,10 @@ public abstract class WorldObjectController : WorldObject
         set { isInvincible = value; }
     }
 
-    public bool CanAttack
+    public bool IsAttacking
     {
-        get => canAttack;
-        set { canAttack = value; }
+        get => isAttacking;
+        set { isAttacking = value; }
     }
 
     public bool UseSkill

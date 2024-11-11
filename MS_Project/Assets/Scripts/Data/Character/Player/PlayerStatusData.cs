@@ -5,9 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStatusData", menuName = "ScriptableObjects/Player/PlayerStatusData", order = 1)]
 public class PlayerStatusData : BaseStatusData
 {
-    [Header("オブジェクトタイプ")]
-    public WorldObjectType objectType = WorldObjectType.Player;
-
     [Header("移動速度")]
     public float velocity = 1.0f;
 
@@ -28,4 +25,10 @@ public class PlayerStatusData : BaseStatusData
 
     [Header("メリケンサックの攻撃力")]
     public float gauntletAtk = 1;
+
+        private void OnEnable()
+    {
+        ObjectType = WorldObjectType.Player;
+        CustomLogger.Log("Playerオブジェクトタイプを初期化");
+    }
 }

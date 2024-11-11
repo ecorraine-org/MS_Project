@@ -5,16 +5,12 @@ using UnityEngine;
 public class AIVirus_Charge : EnemyAction
 {
     [SerializeField, Header("突進スピード")]
-    public float bushvalue = 12.0f; // 前にツッコむスピード
-
-    public override void Attack()
-    {
-        Charge();
-    }
+    public float chargeSpeed = 60.0f;
 
     // 前にツッコむ
-    private void Charge()
+    private void SlimeCharge()
     {
-        enemy.RigidBody.AddForce(enemy.transform.forward * bushvalue, ForceMode.Impulse);
+        float chargeForce = enemy.RigidBody.mass * chargeSpeed;
+        enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
     }
 }
