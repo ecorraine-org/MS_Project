@@ -7,9 +7,9 @@ public class AIChicken_ThrowEgg : EnemyAction
     [SerializeField, Header("プレハブの生成位置")]
     public Transform spawnPoint;
     [SerializeField, Header("投擲角度（上向き）")]
-    float upAngle = 30f;
+    float upAngle = 60f;
     [SerializeField, Header("投擲角度（プレイヤー向き）")]
-    float playerAngle = 30f;
+    float playerAngle = 60f;
 
     [SerializeField, Header("投げる力")]
     float throwForce = 10f;
@@ -53,7 +53,7 @@ public class AIChicken_ThrowEgg : EnemyAction
 
                 enemy.IsAttacking = false;
                 // 逃げる
-                enemy.OnMovementInput?.Invoke(-direction.normalized);
+                enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
             }
             else if (distanceToPlayer <= maxDistance && distanceToPlayer > minDistance)
             {

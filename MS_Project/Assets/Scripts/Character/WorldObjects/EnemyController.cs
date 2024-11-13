@@ -18,6 +18,9 @@ public class EnemyController : WorldObjectController
     // アニメーションマネージャー
     EnemyAnimManager animManager;
 
+    //判定で使うやつ
+    AttackColliderManager atClsn;
+
     // スキルマネージャー
     EnemySkillManager skillManager;
 
@@ -65,6 +68,8 @@ public class EnemyController : WorldObjectController
 
         effectManager = GetComponentInChildren<EnemyEffectManager>();
         effectManager.Init(this);
+
+        atClsn = GetComponentInChildren<AttackColliderManager>();
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
@@ -218,6 +223,11 @@ public class EnemyController : WorldObjectController
     public EnemyStatusHandler EnemyStatus
     {
         get => enemyStatus;
+    }
+
+    public AttackColliderManager AttackCollider
+    {
+        get => atClsn;
     }
 
     public bool IsKillable
