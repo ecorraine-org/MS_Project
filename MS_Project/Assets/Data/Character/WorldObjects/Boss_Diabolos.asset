@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
   m_Name: Boss_Diabolos
   m_EditorClassIdentifier: 
+  isInvincible: 0
   maxHealth: 100
+  mass: 1
   gameObjPrefab: Enemy/DiabolosV2
+  enemyRank: 3
+  timeTillNextAction: 1
+  damage: 1
+  attackDistance: 5
+  velocity: 3
+  chaseDistance: 10
   SelfType: 2
-  onomatoData: {fileID: 11400000, guid: fb53a12273cb0b24da0e66007f7d763a, type: 2}
+  onomatoAttack: {fileID: 0}
+  onomatoWalk: {fileID: 0}
   tolerance: 4
   sfxClip: 
   vfxClip: 
-  timeTillNextAction: 1
-  enemyRank: 3
-  damage: 1
-  attackDistance: 5
-  velocity: 1
-  chaseDistance: 10

@@ -79,6 +79,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 86294bcff52ef944690ae8358423898e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2612948106041817273}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 86294bcff52ef944690ae8358423898e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9165105501939778095}
   m_SourcePrefab: {fileID: 100100000, guid: 86294bcff52ef944690ae8358423898e, type: 3}
 --- !u!1 &827864292536655175 stripped
 GameObject:
@@ -107,3 +110,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-9165105501939778095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827864292536655175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321edcd9c2d71fb49b3c2358b45642ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockPrefab: {fileID: 5739347377149021921, guid: 956ab2749a272574d913186e9215db6b, type: 3}
+  spawnPoint: {fileID: 0}
+  throwForce: 10

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GiantDash : MonoBehaviour
+public class AIGiant_Dash : MonoBehaviour
 {
     public float dashSpeed = 10f;     // ダッシュのスピード
     public float dashDuration = 0.5f; // ダッシュの持続時間

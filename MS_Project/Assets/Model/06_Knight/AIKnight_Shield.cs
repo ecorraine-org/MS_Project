@@ -16,4 +16,16 @@ public class AIKnight_Shield : EnemyAction
             enemy.Anim.Play("Guard", 0, 0f);
         }
     }
+
+    #region オノマトペ情報
+    private void KnightWalkData()
+    {
+        GenerateWalkOnomatopoeia();
+    }
+
+    private void KnightAttackData()
+    {
+        GenerateAttackOnomatopoeia();
+    }
+    #endregion
 }
