@@ -32,9 +32,7 @@ public class PlayerAttackState : PlayerState
 
         base.Init(_playerController);
 
-        // 突進初期化
-        playerSkillManager.DashHandler.Speed = moveSpeed;
-        playerSkillManager.DashHandler.Duration = -1;
+        
 
         playerController.AttackColliderV2.HitCollidersList = hitCollider;
 
@@ -57,6 +55,11 @@ public class PlayerAttackState : PlayerState
                 break;
             case PlayerMode.Sword:
                 attackDamage = statusManager.StatusData.swordAtk;
+
+                // 突進初期化
+                playerSkillManager.DashHandler.Speed = moveSpeed;
+                playerSkillManager.DashHandler.Duration = -1;
+
                 if (attackStage == 0)
                 {
                     spriteAnim.Play("Attack", 0, 0f);
@@ -93,6 +96,7 @@ public class PlayerAttackState : PlayerState
 
     public override void Tick()
     {
+
         //コンボ受付
         if (playerSkillManager.CanComboInput && playerController.InputManager.GetAttackTrigger())
         {
