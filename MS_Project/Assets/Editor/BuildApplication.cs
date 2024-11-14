@@ -14,7 +14,11 @@ public static class CustomBuild
     
     /* List of scenes to include in the build */
     public static string[] scenes = {
-        Scene("SampleScene")
+        Scene("Title"),
+        Scene("StartScene01"),
+        Scene("Area000"),
+        Scene("Area001"),
+        Scene("Area002")
         };
     
     [MenuItem("Build/BuildApplication")]
