@@ -7,18 +7,13 @@ public class StateWalk : ObjectState
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
+
+        if (enemy != null)
+            enemy.Anim.Play("Walk");
     }
 
     public override void Tick()
     {
-        if (enemy != null)
-        {
-            enemy.Anim.Play("Walk");
-
-            if (enemy.MovementInput.magnitude > 0.1f && enemy.EnemyStatus.MoveSpeed > 0)
-                enemy.RigidBody.velocity = enemy.MovementInput * enemy.EnemyStatus.MoveSpeed;
-        }
-
         // ダメージチェック
         if (objStateHandler.CheckHit()) return;
 

@@ -12,26 +12,25 @@ public class EnemyController : WorldObjectController
     [HideInInspector, Tooltip("エネミーステータスマネージャー")]
     EnemyStatusHandler enemyStatus;
 
-    // シングルトン
+    [HideInInspector, Tooltip("シングルトンバトルマネージャー")]
     BattleManager battleManager;
 
-    // アニメーションマネージャー
+    [HideInInspector, Tooltip("アニメーションマネージャー")]
     EnemyAnimManager animManager;
 
-    // スキルマネージャー
+    [HideInInspector, Tooltip("スキルマネージャー")]
     EnemySkillManager skillManager;
 
-    // エフェクトマネージャー
-    EnemyEffectManager effectManager;
-
-    [SerializeField, Tooltip("ラストヒットできるかどうか？")]
+    [SerializeField, Header("ラストヒットできるかどうか？")]
     protected bool isKillable = false;
 
+    [HideInInspector, Tooltip("エネミー毎行動")]
     private EnemyAction enemyAction;
 
     private Animator animator;
     private CapsuleCollider capsuleCollider;
 
+    [HideInInspector, Tooltip("エネミー用ガーベージコレクター")]
     private Collector spawnPool;
 
     public override void Awake()
@@ -63,8 +62,11 @@ public class EnemyController : WorldObjectController
         skillManager = GetComponentInChildren<EnemySkillManager>();
         skillManager.Init(this);
 
-        effectManager = GetComponentInChildren<EnemyEffectManager>();
-        effectManager.Init(this);
+        EffectHandler = GetComponentInChildren<EffectHandler>();
+        EffectHandler.Init(this);
+
+        AttackCollider = GetComponentInChildren<AttackColliderManagerV2>();
+        if(AttackCollider!= null) Debug.Log("attackColliderManager NULL");
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
@@ -145,24 +147,18 @@ public class EnemyController : WorldObjectController
     {
         if (EnemyStatus.IsDamaged)
         {
-            if (enemyAction)
-                animator.Play("Damaged");
-
-            GenerateOnomatopoeia(enemyStatus.StatusData.onomatoData);
-
+            GenerateOnomatopoeia(EnemyStatus.StatusData.onomatoData);
             EnemyStatus.IsDamaged = false;
-
-            State.TransitionState(ObjectStateType.Damaged);
         }
     }
 
     public void Move()
     {
-        State.TransitionState(ObjectStateType.Walk);
         /*
+        State.TransitionState(ObjectStateType.Walk);
+        */
         if (MovementInput.magnitude > 0.1f && EnemyStatus.MoveSpeed > 0)
             RigidBody.velocity = MovementInput * EnemyStatus.MoveSpeed;
-        */
     }
 
     public void Chase()
@@ -173,20 +169,20 @@ public class EnemyController : WorldObjectController
 
     public void Attack()
     {
-        if (IsAttacking && enemyAction)
+        if (AllowAttack && enemyAction)
             State.TransitionState(ObjectStateType.Attack);
 
-        player.GetComponent<PlayerController>().StatusManager.TakeDamage(EnemyStatus.Damage);
-
-        StartCoroutine(nameof(AttackCoroutine));
-
-        IsAttacking = false;
+        if (!IsAttacking)
+        {
+            StartCoroutine(nameof(AttackCoroutine));
+            AllowAttack = false;
+        }
     }
 
-    IEnumerator AttackCoroutine()
+    public IEnumerator AttackCoroutine()
     {
         yield return new WaitForSeconds(EnemyStatus.ActionCooldown);
-        IsAttacking = true;
+        AllowAttack = true;
     }
 
     public override void Hit(bool _canOneHitKill)
@@ -195,15 +191,15 @@ public class EnemyController : WorldObjectController
         // ヒットストップ
         battleManager.StartHitStop(animator);
 
-        //エフェクト生成
-        effectManager.InstantiateHit();
+        // エフェクト生成
+        EffectHandler.InstantiateHit();
 
         if (isKillable && _canOneHitKill)
         {
-            //プレイヤーの体力を回復
+            // プレイヤーの体力を回復
             player.GetComponent<PlayerController>().StatusManager.TakeDamage(-5);
 
-            //殺す
+            // 殺す
             spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
 
@@ -249,11 +245,6 @@ public class EnemyController : WorldObjectController
     public EnemySkillManager SkillManager
     {
         get => this.skillManager;
-    }
-
-    public EnemyEffectManager EffectManager
-    {
-        get => this.effectManager;
     }
 
     #endregion

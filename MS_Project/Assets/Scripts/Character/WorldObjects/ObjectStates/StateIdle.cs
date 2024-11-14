@@ -7,15 +7,13 @@ public class StateIdle : ObjectState
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
+
+        if (enemy != null && !enemy.IsAttacking)
+            enemy.Anim.Play("Idle");
     }
 
     public override void Tick()
     {
-        if (enemy != null)
-        {
-            enemy.Anim.Play("Idle");
-        }
-
         // ダメージチェック
         if (objStateHandler.CheckHit()) return;
 

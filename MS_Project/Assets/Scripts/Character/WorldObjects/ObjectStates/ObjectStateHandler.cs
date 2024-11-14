@@ -125,15 +125,7 @@ public class ObjectStateHandler : MonoBehaviour
     /// </summary>
     private void ResetState()
     {
-        /*
-        playerController.AttackCollider.Reset();
-
-        playerController.SpriteAnim.speed = 1f;
-
-        playerController.SkillManager.Reset();
-
-        playerController.AnimManager.Reset();
-        */
+        objController.AttackCollider.Reset();
     }
 
     /// <summary>
@@ -152,8 +144,7 @@ public class ObjectStateHandler : MonoBehaviour
     /// </summary>
     public bool CheckAttack()
     {
-        //
-        if (objController.IsAttacking)
+        if (objController.AllowAttack)
         {
             TransitionState(ObjectStateType.Attack);
 
@@ -168,7 +159,7 @@ public class ObjectStateHandler : MonoBehaviour
     /// </summary>
     public bool CheckSkill()
     {
-        bool isSkill = objController.UseSkill;
+        bool isSkill = objController.UsingSkill;
         if (isSkill)
         {
             TransitionState(ObjectStateType.Skill);
@@ -186,9 +177,8 @@ public class ObjectStateHandler : MonoBehaviour
     {
         if (objController.IsDamaged)
         {
-            objController.IsDamaged = false;
-
             TransitionState(ObjectStateType.Damaged);
+
             return true;
         }
         return false;

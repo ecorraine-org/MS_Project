@@ -7,6 +7,12 @@ public class StateDamaged : ObjectState
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
+
+        if(enemy != null)
+        {
+            enemy.Anim.Play("Damaged");
+            enemy.GenerateOnomatopoeia(enemy.EnemyStatus.StatusData.onomatoData);
+        }
     }
 
     public override void Tick()

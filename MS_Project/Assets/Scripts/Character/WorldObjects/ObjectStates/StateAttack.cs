@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class StateAttack : ObjectState
 {
+    public LayerMask targetLayer;
+
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
+
+        if (enemy != null)
+            enemy.Anim.SetTrigger("IsAttack");
     }
 
     public override void Tick()
     {
         if (enemy != null)
         {
-            enemy.IsAttacking = true;
-            enemy.Anim.SetTrigger("IsAttack");
+            enemy.AttackCollider.CanHit = true;
+            enemy.AttackCollider.DetectColliders(20, targetLayer, false);
+            Debug.Log("attackColliderManager");
         }
 
         // ダメージチェック
@@ -35,5 +41,6 @@ public class StateAttack : ObjectState
 
     public override void Exit()
     {
+        objController.AttackCollider.CanHit = false;
     }
 }
