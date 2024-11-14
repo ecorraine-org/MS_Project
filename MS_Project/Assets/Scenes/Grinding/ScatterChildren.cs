@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class ScatterChildren : MonoBehaviour
 {
-    public float scatterForce = 5f; // ”ò‚ÑU‚é—Í
-    public float scatterDuration = 1f; // ”ò‚ÑU‚éŠÔ
-    public float minGravityScale = 0.5f; // d—Í‚ÌÅ¬ƒXƒP[ƒ‹
-    public float maxGravityScale = 2f; // d—Í‚ÌÅ‘åƒXƒP[ƒ‹
-    public float returnDelay = 5f; // Œ³‚ÌˆÊ’u‚É–ß‚é‚Ü‚Å‚Ì‘Ò‹@ŠÔ
-    public float returnDuration = 5f; // Œ³‚ÌˆÊ’u‚É–ß‚é‚Ì‚É‚©‚©‚éŠÔ
-    public bool returnToOriginal = true; // Œ³‚É–ß‚é‚©‚Ç‚¤‚©‚ğ‘I‘ğ
-    public float fadeDuration = 2f; // ƒtƒF[ƒhƒAƒEƒg‚É‚©‚©‚éŠÔ
+    public float scatterForce = 5f; // é£›ã³æ•£ã‚‹åŠ›
+    public float scatterDuration = 1f; // é£›ã³æ•£ã‚‹æ™‚é–“
+    public float minGravityScale = 0.5f; // é‡åŠ›ã®æœ€å°ã‚¹ã‚±ãƒ¼ãƒ«
+    public float maxGravityScale = 2f; // é‡åŠ›ã®æœ€å¤§ã‚¹ã‚±ãƒ¼ãƒ«
+    public float returnDelay = 5f; // å…ƒã®ä½ç½®ã«æˆ»ã‚‹ã¾ã§ã®å¾…æ©Ÿæ™‚é–“
+    public float returnDuration = 5f; // å…ƒã®ä½ç½®ã«æˆ»ã‚‹ã®ã«ã‹ã‹ã‚‹æ™‚é–“
+    public bool returnToOriginal = true; // å…ƒã«æˆ»ã‚‹ã‹ã©ã†ã‹ã‚’é¸æŠ
+    public float fadeDuration = 2f; // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã«ã‹ã‹ã‚‹æ™‚é–“
 
     // Start is called before the first frame update
     void Start()
@@ -21,35 +21,35 @@ public class ScatterChildren : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            // qƒIƒuƒWƒFƒNƒg‚ÉRigidbody‚ğ’Ç‰Á
+            // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«Rigidbodyã‚’è¿½åŠ 
             Rigidbody rb = child.gameObject.AddComponent<Rigidbody>();
 
-            // ƒ‰ƒ“ƒ_ƒ€‚È•ûŒü‚ğ¶¬
+            // ãƒ©ãƒ³ãƒ€ãƒ ãªæ–¹å‘ã‚’ç”Ÿæˆ
             Vector3 scatterDirection = Random.onUnitSphere;
 
-            // —Í‚ğ‰Á‚¦‚é
+            // åŠ›ã‚’åŠ ãˆã‚‹
             rb.AddForce(scatterDirection * scatterForce, ForceMode.Impulse);
 
-            // ƒ‰ƒ“ƒ_ƒ€‚Èd—ÍƒXƒP[ƒ‹‚ğİ’è
+            // ãƒ©ãƒ³ãƒ€ãƒ ãªé‡åŠ›ã‚¹ã‚±ãƒ¼ãƒ«ã‚’è¨­å®š
             float randomGravityScale = Random.Range(minGravityScale, maxGravityScale);
             rb.useGravity = true;
             rb.mass = randomGravityScale;
 
-            // qƒIƒuƒWƒFƒNƒg‚ÌŒ³‚ÌˆÊ’u‚Æ‰ñ“]‚ğ•Û‘¶
+            // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å…ƒã®ä½ç½®ã¨å›è»¢ã‚’ä¿å­˜
             Vector3 originalPosition = child.position;
             Quaternion originalRotation = child.rotation;
 
-            // ”ò‚ÑU‚éŠÔ‚ğİ’è‚µA‚»‚ÌŒã‚ÉŒ³‚ÌˆÊ’u‚É–ß‚éˆ—‚ğŠJn
+            // é£›ã³æ•£ã‚‹æ™‚é–“ã‚’è¨­å®šã—ã€ãã®å¾Œã«å…ƒã®ä½ç½®ã«æˆ»ã‚‹å‡¦ç†ã‚’é–‹å§‹
             Destroy(rb, scatterDuration);
 
-            // Œ³‚É–ß‚é‚©‚Ç‚¤‚©‚ğŠm”F
+            // å…ƒã«æˆ»ã‚‹ã‹ã©ã†ã‹ã‚’ç¢ºèª
             if (returnToOriginal)
             {
                 StartCoroutine(ReturnToOriginalPosition(child, originalPosition, originalRotation, returnDelay, returnDuration, rb));
             }
             else
             {
-                // ƒtƒF[ƒhƒAƒEƒg‚µ‚ÄÁ‚·
+                // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã—ã¦æ¶ˆã™
                 StartCoroutine(FadeOutAndDestroy(child, returnDelay, fadeDuration));
             }
         }
@@ -96,6 +96,6 @@ public class ScatterChildren : MonoBehaviour
             yield return null;
         }
 
-        Destroy(child.gameObject); // ÅI“I‚ÉƒIƒuƒWƒFƒNƒg‚ğíœ
+        Destroy(child.gameObject); // æœ€çµ‚çš„ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤
     }
 }
