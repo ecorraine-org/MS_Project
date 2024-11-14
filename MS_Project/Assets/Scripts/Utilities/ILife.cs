@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// HPˆ—ƒCƒ“ƒ^ƒtƒF[ƒX
+/// HPå‡¦ç†ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹
 /// </summary>
 public interface ILife
 {
     /// <summary>
-    /// ƒ_ƒ[ƒWˆ—
+    /// ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
     /// </summary>
     void TakeDamage(float _damage);
 
     /// <summary>
-    /// Ž€–Sˆ—
+    /// æ­»äº¡å‡¦ç†
     /// </summary>
     void OnDeath();
 
-    float Health { get; set; }
+    float CurrentHealth { get; set; }
 }

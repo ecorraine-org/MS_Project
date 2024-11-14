@@ -1,58 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒgí—Ş
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ãƒˆç¨®é¡
 /// </summary>
 public enum StateType
 {
-    Idle,           //‘Ò‹@
-    Hit,            //”íŒ‚(”íƒ_ƒ[ƒW)
-    Dead,           //€–S
-    Walk,         @//ˆÚ“®
-    Attack,         //UŒ‚
-    Skill,          //‹Z”\(ƒXƒLƒ‹)
-    FinishSkill,    //‰œ‹`(•KE‹Z)
-    Eat,            //–\H(H‚×‚é)
-    ModeChange,     //Ø‘Ö(ƒ‚[ƒhƒ`ƒFƒ“ƒW)
-    Dodge           //‰ñ”ğ
+    [InspectorName("å¾…æ©Ÿ")] Idle,                 //å¾…æ©Ÿ
+    [InspectorName("è¢«ãƒ€ãƒ¡ãƒ¼ã‚¸")] Hit,             //è¢«æ’ƒ(è¢«ãƒ€ãƒ¡ãƒ¼ã‚¸)
+    [InspectorName("æ­»äº¡")] Dead,                 //æ­»äº¡
+    [InspectorName("ç§»å‹•")] Walk,                 //ç§»å‹•
+    [InspectorName("æ”»æ’ƒ")] Attack,               //æ”»æ’ƒ
+    [InspectorName("ã‚¹ã‚­ãƒ«")] Skill,               //æŠ€èƒ½(ã‚¹ã‚­ãƒ«)
+    [InspectorName("çµ‚çµ")] FinishSkill,          //çµ‚çµ(ãƒ•ã‚£ãƒ‹ãƒƒã‚·ãƒ¥ã‚¹ã‚­ãƒ«)
+    [InspectorName("æ•é£Ÿ")] Eat,                  //æ•é£Ÿ(é£Ÿã¹ã‚‹)
+    [InspectorName("ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸")] ModeChange,   //åˆ‡æ›¿(ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸)
+    [InspectorName("å›é¿")] Dodge                 //å›é¿
 
 }
 
 public class PlayerStateManager : MonoBehaviour
 {
-    [SerializeField, Header("‰Šúó‘Ô")]
+    [SerializeField, Header("åˆæœŸçŠ¶æ…‹")]
     StateType initStateType;
 
-    [SerializeField, Header("¡‚Ìó‘Ô")]
+    [SerializeField, Header("ä»Šã®çŠ¶æ…‹")]
     PlayerState currentState;
+    [SerializeField, ReadOnly]
+    bool isAttacking;
 
-    [SerializeField, Header("ƒAƒCƒhƒ‹ó‘ÔƒrƒwƒCƒrƒA")]
+    [SerializeField, Header("ã‚¢ã‚¤ãƒ‰ãƒ«çŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
     PlayerIdleState idleState;
 
-    //[SerializeField, Header("”íƒ_ƒ[ƒWó‘ÔƒrƒwƒCƒrƒA")]
-    //HitState hitState;
+    [SerializeField, Header("ã‚¹ã‚­ãƒ«çŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
+    PlayerSkillState skillState;
 
-    //[SerializeField, Header("€‚Êó‘ÔƒrƒwƒCƒrƒA")]
-    //DeadState deadState;
+    [SerializeField, Header("å›é¿çŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
+    PlayerDodgeState dodgeState;
 
-    [SerializeField, Header("ˆÚ“®ó‘ÔƒrƒwƒCƒrƒA")]
+    [SerializeField, Header("è¢«æ’ƒçŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
+    PlayerHitState hitState;
+
+    [SerializeField, Header("æ­»ã¬çŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
+    PlayerDeadState deadState;
+
+    [SerializeField, Header("æ•é£ŸçŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
+    PlayerEatState eatState;
+
+    [SerializeField, Header("ç§»å‹•çŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
     PlayerWalkState walkState;
 
-    [SerializeField, Header("UŒ‚ó‘ÔƒrƒwƒCƒrƒA")]
+    [SerializeField, Header("æ”»æ’ƒçŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
     PlayerAttackState attackState;
 
-    //¡‚ÌƒXƒe[ƒgí—Ş
+    [SerializeField, Header("çµ‚çµçŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
+    PlayerFinishState finishState;
+
+    [SerializeField, Header("ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸çŠ¶æ…‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢")]
+    PlayerModeChangeState modeChangeState;
+
+    //ä»Šã®ã‚¹ãƒ†ãƒ¼ãƒˆç¨®é¡
     StateType currentStateType;
 
-    //‘O‚ÌƒXƒe[ƒgí—Ş
+    //å‰ã®ã‚¹ãƒ†ãƒ¼ãƒˆç¨®é¡
     StateType preStateType;
 
-    //«‘<ƒL[FƒXƒe[ƒgí—ŞA’lFƒXƒe[ƒg>
+    //è¾æ›¸<ã‚­ãƒ¼ï¼šã‚¹ãƒ†ãƒ¼ãƒˆç¨®é¡ã€å€¤ï¼šã‚¹ãƒ†ãƒ¼ãƒˆ>
     Dictionary<StateType, PlayerState> dicStates;
 
-    //PlayerController‚ÌQÆ
+    //PlayerControllerã®å‚ç…§
     PlayerController playerController;
 
     public void Init(PlayerController _playerController)
@@ -61,17 +79,20 @@ public class PlayerStateManager : MonoBehaviour
 
         dicStates = new Dictionary<StateType, PlayerState>();
 
-        //—v‘f’Ç‰Á
+        //è¦ç´ è¿½åŠ 
         dicStates.Add(StateType.Idle, idleState);
-        //dicStates.Add(StateType.Hit, hitState);
-        //dicStates.Add(StateType.BlownAway, blownAwayState);
-        //dicStates.Add(StateType.Dead, deadState);
+        dicStates.Add(StateType.Hit, hitState);
+        dicStates.Add(StateType.Eat, eatState);
+        dicStates.Add(StateType.Skill, skillState);
+        dicStates.Add(StateType.Dodge, dodgeState);
+        dicStates.Add(StateType.Dead, deadState);
         dicStates.Add(StateType.Walk, walkState);
         dicStates.Add(StateType.Attack, attackState);
-        //dicStates.Add(StateType.CombatStance, combatStanceState);
-        //dicStates.Add(StateType.Stun, stunState);
+        dicStates.Add(StateType.ModeChange, modeChangeState);
+        dicStates.Add(StateType.FinishSkill, finishState);
 
-        //‰Šúó‘Ôİ’è
+
+        //åˆæœŸçŠ¶æ…‹è¨­å®š
         TransitionState(initStateType);
 
     }
@@ -80,60 +101,162 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (currentState == null) return;
 
-        //ƒXƒe[ƒgXV
+        //ã‚¹ãƒ†ãƒ¼ãƒˆæ›´æ–°
         currentState.Tick();
+        isAttacking = currentState.GetIsPerformDamage();
     }
 
     private void FixedUpdate()
     {
         if (currentState == null) return;
 
-        //ƒXƒe[ƒgXV
+        //ã‚¹ãƒ†ãƒ¼ãƒˆæ›´æ–°
         currentState.FixedTick();
     }
 
-    //ó‘Ô‘JˆÚ
+    //çŠ¶æ…‹é·ç§»
     public void TransitionState(StateType _type)
     {
         if (dicStates[_type] == null)
         {
-            print("‘JˆÚ‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éƒXƒe[ƒg:" + _type + "‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+            print("é·ç§»ã—ã‚ˆã†ã¨ã—ã¦ã„ã‚‹ã‚¹ãƒ†ãƒ¼ãƒˆ:" + _type + "ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“");
             return;
         }
 
-        //I—¹ˆ—
+        //çµ‚äº†å‡¦ç†
         if (currentState != null)
         {
             currentState.Exit();
         }
 
-        //‘O‚Ìó‘Ô‚ğ•Û‘¶‚·‚é
+        //å‰ã®çŠ¶æ…‹ã‚’ä¿å­˜ã™ã‚‹
         preStateType = currentStateType;
 
-        //ƒXƒe[ƒgXV
+        //ã‚¹ãƒ†ãƒ¼ãƒˆæ›´æ–°
         currentState = dicStates[_type];
         currentStateType = _type;
 
-        //‰Šú‰»
+        //çŠ¶æ…‹ãƒªã‚»ãƒƒãƒˆå‡¦ç†
+        ResetState();
+
+        //åˆæœŸåŒ–
         currentState.Init(playerController);
     }
 
-    ///<summary>
-    ///ƒ_ƒ[ƒW‚É‚æ‚éƒXƒe[ƒg‘JˆÚ
-    ///</summary>
+    /// <summary>
+    /// çŠ¶æ…‹ãƒªã‚»ãƒƒãƒˆå‡¦ç†
+    /// </summary>
+    private void ResetState()
+    {
+       // playerController.AttackCollider.Reset();
+
+        playerController.AttackColliderV2.Reset();
+
+        playerController.SpriteAnim.speed = 1f;
+
+        playerController.SkillManager.Reset();
+
+        playerController.AnimManager.Reset();
+    }
+
+    /// <summary>
+    /// ãƒ€ãƒ¡ãƒ¼ã‚¸ã«ã‚ˆã‚‹ã‚¹ãƒ†ãƒ¼ãƒˆé·ç§»
+    /// </summary>
     public bool CheckDamageReaction()
     {
         //if (CheckDeath()) return true;
 
         if (CheckHit()) return true;
 
-        //‰½‚ÌğŒ‚à–‚½‚³‚È‚¢
+        //ä½•ã®æ¡ä»¶ã‚‚æº€ãŸã•ãªã„
         return false;
     }
 
-    ///<summary>
-    ///”íƒ_ƒ[ƒWó‘Ôƒ`ƒFƒbƒN
-    ///</summary>
+    /// <summary>
+    /// å›é¿çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
+    /// </summary>
+    public bool CheckDodge()
+    {
+        //ãƒœã‚¿ãƒ³å…¥åŠ›
+        bool isDashTrigger = playerController.InputManager.GetDashTrigger();
+        //å›é¿ä¸­ã¯å†åº¦å›é¿ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
+        if (isDashTrigger && !playerController.SkillManager.IsDashing)
+        {
+            TransitionState(StateType.Dodge);
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// æ”»æ’ƒçŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
+    /// </summary>
+    public bool CheckAttack()
+    {    
+        //ãƒœã‚¿ãƒ³å…¥åŠ›
+        bool isAttack = playerController.InputManager.GetAttackTrigger();
+        if (isAttack)
+        {
+            TransitionState(StateType.Attack);
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// ã‚¹ã‚­ãƒ«çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
+    /// </summary>
+    public bool CheckSkill()
+    {
+        //ãƒœã‚¿ãƒ³å…¥åŠ›
+        bool isSkill = playerController.InputManager.GetSkillTrigger();
+        PlayerSkill skill = (PlayerSkill)(int)playerController.ModeManager.Mode;
+        if (isSkill && playerController.SkillManager.CoolTimers[skill] <= 0
+           && playerController.SkillManager.HpCost(skill))
+
+        {
+            TransitionState(StateType.Skill);
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// æ•é£ŸçŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
+    /// </summary>
+    public bool CheckEat()
+    {
+        //ãƒœã‚¿ãƒ³å…¥åŠ›
+        bool isEat = playerController.InputManager.GetEatTrigger();
+
+        //ãƒ•ã‚£ãƒ‹ãƒƒã‚·ãƒ¥
+        //if (isEat && playerController.DetectEnemy.CheckKillableEnemy())
+        //{
+        //    TransitionState(StateType.FinishSkill);
+        //    return true;
+        //}
+
+        //æ•é£Ÿ
+        if (isEat
+          && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0
+         || playerController.StatusManager.IsFrenzy))
+        {
+            TransitionState(StateType.Eat);
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+    /// <summary>
+    /// è¢«ãƒ€ãƒ¡ãƒ¼ã‚¸çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
+    /// </summary>
     public bool CheckHit()
     {
         if (playerController.IsHit)
@@ -147,20 +270,20 @@ public class PlayerStateManager : MonoBehaviour
         return false;
     }
 
-    ///<summary>
-    ///€–Só‘Ôƒ`ƒFƒbƒN
-    ///</summary>
-    //public bool CheckDeath()
-    //{
-    //    if (playerController.EnemyStatusManager.LifeBehavior.GetLife() <= 0)
-    //    {
-    //        TransitionState(StateType.Dead);
+    /// <summary>
+    /// æ­»äº¡çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
+    /// </summary>
+    public bool CheckDeath()
+    {
+        if (playerController.StatusManager.CurrentHealth <= 0)
+        {
+            TransitionState(StateType.Dead);
 
-    //        return true;
-    //    }
+            return true;
+        }
 
-    //    return false;
-    //}
+        return false;
+    }
 
     #region Getter&Setter 
 

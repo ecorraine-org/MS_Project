@@ -3,20 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - GarbageCollector
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Terrain
+  - PostProcessing
   - Water
   - UI
   - Enemy
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Onomatopoeia
+  - Player
+  - DetectEnemy
+  - Terrain
+  - PlayerBullet
   - 
   - 
   - 

@@ -6,48 +6,56 @@ public class PlayerWalkState : PlayerState
 {
 
 
-    //“ü—Í•ûŒü
+    //å…¥åŠ›æ–¹å‘
     UnityEngine.Vector2 inputDirec;
 
     public override void Init(PlayerController _playerController)
     {
+        SetIsPerformDamage(false);
+
         base.Init(_playerController);
-
-
     }
 
     public override void Tick()
     {
-        //ƒ_ƒ[ƒWƒ`ƒFƒbƒN
-        playerController.StateManager.CheckHit();
+        //ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒã‚§ãƒƒã‚¯
+        if (playerController.StateManager.CheckHit()) return;
 
-        //UŒ‚‚Ö‘JˆÚ
-        bool isAttack = inputManager.GetAttackTrigger();
-        if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
+        //æ”»æ’ƒã¸é·ç§»
+        if (playerStateManager.CheckAttack()) return;
 
-        //•ûŒüæ“¾
+        //æ•é£Ÿã¸é·ç§»
+        if (playerStateManager.CheckEat()) return;
+
+        //ã‚¹ã‚­ãƒ«ã¸é·ç§»
+        if (playerStateManager.CheckSkill()) return;
+
+        //å›é¿ã¸é·ç§»
+        if (playerStateManager.CheckDodge()) return;
+
+        //æ–¹å‘è¨­å®š
+        playerController.SetEightDirection();
+
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š
+        playerController.SetWalkAnimation();
+
+        //æ–¹å‘å–å¾—
         inputDirec = inputManager.GetMoveDirec();
 
-        //ƒAƒCƒhƒ‹‚Ö‘JˆÚ
+        //ã‚¢ã‚¤ãƒ‰ãƒ«ã¸é·ç§»
         if (inputDirec.magnitude <= 0)
         {
             playerController.StateManager.TransitionState(StateType.Idle);
             return;
         }
 
-        //•ûŒüİ’è
-        playerController.SetEightDirection();
-
-        //ƒAƒjƒ[ƒVƒ‡ƒ“İ’è
-        playerController.SetWalkAnimation();
 
     }
 
     public override void FixedTick()
     {
-        //ˆÚ“®‘¬“xæ“¾
-        PlayerStatusManager PlayerStatusManager = playerController.StatusManager;
-        float moveSpeed = PlayerStatusManager.StatusData.velocity;
+        //ç§»å‹•é€Ÿåº¦å–å¾—
+        float moveSpeed = statusManager.StatusData.velocity;
 
         rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
     }

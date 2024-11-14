@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
+  m_Name: Elite_Hunter
+  m_EditorClassIdentifier: 
+  isInvincible: 0
+  maxHealth: 100
+  mass: 300
+  gameObjPrefab: Enemy/HunterV2
+  enemyRank: 2
+  timeTillNextAction: 1
+  damage: 1
+  attackDistance: 3
+  velocity: 3
+  chaseDistance: 10
+  SelfType: 3
+  onomatoAttack: {fileID: 11400000, guid: 185a41ef0d08e5a4ab36cf4e18b9303a, type: 2}
+  onomatoWalk: {fileID: 11400000, guid: 893d76a0677a3b54d9a95a30e7dd1368, type: 2}
+  tolerance: 0
+  sfxClip: 
+  vfxClip: 

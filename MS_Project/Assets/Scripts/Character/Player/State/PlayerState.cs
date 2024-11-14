@@ -3,17 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒg‚ÌeƒNƒ‰ƒX
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®è¦ªã‚¯ãƒ©ã‚¹
 /// </summary>
 public abstract class PlayerState : MonoBehaviour
 {
-    // ƒCƒ“ƒvƒbƒgƒ}ƒl[ƒWƒƒ[ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     protected PlayerInputManager inputManager;
 
     protected PlayerController playerController;
 
     protected PlayerStateManager playerStateManager;
-    // protected PlayerStatusManager playerStatusManager;
+
+    protected PlayerStatusManager statusManager;
+
+    protected PlayerSkillManager playerSkillManager;
+
+    protected PlayerModeManager playerModeManager;
+
+    protected PlayerAnimManager animManager;
 
     protected Rigidbody rb;
 
@@ -21,20 +28,27 @@ public abstract class PlayerState : MonoBehaviour
 
     protected SpriteRenderer spriteRenderer;
 
-    protected Transform mainCamera;
+    private bool isPerformDamage = false;
 
     /// <summary>
-    ///ƒXƒe[ƒg‚Ì‰Šú‰»ˆ—
+    /// ã‚¹ãƒ†ãƒ¼ãƒˆã®åˆæœŸåŒ–å‡¦ç†
     /// </summary>
     public virtual void Init(PlayerController _playerController)
     {
         inputManager = PlayerInputManager.Instance;
 
-        //ƒ}ƒl[ƒWƒƒ[æ“¾
+        //ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼å–å¾—
         playerController = _playerController;
 
         playerStateManager = playerController.StateManager;
-        //playerStatusManager = playerController.EnemyStatusManager;
+
+        statusManager = playerController.StatusManager;
+
+        playerSkillManager = playerController.SkillManager;
+
+        playerModeManager = playerController.ModeManager;
+
+        animManager = playerController.AnimManager;
 
         rb = playerController.RigidBody;
 
@@ -42,21 +56,45 @@ public abstract class PlayerState : MonoBehaviour
 
         spriteRenderer = playerController.SpriteRenderer;
 
-        mainCamera = playerController.MainCamera;
+        DrawAsOverlay(isPerformDamage);
+    }
+
+    public void DrawAsOverlay(bool _value)
+    {
+        if (!_value)
+        {
+            // æ·±åº¦ãƒ†ã‚¹ãƒˆã‚’æœ‰åŠ¹
+            playerController.material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.LessEqual);
+        }
+        else
+        {
+            // æ·±åº¦ãƒ†ã‚¹ãƒˆã‚’ç„¡åŠ¹
+            playerController.material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
+        }
+    }
+
+    public void SetIsPerformDamage(bool _value)
+    {
+        isPerformDamage = _value;
+    }
+
+    public bool GetIsPerformDamage()
+    {
+        return isPerformDamage;
     }
 
     /// <summary>
-    ///ƒXƒe[ƒg‚ÌXVˆ—
+    /// ã‚¹ãƒ†ãƒ¼ãƒˆã®æ›´æ–°å‡¦ç†
     /// </summary>
     public abstract void Tick();
 
     /// <summary>
-    ///ƒXƒe[ƒg‚ÌXVˆ—
+    /// ã‚¹ãƒ†ãƒ¼ãƒˆã®æ›´æ–°å‡¦ç†
     /// </summary>
     public abstract void FixedTick();
 
     /// <summary>
-    ///ƒXƒe[ƒg‚ÌI—¹ˆ—
+    /// ã‚¹ãƒ†ãƒ¼ãƒˆã®çµ‚äº†å‡¦ç†
     /// </summary>
     public abstract void Exit();
 }

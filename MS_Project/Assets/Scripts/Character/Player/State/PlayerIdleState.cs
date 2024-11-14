@@ -4,36 +4,49 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerState
 {
-    //“ü—Í•ûŒü
+    //å…¥åŠ›æ–¹å‘
     UnityEngine.Vector2 inputDirec;
 
     public override void Init(PlayerController _playerController)
     {
+        SetIsPerformDamage(false);
+
         base.Init(_playerController);
 
-        // inputManager.BindAction(inputManager.InputControls.GamePlay.Attack, ExecuteAttack);
+      // Debug.Log("ã‚¢ã‚¤ãƒ‰ãƒ«çŠ¶æ…‹");
 
+        spriteAnim.Play("Idle", 0, 0f);
     }
 
 
 
     public override void Tick()
     {
-        //ƒ_ƒ[ƒWƒ`ƒFƒbƒN
-        playerController.StateManager.CheckHit();
+        //ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒã‚§ãƒƒã‚¯
+        if (playerController.StateManager.CheckHit()) return;
 
-        //UŒ‚‚Ö‘JˆÚ
-        bool isAttack = inputManager.GetAttackTrigger();
-        if (isAttack) playerController.StateManager.TransitionState(StateType.Attack);
+        //æ”»æ’ƒã¸é·ç§»
+        if (playerStateManager.CheckAttack()) return;
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“Ý’è
-        playerController.SetWalkAnimation();
+        //æ•é£Ÿã¸é·ç§»
+        if (playerStateManager.CheckEat()) return;
+ 
+        //ã‚¹ã‚­ãƒ«ã¸é·ç§»
+        if (playerStateManager.CheckSkill()) return;
+
+        //å›žé¿ã¸é·ç§»
+        if (playerStateManager.CheckDodge()) return;
+
+
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š
+      //  if (!playerSkillManager.IsDashing) playerController.SetWalkAnimation();
 
         inputDirec = inputManager.GetMoveDirec();
 
-        //ˆÚ“®‚Ö‘JˆÚ
+        //ç§»å‹•ã¸é·ç§»
         if (inputDirec.magnitude > 0)
             playerController.StateManager.TransitionState(StateType.Walk);
+
 
     }
 

@@ -23,7 +23,7 @@ public static class CustomBuild
         Debug.Log("Starting Windows Build!");
         BuildPipeline.BuildPlayer(
             scenes,
-            "Build/Windows/SampleApp.exe",
+            "Build/Windows/MS_Project.exe",
             BuildTarget.StandaloneWindows64,
             BuildOptions.None
         );

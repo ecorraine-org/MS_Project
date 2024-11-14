@@ -3,47 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒLƒƒƒ‰ƒNƒ^[‚ÌƒXƒe[ƒ^ƒX‚ğŠÇ—‚·‚éƒrƒwƒCƒrƒA
+/// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç®¡ç†ã™ã‚‹ãƒ“ãƒ˜ã‚¤ãƒ“ã‚¢
 /// </summary>
 public class StatusManager : MonoBehaviour, ILife
 {
-    [SerializeField, Header("ƒXƒe[ƒ^ƒXƒf[ƒ^")]
-    protected CharaStatusData statusData;
+    [SerializeField, Header("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ‡ãƒ¼ã‚¿")]
+    protected BaseStatusData statusData;
 
-    [SerializeField, Header("‘Ì—Í")]
-    float currentHealth;
+    [SerializeField, Tooltip("ç„¡æ•µã‹ã©ã†ã‹")]
+    protected bool isInvincible;
+
+    [SerializeField, Tooltip("ä½“åŠ›")]
+    protected float currentHealth;
 
     protected virtual void Awake()
     {
+        isInvincible = statusData.isInvincible;
         currentHealth = statusData.maxHealth;
     }
 
     public virtual void TakeDamage(float _damage)
     {
         currentHealth -= _damage;
-        Debug.Log("Damage:" + _damage);//test
+       //Debug.Log("Damage:" + _damage);    // test
 
         if (currentHealth <= 0)
         {
-            //€–S
-
+            // æ­»äº¡
         }
     }
 
-    public void OnDeath()
-    {
+    public void OnDeath() { }
 
+    /// <summary>
+    /// ç„¡æ•µã‹ã©ã†ã‹
+    /// </summary>
+    public bool IsInvincible
+    {
+        get => isInvincible;
+        set { isInvincible = value; }
     }
 
-    public float Health
+    /// <summary>
+    /// ç¾åœ¨ã®ï¼¨ï¼°
+    /// </summary>
+    public float CurrentHealth
     {
         get => currentHealth;
         set { currentHealth = value; }
     }
 
-    public CharaStatusData StatusData
+    public virtual BaseStatusData StatusData
     {
         get => statusData;
-
     }
 }

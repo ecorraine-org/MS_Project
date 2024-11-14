@@ -12,5 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f2b1072f266934683914a0bbf5c717, type: 3}
   m_Name: PlayerStatusData
   m_EditorClassIdentifier: 
-  MaxHealth: 100
-  velocity: 1
+  isInvincible: 0
+  maxHealth: 100
+  mass: 1
+  velocity: 20
+  maxFrenzyGauge: 20
+  frenzyTime: 5
+  swordAtk: 10
+  hammerAtk: 10
+  spearAtk: 10
+  gauntletAtk: 5
+  onomatoAttackData:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: ab608adfc7c4b7842b9e89a7840a1f43, type: 2}
+  - {fileID: 11400000, guid: fb53a12273cb0b24da0e66007f7d763a, type: 2}
+  - {fileID: 11400000, guid: edf6d2473c040c64384dacf4a34215a7, type: 2}
+  - {fileID: 11400000, guid: b013ebb03e670024eb7f006405b1ddde, type: 2}
+  onomatoAttackMissData:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: b5d7e1a3fae2277458447b6f9abbdc13, type: 2}
+  - {fileID: 11400000, guid: 92485b62c707dcd438194bd225457436, type: 2}
+  - {fileID: 11400000, guid: 4a67fc5e4a60c4443a1ac3b61b688e93, type: 2}
+  - {fileID: 11400000, guid: f23f45e0bb5b21f4e8e75d100db4a214, type: 2}

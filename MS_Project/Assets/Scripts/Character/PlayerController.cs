@@ -5,25 +5,42 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : WorldObject
 {
-    // �C���v�b�g�V���O���g��
+    //シングルトン
     protected PlayerInputManager inputManager;
+    BattleManager battleManager;
 
-    [SerializeField, Header("�X�e�[�^�X�}�l�[�W���[")]
+    [SerializeField, Header("スプライトオブジェクト")]
+    GameObject spriteObject;
+
+    [SerializeField, Header("ステータスマネージャー")]
     PlayerStatusManager statusManager;
 
-    [SerializeField, Header("�X�e�[�g�}�l�[�W���[")]
+    [SerializeField, Header("ステートマネージャー")]
     PlayerStateManager stateManager;
 
-    [SerializeField, Header("�A�j���[�V�����}�l�[�W���[")]
+    [SerializeField, Header("アニメーションマネージャー")]
     PlayerAnimManager animManager;
 
-    Rigidbody thisRigidbody;
+    [SerializeField, Header("スキルマネージャー")]
+    PlayerSkillManager skillManager;
 
-    // UnityEngine.Vector2 moveInput;
-    //public float moveSpeed = 1;
-    public float jumpForce = 3;
+    [SerializeField, Header("モードマネージャー")]
+    PlayerModeManager modeManager;
+
+    private Collider playerCollider;
+
+    [SerializeField, Header("アタックコライダーマネージャー")]
+    AttackColliderManagerV2 attackColliderV2;
+
+    //[SerializeField, Header("ヒットコライダー")]
+    //HitCollider hitCollider;
+
+    [SerializeField, Header("エネミーディテクター")]
+    DetectEnemyArea detectEnemy;
+
+    Rigidbody thisRigidbody;
 
     public LayerMask terrainLayer;
     public Transform groundCheck;
@@ -32,159 +49,128 @@ public class PlayerController : MonoBehaviour
     // 
     private Transform sprite;
     private SpriteRenderer spriteRenderer;
+    [HideInInspector] public Material material;
     private Animator spriteAnim;
     private Animator playerFlip;
 
-    // 
-    private Transform mainCamera;
-
-    //���͕���
+    //入力方向
     UnityEngine.Vector2 inputDirec;
 
-    //���݂̌���
-    Direction currentDirec = Direction.Down;
+    //現在の向き
+    Direction currentDirec = Direction.Left;
 
-    //�_���[�W�󂯂邩�ǂ���
+    //現在の向き(ベクトル)
+    UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1, 0, 0);
+
+    //ダメージ受けるかどうか
     bool isHit;
 
-    // �����p�x��臒l
+    // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
 
-
-
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         inputManager = PlayerInputManager.Instance;
+        battleManager = BattleManager.Instance;
 
         thisRigidbody = GetComponent<Rigidbody>();
-
-        mainCamera = GameObject.FindWithTag("MainCamera").gameObject.transform;
 
         terrainLayer = LayerMask.GetMask("Terrain");
 
         playerFlip = GetComponent<Animator>();
 
+        playerCollider = GetComponent<Collider>();
+
         sprite = gameObject.transform.GetChild(0);
         spriteRenderer = sprite.GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = false;
         spriteRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+        material = spriteRenderer.material;
 
         spriteAnim = sprite.GetComponent<Animator>();
 
-        //�ˑ�������
+        //依存性注入
         stateManager.Init(this);
         animManager.Init(this);
+        modeManager.Init(this);
+        skillManager.Init(this);
+        statusManager.Init(this);
+        inputManager.Init(this);
+        detectEnemy.Init(this);
     }
 
     void Start()
     {
+     
 
         groundCheck = gameObject.transform.GetChild(1).gameObject.transform;
         if (Debug.isDebugBuild)
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        //moveInput.x = Input.GetAxis("Horizontal");
-        //moveInput.y = Input.GetAxis("Vertical");
-        //moveInput.Normalize();
-        //if (Debug.isDebugBuild)
-        //    Debug.Log("Movement: " + moveInput);
+        //前方向で向き設定
+       UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.LookRotation(GetForward());
+        transform.rotation = UnityEngine.Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
 
-
-        //spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
-
-        //if (thisRigidbody.velocity.magnitude > 0)
-        //{
-        //    spriteRenderer.flipX = false;
-        //    if (CurrentDirection() == Direction.Up)
-        //    {
-        //        spriteAnim.Play("WalkUp");
-        //    }
-        //    else if (CurrentDirection() == Direction.Down)
-        //    {
-        //        spriteAnim.Play("WalkDown");
-        //    }
-        //    else if (CurrentDirection() == Direction.Left)
-        //    {
-        //        spriteRenderer.flipX = true;
-        //        spriteAnim.Play("WalkRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.Right)
-        //    {
-        //        spriteAnim.Play("WalkRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.UpLeft)
-        //    {
-        //        spriteRenderer.flipX = true;
-        //        spriteAnim.Play("WalkUpRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.UpRight)
-        //    {
-        //        spriteAnim.Play("WalkUpRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.DownLeft)
-        //    {
-        //        spriteRenderer.flipX = true;
-        //        spriteAnim.Play("WalkDownRight");
-        //    }
-        //    else if (CurrentDirection() == Direction.DownRight)
-        //    {
-        //        spriteAnim.Play("WalkDownRight");
-        //    }
-        //}
-
-        //transform.forward = mainCamera.forward;
+        //スプライトをカメラに向く
+        spriteObject.transform.rotation = Camera.main.transform.rotation;
     }
 
     private void FixedUpdate()
     {
-        //thisRigidbody.velocity = new UnityEngine.Vector3(moveInput.x * moveSpeed, thisRigidbody.velocity.y, moveInput.y * moveSpeed);
+        //sprite.transform.rotation = Camera.main.transform.rotation;
+        /*
+        Debug.Log("CurDirec "+curDirecVector);
 
-        //RaycastHit raycastHit;
-        //if (Physics.Raycast(groundCheck.position, UnityEngine.Vector3.down, out raycastHit, 0.1f, terrainLayer))
-        //{
-        //    isGrounded = true;
-        //}
-        //else
-        //{
-        //    isGrounded = false;
-        //}
-        //Debug.DrawRay(groundCheck.position, UnityEngine.Vector2.down, Color.red);
+        thisRigidbody.velocity = new UnityEngine.Vector3(moveInput.x * moveSpeed, thisRigidbody.velocity.y, moveInput.y * moveSpeed);
 
-        //if (Input.GetButtonDown("Jump") && isGrounded)
-        //{
-        //    //canJump = true;
-        //    //thisRigidbody.AddForce(UnityEngine.Vector3.up * jumpForce, ForceMode.Impulse);
-        //    thisRigidbody.velocity += new UnityEngine.Vector3(0f, jumpForce, 0f);
-        //}
+        RaycastHit raycastHit;
+        if (Physics.Raycast(groundCheck.position, UnityEngine.Vector3.down, out raycastHit, 0.1f, terrainLayer))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+        Debug.DrawRay(groundCheck.position, UnityEngine.Vector2.down, Color.red);
+
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            //canJump = true;
+            //thisRigidbody.AddForce(UnityEngine.Vector3.up * jumpForce, ForceMode.Impulse);
+            thisRigidbody.velocity += new UnityEngine.Vector3(0f, jumpForce, 0f);
+        }
+         */
     }
 
     /// <summary>
-    /// �U���C�x���gtest
-    /// </summary>
-    private void OnAttackPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        spriteAnim.Play("PlayerAttack");
-    }
-
-    /// <summary>
-    /// ���͕����Ō��݂̕����𔪕����̂����ꂩ�ɐݒ肷��
+    /// 入力方向で現在の方向を八方向のいずれかに設定する
     /// </summary>
     public void SetEightDirection()
     {
         UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
 
+        //移動しない時、向きを保つため
+        if (inputDirec == UnityEngine.Vector2.zero) return;
+
+        curDirecVector = inputManager.GetLStick().normalized;
+
+        //入力方向の角度計算
         float angle = Mathf.Atan2(inputDirec.y, inputDirec.x) * Mathf.Rad2Deg;
         if (angle >= -angleThreshold && angle < angleThreshold)
         {
+            spriteRenderer.flipX = true;
             currentDirec = Direction.Right;
         }
 
         if (angle >= angleThreshold && angle < angleThreshold * 3)
         {
-
+            spriteRenderer.flipX = true;
             currentDirec = Direction.UpRight;
         }
         if (angle >= angleThreshold * 3 && angle < angleThreshold * 5)
@@ -195,16 +181,19 @@ public class PlayerController : MonoBehaviour
 
         if (angle >= angleThreshold * 5 && angle < angleThreshold * 7)
         {
+            spriteRenderer.flipX = false;
             currentDirec = Direction.UpLeft;
         }
 
         if (angle >= angleThreshold * 7 || angle < -angleThreshold * 7)
         {
+            spriteRenderer.flipX = false;
             currentDirec = Direction.Left;
         }
 
         if (angle >= -angleThreshold * 7 && angle < -angleThreshold * 5)
         {
+            spriteRenderer.flipX = false;
             currentDirec = Direction.DownLeft;
         }
 
@@ -215,56 +204,120 @@ public class PlayerController : MonoBehaviour
 
         if (angle >= -angleThreshold * 3 && angle < -angleThreshold)
         {
+            spriteRenderer.flipX = true;
             currentDirec = Direction.DownRight;
         }
     }
 
+    /// <summary>
+    /// 現在の方向で歩きのアニメーションを設定する
+    /// </summary>
     public void SetWalkAnimation()
     {
-        spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
+        // spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
 
-        spriteRenderer.flipX = false;
+        spriteAnim.Play("WalkRight");
 
-        switch (currentDirec)
+        //switch (currentDirec)
+        //{
+        //    case Direction.Right:
+        //        spriteAnim.Play("WalkRight");
+        //        break;
+
+        //    case Direction.UpRight:
+        //        spriteAnim.Play("WalkUpRight");
+        //        break;
+
+        //    case Direction.Up:
+        //        spriteAnim.Play("WalkUp");
+        //        break;
+
+        //    case Direction.UpLeft:
+
+        //        spriteAnim.Play("WalkUpRight");
+        //        break;
+
+        //    case Direction.Left:
+        //        spriteAnim.Play("WalkRight");
+        //        break;
+
+        //    case Direction.DownLeft:
+        //        spriteAnim.Play("WalkDownRight");
+        //        break;
+
+        //    case Direction.Down:
+        //        spriteAnim.Play("WalkDown");
+        //        break;
+
+        //    case Direction.DownRight:
+        //        spriteAnim.Play("WalkDownRight");
+        //        break;
+        //}
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+
+      //  Gizmos.DrawLine(transform.position, transform.position + GetForward());
+
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward);
+    }
+
+    public override void Hit(bool _canOneHitKill)
+    {
+
+    }
+
+    public override void Attack(Collider _hitCollider)
+    {
+
+        if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            case Direction.Right:
-                spriteAnim.Play("WalkRight");
-                break;
+            HitReaction hitReaction = battleManager.GetPlayerHitReaction();
+            // ヒットストップ          
+            battleManager.StartHitStop(spriteAnim);
 
-            case Direction.UpRight:
-                spriteAnim.Play("WalkUpRight");
-                break;
-
-            case Direction.Up:
-                spriteAnim.Play("WalkUp");
-                break;
-
-            case Direction.UpLeft:
-                spriteRenderer.flipX = true;
-                spriteAnim.Play("WalkUpRight");
-                break;
-
-            case Direction.Left:
-                spriteRenderer.flipX = true;
-                spriteAnim.Play("WalkRight");
-                break;
-
-            case Direction.DownLeft:
-                spriteRenderer.flipX = true;
-                spriteAnim.Play("WalkDownRight");
-                break;
-
-            case Direction.Down:
-                spriteAnim.Play("WalkDown");
-                break;
-
-            case Direction.DownRight:
-                spriteAnim.Play("WalkDownRight");
-                break;
         }
     }
 
+
+
     #region Getter&Setter 
+
+    /// <summary>
+    /// 移動しようとする方向(Lスティック方向)を取得
+    /// </summary>
+    public override UnityEngine.Vector3 GetNextDirec()
+    {
+        return inputManager.GetLStick().normalized;
+    }
+
+    /// <summary>
+    /// 前方向を取得
+    /// </summary>
+    public override UnityEngine.Vector3 GetForward()
+    {
+        
+        if (stateManager.CurrentStateType == StateType.Walk
+            || stateManager.CurrentStateType == StateType.Idle
+             || stateManager.CurrentStateType == StateType.Dodge)
+        {
+            return curDirecVector;
+        }
+        //移動とアイドルではない時、左右方向だけ
+        else
+        {
+            if (spriteRenderer.flipX == true)
+                return new UnityEngine.Vector3(1, 0, 0);
+
+            if (spriteRenderer.flipX == false)
+                return new UnityEngine.Vector3(-1, 0, 0);
+        }
+
+        //エラーの場合
+        return new UnityEngine.Vector3(0, 1, 0);
+    }
 
     public bool IsHit
     {
@@ -277,19 +330,50 @@ public class PlayerController : MonoBehaviour
         get => this.stateManager;
     }
 
+    public PlayerSkillManager SkillManager
+    {
+        get => this.skillManager;
+    }
+
+    public AttackColliderManagerV2 AttackColliderV2
+    {
+        get => this.attackColliderV2;
+    }
+
+    public PlayerModeManager ModeManager
+    {
+        get => this.modeManager;
+    }
+
+    public PlayerAnimManager AnimManager
+    {
+        get => this.animManager;
+    }
+
+
+    public PlayerInputManager InputManager
+    {
+        get => this.inputManager;
+    }
+
+    public BattleManager BattleManager
+    {
+        get => this.battleManager;
+    }
+
     public Animator SpriteAnim
     {
         get => this.spriteAnim;
     }
 
-    public Transform MainCamera
-    {
-        get => this.mainCamera;
-    }
-
     public SpriteRenderer SpriteRenderer
     {
         get => this.spriteRenderer;
+    }
+
+    public DetectEnemyArea DetectEnemy
+    {
+        get => this.detectEnemy;
     }
 
     public Direction CurrentDirec
@@ -298,14 +382,20 @@ public class PlayerController : MonoBehaviour
         set { this.currentDirec = value; }
     }
 
+    public UnityEngine.Vector3 CurDirecVector
+    {
+        get => this.curDirecVector;
+        set { this.curDirecVector = value; }
+    }
+
     public PlayerStatusManager StatusManager
     {
         get => this.statusManager;
     }
 
-    public Rigidbody RigidBody
+    public override Rigidbody RigidBody
     {
-        get => this.thisRigidbody;
+        get => thisRigidbody;
     }
 
     #endregion
