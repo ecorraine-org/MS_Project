@@ -86,4 +86,16 @@ public class AIUFO_Fluffy : EnemyAction
     {
         noGravity = true;
     }
+
+    #region オノマトペ情報
+    private void UFOWalkData()
+    {
+        GenerateWalkOnomatopoeia();
+    }
+
+    private void UFOAttackData()
+    {
+        GenerateAttackOnomatopoeia();
+    }
+    #endregion
 }

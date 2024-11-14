@@ -68,8 +68,10 @@ public class PlayerController : WorldObject
     // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
+
         inputManager = PlayerInputManager.Instance;
         battleManager = BattleManager.Instance;
 

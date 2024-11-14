@@ -283,17 +283,17 @@ BlendTree:
     m_DirectBlendParameter: SkillNo
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 5661fc893d1af8f4ba5a42fafd1928af, type: 2}
-    m_Threshold: 1
+    m_Motion: {fileID: 7400000, guid: e89e1e97fc0a79c43b38af67acbccc0f, type: 2}
+    m_Threshold: 0.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: SkillNo
+    m_DirectBlendParameter: SkillValue
     m_Mirror: 0
   m_BlendParameter: SkillValue
   m_BlendParameterY: Blend
   m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MaxThreshold: 0.5
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0

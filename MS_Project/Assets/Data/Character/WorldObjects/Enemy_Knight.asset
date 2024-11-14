@@ -17,13 +17,14 @@ MonoBehaviour:
   mass: 400
   gameObjPrefab: Enemy/Kngiht
   enemyRank: 1
-  SelfType: 1
   timeTillNextAction: 1
   damage: 1
   attackDistance: 2
   velocity: 1
   chaseDistance: 5
-  onomatoData: {fileID: 11400000, guid: ab608adfc7c4b7842b9e89a7840a1f43, type: 2}
+  SelfType: 1
+  onomatoAttack: {fileID: 11400000, guid: d674ac612312ff84e81d4690a44f3c44, type: 2}
+  onomatoWalk: {fileID: 11400000, guid: 5b51e8c360d8352479433df2dcafc4fd, type: 2}
   tolerance: 1
   sfxClip: 
   vfxClip: 

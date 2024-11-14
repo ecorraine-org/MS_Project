@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class StateDamaged : ObjectState
 {
+    PlayerController player;
+
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
 
-        if(enemy != null)
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
+
+        if (enemy != null)
         {
             enemy.Anim.Play("Damaged");
-            enemy.GenerateOnomatopoeia(enemy.EnemyStatus.StatusData.onomatoData);
+
+            int playerMode = ((int)player.ModeManager.Mode);
+            OnomatopoeiaData attackOnomatoData = player.StatusManager.StatusData.onomatoAttackData[playerMode];
+            enemy.GenerateOnomatopoeia(attackOnomatoData);
         }
     }
 

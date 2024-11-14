@@ -17,13 +17,14 @@ MonoBehaviour:
   mass: 100
   gameObjPrefab: Enemy/VirusV2
   enemyRank: 1
-  SelfType: 4
   timeTillNextAction: 3
   damage: 1
   attackDistance: 5
   velocity: 3
   chaseDistance: 10
-  onomatoData: {fileID: 11400000, guid: fb53a12273cb0b24da0e66007f7d763a, type: 2}
+  SelfType: 4
+  onomatoAttack: {fileID: 11400000, guid: 3e28730ae2c3c144f831d76460fe1196, type: 2}
+  onomatoWalk: {fileID: 11400000, guid: bbe8fa5a81bafcd4ca04b67d55a1e4e6, type: 2}
   tolerance: 1
   sfxClip: 
   vfxClip: 

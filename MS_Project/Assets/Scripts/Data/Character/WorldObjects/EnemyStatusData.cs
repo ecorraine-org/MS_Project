@@ -11,9 +11,6 @@ public class EnemyStatusData : BaseStatusData
     [Header("エネミー階級")]
     public EnemyRank enemyRank = EnemyRank.None;
 
-    [Header("エネミータイプ")]
-    public OnomatoType SelfType = OnomatoType.None;
-
     [Header("行動クールタイム")]
     public float timeTillNextAction = 1f;
 
@@ -29,8 +26,12 @@ public class EnemyStatusData : BaseStatusData
     [Header("追跡する距離")]
     public float chaseDistance = 5f;
 
-    [Header("オノマトペデータ")]
-    public OnomatopoeiaData onomatoData;
+    [Header("エネミータイプ")]
+    public OnomatoType SelfType = OnomatoType.None;
+
+    [Header("オノマトペリスト")]
+    public OnomatopoeiaData onomatoAttack;
+    public OnomatopoeiaData onomatoWalk;
 
     [Header("耐性")]
     public OnomatoType tolerance = OnomatoType.None;

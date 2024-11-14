@@ -7,6 +7,14 @@ using UnityEngine;
 /// </summary>
 public abstract class WorldObject : MonoBehaviour, IHit, IAttack
 {
+    [HideInInspector, Tooltip("生成するオノマトペオブジェクト")]
+    protected GameObject onomatoObj;
+
+    public virtual void Awake()
+    {
+        onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItem");
+    }
+
     public virtual void Hit(bool _canOneHitKill) { }
 
     public virtual void Attack(Collider _hitCollider) { }
@@ -28,6 +36,21 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack
     }
 
     public virtual Rigidbody RigidBody { get => null; }
+
+    public void GenerateOnomatopoeia(OnomatopoeiaData _onomatopoeiaData)
+    {
+        GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
+        onomatoObj.GetComponent<OnomatopoeiaController>().data = _onomatopoeiaData;
+        onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = _onomatopoeiaData.wordToUse;
+
+        Transform mainCamera = Camera.main.transform;
+        // カメラと同じ角度
+        Quaternion newRotation = mainCamera.rotation;
+        newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
+
+        GameObject instance = Instantiate(onomatoObj, this.transform.position, newRotation, collector.transform);
+        collector.GetComponent<Collector>().otherObjectPool.Add(instance);
+    }
 }
 
 
