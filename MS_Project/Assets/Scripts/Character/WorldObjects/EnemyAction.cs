@@ -77,6 +77,16 @@ public abstract class EnemyAction : MonoBehaviour
         distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
     }
 
+    protected void GenerateAttackOnomatopoeia()
+    {
+        enemy.GenerateOnomatopoeia(EnemyStatus.StatusData.onomatoAttack);
+    }
+
+    protected void GenerateWalkOnomatopoeia()
+    {
+        enemy.GenerateOnomatopoeia(EnemyStatus.StatusData.onomatoWalk);
+    }
+
     public EnemyController Enemy
     {
         get { return enemy; }

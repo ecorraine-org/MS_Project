@@ -26,7 +26,13 @@ public class PlayerStatusData : BaseStatusData
     [Header("メリケンサックの攻撃力")]
     public float gauntletAtk = 1;
 
-        private void OnEnable()
+    [Header("攻撃オノマトペリスト")]
+    public List<OnomatopoeiaData> onomatoAttackData = new List<OnomatopoeiaData>();
+
+    [Header("空振り攻撃オノマトペリスト")]
+    public List<OnomatopoeiaData> onomatoAttackMissData = new List<OnomatopoeiaData>();
+
+    private void OnEnable()
     {
         ObjectType = WorldObjectType.Player;
         CustomLogger.Log("Playerオブジェクトタイプを初期化");

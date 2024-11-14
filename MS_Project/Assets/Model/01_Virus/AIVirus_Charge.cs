@@ -13,4 +13,16 @@ public class AIVirus_Charge : EnemyAction
         float chargeForce = enemy.RigidBody.mass * chargeSpeed;
         enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
     }
+
+    #region オノマトペ情報
+    private void VirusWalkData()
+    {
+        GenerateWalkOnomatopoeia();
+    }
+
+    private void VirusAttackData()
+    {
+        GenerateAttackOnomatopoeia();
+    }
+    #endregion
 }

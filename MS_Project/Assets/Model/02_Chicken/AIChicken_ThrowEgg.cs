@@ -145,6 +145,18 @@ public class AIChicken_ThrowEgg : EnemyAction
         isThrowing = false;
     }
 
+    #region オノマトペ情報
+    private void ChickenWalkData()
+    {
+        GenerateWalkOnomatopoeia();
+    }
+
+    private void ChickenAttackData()
+    {
+        GenerateAttackOnomatopoeia();
+    }
+    #endregion
+
     #region Gizmos
     private void OnDrawGizmos()
     {

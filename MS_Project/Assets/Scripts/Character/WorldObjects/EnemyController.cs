@@ -147,7 +147,6 @@ public class EnemyController : WorldObjectController
     {
         if (EnemyStatus.IsDamaged)
         {
-            GenerateOnomatopoeia(EnemyStatus.StatusData.onomatoData);
             EnemyStatus.IsDamaged = false;
         }
     }

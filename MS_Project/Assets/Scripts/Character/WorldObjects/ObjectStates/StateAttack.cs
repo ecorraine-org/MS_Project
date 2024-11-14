@@ -12,7 +12,9 @@ public class StateAttack : ObjectState
         base.Init(_objectController);
 
         if (enemy != null)
+        {
             enemy.Anim.SetTrigger("IsAttack");
+        }
     }
 
     public override void Tick()

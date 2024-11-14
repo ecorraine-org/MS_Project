@@ -21,4 +21,16 @@ public class AIHunter_ThrowAxe : EnemyAction
             }
         }
     }
+
+    #region オノマトペ情報
+    private void HunterWalkData()
+    {
+        GenerateWalkOnomatopoeia();
+    }
+
+    private void HunterAttackData()
+    {
+        GenerateAttackOnomatopoeia();
+    }
+    #endregion
 }

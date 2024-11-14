@@ -17,13 +17,14 @@ MonoBehaviour:
   mass: 200
   gameObjPrefab: Enemy/ChickenV2
   enemyRank: 1
-  SelfType: 3
   timeTillNextAction: 1
   damage: 1
   attackDistance: 10
   velocity: 6
   chaseDistance: 15
-  onomatoData: {fileID: 11400000, guid: edf6d2473c040c64384dacf4a34215a7, type: 2}
+  SelfType: 3
+  onomatoAttack: {fileID: 11400000, guid: 68fbb11dfa20277458c3e03f642388f4, type: 2}
+  onomatoWalk: {fileID: 11400000, guid: 0abd5607beee81245a6ee5866c45cdbe, type: 2}
   tolerance: 2
   sfxClip: 
   vfxClip: 

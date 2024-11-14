@@ -9,7 +9,9 @@ public class StateWalk : ObjectState
         base.Init(_objectController);
 
         if (enemy != null)
+        {
             enemy.Anim.Play("Walk");
+        }
     }
 
     public override void Tick()

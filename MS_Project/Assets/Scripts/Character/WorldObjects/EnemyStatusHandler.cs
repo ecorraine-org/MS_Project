@@ -59,7 +59,7 @@ public class EnemyStatusHandler : StatusManager
         damage = enemyStatusData.damage;
         actionCooldown = enemyStatusData.timeTillNextAction;
         selfType = enemyStatusData.SelfType;
-        onomatoData = enemyStatusData.onomatoData;
+        onomatoData = enemyStatusData.onomatoAttack;
         tolerance = enemyStatusData.tolerance;
     }
 

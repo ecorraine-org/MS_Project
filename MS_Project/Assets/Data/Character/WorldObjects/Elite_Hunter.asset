@@ -17,13 +17,14 @@ MonoBehaviour:
   mass: 300
   gameObjPrefab: Enemy/HunterV2
   enemyRank: 2
-  SelfType: 3
   timeTillNextAction: 1
   damage: 1
   attackDistance: 3
   velocity: 3
   chaseDistance: 5
-  onomatoData: {fileID: 11400000, guid: edf6d2473c040c64384dacf4a34215a7, type: 2}
+  SelfType: 3
+  onomatoAttack: {fileID: 11400000, guid: 185a41ef0d08e5a4ab36cf4e18b9303a, type: 2}
+  onomatoWalk: {fileID: 11400000, guid: 893d76a0677a3b54d9a95a30e7dd1368, type: 2}
   tolerance: 0
   sfxClip: 
   vfxClip: 
