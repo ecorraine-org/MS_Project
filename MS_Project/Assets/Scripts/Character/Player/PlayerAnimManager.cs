@@ -88,7 +88,9 @@ public class PlayerAnimManager : AnimManager
 
         //方向、画像反転設定
         playerController.SetEightDirection();
-        skillManager.DashHandler.Begin(true, playerController.CurDirecVector);
+       // skillManager.DashHandler.Begin(true, playerController.CurDirecVector);
+        skillManager.DashHandler.Begin(true, playerController.GetForward());
+        
 
         startTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime*
              playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length;
