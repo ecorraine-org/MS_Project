@@ -3,32 +3,32 @@ using UnityEditor;
 
 public class RenameToolWindow : EditorWindow
 {
-    private string baseName = "NewName";  // –¼‘O‚ÌŠî‘b‚ğ“ü—Í‚·‚éƒtƒB[ƒ‹ƒh
+    private string baseName = "NewName";  // åå‰ã®åŸºç¤ã‚’å…¥åŠ›ã™ã‚‹ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
 
     [MenuItem("Tools/Rename Tool")]
     public static void ShowWindow()
     {
-        // ƒEƒBƒ“ƒhƒE‚ğ•\¦
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤º
         GetWindow<RenameToolWindow>("Rename Tool");
     }
 
     private void OnGUI()
     {
-        GUILayout.Label("ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O‚ğˆêŠ‡•ÏX", EditorStyles.boldLabel);
+        GUILayout.Label("ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åå‰ã‚’ä¸€æ‹¬å¤‰æ›´", EditorStyles.boldLabel);
 
-        // –¼‘O“ü—ÍƒtƒB[ƒ‹ƒh
-        baseName = EditorGUILayout.TextField("V‚µ‚¢–¼‘O‚ÌŠî‘b", baseName);
+        // åå‰å…¥åŠ›ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
+        baseName = EditorGUILayout.TextField("æ–°ã—ã„åå‰ã®åŸºç¤", baseName);
 
         if (GUILayout.Button("Rename"))
         {
-            // –¼‘O“ü—Í‚ª‚ ‚é‚©ƒ`ƒFƒbƒN‚µ‚Ä‚©‚çƒŠƒl[ƒ€ˆ—‚ğÀs
+            // åå‰å…¥åŠ›ãŒã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã—ã¦ã‹ã‚‰ãƒªãƒãƒ¼ãƒ å‡¦ç†ã‚’å®Ÿè¡Œ
             if (!string.IsNullOrEmpty(baseName))
             {
                 RenameSelectedObjects(baseName);
             }
             else
             {
-                EditorUtility.DisplayDialog("ƒGƒ‰[", "V‚µ‚¢–¼‘O‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B", "OK");
+                EditorUtility.DisplayDialog("ã‚¨ãƒ©ãƒ¼", "æ–°ã—ã„åå‰ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„ã€‚", "OK");
             }
         }
     }
@@ -38,15 +38,15 @@ public class RenameToolWindow : EditorWindow
         GameObject[] selectedObjects = Selection.gameObjects;
         if (selectedObjects.Length == 0)
         {
-            Debug.LogWarning("ƒIƒuƒWƒFƒNƒg‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogWarning("ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒé¸æŠã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
             return;
         }
 
         for (int i = 0; i < selectedObjects.Length; i++)
         {
-            selectedObjects[i].name = baseName + "_" + i;  // ˜A”Ô•t‚«‚Ì–¼‘O‚É•ÏX
+            selectedObjects[i].name = baseName + "_" + i;  // é€£ç•ªä»˜ãã®åå‰ã«å¤‰æ›´
         }
 
-        Debug.Log("‘I‘ğ‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O‚ğˆêŠ‡•ÏX‚µ‚Ü‚µ‚½B");
+        Debug.Log("é¸æŠã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åå‰ã‚’ä¸€æ‹¬å¤‰æ›´ã—ã¾ã—ãŸã€‚");
     }
 }

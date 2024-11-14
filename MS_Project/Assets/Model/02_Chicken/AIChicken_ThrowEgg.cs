@@ -13,13 +13,15 @@ public class AIChicken_ThrowEgg : EnemyAction
 
     [SerializeField, Header("投げる力")]
     float throwForce = 10f;
+    /*
     [SerializeField, Header("連続して投げる回数")]
     int throwCount = 3;
     [SerializeField, Header("投擲の間隔（秒）")]
     float throwInterval = 0.5f;
-
     [Tooltip("現在の投擲回数")]
     private int currentThrow = 0;
+    */
+
     [Tooltip("投擲中フラグ")]
     private bool isThrowing = false;
 
@@ -51,7 +53,12 @@ public class AIChicken_ThrowEgg : EnemyAction
                 backwardRotation.x = 0f;
                 transform.rotation = backwardRotation;
 
-                enemy.IsAttacking = false;
+                if (enemy.AllowAttack || enemy.IsAttacking)
+                {
+                    enemy.AllowAttack = false;
+                    enemy.IsAttacking = false;
+                }
+
                 // 逃げる
                 enemy.OnMovementInput?.Invoke(-direction.normalized);
             }
@@ -64,17 +71,26 @@ public class AIChicken_ThrowEgg : EnemyAction
             }
             else if (distanceToPlayer > maxDistance)
             {
-                enemy.IsAttacking = false;
+                if (enemy.AllowAttack || enemy.IsAttacking)
+                {
+                    enemy.AllowAttack = false;
+                    enemy.IsAttacking = false;
+                }
+
                 // 追跡
                 enemy.OnMovementInput?.Invoke(direction.normalized);
             }
         }
         else
         {
-            enemy.IsAttacking = false;
+            if (enemy.AllowAttack || enemy.IsAttacking)
+            {
+                enemy.AllowAttack = false;
+                enemy.IsAttacking = false;
+            }
+
             // 停止
             enemy.OnMovementInput?.Invoke(Vector3.zero);
-            enemy.State.TransitionState(ObjectStateType.Idle);
         }
     }
 

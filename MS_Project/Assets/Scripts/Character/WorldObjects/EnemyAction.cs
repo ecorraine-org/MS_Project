@@ -41,6 +41,7 @@ public abstract class EnemyAction : MonoBehaviour
 
             if (distanceToPlayer <= EnemyStatus.StatusData.attackDistance)
             {
+                enemy.AllowAttack = true;
                 enemy.OnMovementInput?.Invoke(Vector3.zero);
 
                 // 攻撃
@@ -48,17 +49,26 @@ public abstract class EnemyAction : MonoBehaviour
             }
             else
             {
-                enemy.IsAttacking = false;
+                if (enemy.AllowAttack || enemy.IsAttacking)
+                {
+                    enemy.AllowAttack = false;
+                    enemy.IsAttacking = false;
+                }
+
                 // 追跡
                 enemy.OnMovementInput?.Invoke(direction.normalized);
             }
         }
         else
         {
-            enemy.IsAttacking = false;
+            if (enemy.AllowAttack || enemy.IsAttacking)
+            {
+                enemy.AllowAttack = false;
+                enemy.IsAttacking = false;
+            }
+
             // 停止
             enemy.OnMovementInput?.Invoke(Vector3.zero);
-            enemy.State.TransitionState(ObjectStateType.Idle);
         }
     }
 

@@ -63,12 +63,13 @@ public class AttackColliderManagerV2 : MonoBehaviour
             if (hitObjects.Contains(hitCollider)) continue;
 
             //カメラベースの当たり判定補正を行う
-            bool isHit = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, hitCollider.bounds.size);
+            //bool isHit = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, hitCollider.bounds.size);
+            bool isHit = true; // 仮
 
-            //Logで確認
-            // Debug.Log("isHit:" + isHit);
+            // Logで確認
+            CustomLogger.Log(transform.gameObject.name + "isHit?" + isHit);
 
-             if (isHit)
+            if (isHit)
             {
                 //重複処理を避けるため
                 //既に当たり判定を処理したオブジェクトをリストに入れる

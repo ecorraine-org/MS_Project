@@ -117,7 +117,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObj: {fileID: 0}
   isInvincible: 0
-  canAttack: 1
   isAttacking: 0
   useSkill: 0
   isDamaged: 0
@@ -557,3 +556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29e362c077c4a14f91a4ca73526fdab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
