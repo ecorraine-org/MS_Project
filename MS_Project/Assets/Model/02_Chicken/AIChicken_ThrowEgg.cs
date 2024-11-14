@@ -60,7 +60,7 @@ public class AIChicken_ThrowEgg : EnemyAction
                 }
 
                 // 逃げる
-                enemy.OnMovementInput?.Invoke(-direction.normalized);
+                enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
             }
             else if (distanceToPlayer <= maxDistance && distanceToPlayer > minDistance)
             {

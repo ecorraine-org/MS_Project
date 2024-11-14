@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8bcc7d083992bcc49bd4c1d04e72f621, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8bcc7d083992bcc49bd4c1d04e72f621, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8bcc7d083992bcc49bd4c1d04e72f621, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8bcc7d083992bcc49bd4c1d04e72f621, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -158,3 +170,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9531aad74e6834f88b0659c6e61a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatSpeed: 2
+  floatPos: 7
