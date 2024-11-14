@@ -79,3 +79,29 @@ public enum EnemyRank
     [InspectorName("エリート")] Elite,
     [InspectorName("ボス")] Boss,
 }
+
+/// <summary>
+/// カメラ種類
+/// </summary>
+public enum CameraType
+{
+    [InspectorName("メインカメラ")] Main,
+    [InspectorName("UIカメラ")] UI,
+    [InspectorName("ミニマップカメラ")] MiniMap,
+    [InspectorName("カットシーンカメラ")] CutScene
+}
+
+/// <summary>
+/// カメラエフェクト種類
+/// </summary>
+public enum CameraEffectType
+{
+    None,
+    [InspectorName("フェード")] Fade,
+    [InspectorName("シェイク")] Shake,
+    [InspectorName("ズーム")] Zoom,
+    [InspectorName("フリーズ")] Freeze,
+    [InspectorName("カット")] Cut,
+    [InspectorName("フィルター")] Filter,
+    [InspectorName("ロール")] Roll
+}
