@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 public static class CustomBuild
@@ -14,22 +15,22 @@ public static class CustomBuild
     
     /* List of scenes to include in the build */
     public static string[] scenes = {
+        };
+    
+    [MenuItem("Build/CLI Build For Windows")]
+    public static void BuildForWindows()
+    {
+        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
+        buildPlayerOptions.scenes = new[] {
         Scene("Title"),
         Scene("StartScene01"),
         Scene("Area000"),
         Scene("Area001"),
         Scene("Area002")
         };
-    
-    [MenuItem("Build/BuildApplication")]
-    public static void BuildForWindows()
-    {
-        Debug.Log("Starting Windows Build!");
-        BuildPipeline.BuildPlayer(
-            scenes,
-            "Build/Windows/MS_Project.exe",
-            BuildTarget.StandaloneWindows64,
-            BuildOptions.None
-        );
+
+        buildPlayerOptions.locationPathName = "Build/Windows";
+        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
+        buildPlayerOptions.options = BuildOptions.CleanBuildCache;
     }
 }

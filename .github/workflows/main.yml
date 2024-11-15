@@ -39,7 +39,7 @@ jobs:
           $unityPath = "C:\Program Files\Unity\Editor\$env:UNITY_VERSION\Editor\Unity.exe"
           Write-Host "Attempting to Build Project..."
           $logFile = "C:\Users\$env:PROJECT_PATH\Build\Logs\build-$Date.log"
-          & $unityPath -batchmode -quit -projectPath "C:\Users\$env:PROJECT_PATH" -executeMethod ${{ matrix.buildMethod }} -nographics -logFile $logFile -buildTarget $env:TARGET_PLATFORM
+          & $unityPath -quit -batchmode -nographics -buildTarget -executeMethod ${{ matrix.buildMethod }} $env:TARGET_PLATFORM -projectPath "C:\Users\$env:PROJECT_PATH" -logFile $logFile
 
   compressFiles:
     needs: buildApplication
