@@ -103,5 +103,6 @@ public enum CameraEffectType
     [InspectorName("フリーズ")] Freeze,
     [InspectorName("カット")] Cut,
     [InspectorName("フィルター")] Filter,
-    [InspectorName("ロール")] Roll
+    [InspectorName("ロール")] Roll,
+    [InspectorName("パン")] Pan,
 }
