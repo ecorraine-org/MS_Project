@@ -365,7 +365,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8143523743651954739, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 8143523743651954739, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8143523743651954739, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8143523743651954739, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalEnemyCount: 0
   enemyPool: []
-  otherObjects: []
+  otherObjectPool: []
 --- !u!1001 &1814214902
 PrefabInstance:
   m_ObjectHideFlags: 0
