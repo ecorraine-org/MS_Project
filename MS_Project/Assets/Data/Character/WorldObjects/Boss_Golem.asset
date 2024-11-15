@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
-  m_Name: Enemy_Golem
+  m_Name: Boss_Golem
   m_EditorClassIdentifier: 
   isInvincible: 0
   maxHealth: 100
-  mass: 100
-  gameObjPrefab: Enemy/Golem
-  enemyRank: 2
-  SelfType: 4
-  timeTillNextAction: 3
+  mass: 1
+  gameObjPrefab: Enemy/GolemV2
+  enemyRank: 3
+  SelfType: 2
+  timeTillNextAction: 1
   damage: 1
-  attackDistance: 10
-  velocity: 3
-  chaseDistance: 10
+  attackDistance: 15
+  velocity: 1
+  chaseDistance: 20
   onomatoData: {fileID: 11400000, guid: fb53a12273cb0b24da0e66007f7d763a, type: 2}
-  tolerance: 1
+  tolerance: 4
   sfxClip: 
   vfxClip: 
