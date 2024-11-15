@@ -122,6 +122,9 @@ public class PlayerController : WorldObject
 
     private void FixedUpdate()
     {
+        UnityEngine.Vector3 gravity = Physics.gravity * (RigidBody.mass * RigidBody.mass);
+        RigidBody.AddForce(gravity * Time.deltaTime);
+
         //sprite.transform.rotation = Camera.main.transform.rotation;
         /*
         Debug.Log("CurDirec "+curDirecVector);
