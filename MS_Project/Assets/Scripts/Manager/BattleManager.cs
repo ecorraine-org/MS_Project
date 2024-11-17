@@ -52,6 +52,43 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
         isHitStop = false;
     }
 
+
+
+    #region TimeSlow
+
+    //public void StartTimeSlow(float _slowSpeed, float _duration)
+    //{
+    //    StartCoroutine(TimeSlowCoroutine( _slowSpeed, _duration));
+    //}
+
+    //private IEnumerator TimeSlowCoroutine( float _slowSpeed, float _duration)
+    //{
+    //    // 時間を遅くする
+    //    Time.timeScale = _slowSpeed;
+
+    //    yield return new WaitForSeconds(_duration);
+
+    //    //  時間の流れを元に戻す
+    //    Time.timeScale = 1;
+    //}
+    public void StartTimeSlow(float _slowSpeed, float _duration)
+    {
+        TimerUtility.TimeBasedTimer(this, _duration,
+            () => SetTimeSlow(_slowSpeed),  // 一回だけ実行
+            () => ResetTime());               // 終了処理
+    }
+
+    private void SetTimeSlow(float _slowSpeed)
+    {
+        Time.timeScale = _slowSpeed;
+    }
+
+    private void ResetTime()
+    {
+        Time.timeScale = 1;
+    }
+    #endregion
+
     public HitReaction GetPlayerHitReaction()
     {
         return playerHitData.dicHitReac[curPlayerMode];
