@@ -34,7 +34,7 @@ public class PlayerAnimManager : AnimManager
     public override void EnableCombo()
     {
         PlayerSkillManager skillManager = playerController.SkillManager;
-        skillManager.CanComboCancel=true;
+        skillManager.CanComboCancel = true;
         Debug.Log("EnableCombo");
     }
 
@@ -56,14 +56,14 @@ public class PlayerAnimManager : AnimManager
         skillManager.CanComboInput = true;
         Debug.Log("EnableComboInput");
     }
- 
+
 
     /// <summary>
     /// 攻撃可能設定
     /// </summary>
     public override void EnableHit()
     {
- 
+
         AttackColliderManagerV2 attackColliderV2 = playerController.AttackColliderV2;
         attackColliderV2.SetHit(true);
 
@@ -77,6 +77,15 @@ public class PlayerAnimManager : AnimManager
         AttackColliderManagerV2 attackColliderV2 = playerController.AttackColliderV2;
         attackColliderV2.SetHit(false);
 
+    }
+
+    /// <summary>
+    /// 長押し
+    /// </summary>
+    public void StartCharge()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+        skillManager.CanCharge=true;
     }
 
     /// <summary>

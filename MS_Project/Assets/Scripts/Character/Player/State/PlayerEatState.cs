@@ -28,11 +28,11 @@ public class PlayerEatState : PlayerState
         //方向変更
         playerController.SetEightDirection();
 
-        //入力方向取得
-        UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
+        ////入力方向取得
+        //UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
 
-        //捕食方向設定
-        eatingDirec = new Vector3(inputDirec.x, 0, inputDirec.y);
+        ////捕食方向設定
+        //eatingDirec = new Vector3(inputDirec.x, 0, inputDirec.y);
 
         //暴走時、クールタイムを無視する
         if (playerController.StatusManager.IsFrenzy)
@@ -50,13 +50,32 @@ public class PlayerEatState : PlayerState
     {
         Attack();
 
-        //モードチェンジへ遷移
-        //条件:①遷移先状態は今のと違う
-        //②特定のオノマトペを食べる
-        //if ()
-        //{
-        //    playerController.StateManager.TransitionState(StateType.ModeChange);
-        //}
+        //ボタン離していない時、オノマトペを選択
+        if (playerController.InputManager.GetEatPressed() && playerController.SkillManager.CanCharge)
+        {
+            playerController.SpriteAnim.speed = 0;
+
+            //入力方向取得
+            UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
+            //捕食方向設定
+            eatingDirec = new Vector3(inputDirec.x, 0, inputDirec.y);
+            if (inputDirec == Vector2.zero) eatingDirec = playerController.GetForward();
+           Debug.Log("no input"+ eatingDirec);
+
+          
+
+            //コライダーの検出
+            playerController.AttackColliderV2.SelectColliderWithInputDirec(playerController.transform, 0.0f, eatingDirec, onomatoLayer);
+        }
+
+        //ボタンを離す
+        if(!playerController.InputManager.GetEatPressed())
+        {
+            playerController.SpriteAnim.speed = 1;
+            playerController.SkillManager.CanCharge = false;
+        }
+
+         
 
         //アニメーション終了、アイドルへ遷移
         if (spriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)

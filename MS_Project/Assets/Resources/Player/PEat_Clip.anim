@@ -22,11 +22,11 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 1150353794, guid: 4b7bbb2794beafe4c97dc55ccb257946, type: 3}
-    - time: 0.16666667
+    - time: 0.083333336
       value: {fileID: -861024477, guid: cfd44abc124b04a49b8d9ef5580a0d70, type: 3}
-    - time: 0.43333334
+    - time: 0.28333333
       value: {fileID: 1150353794, guid: 4b7bbb2794beafe4c97dc55ccb257946, type: 3}
-    - time: 0.51666665
+    - time: 0.36666667
       value: {fileID: 1150353794, guid: 4b7bbb2794beafe4c97dc55ccb257946, type: 3}
     attribute: m_Sprite
     path: 
@@ -59,7 +59,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5333333
+    m_StopTime: 0.38333336
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -79,14 +79,21 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.16666667
+  - time: 0.083333336
+    functionName: StartCharge
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.28333333
     functionName: EnableHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.21666667
+  - time: 0.31666666
     functionName: DisableHit
     data: 
     objectReferenceParameter: {fileID: 0}
