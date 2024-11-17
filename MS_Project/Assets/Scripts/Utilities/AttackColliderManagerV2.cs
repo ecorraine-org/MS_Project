@@ -47,7 +47,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
         //当たり判定有効するかを設定する
         if (!canHit) return;
 
-        if (_cameraBasedHitCorrection == null) Debug.Log("_cameraBasedHitCorrection NULL");
+       // if (_cameraBasedHitCorrection == null) Debug.Log("_cameraBasedHitCorrection NULL");
         if (hitCollider == null) Debug.Log(" hitCollider NULL");
         if (hitCollider.CollidersList == null) Debug.Log(" hitCollider.CollidersList NULL");
 
@@ -196,10 +196,73 @@ public class AttackColliderManagerV2 : MonoBehaviour
         //ToOnomotoDirec描画
         Debug.DrawLine(_owner.position, _owner.position + ToClosestColliderDirec, Color.blue, 1.0f);
 
-        //ダメージ処理処理
+        //ダメージ処理
         Hit(closestCollider, _damage, false);
     }
 
+   
+
+    /// <summary>
+    ///方向によって特定のオブジェクトを選ぶ
+    /// </summary>
+    /// <param name="_owner">攻撃者のトランスフォーム</param>
+    public void SelectColliderWithInputDirec(Transform _owner, float _damage, Vector3 _inputDirec, LayerMask _targetLayer)
+    {
+        hitCollider.CollidersList.RemoveAll(item => item == null);
+
+        if (hitCollider.CollidersList.Count <= 0) return;
+
+        //リセット
+        closestCollider = null;
+
+        //// 入力ベクトルとオノマトペの方向ベクトルの最小角度
+        float minAngle = float.MaxValue;
+
+        foreach (Collider hitCollider in hitCollider.CollidersList)
+        {
+            //レイヤーに属していなければ、スキップ
+            if (((1 << hitCollider.gameObject.layer) & _targetLayer) == 0) continue;
+
+            //他のオブジェクトのリセット処理
+            var select = hitCollider.GetComponentInChildren<ISelected>();
+            if (select != null)
+            {
+                select.UnSelected();
+            }
+
+            //最も近いオブジェクトを探す
+            FindClosestCollider(hitCollider, _owner, _inputDirec, ref minAngle);
+
+        }
+
+        //// 最も近いオブジェクトに対する処理
+        SelectClosestCollider(_owner);
+
+    }
+
+    /// <summary>
+    /// 最も近いオブジェクトに対する選ぶ処理
+    /// </summary>
+    private void SelectClosestCollider(Transform _owner)
+    {
+        if (closestCollider == null) return;
+
+        //オノマトペへのベクトル
+        Vector3 ToClosest = closestCollider.transform.position - _owner.position;
+
+        //水平面の方向を取得
+        ToClosest.y = 0;
+        Vector3 ToClosestColliderDirec = ToClosest.normalized;
+
+        //ToOnomotoDirec描画
+        Debug.DrawLine(_owner.position, _owner.position + ToClosestColliderDirec, Color.blue, 1.0f);
+
+        var select = closestCollider.GetComponentInChildren<ISelected>();
+        if (select != null)
+        {
+            select.Selected();
+        }
+    }
 
     /// <summary>
     /// 当たり判定有効かを設定する

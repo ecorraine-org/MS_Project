@@ -31,6 +31,9 @@ public class PlayerSkillManager : MonoBehaviour
     // 当たり判定可能かどうか
     bool canHit = false;
 
+    // 長押ししているか
+    bool canCharge = false;
+
     [SerializeField, Header("弾発射装置")]
     BulletLauncher bulletLauncher;
 
@@ -327,6 +330,12 @@ public class PlayerSkillManager : MonoBehaviour
     {
         get => this.canComboCancel;
          set { this.canComboCancel = value; }
+    }
+
+    public bool CanCharge
+    {
+        get => this.canCharge;
+        set { this.canCharge = value; }
     }
 
     public bool CanComboInput

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class OnomatoManager : MonoBehaviour, IHit
+public class OnomatoManager : MonoBehaviour, IHit,ISelected
 {
     [SerializeField]
     private OnomatopoeiaController controller;
@@ -21,6 +21,8 @@ public class OnomatoManager : MonoBehaviour, IHit
     private PlayerMode currentMode;
     private OnomatoType nextDataType;
     private OnomatoType currentDataType;
+
+    Vector3 defaultScale;
 
     /*
     private void OnEnable()
@@ -56,6 +58,8 @@ public class OnomatoManager : MonoBehaviour, IHit
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         currentMode = player.ModeManager.Mode;
+
+        defaultScale = transform.localScale;
     }
 
     /// <summary>
@@ -105,6 +109,24 @@ public class OnomatoManager : MonoBehaviour, IHit
         }
 
         CustomLogger.Log("Change Mode to: " + nextMode);
+    }
+
+    /// <summary>
+    /// 捕食で選択された時の処理
+    /// </summary>
+    public void Selected()
+    {
+        //仮で大きくする
+        transform.localScale = 2 * defaultScale;
+
+    }
+
+    /// <summary>
+    /// 捕食で選択されてない時の処理
+    /// </summary>
+    public void UnSelected()
+    {
+        transform.localScale = defaultScale;
     }
 
     public OnomatoType NextDataType

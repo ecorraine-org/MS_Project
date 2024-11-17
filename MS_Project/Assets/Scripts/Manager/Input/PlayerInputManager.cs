@@ -143,7 +143,23 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
     }
 
     /// <summary>
-    /// スキル入力を取得
+    /// 捕食入力(ボタン長押し)を取得
+    /// </summary>
+    public bool GetEatPressed()
+    {
+        return inputControls.GamePlay.Eat.IsPressed();
+    }
+
+    /// <summary>
+    /// 捕食入力(ボタン離す)を取得
+    /// </summary>
+    public bool GetEatReleased()
+    {
+        return inputControls.GamePlay.Eat.WasReleasedThisFrame();
+    }
+
+    /// <summary>
+    /// 捕食入力を取得
     /// </summary>
     public bool GetSkillTrigger()
     {
