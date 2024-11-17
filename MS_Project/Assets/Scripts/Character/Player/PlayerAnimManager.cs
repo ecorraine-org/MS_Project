@@ -65,7 +65,7 @@ public class PlayerAnimManager : AnimManager
     {
 
         AttackColliderManagerV2 attackColliderV2 = playerController.AttackColliderV2;
-        attackColliderV2.SetHit(true);
+        attackColliderV2.StartHit();
 
     }
 
@@ -75,7 +75,7 @@ public class PlayerAnimManager : AnimManager
     public override void DisableHit()
     {
         AttackColliderManagerV2 attackColliderV2 = playerController.AttackColliderV2;
-        attackColliderV2.SetHit(false);
+        attackColliderV2.EndHit();
 
     }
 
