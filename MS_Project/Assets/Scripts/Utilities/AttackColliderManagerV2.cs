@@ -66,7 +66,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
             bool isHit = true; // 仮
 
             // Logで確認
-            CustomLogger.Log(transform.gameObject.name + "isHit?" + isHit);
+            //CustomLogger.Log(transform.gameObject.name + "isHit?" + isHit);
 
             if (isHit)
             {
@@ -199,7 +199,14 @@ public class AttackColliderManagerV2 : MonoBehaviour
         Hit(closestCollider, _damage, false);
     }
 
-   
+    public void HandleSelectedClosestCollider(Transform _owner, float _damage)
+    {
+        if (!canHit) return;
+        if (closestCollider == null) return;
+
+        //ダメージ処理
+        Hit(closestCollider, _damage, false);
+    }
 
     /// <summary>
     ///方向によって特定のオブジェクトを選ぶ

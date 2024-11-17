@@ -32,6 +32,12 @@ public class HitCollider : MonoBehaviour
             collidersList.Remove(other);
         }
 
+        //選ばれているときの選択解除処理
+        var select = other.GetComponentInChildren<ISelected>();
+        if (select != null)
+        {
+            select.UnSelected();
+        }
     }
 
 
