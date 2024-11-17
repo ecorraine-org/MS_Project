@@ -284,7 +284,13 @@ public class PlayerController : WorldObject
         }
     }
 
+    public override void Miss()
+    {
+        base.Miss();
 
+       // Debug.Log("空振り処理");
+      //  GenerateOnomatopoeia(statusManager.StatusData.onomato???);
+    }
 
     #region Getter&Setter 
 

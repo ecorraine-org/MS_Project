@@ -28,7 +28,6 @@ public class AttackColliderManagerV2 : MonoBehaviour
     //当たり判定可能かどうか
     bool canHit = false;
 
-
     private void Awake()
     {
         //コンポーネントの取得
@@ -267,14 +266,44 @@ public class AttackColliderManagerV2 : MonoBehaviour
     /// <summary>
     /// 当たり判定有効かを設定する
     /// </summary>
-    public void SetHit(bool _canHit)
+    public void StartHit()
     {
-        canHit = _canHit;
+        canHit = true;
 
         //連続でダメージを与えるため
         //当たったオブジェクトの配列を初期化
         hitObjects.Clear();
-        //hitCollidersList.CollidersList.Clear();
+
+        //変数初期化
+        hasCollided = false;
+          
+    }
+
+    /// <summary>
+    /// 当たり判定有効かを設定する
+    /// </summary>
+    public void EndHit()
+    {
+        canHit = false;
+
+        //連続でダメージを与えるため
+        //当たったオブジェクトの配列を初期化
+        hitObjects.Clear();
+
+    
+        if (hasCollided)
+        {         
+            hasCollided = false;
+        }
+        else
+        {
+            //空振り処理
+            var miss = transform.root.GetComponentInChildren<IMiss>();
+            if (miss != null)
+            {
+                miss.Miss();
+            }
+        }
 
     }
 
