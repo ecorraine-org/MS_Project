@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
-<<<<<<<< HEAD:MS_Project/Assets/Data/Character/WorldObjects/Elite_Golem.asset
-  m_Name: Elite_Golem
+  m_Name: Boss_Golem
   m_EditorClassIdentifier: 
   isInvincible: 0
   maxHealth: 100
@@ -27,22 +26,5 @@ MonoBehaviour:
   onomatoAttack: {fileID: 0}
   onomatoWalk: {fileID: 0}
   tolerance: 1
-========
-  m_Name: Boss_Golem
-  m_EditorClassIdentifier: 
-  isInvincible: 0
-  maxHealth: 100
-  mass: 1
-  gameObjPrefab: Enemy/GolemV2
-  enemyRank: 3
-  SelfType: 2
-  timeTillNextAction: 1
-  damage: 1
-  attackDistance: 15
-  velocity: 1
-  chaseDistance: 20
-  onomatoData: {fileID: 11400000, guid: fb53a12273cb0b24da0e66007f7d763a, type: 2}
-  tolerance: 4
->>>>>>>> origin/origin/feature/EnemyAI/Golem:MS_Project/Assets/Data/Character/WorldObjects/Boss_Golem.asset
   sfxClip: 
   vfxClip: 
