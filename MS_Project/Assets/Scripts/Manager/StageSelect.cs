@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class StageSelect : MonoBehaviour
 {
-    public List<RectTransform> icons; // UIアイコンのリスト
-    public float radius = 200f;       // リングの半径
-    public float depth = 50f;         // 奥行きの深さ
-    public float rotationSpeed = 100f; // 回転のスピード
-    private int currentIndex = 0;     // 中央に表示されるアイコンのインデックス
+    public List<RectTransform> icons; // ステージアイコンのリスト
+    public float radius = 600f;       // リングの半径
+    public float depth = 100f;        // 奥行きの深さ
+    public float rotationDuration = 0.3f; // 回転にかける時間
+    public float backZoomScale = 0.5f; // 背面アイコンの縮小率
+    private int currentIndex = 0;     // 現在選択中のアイコンのインデックス
+    private bool isRotating = false;  // 回転中の状態管理
 
     void Start()
     {
@@ -17,73 +19,75 @@ public class StageSelect : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        // 回転の入力検知
+        if (Input.GetKeyDown(KeyCode.A) && !isRotating)
         {
-            RotateRight();
+            StartCoroutine(RotateRing(1)); // 右回転
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.D) && !isRotating)
         {
-            RotateLeft();
+            StartCoroutine(RotateRing(-1)); // 左回転
         }
-        HighlightCenterIcon();
     }
 
-    // アイコンを円筒形に配置する関数
+    // アイコンを円筒状に配置する
     void ArrangeIconsInCylinder()
     {
         int iconCount = icons.Count;
+
         for (int i = 0; i < iconCount; i++)
         {
-            float angle = i * Mathf.PI * 2 / iconCount;
-            Vector3 position = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * depth, Mathf.Sin(angle) * radius);
+            // 中央アイコンは currentIndex になるように、残りを順番に配置
+            float angle = ((i - currentIndex) * Mathf.PI * 2 / iconCount);
+            Vector3 position = new Vector3(Mathf.Sin(angle) * radius, Mathf.Sin(angle) * depth, Mathf.Cos(angle) * radius);
             icons[i].localPosition = position;
-            icons[i].localScale = Vector3.one; // 全アイコンを初期サイズに
+
+            // 位置に応じたスケール調整
+            float scale = Mathf.Lerp(1f, backZoomScale, Mathf.Abs(Mathf.Cos(angle)));
+            icons[i].localScale = Vector3.one * scale;
         }
+
+        // 中央のアイコンのスケールを強調
+        icons[currentIndex].localScale = Vector3.one;
     }
 
-    // アイコンを右に回転させる
-    void RotateRight()
-    {
-        currentIndex = (currentIndex + 1) % icons.Count;
-        StartCoroutine(RotateRing(-1));
-    }
-
-    // アイコンを左に回転させる
-    void RotateLeft()
-    {
-        currentIndex = (currentIndex - 1 + icons.Count) % icons.Count;
-        StartCoroutine(RotateRing(1));
-    }
-
-    // リングを回転させるコルーチン
+    // アイコンリングを回転させる
     IEnumerator RotateRing(int direction)
     {
+        isRotating = true;
         float elapsedTime = 0f;
-        float duration = 0.3f; // 回転にかける時間
+        int iconCount = icons.Count;
 
-        while (elapsedTime < duration)
+        // 回転後の新しいインデックスを計算
+        int newCurrentIndex = (currentIndex + direction + iconCount) % iconCount;
+
+        // 回転アニメーション
+        while (elapsedTime < rotationDuration)
         {
-            float angleStep = rotationSpeed * direction * Time.deltaTime;
-            transform.Rotate(0, angleStep, 0); // Y軸で回転させて奥行きの効果を出す
             elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / rotationDuration);
+
+            for (int i = 0; i < iconCount; i++)
+            {
+                // 新しい位置の計算
+                float startAngle = ((i - currentIndex) * Mathf.PI * 2 / iconCount);
+                float endAngle = ((i - newCurrentIndex) * Mathf.PI * 2 / iconCount);
+                float angle = Mathf.Lerp(startAngle, endAngle, t);
+
+                Vector3 position = new Vector3(Mathf.Sin(angle) * radius, Mathf.Sin(angle) * depth, Mathf.Cos(angle) * radius);
+                icons[i].localPosition = position;
+
+                // 各アイコンのスケールを調整
+                float scale = Mathf.Lerp(1f, backZoomScale, Mathf.Abs(Mathf.Cos(angle)));
+                icons[i].localScale = Vector3.one * scale;
+            }
+
             yield return null;
         }
-        ArrangeIconsInCylinder(); // 位置を更新
-    }
 
-    // 中央のアイコンをハイライト表示する関数
-    void HighlightCenterIcon()
-    {
-        for (int i = 0; i < icons.Count; i++)
-        {
-            if (i == currentIndex)
-            {
-                icons[i].localScale = Vector3.one * 1.5f; // 中央アイコンを拡大
-            }
-            else
-            {
-                icons[i].localScale = Vector3.one; // その他のアイコンを元のサイズに
-            }
-        }
+        // 回転が完了した後、インデックスを更新
+        currentIndex = newCurrentIndex;
+        ArrangeIconsInCylinder(); // アイコン位置の更新
+        isRotating = false;
     }
 }
