@@ -299,7 +299,17 @@ public class PlayerController : WorldObject
     /// </summary>
     public override UnityEngine.Vector3 GetNextDirec()
     {
-        return inputManager.GetLStick().normalized;
+        if (inputManager.GetLStick() != UnityEngine.Vector3.zero)
+        {
+            return inputManager.GetLStick().normalized;
+        }
+        //入力がない場合、前方向を返す
+        else
+        {
+            return base.GetNextDirec();
+        }
+
+      
     }
 
     /// <summary>

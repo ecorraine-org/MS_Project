@@ -10,6 +10,9 @@ public class DashHandler : MonoBehaviour
     [SerializeField, Header("障害物検出ディテクター")]
     BlockDetector blockDetector;
 
+    [SerializeField, Header("プレイヤー周りの障害物検出コライダー")]
+    HitCollider hitCollider;
+
     // シングルトン
     BattleManager battleManager;
 
@@ -49,6 +52,13 @@ public class DashHandler : MonoBehaviour
         if (blockDetector!=null) blockDetector.Distance = speed * duration;
     }
 
+    public void Reset()
+    {
+        speed = 0;
+        duration = 0;
+        if (blockDetector != null) blockDetector.Reset();
+    }
+
     public void Update()
     {
         HitReaction hitReaction = battleManager.GetPlayerHitReaction();
@@ -57,7 +67,7 @@ public class DashHandler : MonoBehaviour
 
         if (blockDetector == null) return;
 
-            if (duration == -1)
+        if (duration == -1)
         {
             if (owner is PlayerController player)
                 blockDetector.Distance = speed * slowFactor * player.AnimManager.testTime;
@@ -76,6 +86,14 @@ public class DashHandler : MonoBehaviour
     {
         if (isDashing)
         {
+            //貫通しないパターンで、当たったら終了
+            if (!canThrough && hitCollider.CollidersList.Count > 0)
+            {
+                End();
+            }
+                
+             
+
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
             if ( canThrough )
@@ -84,12 +102,13 @@ public class DashHandler : MonoBehaviour
 
             }
 
-          if(blockDetector != null)  blockDetector.IsEnabled = false;
+            //移動中目的地を固定するため、更新停止
+            if(blockDetector != null)  blockDetector.IsEnabled = false;
 
             //一定距離を移動
             owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * slowFactor * Time.fixedDeltaTime);
 
-
+          
         }
     }
 
@@ -99,6 +118,7 @@ public class DashHandler : MonoBehaviour
     /// </summary>
     public void Begin(bool _canThrough, Vector3 _direc)
     {
+
         canThrough = _canThrough;
 
         dashDirec = _direc;
@@ -110,8 +130,20 @@ public class DashHandler : MonoBehaviour
             dashCoroutine = StartCoroutine(DashCoroutine());
 
         isDashing = true;
+    }
 
+    //canThrough設定なしのバージョン
+    public void Begin(Vector3 _direc)
+    {
+        dashDirec = _direc;
 
+        startTime = Time.time;
+
+        //ダッシュ処理
+        if (duration != -1)
+            dashCoroutine = StartCoroutine(DashCoroutine());
+
+        isDashing = true;
     }
 
     public IEnumerator DashCoroutine()
@@ -130,6 +162,7 @@ public class DashHandler : MonoBehaviour
     /// </summary>
     public void End()
     {
+
         if (dashCoroutine != null)
         {
             StopCoroutine(dashCoroutine);

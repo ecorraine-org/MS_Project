@@ -40,6 +40,11 @@ public class BlockDetector : MonoBehaviour
 
     }
 
+    public void Reset()
+    {
+        distance = 0;
+    }
+
     public bool IsEnabled
     {
         get => this.isEnabled;
