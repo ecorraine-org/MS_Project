@@ -10,12 +10,17 @@ public class PlayerDodgeState : PlayerState
 
         base.Init(_playerController);
 
-        spriteAnim.Play("Dash", 0, 0f);
-     
-
         //方向、画像反転設定
         playerController.SetEightDirection();
+
+        //入力方向取得
+        //UnityEngine.Vector2 inputDirec = inputManager.GetMoveDirec();
+        ////   方向設定
+        //if (inputDirec == Vector2.zero) playerController.CurDirecVector = playerController.GetForward();
+
         playerSkillManager. ExecuteDodge(false, playerController.CurDirecVector);
+
+
     }
 
     public override void Tick()
