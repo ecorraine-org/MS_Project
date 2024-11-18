@@ -209,7 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3efefaa3fa2c641b5810ebefeccda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   maxHp: 0
   currentHp: 0
   hpSlider: {fileID: 4880009542920716117}
@@ -923,9 +922,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68fd06e6514d0cb4e9072989dab4044d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  images: []
-  targetImages: []
-  icons:
+  weaponIcons:
   - {fileID: 21300000, guid: c45f6293f82bfa24eaae3f32fcf865fa, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  onRageIcons:
   - {fileID: 21300000, guid: c2be951a61f5830498b6836bbf6c479e, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerRage: {fileID: 3455408430003791908}

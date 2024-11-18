@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource audioSource;  // AudioSource‚ğ’Ç‰Á
-    public AudioClip[] soundEffects; // Ä¶‚·‚éƒTƒEƒ“ƒhƒGƒtƒFƒNƒg‚ÌƒŠƒXƒg
+    public AudioSource audioSource;  // AudioSourceã‚’è¿½åŠ 
+    public AudioClip[] soundEffects; // å†ç”Ÿã™ã‚‹ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆ
 
-    // ƒAƒjƒ[ƒVƒ‡ƒ“ƒCƒxƒ“ƒg‚ÅŒÄ‚Ño‚·
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã§å‘¼ã³å‡ºã™
     public void PlaySound(int index)
     {
         //
@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Ä¶‚³‚ê‚Ä‚Ü‚¹‚ñ: " + index);
+            Debug.LogWarning("å†ç”Ÿã•ã‚Œã¦ã¾ã›ã‚“: " + index);
         }
     }
 }
