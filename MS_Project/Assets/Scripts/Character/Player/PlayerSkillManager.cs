@@ -180,6 +180,7 @@ public class PlayerSkillManager : MonoBehaviour
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Dodge].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Dodge].dashDuration;
+        dash.CanThrough = true;
 
         // 向きによるアニメーション設定(反転するかどうか)
         //playerController.SetEightDirection();
@@ -201,7 +202,7 @@ public class PlayerSkillManager : MonoBehaviour
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Sword].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Sword].dashDuration;
-
+        dash.CanThrough = false;
     }
 
     /// <summary>
@@ -219,6 +220,7 @@ public class PlayerSkillManager : MonoBehaviour
 
         dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
+        dash.CanThrough = false;
     }
 
     public void ExecuteHammerSkillCharge()
@@ -250,6 +252,7 @@ public class PlayerSkillManager : MonoBehaviour
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Spear].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Spear].dashDuration;
+        dash.CanThrough = true;
     }
 
     private void ExecuteGauntletSkill()
@@ -259,6 +262,7 @@ public class PlayerSkillManager : MonoBehaviour
 
         dash.Speed = skillData.dicSkill[PlayerSkill.Gauntlet].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Gauntlet].dashDuration;
+        dash.CanThrough = false;
     }
 
 
