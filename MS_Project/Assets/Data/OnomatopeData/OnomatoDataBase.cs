@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class OnomatoDataBase : ScriptableObject
 {
-    [SerializeField, Header("ƒIƒmƒ}ƒgƒyƒIƒuƒWƒFƒNƒgŠÇ——pƒŠƒXƒg")]
+    [SerializeField, Header("ã‚ªãƒãƒãƒˆãƒšã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†ç”¨ãƒªã‚¹ãƒˆ")]
     public List<OnomatopoeiaData> OnomatoEnemyList = new List<OnomatopoeiaData>();
     public List<OnomatopoeiaData> OnomatoPlayerList = new List<OnomatopoeiaData>();
     public List<OnomatopoeiaData> OnomatoObjectList = new List<OnomatopoeiaData>();
