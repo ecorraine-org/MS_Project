@@ -42,6 +42,10 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
 
     public virtual Rigidbody RigidBody { get => null; }
 
+    /// <summary>
+    /// オノマトペ生成
+    /// </summary>
+    /// <param name="_onomatopoeiaData">オノマトペデータ</param>
     public void GenerateOnomatopoeia(OnomatopoeiaData _onomatopoeiaData)
     {
         GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;

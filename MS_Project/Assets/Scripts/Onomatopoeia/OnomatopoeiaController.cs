@@ -48,6 +48,11 @@ public class OnomatopoeiaController : MonoBehaviour
     {
         Debug.Log(data.wordToUse);
 
+        GetComponent<TextMeshPro>().font = data.fontAsset;
+        GetComponent<TextMeshPro>().color = new Color32(data.fontColor.r, data.fontColor.g, data.fontColor.b, data.fontColor.a);
+        GetComponent<TextMeshPro>().outlineWidth = 0.1f;
+        GetComponent<TextMeshPro>().outlineColor = new Color32(255, 255, 255, 255);
+
         GetComponent<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
 
         fVelocity = RandomizeVelocity(emissionDirection * fStartSpeed);
