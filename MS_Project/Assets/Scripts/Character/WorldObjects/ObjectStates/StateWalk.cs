@@ -12,24 +12,56 @@ public class StateWalk : ObjectState
         {
             enemy.Anim.Play("Walk");
         }
+
+
     }
 
     public override void Tick()
     {
+        Vector3 direction = player.transform.position - enemy.transform.position;
+        // 進む方向に向く
+        Quaternion forwardRotation = Quaternion.LookRotation(direction.normalized);
+        forwardRotation.x = 0f;
+        enemy.transform.rotation = forwardRotation;
+
+        // 追跡
+        enemy.OnMovementInput?.Invoke(direction.normalized);
+
+        //移動
+        enemy.Move();
+
         // ダメージチェック
         if (objStateHandler.CheckHit()) return;
 
         // 攻撃へ遷移
-        if (objStateHandler.CheckAttack()) return;
+       // if (objStateHandler.CheckAttack()) return;
 
         // スキルへ遷移
         if (objStateHandler.CheckSkill()) return;
 
         // アイドルへ遷移
-        if (objController.MovementInput.magnitude <= 0f)
+        //if (objController.MovementInput.magnitude <= 0f)
+        //{
+        //    objController.State.TransitionState(ObjectStateType.Idle);
+        //};
+
+        float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
+        if (distanceToPlayer > objStatusHandler.StatusData.chaseDistance)
         {
             objController.State.TransitionState(ObjectStateType.Idle);
-        };
+            return;
+        }
+
+       
+        //攻撃へ遷移
+        if (distanceToPlayer <= objStatusHandler.StatusData.attackDistance && enemy.AllowAttack)
+        {
+            //クールダウン
+            enemy.StartAttackCoroutine();
+
+            objController.State.TransitionState(ObjectStateType.Attack);
+            return;
+        }
     }
 
     public override void FixedTick()

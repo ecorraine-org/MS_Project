@@ -57,9 +57,14 @@ public class ObjectStateHandler : MonoBehaviour
     // ObjectControllerの参照
     WorldObjectController objController;
 
+    EnemyController enemy;
+
     public void Init(WorldObjectController _objectController)
     {
         objController = _objectController;
+
+        if (objController.Type == WorldObjectType.Enemy)
+            enemy = objController as EnemyController;
 
         dicStates = new Dictionary<ObjectStateType, ObjectState>();
 
@@ -126,6 +131,8 @@ public class ObjectStateHandler : MonoBehaviour
     private void ResetState()
     {
         objController.AttackCollider.Reset();
+
+        enemy.AnimManager.Reset();
     }
 
     /// <summary>
@@ -177,6 +184,8 @@ public class ObjectStateHandler : MonoBehaviour
     {
         if (objController.IsDamaged)
         {
+            objController.IsDamaged = false;
+
             TransitionState(ObjectStateType.Damaged);
 
             return true;
