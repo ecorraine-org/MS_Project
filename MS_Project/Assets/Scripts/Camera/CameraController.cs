@@ -36,9 +36,9 @@ public class CameraController : MonoBehaviour
         //_mainCamera.depthTextureMode = DepthTextureMode.Depth;
 
         //依存性注入
-        _cameraStateManager.Init(this);
-        _cameraEffectController.Init(this);
-        TryGetComponent(out _cameraSetting);
+        // _cameraStateManager.Init(this);
+        //_cameraEffectController.Init(this);
+        //TryGetComponent(out _cameraSetting);
         transform.position = cameraOffset;
         playerPos = GameObject.FindWithTag("Player").transform;
     }
