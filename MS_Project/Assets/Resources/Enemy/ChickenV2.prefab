@@ -70,6 +70,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f0699a6e2d3f7e4f920c0046dce40c5, type: 3}
+--- !u!114 &1511567975303490050 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3656054946152530493, guid: 6f0699a6e2d3f7e4f920c0046dce40c5, type: 3}
+  m_PrefabInstance: {fileID: 2758104623572674623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd368a3627bba24792a98a80a0ae60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8931638066817032298 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6752387832529356885, guid: 6f0699a6e2d3f7e4f920c0046dce40c5, type: 3}
@@ -379,6 +390,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4298313089435234479, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
+      propertyPath: hitCollider
+      value: 
+      objectReference: {fileID: 1511567975303490050}
     - target: {fileID: 410899465779312302, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
       propertyPath: m_Name
       value: ChickenV2
