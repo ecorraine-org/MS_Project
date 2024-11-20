@@ -32,9 +32,9 @@ public class EnemySpawner : MonoBehaviour
     public List<EnemyStatusData> elitePool;
     private int eliteCount = 0;
 
-    private bool hasSpawned = false;
-    private bool hasCleared = false;
-    GameObject mission;
+    private bool hasSpawned;
+    private bool hasCleared;
+    private UIMissionController mission;
 
     private Collector enemyCollector;
 
@@ -52,8 +52,14 @@ public class EnemySpawner : MonoBehaviour
         spawnRadius = spawnArea.GetComponent<SphereCollider>().radius;
 
         enemyCollector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
-        mission = GameObject.FindGameObjectWithTag("Mission").gameObject;
-        mission.SetActive(false);
+
+        mission = GameObject.FindGameObjectWithTag("Mission").gameObject.GetComponent<UIMissionController>();
+    }
+
+    private void Start()
+    {
+        hasSpawned = false;
+        hasCleared = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -85,13 +91,16 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-        if (mission.GetComponentInChildren<TextMeshProUGUI>())
-        {
-            mission.SetActive(true);
-            mission.GetComponentInChildren<TextMeshProUGUI>().text = missionName;
-        }
-
         hasSpawned = true;
+
+        if (mission)
+        {
+            CustomLogger.Log(this.gameObject.scene.name + "のスポナー起動");
+
+            mission.Spawner = this;
+            mission.MissionItem.SetActive(true);
+            mission.MissionText = missionName;
+        }
     }
 
     private void Update()
