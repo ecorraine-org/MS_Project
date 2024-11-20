@@ -21,6 +21,10 @@ public class EnemyController : WorldObjectController
     [HideInInspector, Tooltip("スキルマネージャー")]
     EnemySkillManager skillManager;
 
+    [HideInInspector, Tooltip("ダッシュハンドラー")]
+    DashHandler dashHandler;
+
+
     [SerializeField, Header("ラストヒットできるかどうか？")]
     protected bool isKillable = false;
 
@@ -65,8 +69,9 @@ public class EnemyController : WorldObjectController
         EffectHandler = GetComponentInChildren<EffectHandler>();
         EffectHandler.Init(this);
 
+        dashHandler = GetComponentInChildren<DashHandler>();
+
         AttackCollider = GetComponentInChildren<AttackColliderManagerV2>();
-        if(AttackCollider == null) Debug.Log("attackColliderManager NULL");
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
@@ -186,6 +191,15 @@ public class EnemyController : WorldObjectController
 
     public override void Hit(bool _canOneHitKill)
     {
+        //ノックバック
+        dashHandler.Speed = enemyStatus.StatusData.knockBackSpeed;
+        dashHandler.Duration = enemyStatus.StatusData.knockBackDuration;
+        Vector3 playerDirec = player.position - transform.position;
+        playerDirec.y = 0;
+        playerDirec.z = 0;
+        dashHandler.Begin(false, -1 * playerDirec.normalized);
+
+
         HitReaction hitReaction = battleManager.GetPlayerHitReaction();
         // ヒットストップ
         battleManager.StartHitStop(animator);

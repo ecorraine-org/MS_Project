@@ -87,12 +87,10 @@ public class DashHandler : MonoBehaviour
         if (isDashing)
         {
             //貫通しないパターンで、当たったら終了
-            if (!canThrough && hitCollider.CollidersList.Count > 0)
+            if (!canThrough && hitCollider!=null && hitCollider.CollidersList.Count > 0)
             {
                 End();
-            }
-                
-             
+            }       
 
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する

@@ -8,7 +8,14 @@ public class HitCollider : MonoBehaviour
     [SerializeField, Header("コライダーリスト")]
     private List<Collider> collidersList = new List<Collider>();
 
- 
+
+    private void Update()
+    {
+        // ヌルチェック
+        //仮処理、コストが高くなるかも
+        collidersList.RemoveAll(item => item == null);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // 破壊されたオブジェクトをリストから削除
