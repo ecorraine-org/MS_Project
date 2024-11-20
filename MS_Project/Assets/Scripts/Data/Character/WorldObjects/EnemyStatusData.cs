@@ -26,6 +26,12 @@ public class EnemyStatusData : BaseStatusData
     [Header("追跡する距離")]
     public float chaseDistance = 5.0f;
 
+    [Header("ノックバック持続時間")]
+    public float knockBackDuration = 0.2f;
+
+    [Header("ノックバック速度")]
+    public float knockBackSpeed = 10.0f;
+
     [Header("エネミータイプ")]
     public OnomatoType SelfType = OnomatoType.None;
 
