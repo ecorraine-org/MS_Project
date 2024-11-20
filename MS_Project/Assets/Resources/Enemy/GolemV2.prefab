@@ -481,6 +481,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 86294bcff52ef944690ae8358423898e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1416690852447887728}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 86294bcff52ef944690ae8358423898e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2076716363948476481}
   m_SourcePrefab: {fileID: 100100000, guid: 86294bcff52ef944690ae8358423898e, type: 3}
 --- !u!4 &1186725393991857361 stripped
 Transform:
@@ -539,6 +542,18 @@ MonoBehaviour:
   rockPrefab: {fileID: 919132149155446097, guid: f8f2e1682003da04eadc08983634e79f, type: 3}
   spawnPoint: {fileID: 1643627759081918445}
   throwForce: 10
+--- !u!114 &2076716363948476481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6434317071978463447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39632794f7a525549bb2a284290623b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8128186454621129818
 PrefabInstance:
   m_ObjectHideFlags: 0
