@@ -116,7 +116,7 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
     /// </summary>
     public void Selected()
     {
-        //仮で大きくする
+        // 仮で大きくする
         transform.localScale = 2 * defaultScale;
 
     }

@@ -12,19 +12,19 @@ public class EnemyStatusData : BaseStatusData
     public EnemyRank enemyRank = EnemyRank.None;
 
     [Header("行動クールタイム")]
-    public float timeTillNextAction = 1f;
+    public float timeTillNextAction = 1.0f;
 
     [Header("攻撃力")]
-    public float damage = 1f;
+    public float damage = 1.0f;
 
     [Header("攻撃できる距離")]
-    public float attackDistance = 2f;
+    public float attackDistance = 2.0f;
 
     [Header("移動速度")]
     public float velocity = 1.0f;
 
     [Header("追跡する距離")]
-    public float chaseDistance = 5f;
+    public float chaseDistance = 5.0f;
 
     [Header("エネミータイプ")]
     public OnomatoType SelfType = OnomatoType.None;

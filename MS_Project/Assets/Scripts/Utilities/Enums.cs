@@ -29,7 +29,7 @@ public enum PlayerMode
 }
 
 /// <summary>
-/// プレイヤースキル 
+/// プレイヤースキル
 /// </summary>
 /// <remarks>
 /// モードと同じ順番で定義する必要がある
