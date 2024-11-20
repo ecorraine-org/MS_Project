@@ -13,6 +13,9 @@ public class AIChicken_ThrowEgg : EnemyAction
 
     [SerializeField, Header("投げる力")]
     float throwForce = 10f;
+
+    [SerializeField] GameObject ExplosionPrefab;
+
     /*
     [SerializeField, Header("連続して投げる回数")]
     int throwCount = 3;
@@ -134,7 +137,7 @@ public class AIChicken_ThrowEgg : EnemyAction
         rbEgg.AddForce(force, ForceMode.Impulse);
 
         float gravityScale = 1.0f; // 重力を通常より強くする
-        // 重力の強化（重力を上乗せするために下方向の追加力を適用）
+                                   // 重力の強化（重力を上乗せするために下方向の追加力を適用）
         Vector3 additionalGravity = Physics.gravity * (gravityScale - 1.0f); // gravityScaleが1なら通常重力、2なら2倍
         rbEgg.AddForce(additionalGravity, ForceMode.Acceleration);
 
@@ -142,8 +145,48 @@ public class AIChicken_ThrowEgg : EnemyAction
         Vector3 torque = new Vector3(400.0f, spawnPoint.forward.y, spawnPoint.forward.z); // Z軸を中心に回転するトルク
         rbEgg.AddTorque(torque, ForceMode.Impulse);
 
+        // 衝突時に卵を削除するための処理
+        thrownEgg.AddComponent<DestroyOnCollision>();
+
+        // 5秒後に卵オブジェクトを削除
+        Destroy(thrownEgg, 10f);
+
         isThrowing = false;
     }
+
+    // 新しいクラス: 衝突時に卵を削除する
+    public class DestroyOnCollision : MonoBehaviour
+    {
+        private AIChicken_ThrowEgg aiChickenThrowEgg;
+
+        private void Start()
+        {
+            aiChickenThrowEgg = FindObjectOfType<AIChicken_ThrowEgg>(); // AIChicken_ThrowEggのインスタンスを取得
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            // プレイヤーと衝突した場合に卵を削除
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                if (aiChickenThrowEgg != null)
+                {
+                    Instantiate(aiChickenThrowEgg.ExplosionPrefab, transform.position, Quaternion.identity);
+                }
+                Destroy(gameObject);
+            }
+            // プレイヤー以外と衝突した場合にも卵を削除
+            else if (!collision.gameObject.CompareTag("Player"))
+            {
+                if (aiChickenThrowEgg != null)
+                {
+                    Instantiate(aiChickenThrowEgg.ExplosionPrefab, transform.position, Quaternion.identity);
+                }
+                Destroy(gameObject);
+            }
+        }
+    }
+
 
     #region オノマトペ情報
     private void ChickenWalkData()

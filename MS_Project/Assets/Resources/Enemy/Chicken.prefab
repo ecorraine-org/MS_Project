@@ -128,11 +128,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0cd66af876f0c4cb46cf566ebc1165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 4265737109902605231, guid: 6920fb4ad5b0f3549a5969680d9a14bd, type: 3}
+  projectilePrefab: {fileID: 3978407352946063052, guid: d2ca449c7581d334e9ec9089c075e65a, type: 3}
   spawnPoint: {fileID: 8834640076657744503}
   upAngle: 60
-  playerAngle: 60
+  playerAngle: 30
   throwForce: 10
+  ExplosionPrefab: {fileID: 237855861778969210, guid: 8dd1518da0f8b6a42bba21d2dec59989, type: 3}
 --- !u!4 &823636910253614152 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9a10273b5f9c4b14d953fabc2f0ab58d, type: 3}
