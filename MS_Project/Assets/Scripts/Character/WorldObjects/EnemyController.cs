@@ -91,11 +91,13 @@ public class EnemyController : WorldObjectController
 
         State = GetComponentInChildren<ObjectStateHandler>();
         State.Init(this);
+
+        allowAttack = true;
     }
 
     private void FixedUpdate()
     {
-        Move();
+       // Move();
 
         Vector3 gravity = Physics.gravity * (rigidBody.mass * rigidBody.mass);
         rigidBody.AddForce(gravity * Time.deltaTime);
@@ -111,7 +113,7 @@ public class EnemyController : WorldObjectController
             isKillable = true;
         }
 
-        Chase();
+        //Chase();
         /*
         float distance = Vector3.Distance(player.position, transform.position);
         if (distance <= EnemyStatus.StatusData.chaseDistance)
@@ -145,16 +147,16 @@ public class EnemyController : WorldObjectController
         }
         */
 
-        OnDamaged?.Invoke();
+       // OnDamaged?.Invoke();
     }
 
-    public void TakeDamage()
-    {
-        if (EnemyStatus.IsDamaged)
-        {
-            EnemyStatus.IsDamaged = false;
-        }
-    }
+    //public void TakeDamage()
+    //{
+    //    if (EnemyStatus.IsDamaged)
+    //    {
+    //        EnemyStatus.IsDamaged = false;
+    //    }
+    //}
 
     public void Move()
     {
@@ -162,7 +164,10 @@ public class EnemyController : WorldObjectController
         State.TransitionState(ObjectStateType.Walk);
         */
         if (MovementInput.magnitude > 0.1f && EnemyStatus.MoveSpeed > 0)
-            RigidBody.velocity = MovementInput * EnemyStatus.MoveSpeed;
+        {
+            RigidBody.velocity = MovementInput * EnemyStatus.MoveSpeed;        
+        }
+           
     }
 
     public void Chase()
@@ -171,26 +176,39 @@ public class EnemyController : WorldObjectController
             enemyAction.Chase();
     }
 
+    //今使ってない関数
     public void Attack()
     {
-        if (AllowAttack && enemyAction)
-            State.TransitionState(ObjectStateType.Attack);
+        //if (AllowAttack && enemyAction)
+        //    State.TransitionState(ObjectStateType.Attack);
 
-        if (!IsAttacking)
-        {
-            StartCoroutine(nameof(AttackCoroutine));
-            AllowAttack = false;
-        }
+        //if (!IsAttacking)
+        //{
+        //    StartCoroutine(nameof(AttackCoroutine));
+        //    AllowAttack = false;
+        //}
+
+    }
+
+    //攻撃に遷移する際に呼び出す
+    public void StartAttackCoroutine()
+    {
+        StartCoroutine(nameof(AttackCoroutine));
     }
 
     public IEnumerator AttackCoroutine()
     {
+        AllowAttack = false;
         yield return new WaitForSeconds(EnemyStatus.ActionCooldown);
+
         AllowAttack = true;
     }
 
     public override void Hit(bool _canOneHitKill)
     {
+        //被撃状態へ遷移
+        isDamaged = true;
+
         //ノックバック
         dashHandler.Speed = enemyStatus.StatusData.knockBackSpeed;
         dashHandler.Duration = enemyStatus.StatusData.knockBackDuration;
@@ -265,6 +283,8 @@ public class EnemyController : WorldObjectController
     #region Gizmos
     private void OnDrawGizmos()
     {
+        if (EnemyStatus == null) return;
+
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, EnemyStatus.StatusData.chaseDistance);
 
@@ -274,6 +294,8 @@ public class EnemyController : WorldObjectController
 
     private void OnDrawGizmosSelected()
     {
+        if (EnemyStatus == null) return;
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, EnemyStatus.StatusData.attackDistance);
     }

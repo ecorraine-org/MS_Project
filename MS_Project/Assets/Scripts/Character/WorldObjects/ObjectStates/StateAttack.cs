@@ -12,7 +12,8 @@ public class StateAttack : ObjectState
 
         if (enemy != null)
         {
-            enemy.Anim.SetTrigger("IsAttack");
+             enemy.Anim.SetTrigger("IsAttack");
+
         }
     }
 
@@ -22,7 +23,7 @@ public class StateAttack : ObjectState
         {
             enemy.AttackCollider.CanHit = true;
             enemy.AttackCollider.DetectColliders(20, targetLayer, false);
-            //Debug.Log("attackColliderManager");
+           
         }
 
         // ダメージチェック
@@ -32,8 +33,14 @@ public class StateAttack : ObjectState
         if (objStateHandler.CheckSkill()) return;
 
         // アイドルへ遷移
-        if (objController.MovementInput.magnitude <= 0f /*&& !objController.IsAttacking*/)
-            objStateHandler.TransitionState(ObjectStateType.Idle);
+        //  if (objController.MovementInput.magnitude <= 0f /*&& !objController.IsAttacking*/)
+        //  objStateHandler.TransitionState(ObjectStateType.Idle);
+
+        if (enemy.AnimManager != null && enemy.AnimManager.IsAnimEnd)
+        {
+            objController.State.TransitionState(ObjectStateType.Idle);
+        }
+
     }
 
     public override void FixedTick()
