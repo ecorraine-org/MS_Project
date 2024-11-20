@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 1938345045864262030}
   m_Layer: 5
   m_Name: MissionPanel
-  m_TagString: Untagged
+  m_TagString: Mission
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -594,7 +594,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 32, y: -32}
+  m_AnchoredPosition: {x: 64, y: -32}
   m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1938345045864262030
@@ -731,8 +731,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1519849725276293982}
   m_Layer: 5
-  m_Name: MissionObject
-  m_TagString: Mission
+  m_Name: MissionItem
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -860,7 +860,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Test
+  m_text: Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad584379139b1df46b9777099a13e04e, type: 2}
   m_sharedMaterial: {fileID: 6286341164631870467, guid: ad584379139b1df46b9777099a13e04e, type: 2}
