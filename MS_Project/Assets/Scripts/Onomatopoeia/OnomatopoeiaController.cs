@@ -46,7 +46,7 @@ public class OnomatopoeiaController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(data.wordToUse);
+        //CustomLogger.Log(data.wordToUse);
 
         GetComponent<TextMeshPro>().font = data.fontAsset;
         GetComponent<TextMeshPro>().color = new Color32(data.fontColor.r, data.fontColor.g, data.fontColor.b, data.fontColor.a);

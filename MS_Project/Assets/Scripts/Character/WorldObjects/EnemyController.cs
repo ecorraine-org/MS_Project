@@ -66,7 +66,7 @@ public class EnemyController : WorldObjectController
         EffectHandler.Init(this);
 
         AttackCollider = GetComponentInChildren<AttackColliderManagerV2>();
-        if(AttackCollider!= null) Debug.Log("attackColliderManager NULL");
+        if(AttackCollider == null) Debug.Log("attackColliderManager NULL");
 
         CapsuleCollider collider = gameObj.GetComponent<CapsuleCollider>();
         capsuleCollider.center = collider.center;
@@ -251,14 +251,17 @@ public class EnemyController : WorldObjectController
     #region Gizmos
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, EnemyStatus.StatusData.attackDistance);
-
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, EnemyStatus.StatusData.chaseDistance);
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position + new Vector3(0f, 1f, 0f), transform.position + transform.forward * EnemyStatus.StatusData.chaseDistance);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnemyStatus.StatusData.attackDistance);
     }
     #endregion
 }

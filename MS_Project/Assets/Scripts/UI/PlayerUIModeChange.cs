@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIModeChange : MonoBehaviour
+public class PlayerUIModeChange : MonoBehaviour
 {
     private PlayerController player;
 
-    [SerializeField, Header("プレイヤー武器アイコン")]
+    [SerializeField, Header("プレイヤー武器アイコン"), Tooltip("プレイヤー武器アイコン")]
     Sprite[] weaponIcons;
 
-    [SerializeField, Header("プレイヤー暴走中武器アイコン")]
+    [SerializeField, Header("プレイヤー暴走中武器アイコン"), Tooltip("プレイヤー暴走中武器アイコン")]
     Sprite[] onRageIcons;
-
-    [Tooltip("PlayerRageコンポーネント")]
-    public PlayerRage playerRage;
 
     private void Start()
     {

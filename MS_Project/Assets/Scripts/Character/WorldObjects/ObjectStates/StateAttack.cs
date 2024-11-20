@@ -22,7 +22,7 @@ public class StateAttack : ObjectState
         {
             enemy.AttackCollider.CanHit = true;
             enemy.AttackCollider.DetectColliders(20, targetLayer, false);
-            Debug.Log("attackColliderManager");
+            //Debug.Log("attackColliderManager");
         }
 
         // ダメージチェック
