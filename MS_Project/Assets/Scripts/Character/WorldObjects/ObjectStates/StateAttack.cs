@@ -22,7 +22,7 @@ public class StateAttack : ObjectState
         if (enemy != null)
         {
             enemy.AttackCollider.CanHit = true;
-            enemy.AttackCollider.DetectColliders(20, targetLayer, false);
+            enemy.AttackCollider.DetectColliders(enemy.EnemyStatus.StatusData.damage, targetLayer, false);
            
         }
 

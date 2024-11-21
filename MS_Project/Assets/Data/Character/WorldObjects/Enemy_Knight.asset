@@ -18,10 +18,12 @@ MonoBehaviour:
   gameObjPrefab: Enemy/KnightV2
   enemyRank: 1
   timeTillNextAction: 1
-  damage: 1
+  damage: 4
   attackDistance: 2.5
   velocity: 3
   chaseDistance: 10
+  knockBackDuration: 0.2
+  knockBackSpeed: 10
   SelfType: 1
   onomatoAttack: {fileID: 11400000, guid: d674ac612312ff84e81d4690a44f3c44, type: 2}
   onomatoWalk: {fileID: 11400000, guid: 5b51e8c360d8352479433df2dcafc4fd, type: 2}
