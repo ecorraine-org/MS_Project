@@ -15,6 +15,9 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
 
     bool isHitStop=false;
 
+    public float slowSpeed;//ヒットストップによる減速
+    public float stopDuration;//ヒットストップ持続時間
+
     protected override void AwakeProcess()
     {
         if (playerHitData == null)
@@ -30,7 +33,9 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
     public void StartHitStop(Animator _animator)
     {
         if (GetPlayerHitReaction().stopDuration == 0.0f) return;
-        StartCoroutine(HitStopCoroutine(_animator, GetPlayerHitReaction().slowSpeed, GetPlayerHitReaction().stopDuration));
+        //  StartCoroutine(HitStopCoroutine(_animator, GetPlayerHitReaction().slowSpeed, GetPlayerHitReaction().stopDuration));
+
+        StartCoroutine(HitStopCoroutine(_animator, slowSpeed,stopDuration));
     }
 
     public void StartHitStop(Animator _animator, float _slowSpeed, float _duration)

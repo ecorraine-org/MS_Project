@@ -11,6 +11,8 @@ public class PlayerSkillManager : MonoBehaviour
     // PlayerControllerの参照
     PlayerController playerController;
 
+    BattleManager battleManager;
+
     [SerializeField, Header("突進処理ビヘイビア")]
     DashHandler dash;
 
@@ -60,6 +62,7 @@ public class PlayerSkillManager : MonoBehaviour
 
         dash.Init(playerController);
 
+        battleManager = playerController.BattleManager;
     }
 
     /// <summary>
@@ -171,6 +174,8 @@ public class PlayerSkillManager : MonoBehaviour
         canComboCancel = false;
 
         canComboInput = false;
+
+        canCharge = false;
     }
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
@@ -201,13 +206,20 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("Eat");
 
-        Debug.Log("Eat skill executed!");
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Eat].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Eat].stopDuration;
+
     }
 
     private void ExecuteSwordSkill()
     {
         playerController.SpriteAnim.Play("SwordSkill");
         playerController.SpriteRenderer.color = Color.red;
+
+        //ヒットストップ
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Sword].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Sword].stopDuration;
+
 
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Sword].dashSpeed;
@@ -227,6 +239,11 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("HammerSkill");
         playerController.SpriteRenderer.color = Color.red;
+
+        //ヒットストップ
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Hammer].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Hammer].stopDuration;
+
 
         dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
@@ -259,6 +276,11 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("SpearSkill");
         playerController.SpriteRenderer.color = Color.red;
 
+        //ヒットストップ
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Spear].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Spear].stopDuration;
+
+
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Spear].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Spear].dashDuration;
@@ -269,6 +291,11 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("GauntletSkill");
         playerController.SpriteRenderer.color = Color.red;
+
+        //ヒットストップ
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Gauntlet].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Gauntlet].stopDuration;
+
 
         dash.Speed = skillData.dicSkill[PlayerSkill.Gauntlet].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Gauntlet].dashDuration;

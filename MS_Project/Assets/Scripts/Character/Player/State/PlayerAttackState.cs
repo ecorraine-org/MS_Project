@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerState
 {
+    [SerializeField, Header("ヒットリアクションデータ")]
+    PlayerHitData playerHitData;
+
     [SerializeField, Header("コライダー")]
     HitCollider hitCollider;
 
@@ -32,7 +35,8 @@ public class PlayerAttackState : PlayerState
 
         base.Init(_playerController);
 
-        
+        playerController.BattleManager.slowSpeed = playerHitData.dicHitReac[playerModeManager.Mode].slowSpeed;
+        playerController.BattleManager.stopDuration = playerHitData.dicHitReac[playerModeManager.Mode].stopDuration;
 
         playerController.AttackColliderV2.HitCollidersList = hitCollider;
 
