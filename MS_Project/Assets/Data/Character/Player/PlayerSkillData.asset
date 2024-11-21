@@ -19,6 +19,8 @@ MonoBehaviour:
     dashDuration: -1
     hpCost: 10
     damage: 0
+    slowSpeed: 0
+    stopDuration: 0
     canCharge: 0
     canCancel: 0
   - skillName: 2
@@ -27,6 +29,8 @@ MonoBehaviour:
     dashDuration: -1
     hpCost: 10
     damage: 20
+    slowSpeed: 0
+    stopDuration: 0.1
     canCharge: 1
     canCancel: 0
   - skillName: 3
@@ -35,6 +39,8 @@ MonoBehaviour:
     dashDuration: -1
     hpCost: 10
     damage: 20
+    slowSpeed: 0
+    stopDuration: 0.1
     canCharge: 0
     canCancel: 0
   - skillName: 4
@@ -43,6 +49,8 @@ MonoBehaviour:
     dashDuration: -1
     hpCost: 1
     damage: 5
+    slowSpeed: 0
+    stopDuration: 0.1
     canCharge: 0
     canCancel: 1
   - skillName: 5
@@ -51,6 +59,8 @@ MonoBehaviour:
     dashDuration: -1
     hpCost: 0
     damage: 0
+    slowSpeed: 0
+    stopDuration: 0.1
     canCharge: 0
     canCancel: 0
   - skillName: 6
@@ -59,5 +69,7 @@ MonoBehaviour:
     dashDuration: 0.2
     hpCost: 0
     damage: 0
+    slowSpeed: 0
+    stopDuration: 0
     canCharge: 0
     canCancel: 0
