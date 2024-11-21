@@ -207,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &620591340
 AudioListener:
   m_ObjectHideFlags: 0
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalEnemyCount: 0
   enemyPool: []
-  otherObjects: []
+  otherObjectPool: []
 --- !u!1001 &1814214902
 PrefabInstance:
   m_ObjectHideFlags: 0
