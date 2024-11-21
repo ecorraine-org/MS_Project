@@ -284,13 +284,12 @@ public class PlayerController : WorldObject
 
     public override void Attack(Collider _hitCollider)
     {
-
-        if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+    
+        if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy")
+            || _hitCollider.gameObject.layer == LayerMask.NameToLayer("Onomatopoeia"))
         {
-            HitReaction hitReaction = battleManager.GetPlayerHitReaction();
             // ヒットストップ          
             battleManager.StartHitStop(spriteAnim);
-
         }
     }
 
