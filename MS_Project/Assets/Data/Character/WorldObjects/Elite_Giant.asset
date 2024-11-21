@@ -21,7 +21,9 @@ MonoBehaviour:
   damage: 4
   attackDistance: 4.5
   velocity: 3
-  chaseDistance: 12
+  chaseDistance: 30
+  knockBackDuration: 0.2
+  knockBackSpeed: 10
   SelfType: 3
   onomatoAttack: {fileID: 0}
   onomatoWalk: {fileID: 0}
