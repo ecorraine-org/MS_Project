@@ -219,7 +219,17 @@ public class PlayerController : WorldObject
     {
         // spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
 
-        spriteAnim.Play("WalkRight");
+       
+
+        switch (currentDirec)
+        {
+            case Direction.Up:
+                   spriteAnim.Play("WalkUp");
+                    break;
+            default:
+                spriteAnim.Play("WalkRight");
+                break;
+        }
 
         //switch (currentDirec)
         //{
