@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Boss_Golem
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 100
+  maxHealth: 200
   mass: 100
   gameObjPrefab: Enemy/GolemV2
-  enemyRank: 2
+  enemyRank: 3
   timeTillNextAction: 3
   damage: 1
-  attackDistance: 10
+  attackDistance: 4
   velocity: 3
-  chaseDistance: 10
+  chaseDistance: 50
+  knockBackDuration: 0.2
+  knockBackSpeed: 10
   SelfType: 4
   onomatoAttack: {fileID: 0}
   onomatoWalk: {fileID: 0}

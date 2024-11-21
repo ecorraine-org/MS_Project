@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI; //NavMeshAgentを使うための宣言
 using UnityEngine.Playables; //PlayableDirectorを使うための宣言
 
-public class AIUltimate : EnemyAction
+public class AIGolem : EnemyAction
 {
     private Animator anim;
     private AnimatorStateInfo stateInfo;// 現在のアニメーション状態
@@ -15,9 +15,8 @@ public class AIUltimate : EnemyAction
     {
         IDLE,
         WALK,
-        DASH,
-        SLASH,
-        SLASH_DUAL,
+        ATTACK,
+        THROW,
         STATEEND
     };
     State stateNo = 0;
@@ -54,7 +53,7 @@ public class AIUltimate : EnemyAction
 
             if (distanceToPlayer <= EnemyStatus.StatusData.attackDistance)
             {
-                stateNo = State.SLASH;
+                stateNo = State.ATTACK;
             }
             else if (stateNo == State.IDLE)
             {
@@ -76,7 +75,7 @@ public class AIUltimate : EnemyAction
 
         //デバッグ
         Debug.Log(stateNo);
-
+        
         // 状態ごとの行動
         switch (stateNo)
         {
@@ -86,14 +85,11 @@ public class AIUltimate : EnemyAction
             case State.WALK:
                 Walk();
                 break;
-            case State.DASH:
-                Dash();
+            case State.ATTACK:
+                Attack();
                 break;
-            case State.SLASH:
-                Slash();
-                break;
-            case State.SLASH_DUAL:
-                Slash_Dual();
+            case State.THROW:
+                Throw();
                 break;
         }
 
@@ -103,12 +99,12 @@ public class AIUltimate : EnemyAction
         //dir.y = 0;
         //Quaternion setRotation = Quaternion.LookRotation(dir);
         //　算出した方向の角度を敵の角度に設定
-        //transform.rotation = Quaternion.Slerp(transform.rotation, setRotation, navMeshAgent.angularSpeed * 0.1f * Time.deltaTime);
+        //enemy.transform.rotation = Quaternion.Slerp(transform.rotation, setRotation, navMeshAgent.angularSpeed * 0.1f * Time.deltaTime);
     }
 
     public override void Chase()
     {
-
+        
     }
 
     public void Idle()
@@ -127,11 +123,10 @@ public class AIUltimate : EnemyAction
         frameTime++; //時間計測
 
         //しばらく歩いて走りたいかも
-        //Debug.Log(frameTime);
-        if (frameTime >= 250.0f ||
-            distanceToPlayer * 1.1f >= EnemyStatus.StatusData.chaseDistance)
+        if (frameTime >= 500.0f ||
+            distanceToPlayer * 1.5f >= EnemyStatus.StatusData.chaseDistance)
         {
-            stateNo = State.DASH;//走ろう
+            stateNo = State.THROW;//投げよう
             return;
         }
 
@@ -141,7 +136,7 @@ public class AIUltimate : EnemyAction
 
             if (distanceToPlayer <= EnemyStatus.StatusData.attackDistance)
             {
-                stateNo = State.SLASH;
+                stateNo = State.ATTACK;
                 return;
             }
             else
@@ -170,103 +165,46 @@ public class AIUltimate : EnemyAction
 
     }
 
-    public void Dash()
+    public void Attack()
     {
-        stateNo = State.DASH;
+        stateNo = State.ATTACK;
+        anim.Play("Attack");
         ctrl = false;
 
-        if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
-        {
-            Looking();
+        direction = player.position - enemy.transform.position;
 
-            if (distanceToPlayer <= EnemyStatus.StatusData.attackDistance)
-            {
-                //攻撃
-                stateNo = State.SLASH_DUAL;
-                return;
-            }
-            else
-            {
-                anim.Play("Dash");//走ろう
-                if (enemy.AllowAttack || enemy.IsAttacking)
-                {
-                    enemy.AllowAttack = false;
-                    enemy.IsAttacking = false;
-                }
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
 
-                // 追跡
-                enemy.OnMovementInput?.Invoke(direction.normalized * 7);
-            }
-        }
-        else
-        {
-            if (enemy.AllowAttack || enemy.IsAttacking)
-            {
-                enemy.AllowAttack = false;
-                enemy.IsAttacking = false;
-            }
-
-            // 停止
-            enemy.OnMovementInput?.Invoke(Vector3.zero);
-        }
-
-    }
-
-    public void Slash()
-    {
-        stateNo = State.SLASH;
-        anim.Play("Slash");
-        ctrl = false;
-
-        // 停止
-        enemy.OnMovementInput?.Invoke(Vector3.zero);
-        //アニメーション停止
-        if (stateInfo.IsName("Slash") && stateInfo.normalizedTime >= 1.0f)
-        {
-            frameTime = 0.0f;
-            stateNo = State.IDLE;
-            Debug.Log("アニメーション 'Slash' が終了しました！");
-        }
-        //enemy.OnMovementInput?.Invoke(Vector3.zero);
-    }
-
-    public void Slash_Dual()
-    {
-        stateNo = State.SLASH_DUAL;
-        anim.Play("Slash_Dual");
-        ctrl = false;
-
-        // 停止
-        enemy.OnMovementInput?.Invoke(Vector3.zero);
+        enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.005f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
 
         //アニメーション終了
-        if (stateInfo.IsName("Slash_Dual") && stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1.0f)
         {
             frameTime = 0.0f;
             stateNo = State.IDLE;
-            Debug.Log("アニメーション 'Slash_Dual' が終了しました！");
         }
-        //enemy.OnMovementInput?.Invoke(Vector3.zero);
     }
 
-    //　タイムラインで状態をStateEnd状態に設定するためのメソッド
-    public void EndState()
+    public void Throw()
     {
-        SetState(State.STATEEND); ;
-    }
+        stateNo = State.THROW;
+        anim.Play("Throw");
+        ctrl = false;
 
-    //　敵キャラの状態を設定するためのメソッド 
-    public void SetState(State tempState, Transform targetObject = null)
-    {
-        stateNo = tempState;
+        Looking();
 
-        if (tempState == State.IDLE)
+        //アニメーション終了
+        if (stateInfo.IsName("Throw") && stateInfo.normalizedTime >= 1.0f)
         {
-            //navMeshAgent.isStopped = true; //キャラの移動を止める
-            //animator.SetBool("chase", false); //アニメーションコントローラーのフラグ切替（Chase⇒Idle）
-        }
+            frameTime = 0.0f;
+            stateNo = State.IDLE;
+        }
     }
-
 
     //見ているとこ見る
     public void Looking()
