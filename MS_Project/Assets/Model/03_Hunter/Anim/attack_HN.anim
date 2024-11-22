@@ -45423,6 +45423,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.2
+    functionName: EnableHit
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.3
     functionName: PlaySound
     data: 
@@ -45432,6 +45439,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.3
     functionName: HunterAttackData
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.36666667
+    functionName: DisableHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

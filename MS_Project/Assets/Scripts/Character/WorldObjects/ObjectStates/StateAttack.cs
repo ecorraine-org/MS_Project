@@ -10,20 +10,47 @@ public class StateAttack : ObjectState
     {
         base.Init(_objectController);
 
-        if (enemy != null)
+
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("AttackInit");
+        if (method != null)
         {
-             enemy.Anim.SetTrigger("IsAttack");
+            method.Invoke(enemy.EnemyAction, null);
+        }
+        else
+        {
+
+            if (enemy != null) enemy.Anim.SetTrigger("IsAttack");
 
         }
     }
 
     public override void Tick()
     {
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("AttackTick");
+        if (method != null)
+        {
+            method.Invoke(enemy.EnemyAction, null);
+        }
+        else
+        {
+            normalTick();
+        }
+
+    
+    }
+
+    /// <summary>
+    /// 共通の処理
+    /// </summary>
+    private void normalTick()
+    {
         if (enemy != null)
         {
             enemy.AttackCollider.CanHit = true;
             enemy.AttackCollider.DetectColliders(enemy.EnemyStatus.StatusData.damage, targetLayer, false);
-           
+
         }
 
         // ダメージチェック
@@ -40,7 +67,6 @@ public class StateAttack : ObjectState
         {
             objController.State.TransitionState(ObjectStateType.Idle);
         }
-
     }
 
     public override void FixedTick()
