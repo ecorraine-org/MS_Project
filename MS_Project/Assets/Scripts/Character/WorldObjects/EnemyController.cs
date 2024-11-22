@@ -78,21 +78,35 @@ public class EnemyController : WorldObjectController
         capsuleCollider.height = collider.height;
         capsuleCollider.radius = collider.radius;
 
+        objState = GetComponentInChildren<ObjectStateHandler>();
+        objState.Init(this);
+        if (objState == null) Debug.Log("objState NULL");
+
+
         enemyAction = gameObj.GetComponentInChildren<EnemyAction>();
-        if (enemyAction)
+       // enemyAction.Init(this);
+
+        //全部初期化 test
+        var enemyActions = gameObj.GetComponentsInChildren<EnemyAction>();
+
+        foreach (var action in enemyActions)
         {
-            enemyAction.Enemy = this;
-            enemyAction.EnemyStatus = EnemyStatus;
-        }
-        else
-        {
-            CustomLogger.LogWarning(gameObj.GetType(), gameObj.name);
+            action.Init(this);
         }
 
-        State = GetComponentInChildren<ObjectStateHandler>();
-        State.Init(this);
+            //if (enemyAction)
+            //{
+            //    enemyAction.Enemy = this;
+            //    enemyAction.EnemyStatus = EnemyStatus;
+            //}
+            //else
+            //{
+            //    CustomLogger.LogWarning(gameObj.GetType(), gameObj.name);
+            //}
 
-        allowAttack = true;
+
+
+            allowAttack = true;
     }
 
     private void FixedUpdate()

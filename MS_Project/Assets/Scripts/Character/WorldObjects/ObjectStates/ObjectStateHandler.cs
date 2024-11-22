@@ -133,6 +133,8 @@ public class ObjectStateHandler : MonoBehaviour
         objController.AttackCollider.Reset();
 
         enemy.AnimManager.Reset();
+
+        enemy.SkillManager.Reset();
     }
 
     /// <summary>

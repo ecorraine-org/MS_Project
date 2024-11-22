@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class StateWalk : ObjectState
 {
@@ -8,15 +9,49 @@ public class StateWalk : ObjectState
     {
         base.Init(_objectController);
 
+       
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("WalkInit");
+        if (method != null)
+        {
+            method.Invoke(enemy.EnemyAction, null);
+        }
+        else
+        {
+            normalInit();
+        }
+
+    }
+
+    /// <summary>
+    /// 共通の処理
+    /// </summary>
+    private void normalInit()
+    {
         if (enemy != null)
         {
             enemy.Anim.Play("Walk");
         }
-
-
     }
 
     public override void Tick()
+    {
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("WalkTick");
+        if (method != null)
+        {
+            method.Invoke(enemy.EnemyAction, null);
+        }
+        else
+        {
+            normalTick();
+        }
+    }
+
+    /// <summary>
+    /// 共通の処理
+    /// </summary>
+    private void normalTick()
     {
         Vector3 direction = player.transform.position - enemy.transform.position;
         // 進む方向に向く
@@ -34,7 +69,7 @@ public class StateWalk : ObjectState
         if (objStateHandler.CheckHit()) return;
 
         // 攻撃へ遷移
-       // if (objStateHandler.CheckAttack()) return;
+        // if (objStateHandler.CheckAttack()) return;
 
         // スキルへ遷移
         if (objStateHandler.CheckSkill()) return;
@@ -52,7 +87,7 @@ public class StateWalk : ObjectState
             return;
         }
 
-       
+
         //攻撃へ遷移
         if (distanceToPlayer <= objStatusHandler.StatusData.attackDistance && enemy.AllowAttack)
         {
@@ -70,5 +105,11 @@ public class StateWalk : ObjectState
 
     public override void Exit()
     {
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("WalkExit");
+        if (method != null)
+        {
+            method.Invoke(enemy.EnemyAction, null);
+        }
     }
 }
