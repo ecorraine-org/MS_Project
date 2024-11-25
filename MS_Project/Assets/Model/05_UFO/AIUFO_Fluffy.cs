@@ -11,6 +11,7 @@ public class AIUFO_Fluffy : EnemyAction
     int floatDilay = 0;
 
     bool noGravity = false;
+    private Vector3 direction;
 
     private void Update()
     {
@@ -40,7 +41,6 @@ public class AIUFO_Fluffy : EnemyAction
             floatDilay++;
             if(floatDilayTime <= floatDilay)
             {
-                Debug.Log("get out of my swamp!");
                 noGravity = false;
                 floatDilay = 0;
             }
@@ -48,9 +48,40 @@ public class AIUFO_Fluffy : EnemyAction
 
     }
 
+    public override void Chase()
+    {
+        //ちょっとずつ見る
+        direction = player.position - enemy.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.02f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+    }
+
     public void Attack()
     {
-        if(noGravity)//浮いてます
+        //ちょっとずつ見る
+        direction = player.position - enemy.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("Attack") && stateInfo.normalizedTime <= 0.5f)
+            enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.04f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+
+        if (noGravity)//浮いてます
         {
             Debug.Log("get out of my swamp!");
             enemy.RigidBody.useGravity = false;
