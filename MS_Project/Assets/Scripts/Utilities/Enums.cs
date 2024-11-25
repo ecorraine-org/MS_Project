@@ -106,3 +106,15 @@ public enum CameraEffectType
     [InspectorName("ロール")] Roll,
     [InspectorName("パン")] Pan,
 }
+
+/// <summary>
+/// ミッションタイプ
+/// </summary>
+public enum MissionType
+{
+    None,
+    [InspectorName("敵殲滅")]KillAll,
+    [InspectorName("ボス撃破")]KillBoss,
+    [InspectorName("道開き")]OpenRoute,
+    [InspectorName("保護")]Protect
+}

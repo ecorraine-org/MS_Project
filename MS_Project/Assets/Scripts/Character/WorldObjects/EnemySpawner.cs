@@ -7,8 +7,12 @@ using Unity.VisualScripting;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [TextArea]
-    public string missionName = "";
+    [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
+    private MissionType missionType = MissionType.None;
+    [Tooltip("ミッション詳細")]
+    private string missionDetail = "";
+    [Tooltip("キル数")]
+    private int killCount = 0;
 
     private Vector3 center = Vector3.up;
 
@@ -98,8 +102,11 @@ public class EnemySpawner : MonoBehaviour
             CustomLogger.Log(this.gameObject.scene.name + "のスポナー起動");
 
             mission.Spawner = this;
+            mission.MissionTitle.SetActive(true);
             mission.MissionItem.SetActive(true);
-            mission.MissionText = missionName;
+            string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
+            missionDetail = count;
+            missionDetail = mission.GetMissionDetails(missionType, missionDetail);
         }
     }
 
@@ -141,6 +148,7 @@ public class EnemySpawner : MonoBehaviour
     void Stop();
     void DespawnAll();
     */
+
 
     #region Gizmos
     private void OnDrawGizmos()
