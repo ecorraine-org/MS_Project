@@ -12,9 +12,7 @@ public class GolemAction : EnemyAction
 
     //時間計測
     float frameTime = 0.0f;
-
-    //移動を表す　0:歩く 1:走る
-    int moveStage = 0;
+    //float ctrlDilay = 0.0f;   //動くまでの時間
 
     private Vector3 direction;
     private float frontBackDistance = 0.0f;//前後の距離
@@ -22,6 +20,10 @@ public class GolemAction : EnemyAction
 
     private void Update()
     {
+        //ctrlDilay++;
+
+        //if (ctrlDilay <= 60.0f) return;
+
         //距離チェック
         distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
         Vector3 directionToPlayer = (player.position - enemy.transform.position).normalized;
@@ -33,6 +35,8 @@ public class GolemAction : EnemyAction
         // 前後と左右の距離をDotで計算
         frontBackDistance = Vector3.Dot(forward, directionToPlayer); // 前後の判定
         leftRightDistance = Vector3.Dot(right, directionToPlayer);   // 左右の判定
+
+        //Debug.Log(stateHandler.CurrentStateType);
 
         // frontBackDistance > 0.0f: プレイヤーは前方にいる
         // frontBackDistance < 0.0f: プレイヤーは後方にいる
@@ -52,12 +56,8 @@ public class GolemAction : EnemyAction
         //初期化
         frameTime = 0.0f;
 
-        //前の状態は歩きでなければ、初期化
-        //歩きの場合、走りに変更した時、walkStageを1にする
-        if (stateHandler.CurrentStateType != ObjectStateType.Walk) moveStage = 0;
-
         //歩き
-        if (moveStage == 0) enemy.Anim.Play("Walk");
+        enemy.Anim.Play("Walk");
         //走り
         //if (moveStage == 1) enemy.Anim.Play("Dash");
 
@@ -72,13 +72,13 @@ public class GolemAction : EnemyAction
             (leftRightDistance <= -0.7f || leftRightDistance >= 0.7f))
         {
             //スキル状態へ遷移
-            stateHandler.TransitionState(ObjectStateType.Skill);
-            return;
+            //stateHandler.TransitionState(ObjectStateType.Skill);
+            //return;
         }
 
 
         //歩くのか走るのか
-        if (moveStage == 0) HandleWalk();
+        HandleWalk();
 
         //じわりとみる
         direction = player.position - enemy.transform.position;
@@ -89,7 +89,7 @@ public class GolemAction : EnemyAction
         enemy.transform.rotation = Quaternion.Slerp(
         enemy.transform.rotation,
         targetRotation,
-        0.03f // 補間率（1.0fで即時、0.0fで変化なし）
+        0.01f // 補間率（1.0fで即時、0.0fで変化なし）
     );
 
         //移動
@@ -103,19 +103,18 @@ public class GolemAction : EnemyAction
         // 追跡
         enemy.OnMovementInput?.Invoke(direction.normalized);
 
-        //遠いと走る
-        if (frameTime >= 250.0f &&
-              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 2.0f)
+        //遠いと投げる
+        if ((frameTime >= 180.0f &&
+              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 2.0f) ||
+              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 5.0f)
         {
-            //移動状態(走り)へ遷移
-            moveStage = 1;
-            stateHandler.TransitionState(ObjectStateType.Walk);
-
+            //投げよう
+            stateHandler.TransitionState(ObjectStateType.Skill);
             return;
         }
 
         //攻撃へ遷移
-        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && enemy.AllowAttack)
+        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance)
         {
             //クールダウン
             enemy.StartAttackCoroutine();
@@ -151,17 +150,18 @@ public class GolemAction : EnemyAction
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
         targetRotation.x = 0f;
 
-        if (stateInfo.IsName("Attack") && stateInfo.normalizedTime <= 0.5f)
+        if (stateInfo.IsName("Attack") && stateInfo.normalizedTime <= 0.3f)
             enemy.transform.rotation = Quaternion.Slerp(
             enemy.transform.rotation,
             targetRotation,
-            0.05f // 補間率（1.0fで即時、0.0fで変化なし）
+            0.03f // 補間率（1.0fで即時、0.0fで変化なし）
         );
 
         //アニメーション終了
         if (stateInfo.IsName("Attack") && stateInfo.normalizedTime >= 1.0f)
         {
             stateHandler.TransitionState(ObjectStateType.Idle);
+            //ctrlDilay = 0.0f;
         }
     }
     #endregion
@@ -197,6 +197,7 @@ public class GolemAction : EnemyAction
         if (stateInfo.IsName("Throw") && stateInfo.normalizedTime >= 1.0f)
         {
             stateHandler.TransitionState(ObjectStateType.Idle);
+            //ctrlDilay = 0.0f;
         }
     }
     #endregion
