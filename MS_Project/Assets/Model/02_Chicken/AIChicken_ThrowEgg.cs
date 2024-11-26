@@ -31,6 +31,8 @@ public class AIChicken_ThrowEgg : EnemyAction
     private float maxDistance;
     private float minDistance;
 
+    private Vector3 direction;
+
 
     protected override void Start()
     {
@@ -44,11 +46,17 @@ public class AIChicken_ThrowEgg : EnemyAction
     {
         if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
         {
-            Vector3 direction = player.position - transform.position;
-            // 進む方向に向く
-            Quaternion forwardRotation = Quaternion.LookRotation(direction.normalized);
-            forwardRotation.x = 0f;
-            transform.rotation = forwardRotation;
+            //じわりとみる
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+
+            enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.03f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
 
             if (distanceToPlayer < minDistance)
             {
@@ -63,6 +71,7 @@ public class AIChicken_ThrowEgg : EnemyAction
                 }
 
                 // 逃げる
+                enemy.Anim.Play("Escape");
                 enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
             }
             else if (distanceToPlayer <= maxDistance && distanceToPlayer > minDistance)
