@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class GoToResult : MonoBehaviour
 {
-    //“G‚Ìw’è
-    [SerializeField, Header("w’è‚·‚éEnemy")]
+    //æ•µã®æŒ‡å®š
+    [SerializeField, Header("æŒ‡å®šã™ã‚‹Enemy")]
     public GameObject EnemyObjct;
 
-    //ˆÚs‚·‚éƒV[ƒ“‚Ìw’è
-    [SerializeField,Header("w’è‚·‚éScene")]
+    //ç§»è¡Œã™ã‚‹ã‚·ãƒ¼ãƒ³ã®æŒ‡å®š
+    [SerializeField,Header("æŒ‡å®šã™ã‚‹Scene")]
     string sceneToLoad;
 
-    //“G‚ÌHPŠÇ——p
+    //æ•µã®HPç®¡ç†ç”¨
     float EnemyObjctHP;
 
     private void Start()
@@ -23,11 +23,11 @@ public class GoToResult : MonoBehaviour
 
     public void KillMeEnemy()
     {
-        //“G‚ÌHP‚ª0ˆÈ‰º‚É‚È‚Á‚½‚ç
+        //æ•µã®HPãŒ0ä»¥ä¸‹ã«ãªã£ãŸã‚‰
         if(EnemyObjctHP <= 0)
         {
-            //ResultScene‚ÉˆÚs‚·‚é
-            SceneManager.LoadScene(sceneToLoad);                    // ƒV[ƒ“‚ğƒ[ƒh‚µ‚Äƒƒjƒ…[ƒV[ƒ“‚É‘JˆÚ
+            //ResultSceneã«ç§»è¡Œã™ã‚‹
+            SceneManager.LoadScene(sceneToLoad);                    // ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰ã—ã¦ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚·ãƒ¼ãƒ³ã«é·ç§»
 
         }
     }

@@ -75,9 +75,9 @@ public enum WorldObjectType
 public enum EnemyRank
 {
     None,
-    [InspectorName("雑魚")] Normal,
-    [InspectorName("エリート")] Elite,
-    [InspectorName("ボス")] Boss,
+    [InspectorName("雑魚"), Tooltip("雑魚")] Normal,
+    [InspectorName("エリート"), Tooltip("エリート")] Elite,
+    [InspectorName("ボス"), Tooltip("ボス")] Boss,
 }
 
 /// <summary>
@@ -113,8 +113,8 @@ public enum CameraEffectType
 public enum MissionType
 {
     None,
-    [InspectorName("敵殲滅")]KillAll,
-    [InspectorName("ボス撃破")]KillBoss,
-    [InspectorName("道開き")]OpenRoute,
-    [InspectorName("保護")]Protect
+    [InspectorName("敵殲滅"), Tooltip("敵殲滅")] KillAll,
+    [InspectorName("ボス撃破"), Tooltip("ボス撃破")] KillBoss,
+    [InspectorName("道開き"), Tooltip("道開き")] OpenRoute,
+    [InspectorName("保護"), Tooltip("保護")] Protect
 }

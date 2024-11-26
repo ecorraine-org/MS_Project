@@ -9,7 +9,6 @@ public class StateWalk : ObjectState
     {
         base.Init(_objectController);
 
-       
         //敵による独自の処理
         var method = enemy.EnemyAction.GetType().GetMethod("WalkInit");
         if (method != null)
@@ -20,7 +19,6 @@ public class StateWalk : ObjectState
         {
             normalInit();
         }
-
     }
 
     /// <summary>
@@ -54,32 +52,32 @@ public class StateWalk : ObjectState
     private void normalTick()
     {
         Vector3 direction = player.transform.position - enemy.transform.position;
-        // 進む方向に向く
+        //進む方向に向く
         Quaternion forwardRotation = Quaternion.LookRotation(direction.normalized);
         forwardRotation.x = 0f;
         enemy.transform.rotation = forwardRotation;
 
-        // 追跡
+        //追跡
         enemy.OnMovementInput?.Invoke(direction.normalized);
 
         //移動
         enemy.Move();
 
-        // ダメージチェック
+        if (objStateHandler.CheckDeath()) return;
+
+        //ダメージチェック
         if (objStateHandler.CheckHit()) return;
 
-        // 攻撃へ遷移
-        // if (objStateHandler.CheckAttack()) return;
-
-        // スキルへ遷移
+        //スキルへ遷移
         if (objStateHandler.CheckSkill()) return;
 
-        // アイドルへ遷移
-        //if (objController.MovementInput.magnitude <= 0f)
-        //{
-        //    objController.State.TransitionState(ObjectStateType.Idle);
-        //};
-
+        //アイドルへ遷移
+        /*
+        if (objController.MovementInput.magnitude <= 0f)
+        {
+            objController.State.TransitionState(ObjectStateType.Idle);
+        };
+        */
         float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
         if (distanceToPlayer > objStatusHandler.StatusData.chaseDistance)
         {
@@ -87,8 +85,8 @@ public class StateWalk : ObjectState
             return;
         }
 
-
         //攻撃へ遷移
+        // if (objStateHandler.CheckAttack()) return;
         if (distanceToPlayer <= objStatusHandler.StatusData.attackDistance && enemy.AllowAttack)
         {
             //クールダウン

@@ -24,7 +24,6 @@ public class EnemyController : WorldObjectController
     [HideInInspector, Tooltip("ダッシュハンドラー")]
     DashHandler dashHandler;
 
-
     [SerializeField, Header("ラストヒットできるかどうか？")]
     protected bool isKillable = false;
 
@@ -84,7 +83,7 @@ public class EnemyController : WorldObjectController
 
 
         enemyAction = gameObj.GetComponentInChildren<EnemyAction>();
-       // enemyAction.Init(this);
+       //enemyAction.Init(this);
 
         //全部初期化 test
         var enemyActions = gameObj.GetComponentsInChildren<EnemyAction>();
@@ -94,19 +93,19 @@ public class EnemyController : WorldObjectController
             action.Init(this);
         }
 
-            //if (enemyAction)
-            //{
-            //    enemyAction.Enemy = this;
-            //    enemyAction.EnemyStatus = EnemyStatus;
-            //}
-            //else
-            //{
-            //    CustomLogger.LogWarning(gameObj.GetType(), gameObj.name);
-            //}
+        /*
+        if (enemyAction)
+        {
+            enemyAction.Enemy = this;
+            enemyAction.EnemyStatus = EnemyStatus;
+        }
+        else
+        {
+            CustomLogger.LogWarning(gameObj.GetType(), gameObj.name);
+        }
+        */
 
-
-
-            allowAttack = true;
+        allowAttack = true;
     }
 
     private void FixedUpdate()
@@ -121,19 +120,20 @@ public class EnemyController : WorldObjectController
     {
         if (player == null) return;
 
-        // フィニッシュ
+        //フィニッシュ
         if (EnemyStatus.CurrentHealth <= EnemyStatus.StatusData.maxHealth / 2)
         {
             isKillable = true;
         }
 
-        //Chase();
         /*
+        Chase();
+
         float distance = Vector3.Distance(player.position, transform.position);
         if (distance <= EnemyStatus.StatusData.chaseDistance)
         {
             Vector3 direction = player.position - transform.position;
-            // 進む方向に向く
+            //進む方向に向く
             Quaternion newRotation = Quaternion.LookRotation(direction.normalized);
             newRotation.x = 0f;
             transform.rotation = newRotation;
@@ -142,35 +142,28 @@ public class EnemyController : WorldObjectController
             {
                 OnMovementInput?.Invoke(Vector3.zero);
 
-                // 攻撃
+                //攻撃
                 OnAttack?.Invoke();
             }
             else
             {
                 IsAttacking = false;
-                // 追跡
+                //追跡
                 OnMovementInput?.Invoke(direction.normalized);
             }
         }
         else
         {
             IsAttacking = false;
-            // 停止
+            //停止
             OnMovementInput?.Invoke(Vector3.zero);
             State.TransitionState(ObjectStateType.Idle);
         }
-        */
 
-       // OnDamaged?.Invoke();
+         OnDamaged?.Invoke();
+        */
     }
 
-    //public void TakeDamage()
-    //{
-    //    if (EnemyStatus.IsDamaged)
-    //    {
-    //        EnemyStatus.IsDamaged = false;
-    //    }
-    //}
 
     public void Move()
     {
@@ -179,9 +172,8 @@ public class EnemyController : WorldObjectController
         */
         if (MovementInput.magnitude > 0.1f && EnemyStatus.MoveSpeed > 0)
         {
-            RigidBody.velocity = MovementInput * EnemyStatus.MoveSpeed;        
+            RigidBody.velocity = MovementInput * EnemyStatus.MoveSpeed;
         }
-           
     }
 
     public void Chase()
@@ -190,21 +182,9 @@ public class EnemyController : WorldObjectController
             enemyAction.Chase();
     }
 
-    //今使ってない関数
-    public void Attack()
-    {
-        //if (AllowAttack && enemyAction)
-        //    State.TransitionState(ObjectStateType.Attack);
-
-        //if (!IsAttacking)
-        //{
-        //    StartCoroutine(nameof(AttackCoroutine));
-        //    AllowAttack = false;
-        //}
-
-    }
-
-    //攻撃に遷移する際に呼び出す
+    /// <summary>
+    /// 攻撃に遷移する際に呼び出す
+    /// </summary>
     public void StartAttackCoroutine()
     {
         StartCoroutine(nameof(AttackCoroutine));
@@ -233,25 +213,27 @@ public class EnemyController : WorldObjectController
 
 
         HitReaction hitReaction = battleManager.GetPlayerHitReaction();
-        // ヒットストップ
+        //ヒットストップ
         battleManager.StartHitStop(animator);
 
-        // エフェクト生成
+        //エフェクト生成
         EffectHandler.InstantiateHit();
 
         if (isKillable && _canOneHitKill)
         {
-            // プレイヤーの体力を回復
+            //プレイヤーの体力を回復
             player.GetComponent<PlayerController>().StatusManager.TakeDamage(-5);
 
-            // 殺す
+            //殺す
             spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
 
+        /*
         if (EnemyStatus.CurrentHealth <= 0)
         {
             spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
+        */
     }
 
     #region Getter & Setter
@@ -313,5 +295,29 @@ public class EnemyController : WorldObjectController
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, EnemyStatus.StatusData.attackDistance);
     }
+    #endregion
+
+    #region 今使ってない関数
+    /*
+    public void TakeDamage()
+    {
+        if (EnemyStatus.IsDamaged)
+        {
+            EnemyStatus.IsDamaged = false;
+        }
+    }
+
+    public void Attack()
+    {
+        if (AllowAttack && enemyAction)
+            State.TransitionState(ObjectStateType.Attack);
+
+        if (!IsAttacking)
+        {
+            StartCoroutine(nameof(AttackCoroutine));
+            AllowAttack = false;
+        }
+    }
+    */
     #endregion
 }

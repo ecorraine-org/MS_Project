@@ -1,25 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; // ƒV[ƒ“‚ğ‘JˆÚ‚·‚é‚½‚ß‚É•K—v
-using TMPro; // TextMeshPro—p‚Ì–¼‘O‹óŠÔ
+using UnityEngine.SceneManagement; // ã‚·ãƒ¼ãƒ³ã‚’é·ç§»ã™ã‚‹ãŸã‚ã«å¿…è¦
+using TMPro; // TextMeshProç”¨ã®åå‰ç©ºé–“
 
 public class UIResultManager : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText; // TextMeshProUGUIƒRƒ“ƒ|[ƒlƒ“ƒg
-    public Button restartButton; // ƒŠƒXƒ^[ƒgƒ{ƒ^ƒ“
+    public TextMeshProUGUI scoreText; // TextMeshProUGUIã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+    public Button restartButton; // ãƒªã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³
 
     void Start()
     {
-        // ƒXƒRƒA‚ğ•\¦
-        scoreText.text = "ƒXƒRƒA: " + GameManager.playerScore;
+        // ã‚¹ã‚³ã‚¢ã‚’è¡¨ç¤º
+        scoreText.text = "ã‚¹ã‚³ã‚¢: " + GameManager.playerScore;
 
-        // ƒ{ƒ^ƒ“‚ÉƒŠƒXƒi[‚ğ’Ç‰ÁiƒNƒŠƒbƒN‚µ‚½‚Æ‚«‚Ìˆ—j
+        // ãƒœã‚¿ãƒ³ã«ãƒªã‚¹ãƒŠãƒ¼ã‚’è¿½åŠ ï¼ˆã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®å‡¦ç†ï¼‰
         restartButton.onClick.AddListener(RestartGame);
     }
 
     void RestartGame()
     {
-        // ƒV[ƒ“‚ğƒŠƒ[ƒhiƒQ[ƒ€‚É–ß‚éj
-        SceneManager.LoadScene("Title"); // ƒQ[ƒ€ƒV[ƒ“‚Ì–¼‘O‚É•ÏX
+        // ã‚·ãƒ¼ãƒ³ã‚’ãƒªãƒ­ãƒ¼ãƒ‰ï¼ˆã‚²ãƒ¼ãƒ ã«æˆ»ã‚‹ï¼‰
+        SceneManager.LoadScene("Title"); // ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®åå‰ã«å¤‰æ›´
     }
 }

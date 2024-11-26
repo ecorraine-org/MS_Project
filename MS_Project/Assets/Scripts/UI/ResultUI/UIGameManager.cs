@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static int playerScore = 0; // ƒXƒRƒA‚ğ•Û
+    public static int playerScore = 0; // ã‚¹ã‚³ã‚¢ã‚’ä¿æŒ
 
     public void SetScore(int score)
     {
