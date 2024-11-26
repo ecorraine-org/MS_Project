@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 6712211598257689545}
   m_Layer: 6
   m_Name: EnemyContainer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,8 +117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObj: {fileID: 0}
   isInvincible: 0
+  allowAttack: 1
   isAttacking: 0
-  useSkill: 0
+  usingSkill: 0
   isDamaged: 0
   OnDamaged:
     m_PersistentCalls:
@@ -240,6 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockDetector: {fileID: 0}
+  hitCollider: {fileID: 0}
   duration: -1
   speed: 10
   slowFactor: 1
