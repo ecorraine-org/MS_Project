@@ -10,7 +10,6 @@ public class StateAttack : ObjectState
     {
         base.Init(_objectController);
 
-
         //敵による独自の処理
         var method = enemy.EnemyAction.GetType().GetMethod("AttackInit");
         if (method != null)
@@ -19,9 +18,7 @@ public class StateAttack : ObjectState
         }
         else
         {
-
             if (enemy != null) enemy.Anim.SetTrigger("IsAttack");
-
         }
     }
 
@@ -37,8 +34,6 @@ public class StateAttack : ObjectState
         {
             normalTick();
         }
-
-    
     }
 
     /// <summary>
@@ -50,19 +45,21 @@ public class StateAttack : ObjectState
         {
             enemy.AttackCollider.CanHit = true;
             enemy.AttackCollider.DetectColliders(enemy.EnemyStatus.StatusData.damage, targetLayer, false);
-
         }
 
-        // ダメージチェック
+        if (objStateHandler.CheckDeath()) return;
+
+        //ダメージチェック
         if (objStateHandler.CheckHit()) return;
 
-        // スキルへ遷移
+        //スキルへ遷移
         if (objStateHandler.CheckSkill()) return;
 
-        // アイドルへ遷移
-        //  if (objController.MovementInput.magnitude <= 0f /*&& !objController.IsAttacking*/)
-        //  objStateHandler.TransitionState(ObjectStateType.Idle);
-
+        //アイドルへ遷移
+        /*
+        if (objController.MovementInput.magnitude <= 0f && !objController.IsAttacking)
+            objStateHandler.TransitionState(ObjectStateType.Idle);
+        */
         if (enemy.AnimManager != null && enemy.AnimManager.IsAnimEnd)
         {
             objController.State.TransitionState(ObjectStateType.Idle);

@@ -7,11 +7,13 @@ using TMPro;
 
 public class UIMissionController : MonoBehaviour
 {
+    [SerializeField, Header("ミッションＵＩ")]
+    private GameObject missionTitle;
+    [SerializeField]
+    private GameObject missionItem;
+
     [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
     private MissionType missionType = MissionType.None;
-
-    private GameObject missionTitle;
-    private GameObject missionItem;
 
     private PlayerController player;
     private EnemySpawner spawner;
@@ -19,9 +21,10 @@ public class UIMissionController : MonoBehaviour
 
     private void Awake()
     {
+        /*
         missionTitle = this.transform.GetChild(0).gameObject;
         missionItem = this.transform.GetChild(1).gameObject;
-
+        */
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
@@ -62,22 +65,26 @@ public class UIMissionController : MonoBehaviour
         switch (_missiontype)
         {
             case MissionType.KillAll:
-                missionTitle.GetComponentInChildren<Text>().text = "<b>敵殲滅</b>";
+                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>敵殲滅</b>";
                 missionText = "　　敵を倒せ　" + _string;
                 break;
             case MissionType.KillBoss:
-                missionTitle.GetComponentInChildren<Text>().text = "<b>ボス撃破</b>";
+                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>ボス撃破</b>";
                 missionText = "　　ボス　" + _string;
                 break;
             case MissionType.OpenRoute:
-                missionTitle.GetComponentInChildren<Text>().text = "<b>？？？</b>";
+                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>？？？</b>";
                 missionText = "？？？";
                 break;
             case MissionType.Protect:
-                missionTitle.GetComponentInChildren<Text>().text = "<b>？？？</b>";
+                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>？？？</b>";
                 missionText = "？？？";
                 break;
         }
+
+        missionTitle.GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0, 0, 0, 255);
+        missionTitle.GetComponentInChildren<TextMeshProUGUI>().outlineWidth = 0.2f;
+        missionTitle.GetComponentInChildren<TextMeshProUGUI>().outlineColor = new Color32(255, 255, 255, 255);
 
         return tmpMission.text = missionText;
     }

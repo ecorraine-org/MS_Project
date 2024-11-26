@@ -5,35 +5,35 @@ using UnityEngine.SceneManagement;
 
 public class UISceneChange : MonoBehaviour
 {
-    public Image fadePanel;             // ƒtƒF[ƒh—p‚ÌUIƒpƒlƒ‹iImagej
-    public float fadeDuration = 1.0f;   // ƒtƒF[ƒh‚ÌŠ®—¹‚É‚©‚©‚éŠÔ
-    private bool isFading = false;      // ƒtƒF[ƒh’†‚©‚Ç‚¤‚©‚ğ”»’è
-    public GameObject buttonObject;     // ƒ{ƒ^ƒ“‚ÌGameObject‚ğQÆ‚·‚é•Ï”
-    private Button button;              // ButtonƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌQÆ
-    public Sprite pushButton;           // ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÌƒXƒvƒ‰ƒCƒg
-    private Sprite originalSprite;      // Œ³‚Ìƒ{ƒ^ƒ“‚ÌƒXƒvƒ‰ƒCƒg
+    public Image fadePanel;             // ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã®UIãƒ‘ãƒãƒ«ï¼ˆImageï¼‰
+    public float fadeDuration = 1.0f;   // ãƒ•ã‚§ãƒ¼ãƒ‰ã®å®Œäº†ã«ã‹ã‹ã‚‹æ™‚é–“
+    private bool isFading = false;      // ãƒ•ã‚§ãƒ¼ãƒ‰ä¸­ã‹ã©ã†ã‹ã‚’åˆ¤å®š
+    public GameObject buttonObject;     // ãƒœã‚¿ãƒ³ã®GameObjectã‚’å‚ç…§ã™ã‚‹å¤‰æ•°
+    private Button button;              // Buttonã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å‚ç…§
+    public Sprite pushButton;           // ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
+    private Sprite originalSprite;      // å…ƒã®ãƒœã‚¿ãƒ³ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 
-    [SerializeField] string sceneToLoad; // Ø‚è‘Ö‚¦‚éƒV[ƒ“–¼‚ğw’è
+    [SerializeField] string sceneToLoad; // åˆ‡ã‚Šæ›¿ãˆã‚‹ã‚·ãƒ¼ãƒ³åã‚’æŒ‡å®š
 
     private void Start()
     {
         if (buttonObject == null)
         {
-            Debug.LogError("buttonObject‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñBƒCƒ“ƒXƒyƒNƒ^[‚Åİ’è‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.LogError("buttonObjectãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã§è¨­å®šã—ã¦ãã ã•ã„ã€‚");
             return;
         }
 
         button = buttonObject.GetComponent<Button>();
         if (button == null)
         {
-            Debug.LogError("buttonObject‚ÉButtonƒRƒ“ƒ|[ƒlƒ“ƒg‚ªƒAƒ^ƒbƒ`‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB³‚µ‚¢ƒIƒuƒWƒFƒNƒg‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢B");
+            Debug.LogError("buttonObjectã«Buttonã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒã‚¢ã‚¿ãƒƒãƒã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚æ­£ã—ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¨­å®šã—ã¦ãã ã•ã„ã€‚");
             return;
         }
 
-        originalSprite = button.image.sprite; // Œ³‚ÌƒXƒvƒ‰ƒCƒg‚ğ•Û‘¶
+        originalSprite = button.image.sprite; // å…ƒã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚’ä¿å­˜
     }
 
-    // ƒ{ƒ^ƒ“—p‚Ìƒƒ\ƒbƒh
+    // ãƒœã‚¿ãƒ³ç”¨ã®ãƒ¡ã‚½ãƒƒãƒ‰
     public void OnButtonClick()
     {
         if (!isFading)
@@ -44,24 +44,24 @@ public class UISceneChange : MonoBehaviour
 
     public IEnumerator FadeOutAndLoadScene()
     {
-        fadePanel.enabled = true;   // ƒtƒF[ƒhƒpƒlƒ‹‚ğ—LŒø‰»
+        fadePanel.enabled = true;   // ãƒ•ã‚§ãƒ¼ãƒ‰ãƒ‘ãƒãƒ«ã‚’æœ‰åŠ¹åŒ–
 
-        isFading = true;                                 // ƒtƒF[ƒh’†‚Ìƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        isFading = true;                                 // ãƒ•ã‚§ãƒ¼ãƒ‰ä¸­ã®ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 
-        float elapsedTime = 0.0f;                        // Œo‰ßŠÔ‚ğ‰Šú‰»
-        Color startColor = fadePanel.color;              // ƒtƒF[ƒhƒpƒlƒ‹‚ÌŠJnF‚ğæ“¾
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // ƒtƒF[ƒhƒpƒlƒ‹‚ÌÅIF‚ğİ’è
+        float elapsedTime = 0.0f;                        // çµŒéæ™‚é–“ã‚’åˆæœŸåŒ–
+        Color startColor = fadePanel.color;              // ãƒ•ã‚§ãƒ¼ãƒ‰ãƒ‘ãƒãƒ«ã®é–‹å§‹è‰²ã‚’å–å¾—
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // ãƒ•ã‚§ãƒ¼ãƒ‰ãƒ‘ãƒãƒ«ã®æœ€çµ‚è‰²ã‚’è¨­å®š
 
-        // ƒtƒF[ƒhƒAƒEƒgƒAƒjƒ[ƒVƒ‡ƒ“‚ğÀs
+        // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œ
         while (elapsedTime < fadeDuration)
         {
-            elapsedTime += Time.deltaTime;                        // Œo‰ßŠÔ‚ğ‘‚â‚·
-            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // ƒtƒF[ƒh‚Ìis“x‚ğŒvZ
-            fadePanel.color = Color.Lerp(startColor, endColor, t); // ƒpƒlƒ‹‚ÌF‚ğ•ÏX‚µ‚ÄƒtƒF[ƒhƒAƒEƒg
-            yield return null;                                     // 1ƒtƒŒ[ƒ€‘Ò‹@
+            elapsedTime += Time.deltaTime;                        // çµŒéæ™‚é–“ã‚’å¢—ã‚„ã™
+            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // ãƒ•ã‚§ãƒ¼ãƒ‰ã®é€²è¡Œåº¦ã‚’è¨ˆç®—
+            fadePanel.color = Color.Lerp(startColor, endColor, t); // ãƒ‘ãƒãƒ«ã®è‰²ã‚’å¤‰æ›´ã—ã¦ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ
+            yield return null;                                     // 1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…æ©Ÿ
         }
 
-        fadePanel.color = endColor;                                // ƒtƒF[ƒh‚ªŠ®—¹‚µ‚½‚çÅIF‚Éİ’è
-        SceneManager.LoadScene(sceneToLoad);                    // ƒV[ƒ“‚ğƒ[ƒh‚µ‚Äƒƒjƒ…[ƒV[ƒ“‚É‘JˆÚ
+        fadePanel.color = endColor;                                // ãƒ•ã‚§ãƒ¼ãƒ‰ãŒå®Œäº†ã—ãŸã‚‰æœ€çµ‚è‰²ã«è¨­å®š
+        SceneManager.LoadScene(sceneToLoad);                    // ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰ã—ã¦ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚·ãƒ¼ãƒ³ã«é·ç§»
     }
 }
