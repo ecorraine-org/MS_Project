@@ -15,11 +15,24 @@ public class AIGolem_ThrowRock : MonoBehaviour
         {
             // プレハブのインスタンスを生成
             GameObject thrownRock = Instantiate(rockPrefab, spawnPoint.position, spawnPoint.rotation);
-            // 投げる方向に力を加える
             Rigidbody rb = thrownRock.GetComponent<Rigidbody>();
+
             if (rb != null)
             {
-                rb.AddForce(spawnPoint.forward * throwForce, ForceMode.Impulse);
+                // Playerタグのオブジェクトを探す
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                if (player != null)
+                {
+                    // プレイヤーの位置方向へのベクトルを計算
+                    Vector3 direction = (player.transform.position - spawnPoint.position).normalized;
+
+                    // プレイヤーに向けて力を加える
+                    rb.AddForce(direction * throwForce, ForceMode.Impulse);
+                }
+                else
+                {
+                    Debug.LogWarning("Playerタグのオブジェクトが見つかりませんでした。");
+                }
             }
         }
     }
