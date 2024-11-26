@@ -480,10 +480,13 @@ PrefabInstance:
       addedObject: {fileID: 7571026905266882672}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 86294bcff52ef944690ae8358423898e, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7699452736394825104}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 86294bcff52ef944690ae8358423898e, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1416690852447887728}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 86294bcff52ef944690ae8358423898e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4594569039010949892}
+      addedObject: {fileID: 8696806051637517152}
   m_SourcePrefab: {fileID: 100100000, guid: 86294bcff52ef944690ae8358423898e, type: 3}
 --- !u!4 &1186725393991857361 stripped
 Transform:
@@ -527,6 +530,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7699452736394825104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6434317071978463447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a2760d03debe74bafb78d206dbcc50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1416690852447887728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,10 +554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321edcd9c2d71fb49b3c2358b45642ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockPrefab: {fileID: 919132149155446097, guid: f8f2e1682003da04eadc08983634e79f, type: 3}
+  rockPrefab: {fileID: 5739347377149021921, guid: 956ab2749a272574d913186e9215db6b, type: 3}
   spawnPoint: {fileID: 1643627759081918445}
-  throwForce: 10
---- !u!114 &4594569039010949892
+  throwForce: 30
+--- !u!114 &8696806051637517152
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -551,7 +566,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6434317071978463447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aed8964071e66534d81566711fa6f4e5, type: 3}
+  m_Script: {fileID: 11500000, guid: e7f1ac2559874a640ad8ae62335cb14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetLayer:
