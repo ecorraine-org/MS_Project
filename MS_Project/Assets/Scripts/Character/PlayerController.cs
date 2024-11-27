@@ -122,6 +122,9 @@ public class PlayerController : WorldObject
 
     private void FixedUpdate()
     {
+        UnityEngine.Vector3 gravity = Physics.gravity * (RigidBody.mass * RigidBody.mass);
+        RigidBody.AddForce(gravity * Time.deltaTime);
+
         //sprite.transform.rotation = Camera.main.transform.rotation;
         /*
         Debug.Log("CurDirec "+curDirecVector);
@@ -216,7 +219,17 @@ public class PlayerController : WorldObject
     {
         // spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
 
-        spriteAnim.Play("WalkRight");
+       
+
+        switch (currentDirec)
+        {
+            case Direction.Up:
+                   spriteAnim.Play("WalkUp");
+                    break;
+            default:
+                spriteAnim.Play("WalkRight");
+                break;
+        }
 
         //switch (currentDirec)
         //{
@@ -271,17 +284,22 @@ public class PlayerController : WorldObject
 
     public override void Attack(Collider _hitCollider)
     {
-
-        if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+    
+        if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy")
+            || _hitCollider.gameObject.layer == LayerMask.NameToLayer("Onomatopoeia"))
         {
-            HitReaction hitReaction = battleManager.GetPlayerHitReaction();
             // ヒットストップ          
             battleManager.StartHitStop(spriteAnim);
-
         }
     }
 
+    public override void Miss()
+    {
+        base.Miss();
 
+       // Debug.Log("空振り処理");
+      //  GenerateOnomatopoeia(statusManager.StatusData.onomato???);
+    }
 
     #region Getter&Setter 
 
@@ -290,7 +308,17 @@ public class PlayerController : WorldObject
     /// </summary>
     public override UnityEngine.Vector3 GetNextDirec()
     {
-        return inputManager.GetLStick().normalized;
+        if (inputManager.GetLStick() != UnityEngine.Vector3.zero)
+        {
+            return inputManager.GetLStick().normalized;
+        }
+        //入力がない場合、前方向を返す
+        else
+        {
+            return base.GetNextDirec();
+        }
+
+      
     }
 
     /// <summary>

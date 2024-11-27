@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class StateAttack : ObjectState
@@ -11,30 +10,60 @@ public class StateAttack : ObjectState
     {
         base.Init(_objectController);
 
-        if (enemy != null)
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("AttackInit");
+        if (method != null)
         {
-            enemy.Anim.SetTrigger("IsAttack");
+            method.Invoke(enemy.EnemyAction, null);
+        }
+        else
+        {
+            if (enemy != null) enemy.Anim.SetTrigger("IsAttack");
         }
     }
 
     public override void Tick()
     {
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("AttackTick");
+        if (method != null)
+        {
+            method.Invoke(enemy.EnemyAction, null);
+        }
+        else
+        {
+            normalTick();
+        }
+    }
+
+    /// <summary>
+    /// 共通の処理
+    /// </summary>
+    private void normalTick()
+    {
         if (enemy != null)
         {
             enemy.AttackCollider.CanHit = true;
-            enemy.AttackCollider.DetectColliders(20, targetLayer, false);
-            Debug.Log("attackColliderManager");
+            enemy.AttackCollider.DetectColliders(enemy.EnemyStatus.StatusData.damage, targetLayer, false);
         }
 
-        // ダメージチェック
+        if (objStateHandler.CheckDeath()) return;
+
+        //ダメージチェック
         if (objStateHandler.CheckHit()) return;
 
-        // スキルへ遷移
+        //スキルへ遷移
         if (objStateHandler.CheckSkill()) return;
 
-        // アイドルへ遷移
-        if (objController.MovementInput.magnitude <= 0f /*&& !objController.IsAttacking*/)
+        //アイドルへ遷移
+        /*
+        if (objController.MovementInput.magnitude <= 0f && !objController.IsAttacking)
             objStateHandler.TransitionState(ObjectStateType.Idle);
+        */
+        if (enemy.AnimManager != null && enemy.AnimManager.IsAnimEnd)
+        {
+            objController.State.TransitionState(ObjectStateType.Idle);
+        }
     }
 
     public override void FixedTick()

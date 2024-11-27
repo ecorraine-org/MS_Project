@@ -2,14 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using TMPro;
+using Unity.VisualScripting;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private Vector3 center = Vector3.up;
-    [Tooltip("この範囲内に生成する")]
-    private float radius;
+    [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
+    private MissionType missionType = MissionType.None;
+    [Tooltip("ミッション詳細")]
+    private string missionDetail = "";
+    [Tooltip("キル数")]
+    private int killCount = 0;
 
-    [Header("生成するエネミーリスト")]
+    private Vector3 center = Vector3.up;
+
+    [SerializeField, Header("この範囲内に生成を始める"), Tooltip("この範囲内に生成を始める")]
+    private GameObject triggerArea;
+    private float triggerRadius;
+    [SerializeField, Header("この範囲内に生成する"), Tooltip("この範囲内に生成する")]
+    private GameObject spawnArea;
+    private float spawnRadius;
+
+    [Space(20), Header("-----生成するエネミー情報-----")]
     [Header("雑魚数"), Tooltip("生成する雑魚の最大数")]
     public int mobMaxCount = 0;
     [Header("雑魚種類"), Tooltip("生成する雑魚種類")]
@@ -22,28 +36,43 @@ public class EnemySpawner : MonoBehaviour
     public List<EnemyStatusData> elitePool;
     private int eliteCount = 0;
 
-    /*
-    [Space]
-    [Space]
-    [Header("敵合計数（合計２５匹まで）")]
-    public int totalEnemyCount = 0;
+    private bool hasSpawned;
+    private bool hasCleared;
+    private UIMissionController mission;
 
-    public List<GameObject> enemyPool;
-    private int maxPoolSize = 25;
-    */
     private Collector enemyCollector;
+
+    private void OnValidate()
+    {
+        center = this.transform.position + Vector3.up;
+        triggerRadius = triggerArea.GetComponent<SphereCollider>().radius;
+        spawnRadius = spawnArea.GetComponent<SphereCollider>().radius;
+    }
 
     private void Awake()
     {
-        radius = this.GetComponent<SphereCollider>().radius;
         center = this.transform.position + Vector3.up;
+        triggerRadius = triggerArea.GetComponent<SphereCollider>().radius;
+        spawnRadius = spawnArea.GetComponent<SphereCollider>().radius;
 
         enemyCollector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
+
+        mission = GameObject.FindGameObjectWithTag("Mission").gameObject.GetComponent<UIMissionController>();
     }
 
     private void Start()
     {
-        if (mobPool.Count <=0 && elitePool.Count <= 0)
+        hasSpawned = false;
+        hasCleared = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
+
+        if (hasSpawned) return;
+
+        if (mobPool.Count <= 0 && elitePool.Count <= 0)
         {
             CustomLogger.Log("配列が空のため、スポーンする敵がありません。");
             return;
@@ -65,6 +94,20 @@ public class EnemySpawner : MonoBehaviour
                 Spawn(elitePool[random], RandomizeWithinRadius());
             }
         }
+
+        hasSpawned = true;
+
+        if (mission)
+        {
+            CustomLogger.Log(this.gameObject.scene.name + "のスポナー起動");
+
+            mission.Spawner = this;
+            mission.MissionTitle.SetActive(true);
+            mission.MissionItem.SetActive(true);
+            string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
+            missionDetail = count;
+            missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+        }
     }
 
     private void Update()
@@ -73,17 +116,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void Spawn(EnemyStatusData _enemydata, Vector3 _position)
     {
-        /*
-        enemyPool = new ObjectPool<GameObject>(
-            OnCreatePoolObject,
-            (b) => { b.gameObject.SetActive(true); },
-            (b) => { b.gameObject.SetActive(false); },
-            (b) => { Destroy(b.gameObject); },
-            true,
-            totalEnemyCount,
-            maxPoolSize
-        );
-        */
         if (_enemydata == null || enemyCollector.totalEnemyCount >= enemyCollector.MaxPoolSize)
         {
             CustomLogger.Log("スポーンが失敗しました。");
@@ -104,7 +136,7 @@ public class EnemySpawner : MonoBehaviour
     public Vector3 RandomizeWithinRadius()
     {
         Vector3 randomDirection = Random.insideUnitSphere;
-        randomDirection *= Random.Range(0f, radius);
+        randomDirection *= Random.Range(0f, spawnRadius);
         randomDirection = randomDirection + center;
         randomDirection.y = center.y;
 
@@ -116,4 +148,16 @@ public class EnemySpawner : MonoBehaviour
     void Stop();
     void DespawnAll();
     */
+
+
+    #region Gizmos
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(center, triggerRadius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(center, spawnRadius);
+    }
+    #endregion
 }

@@ -29,7 +29,7 @@ public enum PlayerMode
 }
 
 /// <summary>
-/// プレイヤースキル 
+/// プレイヤースキル
 /// </summary>
 /// <remarks>
 /// モードと同じ順番で定義する必要がある
@@ -75,9 +75,9 @@ public enum WorldObjectType
 public enum EnemyRank
 {
     None,
-    [InspectorName("雑魚")] Normal,
-    [InspectorName("エリート")] Elite,
-    [InspectorName("ボス")] Boss,
+    [InspectorName("雑魚"), Tooltip("雑魚")] Normal,
+    [InspectorName("エリート"), Tooltip("エリート")] Elite,
+    [InspectorName("ボス"), Tooltip("ボス")] Boss,
 }
 
 /// <summary>
@@ -103,5 +103,18 @@ public enum CameraEffectType
     [InspectorName("フリーズ")] Freeze,
     [InspectorName("カット")] Cut,
     [InspectorName("フィルター")] Filter,
-    [InspectorName("ロール")] Roll
+    [InspectorName("ロール")] Roll,
+    [InspectorName("パン")] Pan,
+}
+
+/// <summary>
+/// ミッションタイプ
+/// </summary>
+public enum MissionType
+{
+    None,
+    [InspectorName("敵殲滅"), Tooltip("敵殲滅")] KillAll,
+    [InspectorName("ボス撃破"), Tooltip("ボス撃破")] KillBoss,
+    [InspectorName("道開き"), Tooltip("道開き")] OpenRoute,
+    [InspectorName("保護"), Tooltip("保護")] Protect
 }

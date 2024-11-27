@@ -12,6 +12,8 @@ public abstract class ObjectState : MonoBehaviour
     protected EnemyController enemy;
     protected EnemyAnimManager animHandler;
 
+    protected PlayerController player;
+
     /// <summary>
     /// ステートの初期化処理
     /// </summary>
@@ -28,6 +30,8 @@ public abstract class ObjectState : MonoBehaviour
             enemy = objController as EnemyController;
             objStatusHandler = enemy.EnemyStatus;
             animHandler = enemy.AnimManager;
+
+            player = enemy.PlayerController;
         }
     }
 

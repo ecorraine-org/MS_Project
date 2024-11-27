@@ -176,37 +176,29 @@ PrefabInstance:
       value: EnemySpawner
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
+      propertyPath: missionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: mobMaxCount
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
-      propertyPath: eliteMaxCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: mobPool.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
-      propertyPath: elitePool.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: 'mobPool.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 612a20def7926e347bb190f195c7af66, type: 2}
+      objectReference: {fileID: 11400000, guid: 942005179a949ce4c8a7912d2eddeaaa, type: 2}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: 'mobPool.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: b861a65bec402a54eb23324324542341, type: 2}
+      objectReference: {fileID: 11400000, guid: e82788ac0be165c4b9a6677232ef3097, type: 2}
     - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
       propertyPath: 'mobPool.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 612a20def7926e347bb190f195c7af66, type: 2}
-    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
-      propertyPath: 'elitePool.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 3402e0fff7f31a047b240c842b107bb4, type: 2}
+      objectReference: {fileID: 11400000, guid: b861a65bec402a54eb23324324542341, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -238,19 +230,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5190364550950882658, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 64.000015
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 5190364550950882658, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071062
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5190364550950882658, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5190364550950882658, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071075
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 5190364550950882658, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: m_LocalRotation.z
@@ -258,7 +250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5190364550950882658, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 5250949277603563902, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: m_Enabled
@@ -271,6 +263,10 @@ PrefabInstance:
     - target: {fileID: 5894469315383178433, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: 'sceneNames.Array.data[0]'
       value: Area001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6428927141983804722, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7051946783246900708, guid: 4f0bfad87ec7ef44a911bccb74e2d874, type: 3}
       propertyPath: m_LocalPosition.x

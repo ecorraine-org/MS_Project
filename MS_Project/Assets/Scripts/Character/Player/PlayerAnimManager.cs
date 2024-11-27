@@ -34,7 +34,7 @@ public class PlayerAnimManager : AnimManager
     public override void EnableCombo()
     {
         PlayerSkillManager skillManager = playerController.SkillManager;
-        skillManager.CanComboCancel=true;
+        skillManager.CanComboCancel = true;
         Debug.Log("EnableCombo");
     }
 
@@ -56,16 +56,16 @@ public class PlayerAnimManager : AnimManager
         skillManager.CanComboInput = true;
         Debug.Log("EnableComboInput");
     }
- 
+
 
     /// <summary>
     /// 攻撃可能設定
     /// </summary>
     public override void EnableHit()
     {
- 
+
         AttackColliderManagerV2 attackColliderV2 = playerController.AttackColliderV2;
-        attackColliderV2.SetHit(true);
+        attackColliderV2.StartHit();
 
     }
 
@@ -75,8 +75,17 @@ public class PlayerAnimManager : AnimManager
     public override void DisableHit()
     {
         AttackColliderManagerV2 attackColliderV2 = playerController.AttackColliderV2;
-        attackColliderV2.SetHit(false);
+        attackColliderV2.EndHit();
 
+    }
+
+    /// <summary>
+    /// 長押し
+    /// </summary>
+    public void StartCharge()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+        skillManager.CanCharge=true;
     }
 
     /// <summary>
@@ -89,7 +98,7 @@ public class PlayerAnimManager : AnimManager
         //方向、画像反転設定
         playerController.SetEightDirection();
        // skillManager.DashHandler.Begin(true, playerController.CurDirecVector);
-        skillManager.DashHandler.Begin(true, playerController.GetForward());
+        skillManager.DashHandler.Begin(playerController.GetForward());
         
 
         startTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime*

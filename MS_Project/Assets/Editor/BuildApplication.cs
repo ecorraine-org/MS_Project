@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 public static class CustomBuild
@@ -11,25 +12,26 @@ public static class CustomBuild
 
         return path + _scenename + fileext;
     }
-    
-    /* List of scenes to include in the build */
-    public static string[] scenes = {
+
+    [Tooltip("List of scenes to include in the build")]
+    public static string[] scenesToInclude = {
         Scene("Title"),
         Scene("StartScene01"),
         Scene("Area000"),
         Scene("Area001"),
-        Scene("Area002")
+        Scene("Area002"),
+        Scene("Area003"),
+        Scene("Area004"),
+        Scene("Result")
         };
-    
-    [MenuItem("Build/BuildApplication")]
+
+    [MenuItem("Build/CLI Build For Windows")]
     public static void BuildForWindows()
     {
-        Debug.Log("Starting Windows Build!");
-        BuildPipeline.BuildPlayer(
-            scenes,
-            "Build/Windows/MS_Project.exe",
-            BuildTarget.StandaloneWindows64,
-            BuildOptions.None
-        );
+        BuildPlayerOptions buildPlayerOptions = BuildPlayerWindow.DefaultBuildMethods.GetBuildPlayerOptions(new BuildPlayerOptions());
+        buildPlayerOptions.scenes = scenesToInclude;
+        buildPlayerOptions.locationPathName = "Build/Windows";
+        buildPlayerOptions.options = BuildOptions.CleanBuildCache;
+        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
     }
 }

@@ -11,6 +11,8 @@ public class PlayerSkillManager : MonoBehaviour
     // PlayerControllerの参照
     PlayerController playerController;
 
+    BattleManager battleManager;
+
     [SerializeField, Header("突進処理ビヘイビア")]
     DashHandler dash;
 
@@ -30,6 +32,9 @@ public class PlayerSkillManager : MonoBehaviour
 
     // 当たり判定可能かどうか
     bool canHit = false;
+
+    // 長押ししているか
+    bool canCharge = false;
 
     [SerializeField, Header("弾発射装置")]
     BulletLauncher bulletLauncher;
@@ -57,6 +62,7 @@ public class PlayerSkillManager : MonoBehaviour
 
         dash.Init(playerController);
 
+        battleManager = playerController.BattleManager;
     }
 
     /// <summary>
@@ -168,15 +174,28 @@ public class PlayerSkillManager : MonoBehaviour
         canComboCancel = false;
 
         canComboInput = false;
+
+        canCharge = false;
     }
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
     {
-        playerController.SpriteAnim.Play("WalkRight");
+        switch (playerController.CurrentDirec)
+        {
+            case Direction.Up:
+                playerController.SpriteAnim.Play("WalkUp", 0, 0f);
+                break;
+            default:
+                playerController.SpriteAnim.Play("Dash", 0, 0f);
+                break;
+        }
+
+      // playerController.SpriteAnim.Play("Dash", 0, 0f);
 
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Dodge].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Dodge].dashDuration;
+        dash.CanThrough = true;
 
         // 向きによるアニメーション設定(反転するかどうか)
         //playerController.SetEightDirection();
@@ -187,7 +206,9 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("Eat");
 
-        Debug.Log("Eat skill executed!");
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Eat].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Eat].stopDuration;
+
     }
 
     private void ExecuteSwordSkill()
@@ -195,10 +216,15 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("SwordSkill");
         playerController.SpriteRenderer.color = Color.red;
 
+        //ヒットストップ
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Sword].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Sword].stopDuration;
+
+
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Sword].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Sword].dashDuration;
-
+        dash.CanThrough = false;
     }
 
     /// <summary>
@@ -214,8 +240,14 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("HammerSkill");
         playerController.SpriteRenderer.color = Color.red;
 
+        //ヒットストップ
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Hammer].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Hammer].stopDuration;
+
+
         dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
+        dash.CanThrough = false;
     }
 
     public void ExecuteHammerSkillCharge()
@@ -244,9 +276,15 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("SpearSkill");
         playerController.SpriteRenderer.color = Color.red;
 
+        //ヒットストップ
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Spear].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Spear].stopDuration;
+
+
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Spear].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Spear].dashDuration;
+        dash.CanThrough = true;
     }
 
     private void ExecuteGauntletSkill()
@@ -254,8 +292,14 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("GauntletSkill");
         playerController.SpriteRenderer.color = Color.red;
 
+        //ヒットストップ
+        battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Gauntlet].slowSpeed;
+        battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Gauntlet].stopDuration;
+
+
         dash.Speed = skillData.dicSkill[PlayerSkill.Gauntlet].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Gauntlet].dashDuration;
+        dash.CanThrough = false;
     }
 
 
@@ -327,6 +371,12 @@ public class PlayerSkillManager : MonoBehaviour
     {
         get => this.canComboCancel;
          set { this.canComboCancel = value; }
+    }
+
+    public bool CanCharge
+    {
+        get => this.canCharge;
+        set { this.canCharge = value; }
     }
 
     public bool CanComboInput

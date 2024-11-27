@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Chicken_Walk
   m_EditorClassIdentifier: 
   wordToUse: "\u30DA\u30BF\u30DA\u30BF"
+  fontAsset: {fileID: 11400000, guid: 40ebecea6a7fb6b4e9bfeb174c259461, type: 2}
+  fontColor:
+    serializedVersion: 2
+    rgba: 4278190080
   type: 5
   damageBuff: 0
   speedBuff: 0
-  healBuff: 0
+  healBuff: 10

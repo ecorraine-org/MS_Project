@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7069412977000834251}
     m_Modifications:
+    - target: {fileID: 1944383248623149530, guid: f9f621ef900f32a479a5b45e928285c2, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 6915189759573392699}
     - target: {fileID: 8331508105838115261, guid: f9f621ef900f32a479a5b45e928285c2, type: 3}
       propertyPath: m_Name
       value: Diabolos
@@ -60,6 +64,11 @@ PrefabInstance:
 --- !u!4 &6337066125941653419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8706767419704926983, guid: f9f621ef900f32a479a5b45e928285c2, type: 3}
+  m_PrefabInstance: {fileID: 3397243292811615404}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6915189759573392699 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8129805142944326039, guid: f9f621ef900f32a479a5b45e928285c2, type: 3}
   m_PrefabInstance: {fileID: 3397243292811615404}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7909613762121016304

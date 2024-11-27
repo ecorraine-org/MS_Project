@@ -14,20 +14,38 @@ public class StateIdle : ObjectState
 
     public override void Tick()
     {
-        // ダメージチェック
+        if (objStateHandler.CheckDeath()) return;
+
+        //ダメージチェック
         if (objStateHandler.CheckHit()) return;
 
-        // 攻撃へ遷移
-        if (objStateHandler.CheckAttack()) return;
-
-        // スキルへ遷移
+        //スキルへ遷移
         if (objStateHandler.CheckSkill()) return;
 
-        // 移動へ遷移
+        //移動へ遷移
+        /*
         if (objController.MovementInput.magnitude > 0.1f)
         {
             objController.State.TransitionState(ObjectStateType.Walk);
         };
+        */
+        float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
+        if (distanceToPlayer <= objStatusHandler.StatusData.chaseDistance)
+        {
+            objController.State.TransitionState(ObjectStateType.Walk);
+            return;
+        }
+
+        //攻撃へ遷移
+        //if (objStateHandler.CheckAttack()) return;
+        if (distanceToPlayer <= objStatusHandler.StatusData.attackDistance && enemy.AllowAttack)
+        {
+            //クールダウン
+            enemy.StartAttackCoroutine();
+
+            objController.State.TransitionState(ObjectStateType.Attack);
+            return;
+        }
     }
 
     public override void FixedTick()

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 全オブジェクトの基底クラス
 /// </summary>
-public abstract class WorldObject : MonoBehaviour, IHit, IAttack
+public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
 {
     [HideInInspector, Tooltip("生成するオノマトペオブジェクト")]
     protected GameObject onomatoObj;
@@ -14,6 +14,11 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack
     {
         onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItem");
     }
+
+    /// <summary>
+    /// 空振り処理
+    /// </summary>
+    public virtual void Miss() { }
 
     public virtual void Hit(bool _canOneHitKill) { }
 
@@ -37,6 +42,10 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack
 
     public virtual Rigidbody RigidBody { get => null; }
 
+    /// <summary>
+    /// オノマトペ生成
+    /// </summary>
+    /// <param name="_onomatopoeiaData">オノマトペデータ</param>
     public void GenerateOnomatopoeia(OnomatopoeiaData _onomatopoeiaData)
     {
         GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;

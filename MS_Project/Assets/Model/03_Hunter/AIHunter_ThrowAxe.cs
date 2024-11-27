@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AIHunter_ThrowAxe : EnemyAction
+public class AIHunter_ThrowAxe : MonoBehaviour
 {
     public GameObject axePrefab; // 投げるプレハブ
     public Transform spawnPoint; // プレハブの生成位置
@@ -22,15 +22,15 @@ public class AIHunter_ThrowAxe : EnemyAction
         }
     }
 
-    #region オノマトペ情報
-    private void HunterWalkData()
-    {
-        GenerateWalkOnomatopoeia();
-    }
+    //#region オノマトペ情報
+    //private void HunterWalkData()
+    //{
+    //    GenerateWalkOnomatopoeia();
+    //}
 
-    private void HunterAttackData()
-    {
-        GenerateAttackOnomatopoeia();
-    }
-    #endregion
+    //private void HunterAttackData()
+    //{
+    //    GenerateAttackOnomatopoeia();
+    //}
+    //#endregion
 }

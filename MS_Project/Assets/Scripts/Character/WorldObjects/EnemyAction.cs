@@ -10,15 +10,20 @@ public abstract class EnemyAction : MonoBehaviour
 {
     protected EnemyController enemy;
     protected EnemyStatusHandler enemyStatus;
+    protected ObjectStateHandler stateHandler;
+    protected Animator animator;
 
     protected Transform player;
     protected float distanceToPlayer;
 
     protected GameObject collector;
 
-    private void Awake()
+    public void Init(EnemyController _enemy)
     {
         enemy = GetComponentInParent<EnemyController>();
+        enemyStatus = enemy.EnemyStatus;
+        stateHandler = enemy.State;
+        animator = enemy.Anim;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
@@ -31,7 +36,7 @@ public abstract class EnemyAction : MonoBehaviour
 
     public virtual void Chase()
     {
-        if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
+        if (distanceToPlayer <= enemyStatus.StatusData.chaseDistance)
         {
             Vector3 direction = player.position - enemy.transform.position;
             // 進む方向に向く
@@ -39,7 +44,7 @@ public abstract class EnemyAction : MonoBehaviour
             forwardRotation.x = 0f;
             enemy.transform.rotation = forwardRotation;
 
-            if (distanceToPlayer <= EnemyStatus.StatusData.attackDistance)
+            if (distanceToPlayer <= enemyStatus.StatusData.attackDistance)
             {
                 enemy.AllowAttack = true;
                 enemy.OnMovementInput?.Invoke(Vector3.zero);
@@ -79,12 +84,12 @@ public abstract class EnemyAction : MonoBehaviour
 
     protected void GenerateAttackOnomatopoeia()
     {
-        enemy.GenerateOnomatopoeia(EnemyStatus.StatusData.onomatoAttack);
+        enemy.GenerateOnomatopoeia(enemy.EnemyStatus.StatusData.onomatoAttack);
     }
 
     protected void GenerateWalkOnomatopoeia()
     {
-        enemy.GenerateOnomatopoeia(EnemyStatus.StatusData.onomatoWalk);
+        enemy.GenerateOnomatopoeia(enemy.EnemyStatus.StatusData.onomatoWalk);
     }
 
     public EnemyController Enemy

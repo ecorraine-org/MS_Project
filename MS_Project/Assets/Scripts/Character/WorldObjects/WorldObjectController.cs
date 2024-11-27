@@ -13,6 +13,8 @@ public abstract class WorldObjectController : WorldObject
     [HideInInspector]
     protected Transform player;
 
+    protected PlayerController playerController;
+
     [ReadOnly, Tooltip("生成されたオブジェクト")]
     public GameObject gameObj;
 
@@ -20,7 +22,7 @@ public abstract class WorldObjectController : WorldObject
     protected WorldObjectType type;
 
     [HideInInspector, Tooltip("ステートマネージャー")]
-    ObjectStateHandler objState;
+    protected ObjectStateHandler objState;
 
     [HideInInspector, Tooltip("エフェクトマネージャー")]
     EffectHandler effectHandler;
@@ -33,7 +35,7 @@ public abstract class WorldObjectController : WorldObject
     private bool isInvincible = false;
 
     [SerializeField, Tooltip("攻撃できるかどうか？")]
-    private bool allowAttack = false;
+    protected bool allowAttack = true;
 
     [SerializeField, Tooltip("攻撃しているか？")]
     private bool isAttacking = false;
@@ -42,7 +44,7 @@ public abstract class WorldObjectController : WorldObject
     private bool usingSkill = false;
 
     [SerializeField, Tooltip("攻撃されているか？")]
-    private bool isDamaged = false;
+    protected bool isDamaged = false;
 
     [Header("イベント")]
     public UnityEvent OnDamaged;
@@ -55,6 +57,7 @@ public abstract class WorldObjectController : WorldObject
     public override void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         rigidBody = this.GetComponent<Rigidbody>();
 
         base.Awake();
@@ -113,6 +116,12 @@ public abstract class WorldObjectController : WorldObject
     {
         get => attackColliderManager;
         set { attackColliderManager = value; }
+    }
+
+    public PlayerController PlayerController
+    {
+        get => playerController;
+      //  set { playerController = value; }
     }
 
     #endregion

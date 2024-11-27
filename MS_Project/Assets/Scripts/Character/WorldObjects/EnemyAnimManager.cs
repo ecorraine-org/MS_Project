@@ -17,12 +17,21 @@ public class EnemyAnimManager : AnimManager
     /// <summary>
     /// 攻撃可能設定
     /// </summary>
-    public override void EnableHit() { }
+    public override void EnableHit() 
+    {
+        AttackColliderManagerV2 attackColliderV2 = enemy.AttackCollider;
+        attackColliderV2.StartHit();
+    }
 
     /// <summary>
     /// 攻撃不可設定
     /// </summary>
-    public override void DisableHit() { }
+    public override void DisableHit()
+    {
+        AttackColliderManagerV2 attackColliderV2 = enemy.AttackCollider;
+        attackColliderV2.EndHit();
+
+    }
 
     /// <summary>
     /// 連撃フレーム

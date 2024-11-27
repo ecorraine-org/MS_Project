@@ -8,12 +8,12 @@ using UnityEngine;
 /// </summary>
 public enum ObjectStateType
 {
-    [InspectorName("待機")] Idle,
-    [InspectorName("移動")] Walk,
-    [InspectorName("攻撃")] Attack,
-    [InspectorName("スキル")] Skill,
-    [InspectorName("被ダメージ")] Damaged,
-    [InspectorName("破棄")] Destroyed,
+    [InspectorName("待機"), Tooltip("待機")] Idle,
+    [InspectorName("移動"), Tooltip("移動")] Walk,
+    [InspectorName("攻撃"), Tooltip("攻撃")] Attack,
+    [InspectorName("スキル"), Tooltip("スキル")] Skill,
+    [InspectorName("被ダメージ"), Tooltip("被ダメージ")] Damaged,
+    [InspectorName("破棄"), Tooltip("破棄")] Destroyed,
 }
 
 /// <summary>
@@ -45,25 +45,30 @@ public class ObjectStateHandler : MonoBehaviour
     [SerializeField, Header("破壊状態ビヘイビア")]
     StateDestroyed destroyedState;
 
-    // 今のステート種類
+    [Tooltip("今のステート種類")]
     ObjectStateType currentStateType;
 
-    // 前のステート種類
+    [Tooltip("前のステート種類")]
     ObjectStateType preStateType;
 
-    // 辞書<キー：ステート種類、値：ステート>
+    //辞書<キー：ステート種類、値：ステート>
     Dictionary<ObjectStateType, ObjectState> dicStates;
 
-    // ObjectControllerの参照
+    [Tooltip("ObjectControllerの参照")]
     WorldObjectController objController;
+
+    EnemyController enemy;
 
     public void Init(WorldObjectController _objectController)
     {
         objController = _objectController;
 
+        if (objController.Type == WorldObjectType.Enemy)
+            enemy = objController as EnemyController;
+
         dicStates = new Dictionary<ObjectStateType, ObjectState>();
 
-        // 要素追加
+        //要素追加
         dicStates.Add(ObjectStateType.Idle, idleState);
         dicStates.Add(ObjectStateType.Walk, walkState);
         dicStates.Add(ObjectStateType.Attack, attackState);
@@ -71,7 +76,7 @@ public class ObjectStateHandler : MonoBehaviour
         dicStates.Add(ObjectStateType.Damaged, damagedState);
         dicStates.Add(ObjectStateType.Destroyed, destroyedState);
 
-        // 初期状態設定
+        //初期状態設定
         TransitionState(initStateType);
     }
 
@@ -79,7 +84,7 @@ public class ObjectStateHandler : MonoBehaviour
     {
         if (currentState == null) return;
 
-        // ステート更新
+        //ステート更新
         currentState.Tick();
     }
 
@@ -87,11 +92,13 @@ public class ObjectStateHandler : MonoBehaviour
     {
         if (currentState == null) return;
 
-        // ステート更新
+        //ステート更新
         currentState.FixedTick();
     }
 
-    // 状態遷移
+    /// <summary>
+    /// 状態遷移
+    /// </summary>
     public void TransitionState(ObjectStateType _type)
     {
         if (dicStates[_type] == null)
@@ -100,32 +107,36 @@ public class ObjectStateHandler : MonoBehaviour
             return;
         }
 
-        // 終了処理
+        //終了処理
         if (currentState != null)
         {
             currentState.Exit();
         }
 
-        // 前の状態を保存する
+        //前の状態を保存する
         preStateType = currentStateType;
 
-        // ステート更新
+        //ステート更新
         currentState = dicStates[_type];
         currentStateType = _type;
 
-        // 状態リセット処理
+        //状態リセット処理
         ResetState();
 
-        // 初期化
+        //初期化
         currentState.Init(objController);
     }
 
-    /// </summary>
+    /// <summary>
     /// 状態リセット処理
     /// </summary>
     private void ResetState()
     {
         objController.AttackCollider.Reset();
+
+        enemy.AnimManager.Reset();
+
+        enemy.SkillManager.Reset();
     }
 
     /// <summary>
@@ -135,7 +146,7 @@ public class ObjectStateHandler : MonoBehaviour
     {
         if (CheckHit()) return true;
 
-        // 何の条件も満たさない
+        //何の条件も満たさない
         return false;
     }
 
@@ -177,6 +188,8 @@ public class ObjectStateHandler : MonoBehaviour
     {
         if (objController.IsDamaged)
         {
+            objController.IsDamaged = false;
+
             TransitionState(ObjectStateType.Damaged);
 
             return true;

@@ -41,6 +41,7 @@ public class SSMController : StateMachineBehaviour
     {
         mainController = animator.gameObject.GetComponentInParent<EnemyController>();
         mainController.IsAttacking = true;
+
     }
 
     // OnStateMachineExit is called when exiting a state machine via its Exit Node
@@ -48,6 +49,7 @@ public class SSMController : StateMachineBehaviour
     {
         mainController = animator.gameObject.GetComponentInParent<EnemyController>();
         mainController.IsAttacking = false;
+        mainController.AnimManager.EndAnim();
 
         CustomLogger.Log(animator + " Has Exited");
     }

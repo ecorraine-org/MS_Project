@@ -12,6 +12,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chicken
       objectReference: {fileID: 0}
+    - target: {fileID: 517495722665046192, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1321830107619093095}
+    - target: {fileID: 517495722665046192, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
+      propertyPath: soundEffects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 517495722665046192, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
+      propertyPath: 'soundEffects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 5695d3b260d347a4bb635a5539b8a9fe, type: 3}
+    - target: {fileID: 517495722665046192, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
+      propertyPath: 'soundEffects.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: cc9f6f6c3ff63654d8bf78963b46533a, type: 3}
+    - target: {fileID: 517495722665046192, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
+      propertyPath: 'soundEffects.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: b925aecb30747e941ade2103bf1e9f0e, type: 3}
     - target: {fileID: 823636910253614152, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -57,6 +77,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
+--- !u!82 &1321830107619093095 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6321278995086451146, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
+  m_PrefabInstance: {fileID: 5035486985306327981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1511567975303490050 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5844422908119310767, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
+  m_PrefabInstance: {fileID: 5035486985306327981}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd368a3627bba24792a98a80a0ae60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5660886038887296997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 823636910253614152, guid: ce800d47f07ad364b9947f7796897f58, type: 3}
@@ -70,6 +106,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4298313089435234479, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
+      propertyPath: hitCollider
+      value: 
+      objectReference: {fileID: 1511567975303490050}
     - target: {fileID: 410899465779312302, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
       propertyPath: m_Name
       value: ChickenV2
@@ -146,7 +186,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4660435845647034214, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1143648682989078331, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}

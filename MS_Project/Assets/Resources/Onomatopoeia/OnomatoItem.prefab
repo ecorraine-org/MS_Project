@@ -158,7 +158,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 4
   m_fontSizeMax: 8
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -212,13 +212,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objOnomatopoeia: {fileID: 0}
-  onomatopoeiaName: "\u30B0\u30B5\u30C3"
+  onomatopoeiaName: "\u30B7\u30E5\u30C3"
   isAlive: 1
   fLifetime: 5
   emissionDirection: {x: 0, y: 1, z: 0}
   fStartSpeed: 5
   fStopDistance: 3
-  data: {fileID: 11400000, guid: edf6d2473c040c64384dacf4a34215a7, type: 2}
+  data: {fileID: 11400000, guid: d674ac612312ff84e81d4690a44f3c44, type: 2}
 --- !u!114 &6588497362819437872
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -180,7 +180,7 @@ public class PlayerStateManager : MonoBehaviour
         //ボタン入力
         bool isDashTrigger = playerController.InputManager.GetDashTrigger();
         //回避中は再度回避できないようにする
-        if (isDashTrigger && !playerController.SkillManager.IsDashing)
+        if (isDashTrigger && playerController.StateManager.CurrentStateType!= StateType.Dodge)
         {
             TransitionState(StateType.Dodge);
             return true;

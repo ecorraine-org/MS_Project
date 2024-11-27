@@ -8,7 +8,14 @@ public class HitCollider : MonoBehaviour
     [SerializeField, Header("コライダーリスト")]
     private List<Collider> collidersList = new List<Collider>();
 
- 
+
+    private void Update()
+    {
+        // ヌルチェック
+        //仮処理、コストが高くなるかも
+        collidersList.RemoveAll(item => item == null);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // 破壊されたオブジェクトをリストから削除
@@ -32,6 +39,12 @@ public class HitCollider : MonoBehaviour
             collidersList.Remove(other);
         }
 
+        //選ばれているときの選択解除処理
+        var select = other.GetComponentInChildren<ISelected>();
+        if (select != null)
+        {
+            select.UnSelected();
+        }
     }
 
 

@@ -175,6 +175,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
+      propertyPath: missionType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
+      propertyPath: mobMaxCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
+      propertyPath: mobPool.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
+      propertyPath: 'mobPool.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 99a73b4b6690c4142bfb56fdb048b938, type: 2}
+    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
+      propertyPath: 'mobPool.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b861a65bec402a54eb23324324542341, type: 2}
+    - target: {fileID: 8909902654584031655, guid: 06f8887ef07cf0841bd5d8424a1731d4, type: 3}
+      propertyPath: 'mobPool.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b861a65bec402a54eb23324324542341, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -194,11 +218,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5446539521281813650, guid: 2e9b352d9c9ccb340bfe794a4f4039ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -102.5
+      value: -140.5
       objectReference: {fileID: 0}
     - target: {fileID: 5446539521281813650, guid: 2e9b352d9c9ccb340bfe794a4f4039ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5446539521281813650, guid: 2e9b352d9c9ccb340bfe794a4f4039ba, type: 3}
       propertyPath: m_LocalPosition.z
