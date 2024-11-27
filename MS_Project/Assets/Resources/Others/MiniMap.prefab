@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8936000464048026713}
   - component: {fileID: 1290028574809809476}
   - component: {fileID: 228434768923742262}
-  - component: {fileID: 7031048323173819654}
+  - component: {fileID: 4800044895207595627}
   m_Layer: 0
   m_Name: MiniMap
   m_TagString: Untagged
@@ -75,7 +75,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 1024
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 10d20d1400a08d64286b991b4b54e5e6, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -93,7 +93,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7847572424513675136}
   m_Enabled: 1
---- !u!114 &7031048323173819654
+--- !u!114 &4800044895207595627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +102,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7847572424513675136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73921b4c43410d646b7d12c3197a49ab, type: 3}
+  m_Script: {fileID: 11500000, guid: f142c80b1f8f8694480bdd66065022fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimapMaterial: {fileID: 2100000, guid: b6b752d2ec27b874291d1bb301c88dab, type: 2}
+  _player: {fileID: 0}
+  _offset: {x: 0, y: 10, z: 0}
+  _minimapMaterial: {fileID: 2100000, guid: 1b4fe0b193d960645836ebcc5f8df5b3, type: 2}

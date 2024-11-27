@@ -12,25 +12,26 @@ public static class CustomBuild
 
         return path + _scenename + fileext;
     }
-    
-    /* List of scenes to include in the build */
-    public static string[] scenes = {
-        };
-    
-    [MenuItem("Build/CLI Build For Windows")]
-    public static void BuildForWindows()
-    {
-        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] {
+
+    [Tooltip("List of scenes to include in the build")]
+    public static string[] scenesToInclude = {
         Scene("Title"),
         Scene("StartScene01"),
         Scene("Area000"),
         Scene("Area001"),
-        Scene("Area002")
+        Scene("Area002"),
+        Scene("Area003"),
+        Scene("Area004"),
+        Scene("Result")
         };
 
+    [MenuItem("Build/CLI Build For Windows")]
+    public static void BuildForWindows()
+    {
+        BuildPlayerOptions buildPlayerOptions = BuildPlayerWindow.DefaultBuildMethods.GetBuildPlayerOptions(new BuildPlayerOptions());
+        buildPlayerOptions.scenes = scenesToInclude;
         buildPlayerOptions.locationPathName = "Build/Windows";
-        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
         buildPlayerOptions.options = BuildOptions.CleanBuildCache;
+        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
     }
 }
