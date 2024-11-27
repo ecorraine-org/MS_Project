@@ -30,8 +30,21 @@ public static class CustomBuild
     {
         BuildPlayerOptions buildPlayerOptions = BuildPlayerWindow.DefaultBuildMethods.GetBuildPlayerOptions(new BuildPlayerOptions());
         buildPlayerOptions.scenes = scenesToInclude;
-        buildPlayerOptions.locationPathName = "Build/Windows";
+        buildPlayerOptions.locationPathName = "Build/Windows/MS_Project.exe";
         buildPlayerOptions.options = BuildOptions.CleanBuildCache;
         buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
+
+        BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
+        BuildSummary summary = report.summary;
+
+        if (summary.result == BuildResult.Succeeded)
+        {
+            Debug.Log("<color=#00ffff>Build succeeded: " + summary.totalSize + " bytes</color>");
+        }
+
+        if (summary.result == BuildResult.Failed)
+        {
+            Debug.Log("<color=#ff0000>Build failed.</color>");
+        }
     }
 }
