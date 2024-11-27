@@ -48,6 +48,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2036091044294911610, guid: 505d3b4ef3b8e8f4db27034251234a57, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036091044294911610, guid: 505d3b4ef3b8e8f4db27034251234a57, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522072782176794288, guid: 505d3b4ef3b8e8f4db27034251234a57, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522072782176794288, guid: 505d3b4ef3b8e8f4db27034251234a57, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 8839660484725920388, guid: 505d3b4ef3b8e8f4db27034251234a57, type: 3}
       propertyPath: m_Name
       value: EnemyAttackCollider

@@ -8,7 +8,7 @@ public class PlayerSkillState : PlayerState
     HitCollider hitCollider;
 
     private bool isHammerSkillExecuting = false;
-    //攻撃test
+    [Tooltip("攻撃test")]
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     UnityEngine.Vector3 defaultAttackSize;
     UnityEngine.Vector3 attackAreaPos;
@@ -19,13 +19,15 @@ public class PlayerSkillState : PlayerState
 
     enum SkillState
     {
-        //ノーマルスキル
+        [InspectorName("ノーマルスキル"), Tooltip("ノーマルスキル")]
         Normal,
-
-        //長押しスキル
+        [InspectorName("長押しスキル"), Tooltip("長押しスキル")]
         Charge,
-        ExecuteInit,//初期化
+        [InspectorName("初期化"), Tooltip("初期化")]
+        ExecuteInit,
+        [InspectorName("実行"), Tooltip("実行")]
         Execute,
+        [InspectorName("終了"), Tooltip("終了")]
         Finish,
 
     }
@@ -55,8 +57,6 @@ public class PlayerSkillState : PlayerState
         {
             skillState = SkillState.Normal;
         }
-
-
     }
 
     public override void Tick()
@@ -86,8 +86,8 @@ public class PlayerSkillState : PlayerState
 
                 break;
 
-            case SkillState.Charge:
 
+            case SkillState.Charge:
                 //長押しチェック
                 if (inputManager.GetSkillPressed())
                 {
@@ -95,7 +95,7 @@ public class PlayerSkillState : PlayerState
 
                     //今後秒ごとに変化する
                     statusManager.TakeDamage(0.05f);
-                    //  attackSize *= 1.01f;
+                    //attackSize *= 1.01f;
                     hitCollider.transform.localScale *= 1.01f;
 
                     return;
@@ -105,19 +105,19 @@ public class PlayerSkillState : PlayerState
                 {
                     skillState = SkillState.ExecuteInit;
                 }
-
-
                 break;
+
+
             case SkillState.ExecuteInit:
 
                 playerSkillManager.ExecuteSkillChargeFinished((PlayerSkill)playerModeManager.Mode);
                 skillState = SkillState.Execute;
 
                 break;
+
+
             case SkillState.Execute:
-
                 Attack();
-
 
                 if (animManager.IsAnimEnd)
                 {
@@ -125,20 +125,19 @@ public class PlayerSkillState : PlayerState
                 }
 
                 break;
-            case SkillState.Finish:
 
+
+            case SkillState.Finish:
                 //アニメーション終了、アイドルへ遷移
                 playerController.StateManager.TransitionState(StateType.Idle);
 
-
                 break;
+
+
             default:
                 break;
         }
-
     }
-
-
 
     public override void FixedTick()
     {
@@ -152,10 +151,7 @@ public class PlayerSkillState : PlayerState
             Vector2 inputDirec = inputManager.GetMoveDirec();
 
             rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
-
         }
-
-
     }
 
     public override void Exit()
@@ -184,108 +180,111 @@ public class PlayerSkillState : PlayerState
 
     }
 
+    /*
     /// <summary>
     /// 描画test
     /// </summary>
-    //private void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawWireCube(attackAreaPos, attackSize);
-    //}
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(attackAreaPos, attackSize);
+    }
+    */
 
-    #region //引き寄せる
+    #region 引き寄せる
+    /*
+    private void AttractEnemiesToPlayer()
+    {
 
-    //private void AttractEnemiesToPlayer()
-    //{
-
-    //    float attractRadius = 200f;
-    //    float distanceBetweenEnemies = 1f; 
-
-
-    //    Collider[] enemies = Physics.OverlapSphere(transform.position, attractRadius, LayerMask.GetMask("Enemy"));
-    //    List<Transform> enemyTransforms = new List<Transform>();
-
-    //    foreach (Collider enemy in enemies)
-    //    {
-    //        enemyTransforms.Add(enemy.transform);
-    //    }
+        float attractRadius = 200f;
+        float distanceBetweenEnemies = 1f;
 
 
-    //    Vector3 targetCenter = transform.position + transform.forward * 2f;
-    //    float angleStep = 360f / enemyTransforms.Count; 
+        Collider[] enemies = Physics.OverlapSphere(transform.position, attractRadius, LayerMask.GetMask("Enemy"));
+        List<Transform> enemyTransforms = new List<Transform>();
 
-    //    for (int i = 0; i < enemyTransforms.Count; i++)
-    //    {
-
-    //        float angle = i * angleStep;
-    //        Vector3 targetPosition = targetCenter + Quaternion.Euler(0, angle, 0) * Vector3.forward * distanceBetweenEnemies;
-
-    //        StartCoroutine(MoveEnemyToTarget(enemyTransforms[i], targetPosition));
-    //    }
-    //}
-
-    //private void AttractEnemiesToPlayer()
-    //{
-    //    float attractRadius = 20f; 
+        foreach (Collider enemy in enemies)
+        {
+            enemyTransforms.Add(enemy.transform);
+        }
 
 
-    //    Collider[] enemies = Physics.OverlapSphere(transform.position, attractRadius, LayerMask.GetMask("Enemy"));
+        Vector3 targetCenter = transform.position + transform.forward * 2f;
+        float angleStep = 360f / enemyTransforms.Count;
 
-    //    foreach (Collider enemy in enemies)
-    //    {
+        for (int i = 0; i < enemyTransforms.Count; i++)
+        {
 
-    //        Vector3 enemyPosition = enemy.transform.position;
+            float angle = i * angleStep;
+            Vector3 targetPosition = targetCenter + Quaternion.Euler(0, angle, 0) * Vector3.forward * distanceBetweenEnemies;
+
+            StartCoroutine(MoveEnemyToTarget(enemyTransforms[i], targetPosition));
+        }
+    }
+
+    private void AttractEnemiesToPlayer()
+    {
+        float attractRadius = 20f;
 
 
-    //        Vector3 targetPosition = transform.position + playerController.CurDirecVector * 2f; 
+        Collider[] enemies = Physics.OverlapSphere(transform.position, attractRadius, LayerMask.GetMask("Enemy"));
+
+        foreach (Collider enemy in enemies)
+        {
+
+            Vector3 enemyPosition = enemy.transform.position;
 
 
-    //        StartCoroutine(MoveEnemyToTarget(enemy.transform, targetPosition));
-    //    }
-    //}
+            Vector3 targetPosition = transform.position + playerController.CurDirecVector * 2f;
 
-    //private IEnumerator MoveEnemyToTarget(Transform enemy, Vector3 targetPosition)
-    //{
-    //    float duration = 2.0f; 
-    //    float elapsed = 0f;
 
-    //    Vector3 startingPosition = enemy.position;
+            StartCoroutine(MoveEnemyToTarget(enemy.transform, targetPosition));
+        }
+    }
 
-    //    while (elapsed < duration)
-    //    {
-    //        elapsed += Time.deltaTime;
-    //        float t = elapsed / duration;
+    private IEnumerator MoveEnemyToTarget(Transform enemy, Vector3 targetPosition)
+    {
+        float duration = 2.0f;
+        float elapsed = 0f;
 
-    //        enemy.position = Vector3.Lerp(startingPosition, targetPosition, t);
-    //        yield return null;
-    //    }
+        Vector3 startingPosition = enemy.position;
 
-    //    enemy.position = targetPosition;
-    //}
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
 
+            enemy.position = Vector3.Lerp(startingPosition, targetPosition, t);
+            yield return null;
+        }
+
+        enemy.position = targetPosition;
+    }
+    */
     #endregion
-
 }
 
-#region //念のためswitch処理を残す
-//switch (playerModeManager.Mode)
-//{
-//    case PlayerMode.None:
-//        playerController.SkillManager.UseSkill(PlayerSkill.Sword);
-//        break;
-//    case PlayerMode.Sword:
-//        playerController.SkillManager.UseSkill(PlayerSkill.Sword);
-//        break;
-//    case PlayerMode.Hammer:
-//        playerController.SkillManager.UseSkill(PlayerSkill.Hammer);
-//        break;
-//    case PlayerMode.Spear:
-//        playerController.SkillManager.UseSkill(PlayerSkill.Spear);
-//        break;
-//    case PlayerMode.Gauntlet:
-//        playerController.SkillManager.UseSkill(PlayerSkill.Gauntlet);
-//        break;
-//    default:
-//        break;
-//}
+#region 念のためswitch処理を残す
+/*
+    switch (playerModeManager.Mode)
+    {
+        case PlayerMode.None:
+            playerController.SkillManager.UseSkill(PlayerSkill.Sword);
+            break;
+        case PlayerMode.Sword:
+            playerController.SkillManager.UseSkill(PlayerSkill.Sword);
+            break;
+        case PlayerMode.Hammer:
+            playerController.SkillManager.UseSkill(PlayerSkill.Hammer);
+            break;
+        case PlayerMode.Spear:
+            playerController.SkillManager.UseSkill(PlayerSkill.Spear);
+            break;
+        case PlayerMode.Gauntlet:
+            playerController.SkillManager.UseSkill(PlayerSkill.Gauntlet);
+            break;
+        default:
+            break;
+    }
+*/
 #endregion

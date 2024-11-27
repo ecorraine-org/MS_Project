@@ -195,7 +195,7 @@ public class HunterAction : EnemyAction
         enemy.transform.rotation = forwardRotation;
     }
 
-    #region オノマトペ情報
+    #region オノマトペ生成情報
     private void HunterWalkData()
     {
         GenerateWalkOnomatopoeia();
