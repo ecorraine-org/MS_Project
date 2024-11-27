@@ -6,14 +6,14 @@ using UnityEditor;
 #endif
 
 /// <summary>
-/// ƒ~ƒjƒ}ƒbƒvì¬—pƒJƒƒ‰B
-/// Player‚É’Ç]‚µ‚È‚ª‚çƒ~ƒjƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ‚ğ•`‰æ‚µ‚Ü‚·B
+/// ãƒŸãƒ‹ãƒãƒƒãƒ—ä½œæˆç”¨ã‚«ãƒ¡ãƒ©ã€‚
+/// Playerã«è¿½å¾“ã—ãªãŒã‚‰ãƒŸãƒ‹ãƒãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æç”»ã—ã¾ã™ã€‚
 /// </summary>
 [ExecuteInEditMode]
 public class MinimapCamera : MonoBehaviour
 {
     /// <summary>
-    /// ©•ª‚ÌƒJƒƒ‰‚ğæ“¾‚·‚é
+    /// è‡ªåˆ†ã®ã‚«ãƒ¡ãƒ©ã‚’å–å¾—ã™ã‚‹
     /// </summary>
     public Camera myCamera
     {
@@ -27,13 +27,13 @@ public class MinimapCamera : MonoBehaviour
         }
     }
 
-    [SerializeField, Tooltip("’Ç]‘ÎÛ‚ÌPlayerƒIƒuƒWƒFƒNƒg")]
+    [SerializeField, Tooltip("è¿½å¾“å¯¾è±¡ã®Playerã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     private Transform _player;
 
-    [SerializeField, Tooltip("ƒJƒƒ‰‚ÆPlayer‚ÌƒIƒtƒZƒbƒg")]
+    [SerializeField, Tooltip("ã‚«ãƒ¡ãƒ©ã¨Playerã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ")]
     private Vector3 _offset = new Vector3(0, 10, 0);
 
-    [SerializeField, Tooltip("ƒ~ƒjƒ}ƒbƒv‚É“K—p‚·‚éƒ}ƒeƒŠƒAƒ‹")]
+    [SerializeField, Tooltip("ãƒŸãƒ‹ãƒãƒƒãƒ—ã«é©ç”¨ã™ã‚‹ãƒãƒ†ãƒªã‚¢ãƒ«")]
     private Material _minimapMaterial;
 
     private Camera _myCamera;
@@ -54,11 +54,11 @@ public class MinimapCamera : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ~ƒjƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ‚ğXV‚·‚é
+    /// ãƒŸãƒ‹ãƒãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’æ›´æ–°ã™ã‚‹
     /// </summary>
     public void UpdateMinimapTexture()
     {
-        // ƒGƒfƒBƒ^[ã‚ÅEditMode‚Ì‚Í–³Œø‰»‚µ‚È‚¢
+        // ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼ä¸Šã§EditModeã®æ™‚ã¯ç„¡åŠ¹åŒ–ã—ãªã„
 #if UNITY_EDITOR
         if (!EditorApplication.isPlaying) { return; }
 #endif
@@ -74,7 +74,7 @@ public class MinimapCamera : MonoBehaviour
     }
 
     /// <summary>
-    /// Player‚É’Ç]‚·‚é
+    /// Playerã«è¿½å¾“ã™ã‚‹
     /// </summary>
     private void FollowPlayer()
     {
