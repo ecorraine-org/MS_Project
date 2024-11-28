@@ -3,9 +3,9 @@ using UnityEngine;
 public class AIChicken_ThrowEgg : EnemyAction
 {
     [SerializeField, Header("投げるプレハブ")]
-    public GameObject projectilePrefab;
+    private GameObject projectilePrefab;
     [SerializeField, Header("プレハブの生成位置")]
-    public Transform spawnPoint;
+    private Transform spawnPoint;
     [SerializeField, Header("投擲角度（上向き）")]
     float upAngle = 30f;
     [SerializeField, Header("投擲角度（プレイヤー向き）")]
@@ -14,7 +14,8 @@ public class AIChicken_ThrowEgg : EnemyAction
     [SerializeField, Header("投げる力")]
     float throwForce = 10f;
 
-    [SerializeField] GameObject ExplosionPrefab;
+    [SerializeField, Header("VFXプレハブ")]
+    private GameObject explosionPrefab;
 
     /*
     [SerializeField, Header("連続して投げる回数")]
@@ -170,7 +171,7 @@ public class AIChicken_ThrowEgg : EnemyAction
 
         private void Start()
         {
-            aiChickenThrowEgg = FindObjectOfType<AIChicken_ThrowEgg>(); // AIChicken_ThrowEggのインスタンスを取得
+            aiChickenThrowEgg = FindFirstObjectByType<AIChicken_ThrowEgg>(); // AIChicken_ThrowEggのインスタンスを取得
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -180,7 +181,7 @@ public class AIChicken_ThrowEgg : EnemyAction
             {
                 if (aiChickenThrowEgg != null)
                 {
-                    Instantiate(aiChickenThrowEgg.ExplosionPrefab, transform.position, Quaternion.identity);
+                    Instantiate(aiChickenThrowEgg.explosionPrefab, transform.position, Quaternion.identity, aiChickenThrowEgg.collector.transform);
                 }
                 Destroy(gameObject);
             }
@@ -189,13 +190,12 @@ public class AIChicken_ThrowEgg : EnemyAction
             {
                 if (aiChickenThrowEgg != null)
                 {
-                    Instantiate(aiChickenThrowEgg.ExplosionPrefab, transform.position, Quaternion.identity);
+                    Instantiate(aiChickenThrowEgg.explosionPrefab, transform.position, Quaternion.identity, aiChickenThrowEgg.collector.transform);
                 }
                 Destroy(gameObject);
             }
         }
     }
-
 
     #region オノマトペ情報
     private void ChickenWalkData()

@@ -1,4 +1,4 @@
-using System.Collections;  // IEnumerator‚ğg—p‚·‚é‚½‚ß‚É•K—v
+using System.Collections;  // IEnumeratorã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã«å¿…è¦
 using UnityEngine;
 
 public class DisableColliderTemporarily : MonoBehaviour
@@ -7,25 +7,25 @@ public class DisableColliderTemporarily : MonoBehaviour
 
     void Start()
     {
-        // MeshColliderƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾
+        // MeshColliderã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—
         meshCollider = GetComponent<MeshCollider>();
 
         if (meshCollider != null)
         {
-            // 0.5•bŒã‚ÉƒRƒ‰ƒCƒ_[‚ğ—LŒø‚É–ß‚·
+            // 0.5ç§’å¾Œã«ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‚’æœ‰åŠ¹ã«æˆ»ã™
             StartCoroutine(DisableColliderForSeconds(0.5f));
         }
     }
 
     private IEnumerator DisableColliderForSeconds(float duration)
     {
-        // MeshCollider‚ğ–³Œø‰»
+        // MeshColliderã‚’ç„¡åŠ¹åŒ–
         meshCollider.enabled = false;
 
-        // w’èŠÔ‚¾‚¯‘Ò‚Â
+        // æŒ‡å®šæ™‚é–“ã ã‘å¾…ã¤
         yield return new WaitForSeconds(duration);
 
-        // MeshCollider‚ğÄ“x—LŒø‰»
+        // MeshColliderã‚’å†åº¦æœ‰åŠ¹åŒ–
         meshCollider.enabled = true;
     }
 }
