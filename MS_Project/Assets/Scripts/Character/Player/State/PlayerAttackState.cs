@@ -20,8 +20,6 @@ public class PlayerAttackState : PlayerState
     [SerializeField, Header("攻撃力")]
     float attackDamage;
 
-    [SerializeField, Header("攻撃中進む速度")]
-    float moveSpeed=10;
     public float FrenzyAttackDamage;
     public LayerMask enemyLayer;
     private CameraBasedHitCorrection _CameraBasedHitCorrection;
@@ -61,7 +59,7 @@ public class PlayerAttackState : PlayerState
                 attackDamage = statusManager.StatusData.swordAtk;
 
                 // 突進初期化
-                playerSkillManager.DashHandler.Speed = moveSpeed;
+                playerSkillManager.DashHandler.Speed = playerHitData.dicHitReac[playerModeManager.Mode].moveSpeed;
                 playerSkillManager.DashHandler.Duration = -1;
 
                 if (attackStage == 0)
@@ -81,6 +79,11 @@ public class PlayerAttackState : PlayerState
             case PlayerMode.Hammer:
                 attackDamage = statusManager.StatusData.hammerAtk;
                 spriteAnim.Play("HammerAttack", 0, 0f);
+
+                // 突進初期化
+                playerSkillManager.DashHandler.Speed = playerHitData.dicHitReac[playerModeManager.Mode].moveSpeed;
+                playerSkillManager.DashHandler.Duration = -1;
+
                 break;
             case PlayerMode.Spear:
                 attackDamage = statusManager.StatusData.spearAtk;
