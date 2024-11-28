@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class StateDestroyed : ObjectState
 {
-    private Collector spawnPool;
+    private EnemySpawner spawnPool;
 
     private void Start()
     {
-        spawnPool = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
+        spawnPool = GameObject.FindGameObjectWithTag("Spawner").gameObject.GetComponent<EnemySpawner>();
     }
 
     public override void Init(WorldObjectController _objectController)

@@ -7,15 +7,9 @@ using Unity.VisualScripting;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
-    private MissionType missionType = MissionType.None;
-    [Tooltip("ミッション詳細")]
-    private string missionDetail = "";
-    [Tooltip("キル数")]
-    private int killCount = 0;
+    private GameObject enemyCollector;
 
-    private Vector3 center = Vector3.up;
-
+    #region スポナー情報
     [SerializeField, Header("この範囲内に生成を始める"), Tooltip("この範囲内に生成を始める")]
     private GameObject triggerArea;
     private float triggerRadius;
@@ -23,24 +17,50 @@ public class EnemySpawner : MonoBehaviour
     private GameObject spawnArea;
     private float spawnRadius;
 
+    private Vector3 center = Vector3.up;
+    #endregion
+
+    #region ミッション情報
+    [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
+    private MissionType missionType = MissionType.None;
+    [Tooltip("ミッション詳細")]
+    private string missionDetail = "";
+    [Tooltip("キル数")]
+    private int killCount = 0;
+
+    [SerializeField, Header("ミッション済み"), Tooltip("ミッション済み")]
+    private bool hasCleared = false;
+    private bool startMission = false;
+
+    private UIMissionController mission;
+    #endregion
+
+    #region 生成情報
     [Space(20), Header("-----生成するエネミー情報-----")]
     [Header("雑魚数"), Tooltip("生成する雑魚の最大数")]
     public int mobMaxCount = 0;
     [Header("雑魚種類"), Tooltip("生成する雑魚種類")]
-    public List<EnemyStatusData> mobPool;
+    public List<EnemyStatusData> mobList;
     private int mobCount = 0;
 
     [Header("エリート数"), Tooltip("生成するエリートの最大数")]
     public int eliteMaxCount = 0;
     [Header("エリート種類"), Tooltip("生成するエリート種類")]
-    public List<EnemyStatusData> elitePool;
+    public List<EnemyStatusData> eliteList;
     private int eliteCount = 0;
 
-    private bool hasSpawned;
-    private bool hasCleared;
-    private UIMissionController mission;
+    private bool hasFinishedSpawn = false;
+    #endregion
 
-    private Collector enemyCollector;
+    #region 生成されたエネミ
+    [Space(20), Header("-----生成されたエネミー-----")]
+    [Header("エネミープール（合計２５匹まで）"), Tooltip("エネミープール")]
+    public List<GameObject> enemyPool;
+    [Tooltip("敵合計数")]
+    private int totalEnemyCount = 0;
+    [Tooltip("最大プールサイズ")]
+    private int maxPoolSize = 25;
+    #endregion
 
     private void OnValidate()
     {
@@ -55,14 +75,15 @@ public class EnemySpawner : MonoBehaviour
         triggerRadius = triggerArea.GetComponent<SphereCollider>().radius;
         spawnRadius = spawnArea.GetComponent<SphereCollider>().radius;
 
-        enemyCollector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
+        enemyCollector = this.transform.GetChild(1).gameObject;
 
         mission = GameObject.FindGameObjectWithTag("Mission").gameObject.GetComponent<UIMissionController>();
     }
 
     private void Start()
     {
-        hasSpawned = false;
+        hasFinishedSpawn = false;
+        startMission = false;
         hasCleared = false;
     }
 
@@ -70,32 +91,32 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        if (hasSpawned) return;
+        if (hasFinishedSpawn) return;
 
-        if (mobPool.Count <= 0 && elitePool.Count <= 0)
+        if (mobList.Count <= 0 && eliteList.Count <= 0)
         {
             CustomLogger.Log("配列が空のため、スポーンする敵がありません。");
             return;
         }
 
-        if (mobPool.Count > 0)
+        if (mobList.Count > 0)
         {
             for (mobCount = 0; mobCount < mobMaxCount; mobCount++)
             {
-                int random = Random.Range(0, mobPool.Count);
-                Spawn(mobPool[random], RandomizeWithinRadius());
+                int random = Random.Range(0, mobList.Count);
+                SpawnEnemy(mobList[random], RandomizeWithinRadius());
             }
         }
-        if (elitePool.Count > 0)
+        if (eliteList.Count > 0)
         {
             for (eliteCount = 0; eliteCount < eliteMaxCount; eliteCount++)
             {
-                int random = Random.Range(0, elitePool.Count);
-                Spawn(elitePool[random], RandomizeWithinRadius());
+                int random = Random.Range(0, eliteList.Count);
+                SpawnEnemy(eliteList[random], RandomizeWithinRadius());
             }
         }
 
-        hasSpawned = true;
+        hasFinishedSpawn = true;
 
         if (mission)
         {
@@ -104,36 +125,53 @@ public class EnemySpawner : MonoBehaviour
             mission.Spawner = this;
             mission.MissionTitle.SetActive(true);
             mission.MissionItem.SetActive(true);
+
+            startMission = true;
+            /*
             string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
             missionDetail = count;
             missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+            */
         }
     }
 
     private void Update()
     {
+        if(startMission && mission.MissionItem.activeInHierarchy)
+        {
+            string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
+            missionDetail = count;
+            missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+
+            if (killCount >= mobCount)
+            {
+                hasCleared = true;
+                mission.MissionItem.SetActive(false);
+                mission.MissionTitle.SetActive(false);
+            }
+        }
     }
 
-    public void Spawn(EnemyStatusData _enemydata, Vector3 _position)
+    public void SpawnEnemy(EnemyStatusData _enemydata, Vector3 _position)
     {
-        if (_enemydata == null || enemyCollector.totalEnemyCount >= enemyCollector.MaxPoolSize)
+        if (_enemydata == null || totalEnemyCount >= maxPoolSize)
         {
             CustomLogger.Log("スポーンが失敗しました。");
             return;
         }
 
-        enemyCollector.enemyPool.Add(InstantiateEnemy(_enemydata, _position));
-        enemyCollector.totalEnemyCount++;
+        enemyPool.Add(InstantiateEnemy(_enemydata, _position));
+        totalEnemyCount++;
     }
 
-    GameObject InstantiateEnemy(EnemyStatusData _data, Vector3 _position)
+    private GameObject InstantiateEnemy(EnemyStatusData _data, Vector3 _position)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("Enemy/EnemyContainer"), _position, Quaternion.identity, enemyCollector.transform);
         obj.GetComponent<EnemyController>().EnemyStatus.StatusData = _data;
         return obj;
     }
 
-    public Vector3 RandomizeWithinRadius()
+    private Vector3 RandomizeWithinRadius()
     {
         Vector3 randomDirection = Random.insideUnitSphere;
         randomDirection *= Random.Range(0f, spawnRadius);
@@ -143,12 +181,27 @@ public class EnemySpawner : MonoBehaviour
         return randomDirection;
     }
 
-    /*
-    void Initialize(Transform _container, MonoBehaviour _monoBehaviour);
-    void Stop();
-    void DespawnAll();
-    */
+    /// <summary>
+    /// エネミーオブジェクトをプールから削除
+    /// </summary>
+    public void DespawnEnemyFromPool(GameObject _self)
+    {
+        killCount++;
+        totalEnemyCount--;
+        enemyPool.Remove(_self);
+        Destroy(_self);
+    }
 
+    /// <summary>
+    /// エネミーオブジェクトを全て削除
+    /// </summary>
+    public void DespawnAll()
+    {
+        foreach (var enemy in enemyPool)
+        {
+            DespawnEnemyFromPool(enemy);
+        }
+    }
 
     #region Gizmos
     private void OnDrawGizmos()

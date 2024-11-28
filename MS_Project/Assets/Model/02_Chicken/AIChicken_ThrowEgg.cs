@@ -127,7 +127,7 @@ public class AIChicken_ThrowEgg : EnemyAction
         Rigidbody rbEgg = thrownEgg.GetComponent<Rigidbody>();
         rbEgg.useGravity = true;
 
-        collector.GetComponent<Collector>().otherObjectPool.Add(thrownEgg);
+        collector.GetComponent<ObjectCollector>().otherObjectPool.Add(thrownEgg);
 
         Quaternion rotateToPlayer = Quaternion.LookRotation((player.position - spawnPoint.position).normalized);
         spawnPoint.rotation = rotateToPlayer;
