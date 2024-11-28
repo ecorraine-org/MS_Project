@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 
 /// <summary>
 /// エネミー用コントローラー
@@ -33,8 +32,8 @@ public class EnemyController : WorldObjectController
     private Animator animator;
     private CapsuleCollider capsuleCollider;
 
-    [HideInInspector, Tooltip("エネミー用ガーベージコレクター")]
-    private Collector spawnPool;
+    [HideInInspector, Tooltip("ガーベージコレクター")]
+    private ObjectCollector objectCollector;
 
     public override void Awake()
     {
@@ -47,7 +46,7 @@ public class EnemyController : WorldObjectController
 
         capsuleCollider = this.GetComponent<CapsuleCollider>();
 
-        spawnPool = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
+        objectCollector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<ObjectCollector>();
     }
 
     public void Start()
@@ -225,7 +224,7 @@ public class EnemyController : WorldObjectController
             player.GetComponent<PlayerController>().StatusManager.TakeDamage(-5);
 
             //殺す
-            spawnPool.DespawnEnemyFromPool(this.gameObject);
+            //spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
 
         /*

@@ -17,7 +17,7 @@ public class UIMissionController : MonoBehaviour
 
     private PlayerController player;
     private EnemySpawner spawner;
-    private Collector collector;
+    private ObjectCollector collector;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class UIMissionController : MonoBehaviour
         */
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
+        collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<ObjectCollector>();
     }
 
     private void Start()

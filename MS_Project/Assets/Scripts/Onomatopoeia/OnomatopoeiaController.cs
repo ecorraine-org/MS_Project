@@ -30,7 +30,7 @@ public class OnomatopoeiaController : MonoBehaviour
     private Rigidbody rb;
     private GameObject player;
 
-    private Collector collector;
+    private ObjectCollector collector;
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class OnomatopoeiaController : MonoBehaviour
         initialPosition = this.transform.position - player.GetComponent<PlayerController>().CurDirecVector * 1.5f;
         initialPosition = new Vector3(initialPosition.x, initialPosition.y / 1.5f, player.transform.position.z);
 
-        collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
+        collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<ObjectCollector>();
 
         objOnomatopoeia = this.gameObject;
     }

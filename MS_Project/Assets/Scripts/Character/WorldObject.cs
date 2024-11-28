@@ -58,7 +58,7 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
         newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
 
         GameObject instance = Instantiate(onomatoObj, this.transform.position, newRotation, collector.transform);
-        collector.GetComponent<Collector>().otherObjectPool.Add(instance);
+        collector.GetComponent<ObjectCollector>().otherObjectPool.Add(instance);
     }
 }
 

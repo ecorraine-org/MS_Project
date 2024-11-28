@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7748441168208655348
+--- !u!1001 &5529436651181989062
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 817043426095150827, guid: 46b2277a634196a4194c6e780317d854, type: 3}
       propertyPath: m_Name
-      value: EnemyContainer
-      objectReference: {fileID: 0}
-    - target: {fileID: 817043426095150827, guid: 46b2277a634196a4194c6e780317d854, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 817043426095150827, guid: 46b2277a634196a4194c6e780317d854, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
+      value: ObjectContainer
       objectReference: {fileID: 0}
     - target: {fileID: 890980568176443374, guid: 46b2277a634196a4194c6e780317d854, type: 3}
       propertyPath: m_LocalPosition.x
@@ -66,52 +58,50 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 817043426095150827, guid: 46b2277a634196a4194c6e780317d854, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8010599161925206437}
+      addedObject: {fileID: 7391235470138237096}
     - targetCorrespondingSourceObject: {fileID: 8338354472550600448, guid: 46b2277a634196a4194c6e780317d854, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3066704199820264093}
+      addedObject: {fileID: 6545926716399899969}
   m_SourcePrefab: {fileID: 100100000, guid: 46b2277a634196a4194c6e780317d854, type: 3}
---- !u!1 &1742953556207336692 stripped
+--- !u!1 &4542804227664204742 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8338354472550600448, guid: 46b2277a634196a4194c6e780317d854, type: 3}
-  m_PrefabInstance: {fileID: 7748441168208655348}
+  m_PrefabInstance: {fileID: 5529436651181989062}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3066704199820264093
+--- !u!114 &6545926716399899969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1742953556207336692}
+  m_GameObject: {fileID: 4542804227664204742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a91796c89bb97a042be996fac03c1139, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e5b44ec52c5cfa4584827e5cb32c2f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   statusData: {fileID: 0}
   isInvincible: 0
   currentHealth: 0
-  moveSpeed: 0
-  damage: 0
   actionCooldown: 0
   selfType: 0
   onomatoData: {fileID: 0}
   tolerance: 0
---- !u!1 &6976434926227735839 stripped
+--- !u!1 &5182018076874533421 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 817043426095150827, guid: 46b2277a634196a4194c6e780317d854, type: 3}
-  m_PrefabInstance: {fileID: 7748441168208655348}
+  m_PrefabInstance: {fileID: 5529436651181989062}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8010599161925206437
+--- !u!114 &7391235470138237096
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6976434926227735839}
+  m_GameObject: {fileID: 5182018076874533421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0ceae777d0280e45bb15ce11944ae87, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e5630c913ac5e74db5b1688d7fbf7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameObj: {fileID: 0}
@@ -128,17 +118,5 @@ MonoBehaviour:
       m_Calls: []
   OnMovementInput:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8010599161925206437}
-        m_TargetAssemblyTypeName: WorldObjectController, Assembly-CSharp
-        m_MethodName: set_MovementInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   isKillable: 0
