@@ -13,4 +13,5 @@ public class CameraSettings : ScriptableObject
     public MinimapSettings MinimapSettings;
     public CameraCollisionSettings CollisionSettings;
     public CameraFollowSettings FollowSettings;
+    public CameraLockOnSettings LockOnSettings;
 }
