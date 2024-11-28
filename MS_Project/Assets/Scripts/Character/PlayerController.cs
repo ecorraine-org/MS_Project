@@ -226,6 +226,13 @@ public class PlayerController : WorldObject
             case Direction.Up:
                    spriteAnim.Play("WalkUp");
                     break;
+            case Direction.UpRight:
+                spriteAnim.Play("WalkUpRight");
+                break;
+            case Direction.UpLeft:
+
+                spriteAnim.Play("WalkUpRight");
+                break;
             default:
                 spriteAnim.Play("WalkRight");
                 break;
