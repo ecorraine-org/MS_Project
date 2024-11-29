@@ -24,7 +24,7 @@ public class ObjectStatusData : BaseStatusData
     public string vfxClip;
 
     [Header("行動クールタイム")]
-    public float timeTillNextAction = 1f;
+    public float timeTillNextAction = 1.0f;
 
     private void OnEnable()
     {

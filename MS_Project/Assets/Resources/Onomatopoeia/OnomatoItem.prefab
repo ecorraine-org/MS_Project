@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1803074113795015536}
   - component: {fileID: -3616118106274782403}
+  - component: {fileID: 8759115089420252321}
   - component: {fileID: 5145218551030366244}
   - component: {fileID: 792566756607139086}
   - component: {fileID: 7880825859409919145}
@@ -59,8 +60,30 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4, y: 1, z: 0.1}
+  m_Size: {x: 5, y: 1, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!64 &8759115089420252321
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915221731898776878}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!23 &5145218551030366244
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -212,13 +235,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objOnomatopoeia: {fileID: 0}
-  onomatopoeiaName: "\u30B7\u30E5\u30C3"
+  onomatopoeiaName: "\u30DD\u30A4\u30C3"
   isAlive: 1
   fLifetime: 5
   emissionDirection: {x: 0, y: 1, z: 0}
   fStartSpeed: 5
-  fStopDistance: 3
-  data: {fileID: 11400000, guid: d674ac612312ff84e81d4690a44f3c44, type: 2}
+  fStopDistance: 5
+  data: {fileID: 11400000, guid: 68fbb11dfa20277458c3e03f642388f4, type: 2}
 --- !u!114 &6588497362819437872
 MonoBehaviour:
   m_ObjectHideFlags: 0

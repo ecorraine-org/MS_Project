@@ -36,7 +36,7 @@ public class OnomatopoeiaController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         initialPosition = this.transform.position - player.GetComponent<PlayerController>().CurDirecVector * 1.5f;
-        initialPosition = new Vector3(initialPosition.x, initialPosition.y / 1.5f, player.transform.position.z);
+        initialPosition = new Vector3(initialPosition.x, initialPosition.y / 1.5f, this.transform.position.z);
 
         collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<ObjectCollector>();
 
@@ -81,7 +81,7 @@ public class OnomatopoeiaController : MonoBehaviour
         {
             objOnomatopoeia.transform.position += fVelocity * Time.deltaTime;
 
-            // 一定距離離れたら、飛び出す停止
+            //一定距離離れたら、飛び出す停止
             float distanceTraveled = Vector3.Distance(initialPosition, gameObject.transform.position);
             if (distanceTraveled >= fStopDistance)
             {

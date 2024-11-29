@@ -79,7 +79,7 @@ public class StateWalk : ObjectState
         };
         */
         float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
-        if (distanceToPlayer > objStatusHandler.StatusData.chaseDistance)
+        if (distanceToPlayer > enemyStatusHandler.StatusData.chaseDistance)
         {
             objController.State.TransitionState(ObjectStateType.Idle);
             return;
@@ -87,7 +87,7 @@ public class StateWalk : ObjectState
 
         //攻撃へ遷移
         // if (objStateHandler.CheckAttack()) return;
-        if (distanceToPlayer <= objStatusHandler.StatusData.attackDistance && enemy.AllowAttack)
+        if (distanceToPlayer <= enemyStatusHandler.StatusData.attackDistance && enemy.AllowAttack)
         {
             //クールダウン
             enemy.StartAttackCoroutine();

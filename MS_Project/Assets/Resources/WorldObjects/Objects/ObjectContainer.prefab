@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObjectContainer
       objectReference: {fileID: 0}
+    - target: {fileID: 817043426095150827, guid: 46b2277a634196a4194c6e780317d854, type: 3}
+      propertyPath: m_TagString
+      value: StaticObject
+      objectReference: {fileID: 0}
     - target: {fileID: 890980568176443374, guid: 46b2277a634196a4194c6e780317d854, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -119,4 +123,3 @@ MonoBehaviour:
   OnMovementInput:
     m_PersistentCalls:
       m_Calls: []
-  isKillable: 0

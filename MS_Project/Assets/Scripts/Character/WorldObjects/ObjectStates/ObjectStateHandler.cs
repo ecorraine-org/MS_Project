@@ -202,12 +202,26 @@ public class ObjectStateHandler : MonoBehaviour
     /// </summary>
     public bool CheckDeath()
     {
-        EnemyController enemy = objController as EnemyController;
-        if (enemy.EnemyStatus.CurrentHealth <= 0)
+        if (objController.Type == WorldObjectType.Enemy)
         {
-            TransitionState(ObjectStateType.Destroyed);
+            EnemyController enemy = objController as EnemyController;
+            if (enemy.EnemyStatus.CurrentHealth <= 0)
+            {
+                TransitionState(ObjectStateType.Destroyed);
 
-            return true;
+                return true;
+            }
+        }
+
+        else if (objController.Type == WorldObjectType.StaticObject)
+        {
+            ObjectController objectController = objController as ObjectController;
+            if (!objectController.ObjectStatus.IsInvincible)
+            {
+                TransitionState(ObjectStateType.Destroyed);
+
+                return true;
+            }
         }
 
         return false;
