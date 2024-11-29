@@ -8,11 +8,45 @@ public class StateIdle : ObjectState
     {
         base.Init(_objectController);
 
-        if (enemy != null && !enemy.IsAttacking)
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("IdleInit");
+        if (method != null)
+        {
+            method.Invoke(enemy.EnemyAction, null);
+        }
+        else
+        {
+            normalInit();
+        }
+    }
+
+    /// <summary>
+    /// 共通の処理
+    /// </summary>
+    private void normalInit()
+    {
+        if (enemy != null)
             enemy.Anim.Play("Idle");
     }
 
     public override void Tick()
+    {
+        //敵による独自の処理
+        var method = enemy.EnemyAction.GetType().GetMethod("IdleTick");
+        if (method != null)
+        {
+            method.Invoke(enemy.EnemyAction, null);
+        }
+        else
+        {
+            normalTick();
+        }
+    }
+
+    /// <summary>
+    /// 共通の処理
+    /// </summary>
+    private void normalTick() 
     {
         if (objStateHandler.CheckDeath()) return;
 
@@ -23,12 +57,6 @@ public class StateIdle : ObjectState
         if (objStateHandler.CheckSkill()) return;
 
         //移動へ遷移
-        /*
-        if (objController.MovementInput.magnitude > 0.1f)
-        {
-            objController.State.TransitionState(ObjectStateType.Walk);
-        };
-        */
         float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
         if (distanceToPlayer <= enemyStatusHandler.StatusData.chaseDistance)
         {
