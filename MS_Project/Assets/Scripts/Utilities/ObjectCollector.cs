@@ -15,6 +15,8 @@ public class ObjectCollector : MonoBehaviour
     public List<GameObject> enemyPool;
     private int maxPoolSize = 25;
     */
+    private GameObject owner;
+
     [Header("オブジェクトプール"), Tooltip("オブジェクトプール")]
     public List<GameObject> otherObjectPool;
 
@@ -39,5 +41,11 @@ public class ObjectCollector : MonoBehaviour
     {
         otherObjectPool.Remove(_self);
         Destroy(_self);
+    }
+
+    public GameObject Owner
+    {
+        get => owner;
+        set { owner = value; }
     }
 }

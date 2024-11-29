@@ -18,7 +18,7 @@ public class StateDamaged : ObjectState
 
             int playerMode = ((int)player.ModeManager.Mode);
             OnomatopoeiaData attackOnomatoData = player.StatusManager.StatusData.onomatoAttackData[playerMode];
-            enemy.GenerateOnomatopoeia(attackOnomatoData);
+            enemy.GenerateOnomatopoeia(enemy.gameObject, attackOnomatoData);
         }
     }
 

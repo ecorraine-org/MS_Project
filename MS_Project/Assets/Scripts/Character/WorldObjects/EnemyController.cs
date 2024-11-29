@@ -102,8 +102,10 @@ public class EnemyController : WorldObjectController
         rigidBody.AddForce(gravity * Time.deltaTime);
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (player == null) return;
 
         //フィニッシュ
