@@ -108,12 +108,12 @@ public abstract class EnemyAction : MonoBehaviour
 
     protected void GenerateAttackOnomatopoeia()
     {
-        enemy.GenerateOnomatopoeia(enemy.EnemyStatus.StatusData.onomatoAttack);
+        enemy.GenerateOnomatopoeia(enemy.gameObject, enemy.EnemyStatus.StatusData.onomatoAttack);
     }
 
     protected void GenerateWalkOnomatopoeia()
     {
-        enemy.GenerateOnomatopoeia(enemy.EnemyStatus.StatusData.onomatoWalk);
+        enemy.GenerateOnomatopoeia(enemy.gameObject, enemy.EnemyStatus.StatusData.onomatoWalk);
     }
 
     /// <summary>

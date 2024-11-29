@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using TMPro;
 using Unity.VisualScripting;
+using System.Diagnostics;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public class EnemySpawner : MonoBehaviour
     private int maxPoolSize = 25;
     #endregion
 
+    [Conditional("UNITY_EDITOR")]
     private void OnValidate()
     {
         center = this.transform.position + Vector3.up;
@@ -168,6 +170,7 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("Enemy/EnemyContainer"), _position, Quaternion.identity, enemyCollector.transform);
         obj.GetComponent<EnemyController>().EnemyStatus.StatusData = _data;
+        obj.name = _data.name;
         return obj;
     }
 
