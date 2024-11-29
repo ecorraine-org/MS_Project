@@ -1,9 +1,8 @@
+#if UNITY_EDITOR
+
 using System.Collections;
 using UnityEngine;
-
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 /// <summary>
 /// ミニマップ作成用カメラ。
@@ -84,3 +83,5 @@ public class MinimapCamera : MonoBehaviour
         }
     }
 }
+
+#endif
