@@ -53,11 +53,13 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
         onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = _onomatopoeiaData.wordToUse;
 
         Transform mainCamera = Camera.main.transform;
-        // カメラと同じ角度
+        //カメラと同じ角度にする
         Quaternion newRotation = mainCamera.rotation;
         newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
 
-        GameObject instance = Instantiate(onomatoObj, this.transform.position, newRotation, collector.transform);
+        Vector3 newPosition = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - GetComponent<Collider>().bounds.extents.z);
+
+        GameObject instance = Instantiate(onomatoObj, newPosition, newRotation, collector.transform);
         collector.GetComponent<ObjectCollector>().otherObjectPool.Add(instance);
     }
 }

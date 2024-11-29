@@ -64,9 +64,9 @@ public enum OnomatoType
 public enum WorldObjectType
 {
     None,
-    [InspectorName("プレイヤー")] Player,
-    [InspectorName("敵")] Enemy,
-    [InspectorName("その他")] StaticObject
+    [InspectorName("プレイヤー"), Tooltip("プレイヤー")] Player,
+    [InspectorName("敵"), Tooltip("敵")] Enemy,
+    [InspectorName("オブジェクト"), Tooltip("オブジェクト")] StaticObject
 }
 
 /// <summary>
