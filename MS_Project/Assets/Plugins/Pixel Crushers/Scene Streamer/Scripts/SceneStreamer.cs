@@ -150,6 +150,12 @@ namespace PixelCrushers.SceneStreamer
             StartCoroutine(LoadCurrentScene(sceneName));
         }
 
+        //保持中のを他クラスに渡すためのメソッド
+        public string GetCurrentScene()
+        {
+            return m_currentSceneName;
+        }
+
         /// <summary>
         /// Loads a scene as the current scene and manages neighbors, loading scenes
         /// within maxNeighborDistance and unloading scenes beyond it.
@@ -428,5 +434,7 @@ namespace PixelCrushers.SceneStreamer
         public List<string> loaded;
         public List<string> near;
     }
+
+
 
 }
