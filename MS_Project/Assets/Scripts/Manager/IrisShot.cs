@@ -14,7 +14,7 @@ public class IrisShot : MonoBehaviour
     private void Start()
     {
         // シーン開始時にアイリスイン
-        IrisIn();
+        //IrisIn();
     }
 
     public void IrisIn()
