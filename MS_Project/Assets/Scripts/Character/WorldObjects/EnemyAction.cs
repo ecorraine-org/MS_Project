@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// エネミーアクション基底クラス
@@ -18,7 +19,28 @@ public abstract class EnemyAction : MonoBehaviour
 
     protected GameObject collector;
 
-    public void Init(EnemyController _enemy)
+    [SerializeField, Header("行動パターンビヘイビア")]
+    protected ActionPatternList[] actionPatternList;
+
+    //*******************
+    //List処理
+
+    //リスト用タイマー
+    protected float listTimer = 0.0f;
+
+    //何番目のリストか
+    //0:形態1 1:形態2
+    protected int listIndex = 0;
+
+    //アクションリストのインデックス
+    //初回-1 0攻撃1　1攻撃2
+    protected int actionStage = -1;
+
+    //実行しようとする行動処理
+    protected Action currentUpdateAction;
+    //*******************
+
+    public virtual void Init(EnemyController _enemy)
     {
         enemy = GetComponentInParent<EnemyController>();
         enemyStatus = enemy.EnemyStatus;
@@ -80,6 +102,8 @@ public abstract class EnemyAction : MonoBehaviour
     private void Update()
     {
         distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
+
+        if (actionPatternList != null) listTimer += Time.deltaTime;
     }
 
     protected void GenerateAttackOnomatopoeia()
@@ -90,6 +114,37 @@ public abstract class EnemyAction : MonoBehaviour
     protected void GenerateWalkOnomatopoeia()
     {
         enemy.GenerateOnomatopoeia(enemy.EnemyStatus.StatusData.onomatoWalk);
+    }
+
+    /// <summary>
+    /// 次の行動に設定する
+    /// </summary>
+    protected void AddActionStage()
+    {
+        actionStage++;
+
+        //超えたら戻る
+        if (actionStage >= actionPatternList[listIndex].GetActionPattern().Length)
+            actionStage = 0;
+    }
+
+    protected bool CheckListTimer()
+    {
+        //actionStage=-1の場合、初めてループに入って、実行する
+        //actionStage>-1の場合、時間達したら実行する
+        if ((actionStage == -1)
+            || (listTimer >= actionPatternList[listIndex].GetActionPattern()[actionStage].recoveryTime))
+        {
+            listTimer = 0;
+            //次の行動
+            AddActionStage();
+
+            return true;
+        }
+
+
+        return false;
+
     }
 
     public EnemyController Enemy
