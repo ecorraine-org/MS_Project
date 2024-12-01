@@ -8,6 +8,8 @@ public struct DashParam
     public float speed;    //ダッシュ速度
     public bool canThrough;//貫通可能かどうか                          
     public Vector3 dashDirec;     //ダッシュ方向
+    public bool isDashing; //ダッシュ中かどうか
+    public Coroutine dashCoroutine;//コルーチンの参照
 }
 
 /// <summary>
@@ -15,6 +17,9 @@ public struct DashParam
 /// </summary>
 public class DashHandler : MonoBehaviour
 {
+    //デバグ用補正終点の位置
+    Vector3 testTargetPos;
+
     [SerializeField, Header("障害物検出ディテクター")]
     BlockDetector blockDetector;
 
@@ -125,19 +130,7 @@ public class DashHandler : MonoBehaviour
 
     }
 
-    private void OnDrawGizmos()
-    {
-        PlayerController player = owner as PlayerController;
 
-        if (player == null || lockOnCollider.ClosestCollider == null)
-        {
-            return;
-        }
-
-        Gizmos.color = Color.red;
-
-        Gizmos.DrawLine(transform.position, lockOnCollider.ClosestCollider.transform.position);
-    }
 
     /// <summary>
     /// 攻撃補正突進処理
@@ -154,8 +147,23 @@ public class DashHandler : MonoBehaviour
         correctDashParam.duration = 2;
         correctDashParam.canThrough = false;
 
+        Vector3 targetPos = lockOnCollider.ClosestCollider.transform.position;
 
-        correctDashParam.dashDirec = lockOnCollider.ClosestCollider.transform.position - transform.position;
+        float offsetX = 3.0f;
+
+        //位置調整
+        if ((lockOnCollider.ClosestCollider.transform.position- transform.position).x >= 0)
+        {
+            targetPos.x -= offsetX;
+        }
+        else
+        {
+            targetPos.x += offsetX;
+        }
+
+        correctDashParam.dashDirec = targetPos - transform.position;
+
+        testTargetPos = targetPos;
 
         //水平方向を取得
         correctDashParam.dashDirec.y = 0;
@@ -165,20 +173,29 @@ public class DashHandler : MonoBehaviour
 
         //ダッシュ処理
         if (correctDashParam.duration != -1)
-            dashCoroutine = TimerUtility.FrameBasedTimer(this, correctDashParam.duration, () => HandleCorrectDash(), () => End());
+            correctDashParam.dashCoroutine = TimerUtility.FrameBasedTimer(this, correctDashParam.duration, () => HandleCorrectDash(targetPos), () => EndCorrectDash());
 
-        isDashing = true;
+        correctDashParam.isDashing = true;
     }
 
-    private void HandleCorrectDash()
+    private void HandleCorrectDash(Vector3 _targetPos)
     {
 
-        if (isDashing)
+        if (correctDashParam.isDashing)
         {
             //貫通しないパターンで、当たったら終了
             if (!correctDashParam.canThrough && hitCollider != null && hitCollider.CollidersList.Count > 0)
             {
-                End();
+                EndCorrectDash();
+            }
+
+            //ターゲット位置(z軸)に到着したら終了
+            Vector3 toTarget = _targetPos - transform.position;
+            toTarget.y = 0;
+            toTarget.x = 0;
+            if (toTarget.magnitude < 1.0f)
+            {
+                EndCorrectDash();
             }
 
             //敵と重ならないため
@@ -260,6 +277,25 @@ public class DashHandler : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 突進終了処理
+    /// </summary>
+    public void EndCorrectDash()
+    {
+        if (correctDashParam.dashCoroutine != null)
+        {
+            StopCoroutine(correctDashParam.dashCoroutine);
+            correctDashParam.dashCoroutine = null;
+        }
+
+        if (blockDetector != null) blockDetector.IsEnabled = true;
+        correctDashParam.isDashing = false;
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+
+    }
+
+
+
     public float Duration
     {
         get => this.duration;
@@ -294,5 +330,30 @@ public class DashHandler : MonoBehaviour
     {
         get => this.dashDirec;
         set { this.dashDirec = value; }
+    }
+
+    /// <summary>
+    /// ロックオンの敵への方向表示
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        PlayerController player = owner as PlayerController;
+
+        if (player == null || lockOnCollider.ClosestCollider == null)
+        {
+            return;
+        }
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(transform.position, lockOnCollider.ClosestCollider.transform.position);
+
+        Vector3 targetPos = lockOnCollider.ClosestCollider.transform.position;
+
+
+        //補正移動終点表示
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(testTargetPos, 0.2f);
+
     }
 }
