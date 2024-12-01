@@ -44,6 +44,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc53722b16d6e154fabd8816e9fa3267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1526752254298225677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7708149791119249987}
+  - component: {fileID: 7028312292301429425}
+  - component: {fileID: 615565132354255685}
+  m_Layer: 9
+  m_Name: LockOnDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7708149791119249987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526752254298225677}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.12, z: 8.84}
+  m_LocalScale: {x: 12.17, y: 12.17, z: 12.17}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 6037174190421580666}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &7028312292301429425
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526752254298225677}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.74
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &615565132354255685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526752254298225677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1bdeae6b4e2ceb4dad4bbb433edae33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collidersList: []
+  owner: {fileID: 8836845501146020627}
+  closestCollider: {fileID: 0}
 --- !u!1 &1809639675820165722
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +632,6 @@ MonoBehaviour:
   hitCollider: {fileID: 2986672402212135855}
   attackStage: 0
   attackDamage: 20
-  moveSpeed: 10
   FrenzyAttackDamage: 100
   enemyLayer:
     serializedVersion: 2
@@ -814,6 +882,7 @@ Transform:
   m_Children:
   - {fileID: 3733235952574674363}
   - {fileID: 3685585102681578178}
+  - {fileID: 7708149791119249987}
   m_Father: {fileID: 8143523743651954739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4851914542046528324
@@ -902,6 +971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockDetector: {fileID: 4851914542046528324}
   hitCollider: {fileID: 6641809379414823082}
+  lockOnCollider: {fileID: 615565132354255685}
   duration: 0.3
   speed: 4
   slowFactor: 1
@@ -1102,6 +1172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58eb9bfa86b327a4fb2811fea5a9f0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onomatoPool: []
   spriteObject: {fileID: 6777233189667550420}
   statusManager: {fileID: 2584761046635776466}
   stateManager: {fileID: 2304777744165196105}
