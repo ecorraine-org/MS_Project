@@ -89,6 +89,23 @@ public class PlayerAnimManager : AnimManager
     }
 
     /// <summary>
+    /// 攻撃補正
+    /// </summary>
+    public void CorrectDashEvt()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+
+        skillManager.DashHandler.BeginCorrectDash();
+
+        startTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime *
+             playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length;
+
+        testTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length - startTime;
+
+
+    }
+
+    /// <summary>
     /// 突進開始
     /// </summary>
     public override void StartDash()
@@ -100,7 +117,6 @@ public class PlayerAnimManager : AnimManager
        // skillManager.DashHandler.Begin(true, playerController.CurDirecVector);
         skillManager.DashHandler.Begin(playerController.GetForward());
         
-
         startTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime*
              playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length;
 

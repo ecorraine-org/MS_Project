@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct DashParam
+{
+    public float duration; //ダッシュ持続時間
+    public float speed;    //ダッシュ速度
+    public bool canThrough;//貫通可能かどうか                          
+    public Vector3 dashDirec;     //ダッシュ方向
+}
+
 /// <summary>
 /// 突進処理のビヘイビア
 /// </summary>
@@ -12,6 +20,9 @@ public class DashHandler : MonoBehaviour
 
     [SerializeField, Header("プレイヤー周りの障害物検出コライダー")]
     HitCollider hitCollider;
+
+    [SerializeField, Header("攻撃補正用ロックオンコライダー")]
+    HitColliderSelected lockOnCollider;
 
     // シングルトン
     BattleManager battleManager;
@@ -37,6 +48,9 @@ public class DashHandler : MonoBehaviour
     [SerializeField, Header("ターゲットを貫通可能かどうか")]
     private bool canThrough = false;
 
+    //補正ダッシュ用パラメター
+    DashParam correctDashParam;
+
     //ダッシュ方向
     UnityEngine.Vector3 dashDirec;
 
@@ -49,7 +63,7 @@ public class DashHandler : MonoBehaviour
 
         battleManager = BattleManager.Instance;
 
-        if (blockDetector!=null) blockDetector.Distance = speed * duration;
+        if (blockDetector != null) blockDetector.Distance = speed * duration;
     }
 
     public void Reset()
@@ -87,26 +101,100 @@ public class DashHandler : MonoBehaviour
         if (isDashing)
         {
             //貫通しないパターンで、当たったら終了
-            if (!canThrough && hitCollider!=null && hitCollider.CollidersList.Count > 0)
+            if (!canThrough && hitCollider != null && hitCollider.CollidersList.Count > 0)
             {
                 End();
-            }       
+            }
 
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
-            if ( canThrough )
+            if (canThrough)
             {
-                if(blockDetector != null&&!blockDetector.IsColliding) Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+                if (blockDetector != null && !blockDetector.IsColliding) Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
 
             }
 
             //移動中目的地を固定するため、更新停止
-            if(blockDetector != null)  blockDetector.IsEnabled = false;
+            if (blockDetector != null) blockDetector.IsEnabled = false;
 
             //一定距離を移動
             owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * slowFactor * Time.fixedDeltaTime);
 
-          
+        }
+
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        PlayerController player = owner as PlayerController;
+
+        if (player == null || lockOnCollider.ClosestCollider == null)
+        {
+            return;
+        }
+
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(transform.position, lockOnCollider.ClosestCollider.transform.position);
+    }
+
+    /// <summary>
+    /// 攻撃補正突進処理
+    /// </summary>
+    public void BeginCorrectDash()
+    {
+        if (lockOnCollider.ClosestCollider == null)
+        {
+            return;
+        }
+
+        // 突進初期化
+        correctDashParam.speed = 15;
+        correctDashParam.duration = 2;
+        correctDashParam.canThrough = false;
+
+
+        correctDashParam.dashDirec = lockOnCollider.ClosestCollider.transform.position - transform.position;
+
+        //水平方向を取得
+        correctDashParam.dashDirec.y = 0;
+
+
+        startTime = Time.time;
+
+        //ダッシュ処理
+        if (correctDashParam.duration != -1)
+            dashCoroutine = TimerUtility.FrameBasedTimer(this, correctDashParam.duration, () => HandleCorrectDash(), () => End());
+
+        isDashing = true;
+    }
+
+    private void HandleCorrectDash()
+    {
+
+        if (isDashing)
+        {
+            //貫通しないパターンで、当たったら終了
+            if (!correctDashParam.canThrough && hitCollider != null && hitCollider.CollidersList.Count > 0)
+            {
+                End();
+            }
+
+            //敵と重ならないため
+            //移動先に敵がいなければ、敵との当たり判定を無視する
+            if (correctDashParam.canThrough)
+            {
+                if (blockDetector != null && !blockDetector.IsColliding) Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+
+            }
+
+            //移動中目的地を固定するため、更新停止
+            if (blockDetector != null) blockDetector.IsEnabled = false;
+
+            //一定距離を移動
+            owner.RigidBody.MovePosition(owner.RigidBody.position + correctDashParam.dashDirec.normalized * correctDashParam.speed * slowFactor * Time.fixedDeltaTime);
+
         }
     }
 
@@ -160,7 +248,6 @@ public class DashHandler : MonoBehaviour
     /// </summary>
     public void End()
     {
-
         if (dashCoroutine != null)
         {
             StopCoroutine(dashCoroutine);
@@ -189,6 +276,12 @@ public class DashHandler : MonoBehaviour
     {
         get => this.canThrough;
         set { this.canThrough = value; }
+    }
+
+    public DashParam CorrectDashParam
+    {
+        get => this.correctDashParam;
+        set { this.correctDashParam = value; }
     }
 
     public bool IsDashing
