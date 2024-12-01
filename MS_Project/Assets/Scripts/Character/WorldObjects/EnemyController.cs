@@ -76,6 +76,8 @@ public class EnemyController : WorldObjectController
         capsuleCollider.height = collider.height;
         capsuleCollider.radius = collider.radius;
 
+        objState = GetComponentInChildren<ObjectStateHandler>();
+
         enemyAction = gameObj.GetComponentInChildren<EnemyAction>();
        //enemyAction.Init(this);
 
@@ -87,7 +89,7 @@ public class EnemyController : WorldObjectController
             action.Init(this);
         }
 
-        objState = GetComponentInChildren<ObjectStateHandler>();
+     
         objState.Init(this);
         if (objState == null) Debug.Log("objState NULL");
 
