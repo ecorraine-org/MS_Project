@@ -75,6 +75,9 @@ public class HunterActionList : EnemyAction
     {
         frameTime++; //時間計測
 
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
+
         if (moveStage == 0) HandleWalk();
         if (moveStage == 1) HandleDash();
 
@@ -92,7 +95,8 @@ public class HunterActionList : EnemyAction
         enemy.OnMovementInput?.Invoke(direction.normalized);
 
         if (frameTime >= 240.0f &&
-              distanceToPlayer >= EnemyStatus.StatusData.chaseDistance)
+              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 3.0f ||
+              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 6.0f)
         {
             //移動状態(走り)へ遷移
             moveStage = 1;
@@ -102,7 +106,7 @@ public class HunterActionList : EnemyAction
         }
 
         //攻撃へ遷移
-        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance * 2 && CheckListTimer())
+        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())
         {
             stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
             return;
@@ -115,7 +119,8 @@ public class HunterActionList : EnemyAction
         // 追跡
         enemy.OnMovementInput?.Invoke(direction.normalized * 5.0f);
 
-        if (frameTime >= 60.0f && CheckListTimer())//もう待ちきれない  
+        if (frameTime >= 320.0f ||
+            distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())//もう待ちきれない  
         {
 
             //リセット(歩きに戻る)
@@ -144,6 +149,9 @@ public class HunterActionList : EnemyAction
 
     public void ThrowSkillTick()
     {
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
+
         //ちょっとずつ見る
         direction = player.position - enemy.transform.position;
 
@@ -217,6 +225,8 @@ public class HunterActionList : EnemyAction
 
     public void Test1Tick()
     {
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
 
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
         enemy.AttackCollider.DetectColliders(enemy.EnemyStatus.StatusData.damage, targetLayer, false);
