@@ -21,19 +21,25 @@ public class ObjectController : WorldObjectController
         //spawnPool = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         //gameObj = Instantiate(Resources.Load<GameObject>(ObjectStatus.StatusData.gameObjPrefab), this.transform);
+        gameObj = this.gameObject.transform.parent.gameObject;
 
         rigidBody.mass = ObjectStatus.StatusData.mass;
         type = ObjectStatus.StatusData.ObjectType;
+
+        //EffectHandler = GetComponentInChildren<EffectHandler>();
+        //EffectHandler.Init(this);
+
+        objState = GetComponentInChildren<ObjectStateHandler>();
+        objState.Init(this);
+        if (objState == null) Debug.Log("objState NULL");
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-
+        base.Update();
     }
 
     /// <summary>
