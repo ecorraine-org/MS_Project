@@ -80,9 +80,13 @@ public class DashHandler : MonoBehaviour
 
     public void Update()
     {
-        HitReaction hitReaction = battleManager.GetPlayerHitReaction();
-        if (battleManager.IsHitStop/*&& hitReaction.stopDuration!=0*/) slowFactor = hitReaction.slowSpeed;
-        else slowFactor = 1;
+        if (owner is PlayerController)
+        {
+            HitReaction hitReaction = battleManager.GetPlayerHitReaction();
+            if (battleManager.IsHitStop/*&& hitReaction.stopDuration!=0*/) slowFactor = hitReaction.slowSpeed;
+            else slowFactor = 1;
+        }
+
 
         if (blockDetector == null) return;
 
@@ -99,7 +103,14 @@ public class DashHandler : MonoBehaviour
 
         //移動しようとする方向
         blockDetector.DetectUpdate(owner.transform, owner.GetNextDirec());
+
+//#if UNITY_EDITOR
+   //     DebugUpdate();
+//#endif
+
     }
+
+
 
     private void FixedUpdate()
     {
@@ -152,7 +163,7 @@ public class DashHandler : MonoBehaviour
         float offsetX = 3.0f;
 
         //位置調整
-        if ((lockOnCollider.ClosestCollider.transform.position- transform.position).x >= 0)
+        if ((lockOnCollider.ClosestCollider.transform.position - transform.position).x >= 0)
         {
             targetPos.x -= offsetX;
         }
@@ -355,5 +366,31 @@ public class DashHandler : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(testTargetPos, 0.2f);
 
+    }
+
+    private void DebugUpdate()
+    {
+        if (lockOnCollider.ClosestCollider == null)
+        {
+            return;
+        }
+
+        Vector3 targetPos = lockOnCollider.ClosestCollider.transform.position;
+
+        float offsetX = 3.0f;
+
+        //位置調整
+        if ((lockOnCollider.ClosestCollider.transform.position - transform.position).x >= 0)
+        {
+            targetPos.x -= offsetX;
+        }
+        else
+        {
+            targetPos.x += offsetX;
+        }
+
+        correctDashParam.dashDirec = targetPos - transform.position;
+
+        testTargetPos = targetPos;
     }
 }
