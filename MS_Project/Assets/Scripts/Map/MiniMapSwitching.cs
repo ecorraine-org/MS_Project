@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class MiniMapSwitching : MonoBehaviour
 {
-    [SerializeField] private GameObject[] group1; // Å‰‚Ì”z—ñ
-    [SerializeField] private GameObject[] group2; // 2‚Â–Ú‚Ì”z—ñ
+    [SerializeField] private GameObject[] group1; // æœ€åˆã®é…åˆ—
+    [SerializeField] private GameObject[] group2; // 2ã¤ç›®ã®é…åˆ—
 
-    private bool isGroup1Active = true; // Œ»İ‚Ç‚¿‚ç‚ªƒAƒNƒeƒBƒu‚©‚ğ‹L˜^
+    private bool isGroup1Active = true; // ç¾åœ¨ã©ã¡ã‚‰ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‹ã‚’è¨˜éŒ²
 
     private void Update()
     {
-        // MƒL[‚ª‰Ÿ‚³‚ê‚½‚çØ‚è‘Ö‚¦
+        // Mã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰åˆ‡ã‚Šæ›¿ãˆ
         if (Input.GetKeyDown(KeyCode.M))
         {
             ToggleGroups();
@@ -18,16 +18,16 @@ public class MiniMapSwitching : MonoBehaviour
 
     private void ToggleGroups()
     {
-        // Œ»İ‚Ìó‘Ô‚É‰‚¶‚ÄØ‚è‘Ö‚¦
+        // ç¾åœ¨ã®çŠ¶æ…‹ã«å¿œã˜ã¦åˆ‡ã‚Šæ›¿ãˆ
         isGroup1Active = !isGroup1Active;
 
-        // ”z—ñ1‚ÌƒAƒNƒeƒBƒuó‘Ô‚ğİ’è
+        // é…åˆ—1ã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã‚’è¨­å®š
         foreach (GameObject obj in group1)
         {
             if (obj != null) obj.SetActive(isGroup1Active);
         }
 
-        // ”z—ñ2‚ÌƒAƒNƒeƒBƒuó‘Ô‚ğİ’è
+        // é…åˆ—2ã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã‚’è¨­å®š
         foreach (GameObject obj in group2)
         {
             if (obj != null) obj.SetActive(!isGroup1Active);

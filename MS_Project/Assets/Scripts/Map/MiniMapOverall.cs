@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class MiniMapOverall : MonoBehaviour
 {
-    [SerializeField] private Transform player; // ƒvƒŒƒCƒ„[‚ÌTransform‚ğİ’è
-    [SerializeField] private Vector3 offset = new Vector3(0, 50, 0); // ƒ~ƒjƒ}ƒbƒvƒJƒƒ‰‚ÌˆÊ’u’²®
+    [SerializeField] private Transform player; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Transformã‚’è¨­å®š
+    [SerializeField] private Vector3 offset = new Vector3(0, 50, 0); // ãƒŸãƒ‹ãƒãƒƒãƒ—ã‚«ãƒ¡ãƒ©ã®ä½ç½®èª¿æ•´
 
     private void LateUpdate()
     {
         if (player != null)
         {
-            // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ÉƒIƒtƒZƒbƒg‚ğ‰Á‚¦‚ÄƒJƒƒ‰‚ğˆÚ“®
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã«ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’åŠ ãˆã¦ã‚«ãƒ¡ãƒ©ã‚’ç§»å‹•
             transform.position = player.position + offset;
         }
     }

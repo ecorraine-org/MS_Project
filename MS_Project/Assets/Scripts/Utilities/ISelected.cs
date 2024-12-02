@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// �I�΂�鏈���C���^�t�F�[�X
+/// 選ばれる処理インタフェース
 /// </summary>
 public interface ISelected
 {
     /// <summary>
-    /// �I�΂�鏈��
+    /// 選ばれる処理
     /// </summary>
     void Selected();
 
     /// <summary>
-    /// �I�΂�ĂȂ�����
+    /// 選ばれてない処理
     /// </summary>
     void UnSelected();
 }
