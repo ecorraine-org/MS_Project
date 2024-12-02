@@ -11,7 +11,7 @@ public abstract class ObjectState : MonoBehaviour
     protected EnemyStatusHandler enemyStatusHandler;
     protected EnemyAnimManager animHandler;
 
-    protected ObjectController staticObject;
+    protected ObjectController staticObj;
     protected ObjectStatusHandler objectStatusHandler;
 
     protected PlayerController player;
@@ -38,8 +38,10 @@ public abstract class ObjectState : MonoBehaviour
 
         else if (objController.Type == WorldObjectType.StaticObject)
         {
-            staticObject = objController as ObjectController;
-            objectStatusHandler = staticObject.ObjectStatus;
+            staticObj = objController as ObjectController;
+            objectStatusHandler = staticObj.ObjectStatus;
+
+            player = staticObj.PlayerController;
         }
     }
 

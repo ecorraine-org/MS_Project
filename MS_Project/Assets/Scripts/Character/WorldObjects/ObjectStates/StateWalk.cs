@@ -12,13 +12,16 @@ public class StateWalk : ObjectState
     {
         base.Init(_objectController);
 
-        walkTickMethod = enemy.EnemyAction.GetType().GetMethod("WalkTick");
-
-        //敵による独自の処理
-        var method = enemy.EnemyAction.GetType().GetMethod("WalkInit");
-        if (method != null)
+        if (enemy != null)
         {
-            method.Invoke(enemy.EnemyAction, null);
+            walkTickMethod = enemy.EnemyAction.GetType().GetMethod("WalkTick");
+
+            //敵による独自の処理
+            var method = enemy.EnemyAction.GetType().GetMethod("WalkInit");
+            if (method != null)
+            {
+                method.Invoke(enemy.EnemyAction, null);
+            }
         }
         else
         {
@@ -76,28 +79,29 @@ public class StateWalk : ObjectState
         if (objStateHandler.CheckSkill()) return;
 
         //アイドルへ遷移
-        /*
-        if (objController.MovementInput.magnitude <= 0f)
+        if (objController.Type == WorldObjectType.StaticObject)
         {
-            objController.State.TransitionState(ObjectStateType.Idle);
-        };
-        */
-        float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
-        if (distanceToPlayer > enemyStatusHandler.StatusData.chaseDistance)
-        {
-            objController.State.TransitionState(ObjectStateType.Idle);
-            return;
+            staticObj.State.TransitionState(ObjectStateType.Idle);
         }
-
-        //攻撃へ遷移
-        // if (objStateHandler.CheckAttack()) return;
-        if (distanceToPlayer <= enemyStatusHandler.StatusData.attackDistance && enemy.AllowAttack)
+        else if (objController.Type == WorldObjectType.Enemy)
         {
-            //クールダウン
-            enemy.StartAttackCoroutine();
+            float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
+            if (distanceToPlayer > enemyStatusHandler.StatusData.chaseDistance)
+            {
+                objController.State.TransitionState(ObjectStateType.Idle);
+                return;
+            }
 
-            objController.State.TransitionState(ObjectStateType.Attack);
-            return;
+            //攻撃へ遷移
+            // if (objStateHandler.CheckAttack()) return;
+            if (distanceToPlayer <= enemyStatusHandler.StatusData.attackDistance && enemy.AllowAttack)
+            {
+                //クールダウン
+                enemy.StartAttackCoroutine();
+
+                objController.State.TransitionState(ObjectStateType.Attack);
+                return;
+            }
         }
     }
 

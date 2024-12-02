@@ -12,7 +12,11 @@ public class StateDamaged : ObjectState
 
         //player = GameObject.Find("Player").GetComponent<PlayerController>();
 
-        if (enemy != null)
+        if (objController.Type == WorldObjectType.StaticObject)
+        {
+            staticObj.GenerateOnomatopoeia(objController.gameObject, staticObj.ObjectStatus.StatusData.onomatoData);
+        }
+        else if (objController.Type == WorldObjectType.Enemy && enemy != null)
         {
             enemy.Anim.Play("Damaged", 0, 0.0f);
 
@@ -29,14 +33,18 @@ public class StateDamaged : ObjectState
         // ダメージ(連撃)チェック
         if (objStateHandler.CheckHit()) return;
 
-        if (enemy.AnimManager != null && enemy.AnimManager.IsAnimEnd)
+        if (objController.Type == WorldObjectType.StaticObject)
         {
-            //Debug.Log("ダメージ");
             objController.State.TransitionState(ObjectStateType.Idle);
         }
-
-        if (enemy.AnimManager == null)
-            objController.State.TransitionState(ObjectStateType.Idle);
+        else if (objController.Type == WorldObjectType.Enemy)
+        {
+            if (enemy.AnimManager != null && enemy.AnimManager.IsAnimEnd)
+            {
+                //Debug.Log("ダメージ");
+                objController.State.TransitionState(ObjectStateType.Idle);
+            }
+        }
     }
 
     public override void FixedTick()

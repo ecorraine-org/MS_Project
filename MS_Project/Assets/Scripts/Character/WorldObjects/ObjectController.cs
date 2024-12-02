@@ -16,6 +16,8 @@ public class ObjectController : WorldObjectController
         if (!this.transform.GetChild(0).gameObject.TryGetComponent<ObjectStatusHandler>(out objectStatus))
             CustomLogger.LogWarning(objectStatus.GetType(), objectStatus.name);
 
+        BattleManager = BattleManager.Instance;
+
         capsuleCollider = this.GetComponent<CapsuleCollider>();
 
         //spawnPool = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
@@ -29,8 +31,8 @@ public class ObjectController : WorldObjectController
         rigidBody.mass = ObjectStatus.StatusData.mass;
         type = ObjectStatus.StatusData.ObjectType;
 
-        //EffectHandler = GetComponentInChildren<EffectHandler>();
-        //EffectHandler.Init(this);
+        EffectHandler = GetComponentInChildren<EffectHandler>();
+        EffectHandler.Init(this);
 
         objState = GetComponentInChildren<ObjectStateHandler>();
         objState.Init(this);
@@ -63,10 +65,7 @@ public class ObjectController : WorldObjectController
         //被撃状態へ遷移
         isDamaged = true;
 
-        //ノックバック
-        Vector3 playerDirec = player.position - transform.position;
-        playerDirec.y = 0;
-        playerDirec.z = 0;
+        HitReaction hitReaction = BattleManager.GetPlayerHitReaction();
 
         //エフェクト生成
         EffectHandler.InstantiateHit();
