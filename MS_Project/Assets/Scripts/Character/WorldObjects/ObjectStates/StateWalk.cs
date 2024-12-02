@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Reflection;
 
 public class StateWalk : ObjectState
 {
+    private MethodInfo walkTickMethod;
+
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
+
+        walkTickMethod = enemy.EnemyAction.GetType().GetMethod("WalkTick");
 
         //敵による独自の処理
         var method = enemy.EnemyAction.GetType().GetMethod("WalkInit");
@@ -35,10 +40,9 @@ public class StateWalk : ObjectState
     public override void Tick()
     {
         //敵による独自の処理
-        var method = enemy.EnemyAction.GetType().GetMethod("WalkTick");
-        if (method != null)
+        if (walkTickMethod != null)
         {
-            method.Invoke(enemy.EnemyAction, null);
+            walkTickMethod.Invoke(enemy.EnemyAction, null);
         }
         else
         {

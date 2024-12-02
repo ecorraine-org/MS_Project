@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class StateAttack : ObjectState
 {
+    private MethodInfo attackTickMethod;
     public LayerMask targetLayer;
 
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
+
+        attackTickMethod = enemy.EnemyAction.GetType().GetMethod("AttackTick");
 
         //敵による独自の処理
         var method = enemy.EnemyAction.GetType().GetMethod("AttackInit");
@@ -25,10 +29,9 @@ public class StateAttack : ObjectState
     public override void Tick()
     {
         //敵による独自の処理
-        var method = enemy.EnemyAction.GetType().GetMethod("AttackTick");
-        if (method != null)
+        if (attackTickMethod != null)
         {
-            method.Invoke(enemy.EnemyAction, null);
+            attackTickMethod.Invoke(enemy.EnemyAction, null);
         }
         else
         {
