@@ -43,8 +43,16 @@ public class AIChicken_ThrowEgg : EnemyAction
         minDistance = enemy.EnemyStatus.StatusData.attackDistance / 1.3f;
     }
 
-    public override void Chase()
+    public void WalkInit()
     {
+
+        enemy.Anim.Play("Walk");
+    }
+
+    public void WalkTick()
+    {
+        enemy.Move();
+
         if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
         {
             //じわりとみる
@@ -56,7 +64,7 @@ public class AIChicken_ThrowEgg : EnemyAction
             enemy.transform.rotation = Quaternion.Slerp(
             enemy.transform.rotation,
             targetRotation,
-            0.03f // 補間率（1.0fで即時、0.0fで変化なし）
+            0.05f // 補間率（1.0fで即時、0.0fで変化なし）
         );
 
             if (distanceToPlayer < minDistance)
@@ -65,45 +73,32 @@ public class AIChicken_ThrowEgg : EnemyAction
                 backwardRotation.x = 0f;
                 transform.rotation = backwardRotation;
 
-                if (enemy.AllowAttack || enemy.IsAttacking)
-                {
-                    enemy.AllowAttack = false;
-                    enemy.IsAttacking = false;
-                }
-
                 // 逃げる
                 enemy.Anim.Play("Escape");
                 enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
             }
             else if (distanceToPlayer <= maxDistance && distanceToPlayer > minDistance)
             {
-                enemy.OnMovementInput?.Invoke(Vector3.zero);
+                //enemy.OnMovementInput?.Invoke(Vector3.zero);
 
-                // 攻撃
-                enemy.OnAttack?.Invoke();
+                //クールダウン
+                enemy.StartAttackCoroutine();
+
+                stateHandler.TransitionState(ObjectStateType.Attack);
+                return;
             }
             else if (distanceToPlayer > maxDistance)
             {
-                if (enemy.AllowAttack || enemy.IsAttacking)
-                {
-                    enemy.AllowAttack = false;
-                    enemy.IsAttacking = false;
-                }
 
+                enemy.Anim.Play("Walk");
                 // 追跡
                 enemy.OnMovementInput?.Invoke(direction.normalized);
             }
         }
         else
         {
-            if (enemy.AllowAttack || enemy.IsAttacking)
-            {
-                enemy.AllowAttack = false;
-                enemy.IsAttacking = false;
-            }
-
             // 停止
-            enemy.OnMovementInput?.Invoke(Vector3.zero);
+            //enemy.OnMovementInput?.Invoke(Vector3.zero);
         }
     }
 

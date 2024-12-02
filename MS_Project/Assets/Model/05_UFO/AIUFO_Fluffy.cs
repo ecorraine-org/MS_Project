@@ -65,6 +65,44 @@ public class AIUFO_Fluffy : EnemyAction
     );
     }
 
+    public void WalkInit()
+    {
+        enemy.Anim.Play("Walk");
+    }
+
+    public void WalkTick()
+    {
+        enemy.Move();
+
+        // 追跡
+        enemy.OnMovementInput?.Invoke(direction.normalized);
+        
+        //ちょっとずつ見る
+        direction = player.position - enemy.transform.position;
+
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.02f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+
+        //攻撃へ遷移
+        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && enemy.AllowAttack)
+        {
+            //クールダウン
+            enemy.StartAttackCoroutine();
+
+            stateHandler.TransitionState(ObjectStateType.Attack);
+            return;
+        }
+    }
+
     public void Attack()
     {
         //ちょっとずつ見る
