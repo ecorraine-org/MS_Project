@@ -6,7 +6,7 @@ public struct DashParam
 {
     public float duration; //ダッシュ持続時間
     public float speed;    //ダッシュ速度
-    public bool canThrough;//貫通可能かどうか                          
+    public bool canThrough;//貫通可能かどうか
     public Vector3 dashDirec;     //ダッシュ方向
     public bool isDashing; //ダッシュ中かどうか
     public Coroutine dashCoroutine;//コルーチンの参照
@@ -284,7 +284,7 @@ public class DashHandler : MonoBehaviour
 
         if (blockDetector != null) blockDetector.IsEnabled = true;
         isDashing = false;
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("AttackableObject"), false);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
 
     }
 
@@ -301,7 +301,7 @@ public class DashHandler : MonoBehaviour
 
         if (blockDetector != null) blockDetector.IsEnabled = true;
         correctDashParam.isDashing = false;
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("AttackableObject"), false);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
 
     }
 

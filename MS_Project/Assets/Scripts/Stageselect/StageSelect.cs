@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using static UnityEditor.Progress;
 using UnityEngine.SceneManagement;
 
 namespace Stage.Utility
@@ -11,67 +10,67 @@ namespace Stage.Utility
     public class StageSelect : MonoBehaviour
     {
         [SerializeField] private List<RingStage> stageList = new List<RingStage>();
-        // ƒŠƒ“ƒO‚Ì‰¡•
+        // ãƒªãƒ³ã‚°ã®æ¨ªå¹…
         [SerializeField] private float ringWidth;
-        // ƒŠƒ“ƒO‚Ìc•
+        // ãƒªãƒ³ã‚°ã®ç¸¦å¹…
         [SerializeField] private float ringHeight;
-        // ˆÚ“®‚ÌƒCƒ“ƒ^[ƒoƒ‹
+        // ç§»å‹•ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«
         [SerializeField] private float magnetSpeed = 0.18f;
-        // —v‘f‚ªˆê”ÔŒã‚ë‚ÉˆÚ“®‚µ‚½‚Æ‚«‚Ìk¬—¦(0.5 = ”¼•ª‚Ì‘å‚«‚³)
+        // è¦ç´ ãŒä¸€ç•ªå¾Œã‚ã«ç§»å‹•ã—ãŸã¨ãã®ç¸®å°ç‡(0.5 = åŠåˆ†ã®å¤§ãã•)
         [SerializeField] private float backZoomScale = 0.5f;
 
-        // ¶‰E‚Ì‰ñ“]—Ê
+        // å·¦å³ã®å›è»¢é‡
         private float stepAmount;
-        // —v‘f‚ÌŠÔŠuEŠp“x
+        // è¦ç´ ã®é–“éš”ãƒ»è§’åº¦
         private float oneAngle;
-        // –Ú•WˆÊ’u -> ‰ñ“]‚³‚¹‚½‰ñ”(‰E+1, ¶-1)
+        // ç›®æ¨™ä½ç½® -> å›è»¢ã•ã›ãŸå›æ•°(å³+1, å·¦-1)
         private int count;
-        // ƒŠƒ“ƒO‚Ì‘OŒãŠÖŒW®—ñ—p‚Ìƒoƒbƒtƒ@[
+        // ãƒªãƒ³ã‚°ã®å‰å¾Œé–¢ä¿‚æ•´åˆ—ç”¨ã®ãƒãƒƒãƒ•ã‚¡ãƒ¼
         private List<RingStage> stageListCache = new List<RingStage>();
 
-        // Å‘O–Ê‚Ì—v‘f
+        // æœ€å‰é¢ã®è¦ç´ 
         public RingStage frontStage;
 
-        bool fIris = false; // ƒAƒCƒŠƒXƒAƒEƒg‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒ‰ƒO
+        bool fIris = false; // ã‚¢ã‚¤ãƒªã‚¹ã‚¢ã‚¦ãƒˆã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ©ã‚°
 
         [SerializeField] RectTransform unmask;
         //readonly Vector2 IRIS_IN_SCALE = new Vector2(50, 50);
         readonly float SCALE_DURATION = 2;
-        [Header("ƒXƒe[ƒW‚P‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼‘ã®åå‰")]
         [SerializeField] string sceneToLoad1;
-        [Header("ƒXƒe[ƒW‚Q‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼’ã®åå‰")]
         [SerializeField] string sceneToLoad2;
-        [Header("ƒXƒe[ƒW‚R‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼“ã®åå‰")]
         [SerializeField] string sceneToLoad3;
-        [Header("ƒXƒe[ƒW‚S‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼”ã®åå‰")]
         [SerializeField] string sceneToLoad4;
-        [Header("ƒXƒe[ƒW‚T‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼•ã®åå‰")]
         [SerializeField] string sceneToLoad5;
-        [Header("ƒXƒe[ƒW‚U‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼–ã®åå‰")]
         [SerializeField] string sceneToLoad6;
-        [Header("ƒXƒe[ƒW‚V‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼—ã®åå‰")]
         [SerializeField] string sceneToLoad7;
-        [Header("ƒXƒe[ƒW‚W‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼˜ã®åå‰")]
         [SerializeField] string sceneToLoad8;
-        [Header("ƒXƒe[ƒW‚X‚Ì–¼‘O")]
+        [Header("ã‚¹ãƒ†ãƒ¼ã‚¸ï¼™ã®åå‰")]
         [SerializeField] string sceneToLoad9;
 
         void Start()
         {
-            // ‚Á‚Ä‚é—v‘f”‚É‰‚¶‚Ä‰ŠúˆÊ’u‚ğŒvZ‚·‚é
+            // æŒã£ã¦ã‚‹è¦ç´ æ•°ã«å¿œã˜ã¦åˆæœŸä½ç½®ã‚’è¨ˆç®—ã™ã‚‹
             this.oneAngle = 360.0f / this.stageList.Count;
             for (int i = 0; i < this.stageList.Count; i++)
             {
                 RingStage item = this.stageList[i];
 
-                // ƒŠƒXƒg‚Ìæ“ª‚Ì—v‘f‚ªˆê”Ô‘O‚É—ˆ‚é‚æ‚¤‚É’²®
+                // ãƒªã‚¹ãƒˆã®å…ˆé ­ã®è¦ç´ ãŒä¸€ç•ªå‰ã«æ¥ã‚‹ã‚ˆã†ã«èª¿æ•´
                 item.InitDegree = (this.oneAngle * i) + 270.0f;
             }
 
-            // •À‚Ñ‡—p‚Ì®—ñ—p‚ÌƒLƒƒƒbƒVƒ…‚ğì¬
+            // ä¸¦ã³é †ç”¨ã®æ•´åˆ—ç”¨ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã‚’ä½œæˆ
             this.stageListCache.AddRange(this.stageList);
 
-            this.updateItemsPostion(); // ˆÊ’u‚Æ‘å‚«‚³‚ğŒˆ‚ß‚é‚½‚ß‚É1‰ñ‚¾‚¯ŒÄ‚Ño‚·
+            this.updateItemsPostion(); // ä½ç½®ã¨å¤§ãã•ã‚’æ±ºã‚ã‚‹ãŸã‚ã«1å›ã ã‘å‘¼ã³å‡ºã™
         }
 
         void Update()
@@ -120,7 +119,7 @@ namespace Stage.Utility
             {
                 if (item == null)
                 {
-                    Debug.LogWarning("—v‘f‚ªnull‚Å‚·B");
+                    Debug.LogWarning("è¦ç´ ãŒnullã§ã™ã€‚");
                     continue;
                 }
 
@@ -128,17 +127,17 @@ namespace Stage.Utility
                 float _z = Mathf.Abs(deg - 270.0f);
                 if (_z > 180.0f)
                 {
-                    _z = Mathf.Abs(360.0f - _z); // 180‚ªˆê”Ô‚¤‚µ‚ë
+                    _z = Mathf.Abs(360.0f - _z); // 180ãŒä¸€ç•ªã†ã—ã‚
                 }
                 item.Rect.SetAnchoredPosZ(_z);
 
-                // ˆê”ÔŒã‚ë‚ªw’è‚µ‚½‘å‚«‚³‚É‚È‚é‚æ‚¤‚É‘å‚«‚³‚ğ•ÏX
+                // ä¸€ç•ªå¾Œã‚ãŒæŒ‡å®šã—ãŸå¤§ãã•ã«ãªã‚‹ã‚ˆã†ã«å¤§ãã•ã‚’å¤‰æ›´
                 item.Rect.SetLocalScaleXY(Mathf.Lerp(this.backZoomScale, 1.0f, 1.0f - Mathf.InverseLerp(0, 180.0f, _z)));
 
                 var (x, y) = MathfUtil.GetPosDeg(deg);
                 item.Rect.SetAnchoredPos(x * this.ringWidth, y * this.ringHeight);
 
-                // Å‘O–Ê‚Ì—v‘f‚ğ”»’è
+                // æœ€å‰é¢ã®è¦ç´ ã‚’åˆ¤å®š
                 if (_z < closestDegree)
                 {
                     closestDegree = _z;
@@ -146,7 +145,7 @@ namespace Stage.Utility
                 }
             }
 
-            // ŒvZ‚µ‚½ZˆÊ’u‚©‚çuGUI‚Ì‘OŒãŠÖŒW‚ğİ’è‚·‚é
+            // è¨ˆç®—ã—ãŸZä½ç½®ã‹ã‚‰uGUIã®å‰å¾Œé–¢ä¿‚ã‚’è¨­å®šã™ã‚‹
             this.stageListCache.Sort(this.sort);
             for (int i = 0; i < this.stageListCache.Count; i++)
             {
@@ -156,7 +155,7 @@ namespace Stage.Utility
             frontStage = tempFrontStage;
         }
 
-        // —v‘f‚ğ®—ñ‚·‚é‚Æ‚«‚É“n‚·ƒ‰ƒ€ƒ_—p‚Ìˆ—
+        // è¦ç´ ã‚’æ•´åˆ—ã™ã‚‹ã¨ãã«æ¸¡ã™ãƒ©ãƒ ãƒ€ç”¨ã®å‡¦ç†
         private int sort(RingStage a, RingStage b)
         {
             float diff = b.Rect.GetAnchoredPosZ() - a.Rect.GetAnchoredPosZ();
@@ -173,13 +172,13 @@ namespace Stage.Utility
 
         public void IrisOut()
         {
-            // ƒAƒCƒŠƒXƒAƒEƒgi¬‚³‚­‚µ‚ÄÁ‚¦‚éj‚ÆƒV[ƒ“‘JˆÚ‚ğŠJn
+            // ã‚¢ã‚¤ãƒªã‚¹ã‚¢ã‚¦ãƒˆï¼ˆå°ã•ãã—ã¦æ¶ˆãˆã‚‹ï¼‰ã¨ã‚·ãƒ¼ãƒ³é·ç§»ã‚’é–‹å§‹
             StartCoroutine(IrisOutAndLoadScene());
         }
 
         private IEnumerator IrisOutAndLoadScene()
         {
-            // ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŠ®—¹‚ğ‘Ò‚Â
+            // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å®Œäº†ã‚’å¾…ã¤
             yield return unmask.DOScale(Vector3.zero, SCALE_DURATION).SetEase(Ease.OutCubic).WaitForCompletion();
 
             fIris = true;
@@ -190,39 +189,39 @@ namespace Stage.Utility
             switch (stage.name)
             {
                 case "Stage1":
-                    Debug.Log("Stage1‚É‘JˆÚ");
+                    Debug.Log("Stage1ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad1);
                     break;
                 case "Stage2":
-                    Debug.Log("Stage2‚É‘JˆÚ");
+                    Debug.Log("Stage2ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad2);
                     break;
                 case "Stage3":
-                    Debug.Log("Stage3‚É‘JˆÚ");
+                    Debug.Log("Stage3ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad3);
                     break;
                 case "Stage4":
-                    Debug.Log("Stage4‚É‘JˆÚ");
+                    Debug.Log("Stage4ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad4);
                     break;
                 case "Stage5":
-                    Debug.Log("Stage5‚É‘JˆÚ");
+                    Debug.Log("Stage5ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad5);
                     break;
                 case "Stage6":
-                    Debug.Log("Stage6‚É‘JˆÚ");
+                    Debug.Log("Stage6ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad6);
                     break;
                 case "Stage7":
-                    Debug.Log("Stage7‚É‘JˆÚ");
+                    Debug.Log("Stage7ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad7);
                     break;
                 case "Stage8":
-                    Debug.Log("Stage8‚É‘JˆÚ");
+                    Debug.Log("Stage8ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad8);
                     break;
                 case "Stage9":
-                    Debug.Log("Stage9‚É‘JˆÚ");
+                    Debug.Log("Stage9ã«é·ç§»");
                     SceneManager.LoadScene(sceneToLoad9);
                     break;
             }
