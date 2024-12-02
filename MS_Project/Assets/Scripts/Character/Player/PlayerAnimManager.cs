@@ -19,6 +19,12 @@ public class PlayerAnimManager : AnimManager
         playerController = _playerController;
     }
 
+    public void PlayerSoundEvt(int _index)
+    {
+        AudioManager audioManager = playerController.AudioManager;
+        audioManager.PlaySound(_index);
+    }
+
     /// <summary>
     /// 弾を発射、真空連斬
     /// </summary>
