@@ -29,6 +29,9 @@ public class PlayerController : WorldObject
     [SerializeField, Header("モードマネージャー")]
     PlayerModeManager modeManager;
 
+    [SerializeField, Header("オーディオマネージャー")]
+    AudioManager audioManager;
+
     private Collider playerCollider;
 
     [SerializeField, Header("アタックコライダーマネージャー")]
@@ -385,6 +388,10 @@ public class PlayerController : WorldObject
         get => this.animManager;
     }
 
+    public AudioManager AudioManager
+    {
+        get => this.audioManager;
+    }
 
     public PlayerInputManager InputManager
     {
