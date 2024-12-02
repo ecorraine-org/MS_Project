@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Animations;
 
 [CreateAssetMenu(fileName = "OnomatoData", menuName = "ScriptableObjects/Onomatopoeia/OnomatopoeiaData", order = 0)]
 public class OnomatopoeiaData : ScriptableObject
@@ -13,7 +12,7 @@ public class OnomatopoeiaData : ScriptableObject
 
     [Header("オノマトペ")]
     public Sprite onomatoSprite;
-    public AnimatorController onomatoACont;
+    public AnimatorOverrideController onomatoACont;
 
     [Header("フォント")]
     public TMP_FontAsset fontAsset;
