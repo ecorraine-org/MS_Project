@@ -4,16 +4,16 @@ namespace Stage.Utility
 {
     public static class MathfUtil
     {
-        // Šp“x‚ğƒ‰ƒWƒAƒ“‚É•ÏŠ·‚·‚é
+        // è§’åº¦ã‚’ãƒ©ã‚¸ã‚¢ãƒ³ã«å¤‰æ›ã™ã‚‹
         public static float ToRad(float deg) => deg * Mathf.Deg2Rad;
 
-        // w’è‚µ‚½Šp“x‚©‚çX‚ÆY‚Ì‘g‚İ‡‚í‚¹‚ğæ“¾‚·‚é
+        // æŒ‡å®šã—ãŸè§’åº¦ã‹ã‚‰Xã¨Yã®çµ„ã¿åˆã‚ã›ã‚’å–å¾—ã™ã‚‹
         public static (float x, float y) GetPosDeg(float deg, float rate = 1.0f)
         {
             return GetPosRad(ToRad(deg), rate);
         }
 
-        // w’è‚µ‚½ƒ‰ƒWƒAƒ“Šp“x‚©‚çX‚ÆY‚Ì‘g‚İ‡‚í‚¹‚ğæ“¾‚·‚é
+        // æŒ‡å®šã—ãŸãƒ©ã‚¸ã‚¢ãƒ³è§’åº¦ã‹ã‚‰Xã¨Yã®çµ„ã¿åˆã‚ã›ã‚’å–å¾—ã™ã‚‹
         public static (float x, float y) GetPosRad(float rad, float rate = 1.0f)
         {
             float x = Mathf.Cos(rad);
