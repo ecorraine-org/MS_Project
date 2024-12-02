@@ -284,7 +284,7 @@ public class DashHandler : MonoBehaviour
 
         if (blockDetector != null) blockDetector.IsEnabled = true;
         isDashing = false;
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("AttackableObject"), false);
 
     }
 
@@ -301,7 +301,7 @@ public class DashHandler : MonoBehaviour
 
         if (blockDetector != null) blockDetector.IsEnabled = true;
         correctDashParam.isDashing = false;
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("AttackableObject"), false);
 
     }
 

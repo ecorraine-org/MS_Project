@@ -58,6 +58,7 @@ public class ObjectStateHandler : MonoBehaviour
     WorldObjectController objController;
 
     EnemyController enemy;
+    ObjectController staticObj;
 
     public void Init(WorldObjectController _objectController)
     {
@@ -65,6 +66,8 @@ public class ObjectStateHandler : MonoBehaviour
 
         if (objController.Type == WorldObjectType.Enemy)
             enemy = objController as EnemyController;
+        else if (objController.Type == WorldObjectType.StaticObject)
+            staticObj = objController as ObjectController;
 
         dicStates = new Dictionary<ObjectStateType, ObjectState>();
 
@@ -132,11 +135,14 @@ public class ObjectStateHandler : MonoBehaviour
     /// </summary>
     private void ResetState()
     {
-        objController.AttackCollider.Reset();
+        if (enemy != null)
+        {
+            objController.AttackCollider.Reset();
 
-        enemy.AnimManager.Reset();
+            enemy.AnimManager.Reset();
 
-        enemy.SkillManager.Reset();
+            enemy.SkillManager.Reset();
+        }
     }
 
     /// <summary>
@@ -204,7 +210,6 @@ public class ObjectStateHandler : MonoBehaviour
     {
         if (objController.Type == WorldObjectType.Enemy)
         {
-            EnemyController enemy = objController as EnemyController;
             if (enemy.EnemyStatus.CurrentHealth <= 0)
             {
                 TransitionState(ObjectStateType.Destroyed);
@@ -215,8 +220,7 @@ public class ObjectStateHandler : MonoBehaviour
 
         else if (objController.Type == WorldObjectType.StaticObject)
         {
-            ObjectController objectController = objController as ObjectController;
-            if (!objectController.ObjectStatus.IsInvincible)
+            if (!staticObj.ObjectStatus.IsInvincible)
             {
                 TransitionState(ObjectStateType.Destroyed);
 

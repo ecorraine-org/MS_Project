@@ -24,6 +24,9 @@ public abstract class WorldObjectController : WorldObject
     [HideInInspector, Tooltip("ステートマネージャー")]
     protected ObjectStateHandler objState;
 
+    [HideInInspector, Tooltip("シングルトンバトルマネージャー")]
+    protected BattleManager battleManager;
+
     [HideInInspector, Tooltip("エフェクトマネージャー")]
     EffectHandler effectHandler;
 
@@ -110,6 +113,12 @@ public abstract class WorldObjectController : WorldObject
     {
         get => effectHandler;
         set { effectHandler = value; }
+    }
+
+    public BattleManager BattleManager
+    {
+        get => battleManager;
+        set { battleManager = value; }
     }
 
     public AttackColliderManagerV2 AttackCollider

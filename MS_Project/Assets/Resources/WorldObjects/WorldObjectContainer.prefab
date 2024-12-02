@@ -138,8 +138,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7866176305599053463}
-  - component: {fileID: 2672532641526146804}
-  - component: {fileID: 660626239387354290}
   - component: {fileID: 3289402900400304593}
   m_Layer: 0
   m_Name: Skill
@@ -163,37 +161,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7521773594840106164}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2672532641526146804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961335562740166571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f4bf84a6c6e97b4f9fccef15e67802e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockDetector: {fileID: 0}
-  hitCollider: {fileID: 0}
-  duration: -1
-  speed: 10
-  slowFactor: 1
-  canThrough: 0
---- !u!114 &660626239387354290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961335562740166571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0da180a475433549a4004384d86f2c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dash: {fileID: 2672532641526146804}
 --- !u!114 &3289402900400304593
 MonoBehaviour:
   m_ObjectHideFlags: 0

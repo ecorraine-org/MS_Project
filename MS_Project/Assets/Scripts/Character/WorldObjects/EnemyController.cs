@@ -11,9 +11,6 @@ public class EnemyController : WorldObjectController
     [HideInInspector, Tooltip("エネミーステータスマネージャー")]
     EnemyStatusHandler enemyStatus;
 
-    [HideInInspector, Tooltip("シングルトンバトルマネージャー")]
-    BattleManager battleManager;
-
     [HideInInspector, Tooltip("アニメーションマネージャー")]
     EnemyAnimManager animManager;
 
@@ -42,7 +39,7 @@ public class EnemyController : WorldObjectController
         if (!this.transform.GetChild(0).gameObject.TryGetComponent<EnemyStatusHandler>(out enemyStatus))
             CustomLogger.LogWarning(EnemyStatus.GetType(), EnemyStatus.name);
 
-        battleManager = BattleManager.Instance;
+        BattleManager = BattleManager.Instance;
 
         capsuleCollider = this.GetComponent<CapsuleCollider>();
 
@@ -89,7 +86,6 @@ public class EnemyController : WorldObjectController
             action.Init(this);
         }
 
-     
         objState.Init(this);
         if (objState == null) Debug.Log("objState NULL");
 
@@ -202,9 +198,9 @@ public class EnemyController : WorldObjectController
         dashHandler.Begin(false, -1 * playerDirec.normalized);
 
 
-        HitReaction hitReaction = battleManager.GetPlayerHitReaction();
+        HitReaction hitReaction = BattleManager.GetPlayerHitReaction();
         //ヒットストップ
-        battleManager.StartHitStop(animator);
+        BattleManager.StartHitStop(animator);
 
         //エフェクト生成
         EffectHandler.InstantiateHit();
