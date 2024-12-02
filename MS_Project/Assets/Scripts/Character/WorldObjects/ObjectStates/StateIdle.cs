@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class StateIdle : ObjectState
 {
+    private MethodInfo idleTickMethod;
+
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
+
+        idleTickMethod = enemy.EnemyAction.GetType().GetMethod("IdleTick");
 
         //敵による独自の処理
         var method = enemy.EnemyAction.GetType().GetMethod("IdleInit");
@@ -32,10 +37,9 @@ public class StateIdle : ObjectState
     public override void Tick()
     {
         //敵による独自の処理
-        var method = enemy.EnemyAction.GetType().GetMethod("IdleTick");
-        if (method != null)
+        if (idleTickMethod != null)
         {
-            method.Invoke(enemy.EnemyAction, null);
+            idleTickMethod.Invoke(enemy.EnemyAction, null);
         }
         else
         {
