@@ -21,7 +21,7 @@ public class PlayerAttackState : PlayerState
     float attackDamage;
 
     public float FrenzyAttackDamage;
-    public LayerMask attackableLayer;
+   // public LayerMask attackableLayer;
     private CameraBasedHitCorrection _CameraBasedHitCorrection;
 
     //仮処理
@@ -175,7 +175,7 @@ public class PlayerAttackState : PlayerState
         if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
         else damage = attackDamage;
         //コライダーの検出
-        playerController.AttackColliderV2.DetectColliders(damage, attackableLayer, false);
+        playerController.AttackColliderV2.DetectColliders(damage, false);
 
     }
 
