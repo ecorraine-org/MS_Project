@@ -89,14 +89,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: CorrectDashEvt
+    functionName: EnableComboInput
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0
-    functionName: EnableComboInput
+    functionName: CorrectDashEvt
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -107,7 +107,7 @@ AnimationClip:
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 2
     messageOptions: 0
   - time: 0.033333335
     functionName: StartDash
@@ -145,14 +145,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.33333334
-    functionName: DisableCombo
+    functionName: EndAnim
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.33333334
-    functionName: EndAnim
+    functionName: DisableCombo
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
