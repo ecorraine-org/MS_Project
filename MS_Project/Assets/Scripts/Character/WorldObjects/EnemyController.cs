@@ -35,6 +35,11 @@ public class EnemyController : WorldObjectController
     [HideInInspector, Tooltip("ガーベージコレクター")]
     private ObjectCollector objectCollector;
 
+    //-------------------------------------
+    public AudioClip hitSE; // 再生する効果音
+    private AudioSource audioSource;
+    //-------------------------------------
+
     public override void Awake()
     {
         base.Awake();
@@ -94,6 +99,14 @@ public class EnemyController : WorldObjectController
         if (objState == null) Debug.Log("objState NULL");
 
         allowAttack = true;
+
+        // AudioSourceコンポーネントを取得--------
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogWarning("AudioSourceがない");
+        }
+        //----------------------------------------
     }
 
     private void FixedUpdate()
@@ -208,6 +221,23 @@ public class EnemyController : WorldObjectController
 
         //エフェクト生成
         EffectHandler.InstantiateHit();
+
+        // ヒット時に音を鳴らす----------
+        base.Hit(_canOneHitKill); // 親クラスの処理を呼び出し
+
+        // 効果音を再生
+        if (audioSource != null && hitSE != null)
+        {
+            audioSource.PlayOneShot(hitSE);
+
+            // 再生する効果音の名前をデバッグログに表示
+            Debug.Log($"再生された効果音: {hitSE.name}");
+        }
+        else
+        {
+            Debug.LogWarning("AudioSourceまたはAudioClipが設定されていいない");
+        }
+        //------------------------------
 
         if (isKillable && _canOneHitKill)
         {
