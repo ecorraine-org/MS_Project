@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 /// <summary>
 /// プレイヤースキル管理のビヘイビア
@@ -19,12 +19,24 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, Header("ステータスデータ")]
     PlayerSkillData skillData;
 
+    [SerializeField, Header("ヒットリアクションデータ")]
+    PlayerHitData playerHitData;
+
+    //*********
+    //ノーマル攻撃
+    [SerializeField, NonEditable, Header("攻撃段階")]
+    int attackStage = 0;
+
+    [SerializeField, NonEditable, Header("ノーマル攻撃の攻撃力")]
+    float attackDamage;
+    //*********
+
     [SerializeField, Header("今のスキルのクールタイム")]
     float curSkillCoolTime;
 
     // 攻撃をキャンセルし、コンボできるかどうか
     [SerializeField, Header("キャンセルできるか")]
-    bool canComboCancel=false;
+    bool canComboCancel = false;
 
     // コンボ入力できるかどうか
     [SerializeField, Header("コンボできるか")]
@@ -82,7 +94,7 @@ public class PlayerSkillManager : MonoBehaviour
 
             return true;
         }
-       
+
 
         return false;
     }
@@ -144,7 +156,7 @@ public class PlayerSkillManager : MonoBehaviour
 
                 ExecuteHammerSkillCharge();
                 break;
-       
+
             default:
                 break;
         }
@@ -190,7 +202,7 @@ public class PlayerSkillManager : MonoBehaviour
                 break;
         }
 
-      // playerController.SpriteAnim.Play("Dash", 0, 0f);
+        // playerController.SpriteAnim.Play("Dash", 0, 0f);
 
         // 突進初期化
         dash.Speed = skillData.dicSkill[PlayerSkill.Dodge].dashSpeed;
@@ -261,7 +273,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void ExecuteHammerSkillChargeFinished()
     {
-  
+
 
         playerController.SpriteAnim.Play("HammerSkill2", 0, 0f);
         playerController.SpriteRenderer.color = Color.red;
@@ -302,8 +314,61 @@ public class PlayerSkillManager : MonoBehaviour
         dash.CanThrough = false;
     }
 
+    #region swordAttack
+    public void SwordAttackInit()
+    {
+        attackDamage = playerController.StatusManager.StatusData.swordAtk;
 
-    private IEnumerator SkillCooldown( PlayerSkill _skillType)
+        // 突進初期化
+        dash.Speed = playerHitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
+        dash.Duration = -1;
+
+        if (attackStage == 0)
+        {
+            playerController.SpriteAnim.Play("Attack", 0, 0f);
+        }
+
+        if (attackStage == 1)
+        {
+            Debug.Log("SwordAttack2");
+            playerController.SpriteAnim.Play("SwordAttack2", 0, 0f);
+        }
+    }
+
+    public void SwordNextAttack()
+    {
+        if (attackStage < 1) attackStage++;
+        else attackStage = 0;
+
+        playerController.StateManager.TransitionState(StateType.Attack);
+    }
+    #endregion
+
+    #region HammerAttack
+    public void HammerAttackInit()
+    {
+        attackDamage = playerController.StatusManager.StatusData.hammerAtk;
+        playerController.SpriteAnim.Play("HammerAttack", 0, 0f);
+
+        // 突進初期化
+        dash.Speed = playerHitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
+        dash.Duration = -1;
+    }
+    #endregion
+
+    public void SpearAttackInit()
+    {
+        attackDamage = playerController.StatusManager.StatusData.spearAtk;
+        playerController.SpriteAnim.Play("SpearAttack", 0, 0f);
+    }
+
+    public void GauntletAttackInit()
+    {
+        attackDamage = playerController.StatusManager.StatusData.gauntletAtk;
+        playerController.SpriteAnim.Play("GauntletAttack", 0, 0f);
+    }
+
+    private IEnumerator SkillCooldown(PlayerSkill _skillType)
     {
         // データからクールタイムを取得
         float coolTime = skillData.dicSkill.ContainsKey(_skillType) ? skillData.dicSkill[_skillType].coolTime : 0f;
@@ -319,7 +384,7 @@ public class PlayerSkillManager : MonoBehaviour
             coolTimers[_skillType] = Mathf.Max(coolTimers[_skillType], 0f);
 
             // スキルクールタイムを記録
-             curSkillCoolTime = coolTimers[_skillType];
+            curSkillCoolTime = coolTimers[_skillType];
 
             yield return null;
         }
@@ -329,13 +394,13 @@ public class PlayerSkillManager : MonoBehaviour
 
     public IReadOnlyDictionary<PlayerSkill, float> CoolTimers
     {
-        get => coolTimers; 
+        get => coolTimers;
     }
 
     public Dictionary<PlayerSkill, bool> DicIsCharge
     {
         get => dicIsCharge;
-         set { this.dicIsCharge = value; }
+        set { this.dicIsCharge = value; }
     }
 
     //public BlockDetector BlockDetector
@@ -355,6 +420,18 @@ public class PlayerSkillManager : MonoBehaviour
         set { this.dash.IsDashing = value; }
     }
 
+    public int AttackStage
+    {
+        get => attackStage;
+        set { attackStage = value; }
+    }
+
+    public float AttackDamage
+    {
+        get => attackDamage;
+        set { attackDamage = value; }
+    }
+
     public Vector3 DashDirec
     {
         get => this.dash.Direc;
@@ -370,7 +447,7 @@ public class PlayerSkillManager : MonoBehaviour
     public bool CanComboCancel
     {
         get => this.canComboCancel;
-         set { this.canComboCancel = value; }
+        set { this.canComboCancel = value; }
     }
 
     public bool CanCharge
