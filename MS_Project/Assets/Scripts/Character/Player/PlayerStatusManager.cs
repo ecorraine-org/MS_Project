@@ -29,6 +29,9 @@ public class PlayerStatusManager : StatusManager
 
     //暴走しているか
     bool isFrenzy = false;
+
+    //被撃したか
+    bool isHit = false;
     //****************
 
     protected override void Awake()
@@ -108,6 +111,12 @@ public class PlayerStatusManager : StatusManager
     public bool IsFrenzy
     {
         get => isFrenzy;
+    }
+
+    public bool IsHit
+    {
+        get => isHit;
+        set { isHit = value; }
     }
 
     public float FrenzyTimer

@@ -8,6 +8,9 @@ public class PlayerStatusData : BaseStatusData
     [Header("移動速度")]
     public float velocity = 1.0f;
 
+    [Header("被撃硬直時間")]
+    public float hitStunTime = 0.5f;
+
     [Header("暴走ゲージ最大値")]
     public float maxFrenzyGauge = 20.0f;
 

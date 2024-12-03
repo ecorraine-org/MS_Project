@@ -66,7 +66,7 @@ public class PlayerController : WorldObject
     UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1, 0, 0);
 
     //ダメージ受けるかどうか
-    bool isHit;
+    //bool isHit;
 
     // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
@@ -289,8 +289,9 @@ public class PlayerController : WorldObject
 
     public override void Hit(bool _canOneHitKill)
     {
+        if (statusManager.IsInvincible) return;
         //被撃状態へ遷移
-        isHit = true;
+        statusManager.IsHit = true;
     }
 
     public override void Attack(Collider _hitCollider)
@@ -358,11 +359,11 @@ public class PlayerController : WorldObject
         return new UnityEngine.Vector3(0, 1, 0);
     }
 
-    public bool IsHit
-    {
-        get => this.isHit;
-        set { this.isHit = value; }
-    }
+    //public bool IsHit
+    //{
+    //    get => this.isHit;
+    //    set { this.isHit = value; }
+    //}
 
     public PlayerStateManager StateManager
     {
