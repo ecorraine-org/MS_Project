@@ -3,7 +3,7 @@ using TMPro;
 
 public class BlinkTextTMP : MonoBehaviour
 {
-    public TextMeshProUGUI textComponent;  // TextMeshPro‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+    public TextMeshProUGUI textComponent;  // TextMeshProã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
     public float blinkSpeed = 1.0f;
 
     void Update()

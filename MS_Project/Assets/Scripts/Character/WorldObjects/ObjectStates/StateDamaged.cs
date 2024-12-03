@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class StateDamaged : ObjectState
 {
-    //PlayerController player;
-
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
-
-        //player = GameObject.Find("Player").GetComponent<PlayerController>();
 
         if (objController.Type == WorldObjectType.StaticObject)
         {

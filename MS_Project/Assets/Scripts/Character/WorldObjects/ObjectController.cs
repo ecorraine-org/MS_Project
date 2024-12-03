@@ -65,8 +65,6 @@ public class ObjectController : WorldObjectController
         //被撃状態へ遷移
         isDamaged = true;
 
-        HitReaction hitReaction = BattleManager.GetPlayerHitReaction();
-
         //エフェクト生成
         EffectHandler.InstantiateHit();
     }
