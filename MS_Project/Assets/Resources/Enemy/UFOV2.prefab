@@ -64,10 +64,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: UFO
       objectReference: {fileID: 0}
+    - target: {fileID: 5307868554609484570, guid: b22159cf8496003409761992f1729c05, type: 3}
+      propertyPath: floatPos
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307868554609484570, guid: b22159cf8496003409761992f1729c05, type: 3}
+      propertyPath: chargeSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307868554609484570, guid: b22159cf8496003409761992f1729c05, type: 3}
+      propertyPath: floatDilayTime
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8991570815048411793, guid: b22159cf8496003409761992f1729c05, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 807797495216377945}
+    - target: {fileID: 8991570815048411793, guid: b22159cf8496003409761992f1729c05, type: 3}
+      propertyPath: soundEffects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8991570815048411793, guid: b22159cf8496003409761992f1729c05, type: 3}
+      propertyPath: 'soundEffects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 090a9a3b9c3306b459233bd81906de96, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -109,6 +129,18 @@ PrefabInstance:
     - target: {fileID: 410899465779312302, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
       propertyPath: m_Name
       value: UFOV2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1143648682989078331, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1143648682989078331, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1143648682989078331, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1143648682989078331, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
       propertyPath: m_LocalPosition.x

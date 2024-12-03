@@ -6,9 +6,13 @@ public class AIUFO_Fluffy : EnemyAction
 {
     
     public float floatSpeed = 2.0f; // UFOが目標の高さまで浮き上がる速度
-    public float floatPos = 6.5f;   // プレイヤーとのY座標の間隔
-    public int floatDilayTime = 160;      //  浮き始める時間
+    public float floatPos = 4.0f;   // プレイヤーとのY座標の間隔
+    public int floatDilayTime = 100;      //  浮き始める時間
     int floatDilay = 0;
+
+    [SerializeField, Header("突進スピード")]
+    public float chargeSpeed = 100.0f;
+
 
     bool noGravity = false;
     private Vector3 direction;
@@ -61,7 +65,7 @@ public class AIUFO_Fluffy : EnemyAction
         enemy.transform.rotation = Quaternion.Slerp(
         enemy.transform.rotation,
         targetRotation,
-        0.02f // 補間率（1.0fで即時、0.0fで変化なし）
+        0.1f // 補間率（1.0fで即時、0.0fで変化なし）
     );
     }
 
@@ -72,24 +76,44 @@ public class AIUFO_Fluffy : EnemyAction
 
     public void WalkTick()
     {
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
+
         enemy.Move();
 
-        // 追跡
-        enemy.OnMovementInput?.Invoke(direction.normalized);
+        // enemyの現在の角度を基にした前方向
+        Vector3 forwardDirection = enemy.transform.forward;
+        forwardDirection.y = 0f;// 地面に沿った移動
+
+        //適度に距離を置く
+        if (distanceToPlayer >= enemy.EnemyStatus.StatusData.attackDistance)
+        {
+            enemy.Anim.Play("Walk");
+
+            // 追跡
+            enemy.OnMovementInput?.Invoke(forwardDirection.normalized);
+        }
+        else if (distanceToPlayer < enemy.EnemyStatus.StatusData.attackDistance * 0.5f)
+        {
+            enemy.Anim.Play("Idle");
+
+            // 後ろ
+            enemy.OnMovementInput?.Invoke(-forwardDirection.normalized / 5.0f);
+        }
         
         //ちょっとずつ見る
         direction = player.position - enemy.transform.position;
 
-
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
         targetRotation.x = 0f;
+        targetRotation.z = 0f;
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
         enemy.transform.rotation = Quaternion.Slerp(
         enemy.transform.rotation,
         targetRotation,
-        0.02f // 補間率（1.0fで即時、0.0fで変化なし）
+        0.1f // 補間率（1.0fで即時、0.0fで変化なし）
     );
 
         //攻撃へ遷移
@@ -131,6 +155,13 @@ public class AIUFO_Fluffy : EnemyAction
         {
             enemy.RigidBody.useGravity = true;
         }
+    }
+
+    // 前にツッコむ
+    private void UFOCharge()
+    {
+        float chargeForce = enemy.RigidBody.mass * chargeSpeed;
+        enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
     }
 
     //浮きましょう

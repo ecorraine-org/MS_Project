@@ -253,6 +253,42 @@ public class HunterActionList : EnemyAction
     }
     #endregion
 
+    #region Attack_Dual
+
+    /// <note>
+    /// 関数名は「Attack」や「Skill」にならないように
+    /// </note>
+    public void Attack_DualInit()
+    {
+
+        animator.Play("Attack_Dual");
+
+        frameTime = 0;
+
+        //Updateで呼び出すために必須のバインド
+        //呼び出したい関数に変更する
+        currentUpdateAction = Attack_DualTick;
+    }
+
+    public void Attack_DualTick()
+    {
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
+
+        //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
+        enemy.AttackCollider.DetectColliders(enemy.EnemyStatus.StatusData.damage, targetLayer, false);
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        //アニメーション終了
+        if (stateInfo.normalizedTime >= 1.0f)
+        {
+            stateHandler.TransitionState(ObjectStateType.Idle);
+        }
+    }
+    #endregion
+
+
 
     //見ているとこ見る
     public void Looking()

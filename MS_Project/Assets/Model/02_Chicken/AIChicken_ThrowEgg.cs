@@ -7,9 +7,9 @@ public class AIChicken_ThrowEgg : EnemyAction
     [SerializeField, Header("プレハブの生成位置")]
     private Transform spawnPoint;
     [SerializeField, Header("投擲角度（上向き）")]
-    float upAngle = 30f;
+    float upAngle = 70f;
     [SerializeField, Header("投擲角度（プレイヤー向き）")]
-    float playerAngle = 30f;
+    float playerAngle = 70f;
 
     [SerializeField, Header("投げる力")]
     float throwForce = 10f;
@@ -51,36 +51,35 @@ public class AIChicken_ThrowEgg : EnemyAction
 
     public void WalkTick()
     {
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
+
         enemy.Move();
 
-        if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
-        {
-            //じわりとみる
-            direction = player.position - enemy.transform.position;
+        //じわりとみる
+        direction = player.position - enemy.transform.position;
 
-            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
-            targetRotation.x = 0f;
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
 
-            enemy.transform.rotation = Quaternion.Slerp(
-            enemy.transform.rotation,
-            targetRotation,
-            0.05f // 補間率（1.0fで即時、0.0fで変化なし）
-        );
+        enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
 
-            if (distanceToPlayer < minDistance)
-            {
-                Quaternion backwardRotation = Quaternion.LookRotation(-direction.normalized);
-                backwardRotation.x = 0f;
-                transform.rotation = backwardRotation;
 
-                // 逃げる
-                enemy.Anim.Play("Escape");
-                enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
+        if (distanceToPlayer < minDistance)
+            {//逃げよう
+            //Quaternion backwardRotation = Quaternion.LookRotation(-direction.normalized);
+            //backwardRotation.x = 0f;
+            //transform.rotation = backwardRotation;
+            //Debug.Log("back");
+            enemy.Anim.Play("Escape");
+            enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
             }
             else if (distanceToPlayer <= maxDistance && distanceToPlayer > minDistance)
-            {
-                //enemy.OnMovementInput?.Invoke(Vector3.zero);
-
+            {//攻撃しましょう
                 //クールダウン
                 enemy.StartAttackCoroutine();
 
@@ -88,17 +87,21 @@ public class AIChicken_ThrowEgg : EnemyAction
                 return;
             }
             else if (distanceToPlayer > maxDistance)
+            {//追跡しよう
+                enemy.Anim.Play("Walk");
+
+                // 自分を基準にした前進
+                Vector3 forwardDirection = enemy.transform.forward;
+                forwardDirection.y = 0f;// 地面に沿った移動
+                // 追跡
+                enemy.OnMovementInput?.Invoke(forwardDirection.normalized);
+
+
+            if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
             {
 
-                enemy.Anim.Play("Walk");
-                // 追跡
-                enemy.OnMovementInput?.Invoke(direction.normalized);
+                //enemy.OnMovementInput?.Invoke(Vector3.zero);
             }
-        }
-        else
-        {
-            // 停止
-            //enemy.OnMovementInput?.Invoke(Vector3.zero);
         }
     }
 
@@ -128,14 +131,18 @@ public class AIChicken_ThrowEgg : EnemyAction
         Quaternion rotateToPlayer = Quaternion.LookRotation((player.position - spawnPoint.position).normalized);
         spawnPoint.rotation = rotateToPlayer;
 
+        // 前に飛ばす準備
+        Vector3 forwardDirection = enemy.transform.forward;
+        forwardDirection.y = 0f;// 地面に水平に
+
         float radianPlayerAngle = playerAngle * Mathf.Deg2Rad;
         float radianUpAngle = upAngle * Mathf.Deg2Rad;
         // 指定した角度に飛ばす
         Vector3 playerDirection = spawnPoint.forward /*+ (Vector3.forward * Mathf.Cos(radianPlayerAngle))*/;
         // 前方に対してn度上向きに飛ばす
         Vector3 upDirection = spawnPoint.up * Mathf.Sin(radianUpAngle);
-        // 指定角度に応じた方向を計算
-        Vector3 forceDirection = (playerDirection + upDirection).normalized;
+        // 指定角度に応じた方向を計算(自分から見て前に投げちゃう)
+        Vector3 forceDirection = forwardDirection.normalized;
 
         // 力を計算して加える
         Vector3 force = throwForce * forceDirection;
