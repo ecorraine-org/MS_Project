@@ -262,14 +262,33 @@ public class DashHandler : MonoBehaviour
 
     public IEnumerator DashCoroutine()
     {
-        while (Time.time < startTime + duration)
+        float elapsedTime = 0f; // 時間累積
+
+        while (elapsedTime < duration)
         {
+            // ヒットストップ時、一旦停止
+            if (!battleManager.IsHitStop)
+            {
+                elapsedTime += Time.deltaTime;
+            }
+
             yield return null;
         }
 
-
         End();
     }
+
+
+    //public IEnumerator DashCoroutine()
+    //{
+    //    while (Time.time < startTime + duration)
+    //    {
+    //        yield return null;
+    //    }
+
+
+    //    End();
+    //}
 
     /// <summary>
     /// 突進終了処理
