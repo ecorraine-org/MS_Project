@@ -10,13 +10,13 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
     [SerializeField, Header("ヒットリアクションデータ")]
     PlayerHitData playerHitData;
 
-   // [SerializeField, Header("プレイヤーモード")]
+    [Tooltip("プレイヤーモード")]
     PlayerMode curPlayerMode;
 
-    bool isHitStop=false;
+    bool isHitStop = false;
 
-    public float slowSpeed;//ヒットストップによる減速
-    public float stopDuration;//ヒットストップ持続時間
+    public float slowSpeed;         //ヒットストップによる減速
+    public float stopDuration;      //ヒットストップ持続時間
 
     protected override void AwakeProcess()
     {
@@ -24,7 +24,6 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
         {
             Debug.LogError("playerHitDataが設定されていません", this);
         }
-
     }
 
     /// <summary>
@@ -33,9 +32,8 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
     public void StartHitStop(Animator _animator)
     {
         if (GetPlayerHitReaction().stopDuration == 0.0f) return;
-        //  StartCoroutine(HitStopCoroutine(_animator, GetPlayerHitReaction().slowSpeed, GetPlayerHitReaction().stopDuration));
-
-        StartCoroutine(HitStopCoroutine(_animator, slowSpeed,stopDuration));
+        //StartCoroutine(HitStopCoroutine(_animator, GetPlayerHitReaction().slowSpeed, GetPlayerHitReaction().stopDuration));
+        StartCoroutine(HitStopCoroutine(_animator, slowSpeed, stopDuration));
     }
 
     public void StartHitStop(Animator _animator, float _slowSpeed, float _duration)
@@ -46,41 +44,42 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
 
     private IEnumerator HitStopCoroutine(Animator _animator, float _slowSpeed, float _duration)
     {
-        // 流す速度を遅くする
+        //流す速度を遅くする
         _animator.speed = _slowSpeed;
         isHitStop = true;
 
         yield return new WaitForSeconds(_duration);
 
-        // 流す速度を戻す
+        //流す速度を戻す
         if (_animator != null) _animator.speed = 1f;
         isHitStop = false;
     }
 
-
-
     #region TimeSlow
 
-    //public void StartTimeSlow(float _slowSpeed, float _duration)
-    //{
-    //    StartCoroutine(TimeSlowCoroutine( _slowSpeed, _duration));
-    //}
+    /*
+    public void StartTimeSlow(float _slowSpeed, float _duration)
+    {
+        StartCoroutine(TimeSlowCoroutine(_slowSpeed, _duration));
+    }
 
-    //private IEnumerator TimeSlowCoroutine( float _slowSpeed, float _duration)
-    //{
-    //    // 時間を遅くする
-    //    Time.timeScale = _slowSpeed;
+    private IEnumerator TimeSlowCoroutine(float _slowSpeed, float _duration)
+    {
+        // 時間を遅くする
+        Time.timeScale = _slowSpeed;
 
-    //    yield return new WaitForSeconds(_duration);
+        yield return new WaitForSeconds(_duration);
 
-    //    //  時間の流れを元に戻す
-    //    Time.timeScale = 1;
-    //}
+        //  時間の流れを元に戻す
+        Time.timeScale = 1;
+    }
+    */
+
     public void StartTimeSlow(float _slowSpeed, float _duration)
     {
         TimerUtility.TimeBasedTimer(this, _duration,
-            () => SetTimeSlow(_slowSpeed),  // 一回だけ実行
-            () => ResetTime());               // 終了処理
+            () => SetTimeSlow(_slowSpeed),              //一回だけ実行
+            () => ResetTime());                         //終了処理
     }
 
     private void SetTimeSlow(float _slowSpeed)
@@ -98,7 +97,6 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
     {
         return playerHitData.dicHitReac[curPlayerMode];
     }
-    
 
     public PlayerHitData PlayerHitData
     {
@@ -108,12 +106,11 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
     public PlayerMode CurPlayerMode
     {
         get => this.curPlayerMode;
-          set { this.curPlayerMode = value; }
+        set { this.curPlayerMode = value; }
     }
 
     public bool IsHitStop
     {
         get => this.isHitStop;
-       
     }
 }
