@@ -10,8 +10,13 @@ public class OnomatopoeiaData : ScriptableObject
     [Header("オノマトペ名")]
     public string wordToUse;
 
-    [Header("オノマトペ")]
+    [Header("画像")]
     public Sprite onomatoSprite;
+
+    [Header("画像サイズ")]
+    public float spriteSize = 1.0f;
+
+    [Header("アニメーションコントローラー")]
     public AnimatorOverrideController onomatoACont;
 
     [Header("フォント")]

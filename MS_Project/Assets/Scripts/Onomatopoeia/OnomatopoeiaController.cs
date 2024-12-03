@@ -59,6 +59,7 @@ public class OnomatopoeiaController : MonoBehaviour
 
             GetComponentInChildren<SpriteRenderer>().sprite = data.onomatoSprite;
             GetComponentInChildren<Animator>().runtimeAnimatorController = data.onomatoACont;
+            this.transform.GetChild(0).gameObject.transform.localScale = new Vector3(data.spriteSize, data.spriteSize, 1.0f);
         }
         else
         {
