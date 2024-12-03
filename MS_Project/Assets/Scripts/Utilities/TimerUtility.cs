@@ -31,7 +31,7 @@ public static class TimerUtility
     /// <param name="onTick">毎フレーム呼び出される処理 eg:() => Func()</param>
     /// <param name="onComplete">指定時間経過後に呼び出される処理</param>
     /// <returns></returns>
-    public static Coroutine FrameBasedTimer(MonoBehaviour monoBehaviour, float time, Action onTick, Action onComplete)
+    public static Coroutine FrameBasedTimer(MonoBehaviour monoBehaviour, float time, Action onTick = null, Action onComplete = null)
     {
         return monoBehaviour.StartCoroutine( FrameBasedTimerCoroutine(time, onTick, onComplete));
     }
