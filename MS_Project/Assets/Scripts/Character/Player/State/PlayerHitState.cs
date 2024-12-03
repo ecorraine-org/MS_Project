@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerHitState : PlayerState
 {
-    [SerializeField, Header("硬直時間")]
-    float hitStunTime = 0.5f;
+   // [SerializeField, Header("硬直時間")]
+   // float hitStunTime = 0.5f;
 
     public override void Init(PlayerController _playerController)
     {
@@ -17,7 +17,7 @@ public class PlayerHitState : PlayerState
         spriteAnim.Play("Damaged", 0, 0f);
         playerController.SpriteRenderer.color = Color.red;
 
-        TimerUtility.TimeBasedTimer(this, hitStunTime,()=> playerController.StateManager.TransitionState(StateType.Idle));
+        TimerUtility.TimeBasedTimer(this, statusManager.StatusData.hitStunTime, ()=> playerController.StateManager.TransitionState(StateType.Idle));
     }
 
     public override void Tick()

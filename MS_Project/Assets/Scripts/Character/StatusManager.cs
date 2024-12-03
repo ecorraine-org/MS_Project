@@ -24,6 +24,8 @@ public class StatusManager : MonoBehaviour, ILife
 
     public virtual void TakeDamage(float _damage)
     {
+        if (isInvincible) return;
+
         currentHealth -= _damage;
        //Debug.Log("Damage:" + _damage);    // test
 
