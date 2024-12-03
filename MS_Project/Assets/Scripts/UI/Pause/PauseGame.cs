@@ -6,7 +6,7 @@ public class PauseGame : MonoBehaviour
 {
     void Update()
     {
-        //ƒQ[ƒ€‚ÌŠÔ‚ğ~‚ß‚é
+        //ã‚²ãƒ¼ãƒ ã®æ™‚é–“ã‚’æ­¢ã‚ã‚‹
         Time.timeScale = 0;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {
-    [SerializeField,Header("ˆÚ“®‘¬“x")]
+    [SerializeField,Header("ç§»å‹•é€Ÿåº¦")]
     Vector3 speed;
 
     // Start is called before the first frame update
@@ -16,7 +16,7 @@ public class Box : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Ÿ‚ÌˆÚ“®ˆ—‚ÍtimeScale=0‚Å’â~‚·‚é
+        // æ¬¡ã®ç§»å‹•å‡¦ç†ã¯timeScale=0ã§åœæ­¢ã™ã‚‹
         transform.position += speed * Time.deltaTime;
     }
 }

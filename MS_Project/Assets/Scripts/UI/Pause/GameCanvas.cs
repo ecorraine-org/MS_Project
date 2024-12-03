@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class GameCanvas : MonoBehaviour
 {
-    [SerializeField,Header("表示させるCanvas")]
+    [SerializeField,Header("陦ｨ遉ｺ縺輔○繧気anvas")]
     GameObject canvas;
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //ゲームオブジェクト表示→非表示
+            //繧ｲ繝ｼ繝繧ｪ繝悶ず繧ｧ繧ｯ繝郁｡ｨ遉ｺ竊帝撼陦ｨ遉ｺ
             this.gameObject.SetActive(false);
 
-            //ゲームオブジェクト非表示→表示
+            //繧ｲ繝ｼ繝繧ｪ繝悶ず繧ｧ繧ｯ繝磯撼陦ｨ遉ｺ竊定｡ｨ遉ｺ
             canvas.SetActive(true);
          }
     }
