@@ -9,6 +9,10 @@ public static class TimerUtility
     /// <summary>
     /// コルーチンを呼び出す(事前処理なし)
     /// </summary>
+    /// <param name="monoBehaviour">基本this</param>
+    /// <param name="time">タイマーの継続時間（秒）</param>
+    /// <param name="onComplete">指定時間経過後に呼び出される処理 eg:() => Func()</param>
+    /// <returns></returns>
     public static Coroutine TimeBasedTimer(MonoBehaviour monoBehaviour, float time, Action onComplete)
     {
         return monoBehaviour.StartCoroutine(TimeBasedTimerCoroutine(time, onComplete));
