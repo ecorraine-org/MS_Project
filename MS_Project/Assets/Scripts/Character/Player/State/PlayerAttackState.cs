@@ -10,14 +10,8 @@ public class PlayerAttackState : PlayerState
     [SerializeField, Header("コライダー")]
     HitCollider hitCollider;
 
-    //[SerializeField, Header("攻撃段階")]
-    //int attackStage = 0;
-
     //受付時間内にボタンを押すと、次のコンボが発動する
     bool willNextStage = false;
-
-    //[SerializeField,NonEditable, Header("ノーマル攻撃の攻撃力")]
-    //float attackDamage;
 
     public float FrenzyAttackDamage;
    // public LayerMask attackableLayer;

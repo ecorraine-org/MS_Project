@@ -289,7 +289,8 @@ public class PlayerController : WorldObject
 
     public override void Hit(bool _canOneHitKill)
     {
-
+        //被撃状態へ遷移
+        isHit = true;
     }
 
     public override void Attack(Collider _hitCollider)
