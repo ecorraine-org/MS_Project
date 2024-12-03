@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_UFO
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 100
+  maxHealth: 30
   mass: 500
   gameObjPrefab: Enemy/UFOV2
   enemyRank: 1
@@ -22,6 +22,8 @@ MonoBehaviour:
   attackDistance: 9
   velocity: 7
   chaseDistance: 20
+  knockBackDuration: 0.2
+  knockBackSpeed: 10
   SelfType: 0
   onomatoAttack: {fileID: 11400000, guid: 97b0e324e4ef70b46ad0641aa8470f75, type: 2}
   onomatoWalk: {fileID: 11400000, guid: 54420362a08d5844d824122acb61fd21, type: 2}
