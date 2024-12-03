@@ -5,46 +5,47 @@ using UnityEngine;
 /// <summary>
 /// カメラエフェクト基底クラス
 /// </summary>
-public class CameraEffectBase : ICameraEffect
+public abstract class CameraEffectBase : ICameraEffect
 {
-    protected CameraEffectData cameraEffectData { get; private set; }
-    protected float ElapsedTime { get; private set; }
-    protected bool isActive { get; private set; }
+    protected CameraEffectData cameraEffectData { get; private set; } // エフェクトデータ
+    protected float ElapsedTime { get; private set; } // 経過時間
+    protected bool isActive { get; private set; }   // アクティブ状態
+    public bool isPlaying => isActive;  // 再生中か
 
-    public CameraEffectBase(CameraEffectData cameraEffectData)
+    public virtual void Play(CameraEffectData data)
     {
-        this.cameraEffectData = cameraEffectData;
-    }
-
-    public virtual void OnEnter()
-    {
-        isActive = true;
+        cameraEffectData = data;
         ElapsedTime = 0;
+        isActive = true;
+        OnEffectStart();
     }
 
-    public virtual void OnUpdate()
-    {
-        ElapsedTime += Time.deltaTime;
-    }
-
-    public virtual void OnExit()
+    public virtual void Stop()
     {
         isActive = false;
+        OnEffectStop();
     }
 
-    public void StartEffect(CameraEffectData cameraEffectData)
+    public virtual void Update()
     {
-        this.cameraEffectData = cameraEffectData;
-        OnEnter();
+        if (!isActive) return;
+
+        ElapsedTime += Time.deltaTime;
+        if (ElapsedTime >= cameraEffectData.Duration)
+        {
+            Stop();
+            return;
+        }
+
+        OnEffectUpdate();
     }
 
-    public void UpdateEffect()
-    {
-        OnUpdate();
-    }
+    protected virtual void OnEffectStart() { }
+    protected virtual void OnEffectUpdate() { }
+    protected virtual void OnEffectStop() { }
 
-    public void EndEffect()
+    protected float GetNormalizedTime()
     {
-        OnExit();
+        return Mathf.Clamp01(ElapsedTime / cameraEffectData.Duration);
     }
 }

@@ -10,7 +10,6 @@ public class CameraSettings : ScriptableObject
 {
     public CameraBasicSettings BasicSettings;
     public CameraEffectSettings EffectSettings;
-    public MinimapSettings MinimapSettings;
     public CameraCollisionSettings CollisionSettings;
     public CameraFollowSettings FollowSettings;
     public CameraLockOnSettings LockOnSettings;
