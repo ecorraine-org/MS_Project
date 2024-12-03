@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
     //シングルトンオブジェクト
     //public static CameraController instance;
+
+    private CinemachineBrain _cinemachineBrain;
 
     [SerializeField, Header("カメラステートマネージャ")]
     CameraStateManager _cameraStateManager;
@@ -25,6 +28,17 @@ public class CameraController : MonoBehaviour
 
     [Header("滑らか平均値")]
     [SerializeField, Range(0f, 1f)]
+
+    [Header("PlayerStateObserver")]
+    private IPlayerStateObserver _playerStateObserver;
+
+    private Camera _camera;
+
+    [SerializeField, Header("ターゲット")]
+    private Transform _target;
+    private Transform _lockOnTarget;
+    private bool _isInitialized;
+
     public float blendFactor = 0.125f;
     private Transform playerPos;
 
@@ -41,15 +55,132 @@ public class CameraController : MonoBehaviour
         //TryGetComponent(out _cameraSetting);
         transform.position = cameraOffset;
         playerPos = GameObject.FindWithTag("Player").transform;
+        _target = playerPos;
+
+        //CinemachineBrainを取得
+        _cinemachineBrain = gameObject.AddComponent<CinemachineBrain>();
+        // _cinemachineBrain.m_UpdateMethod = _cinemachineBrain.UpdateMethod.LateUpdate;
+
+        //LockOnState
+        Initialize();
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 targetPosition = playerPos.position + cameraOffset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, blendFactor);
-        transform.position = smoothedPosition;
+        //Vector3 targetPosition = playerPos.position + cameraOffset;
+        //Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, blendFactor);
+        //transform.position = smoothedPosition;
 
-        _mainCamera.transform.LookAt(playerPos);
+        //_mainCamera.transform.LookAt(playerPos);
+    }
+
+    /// <summary>
+    /// 初期化処理
+    /// </summary>
+    private void Initialize()
+    {
+        if (_isInitialized) return;
+
+        InitializeComponents();
+        InitializeStateManager();
+
+
+        _isInitialized = true;
+    }
+
+    /// <summary>
+    /// コンポーネントの初期化
+    /// Initializeメソッドで呼び出す
+    /// </summary>
+    private void InitializeComponents()
+    {
+        _camera = GetComponent<Camera>();
+        //_cameraEffectController = new CameraEffectController(_settings);
+        //_cameraCollisionHandler = new CameraCollisionHandler(_settings, _cameraTransform, _targetTransform);
+        _cameraStateManager = new CameraStateManager();
+
+        ConfigureCamera();
+
+    }
+
+    /// <summary>
+    /// ステートマネージャの初期化
+    /// Initializeメソッドで呼び出す
+    /// </summary>
+    private void InitializeStateManager()
+    {
+        var context = new CameraStateContext(
+            transform,
+            _target,
+            _cameraSetting,
+            _cameraEffectController,
+            _cinemachineBrain,
+            _cameraStateManager
+        );
+
+        _cameraStateManager.Initialize(context);
+        _cameraStateManager.TransitionTo("Idle");
+
+    }
+
+    /// <summary>
+    /// カメラの設定を行う
+    /// InitializeComponentsメソッドで呼び出す
+    /// </summary>
+    private void ConfigureCamera()
+    {
+        var basicSettings = _cameraSetting.BasicSettings;
+        _camera.fieldOfView = basicSettings.FieldOfView;
+        _camera.nearClipPlane = basicSettings.NearClipPlane;
+        _camera.farClipPlane = basicSettings.FarClipPlane;
+        _camera.cullingMask = basicSettings.CullingMask;
+    }
+
+    private void Update()
+    {
+        _cameraStateManager?.Update();
+
+
+    }
+
+    /// <summary>
+    /// カメラのコリジョンを処理する
+    /// Updateメソッドで呼び出す
+    /// </summary>
+    private void HandleCollision()
+    {
+
+    }
+
+    /// <summary>
+    /// カメラのエフェクトを適用する
+    /// Updateメソッドで呼び出す
+    /// </summary>
+    private void ApplyEffects()
+    {
+
+    }
+
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+        var context = _cameraStateManager.GetContext();
+        if (context != null)
+        {
+            context.targetTransform = target;
+        }
+    }
+
+    public void ToggleLockOn()
+    {
+
+    }
+
+    private bool TryFindLockOnTarget(out Transform target)
+    {
+        target = null;
+        return false;
     }
 }

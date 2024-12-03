@@ -5,107 +5,117 @@ using Cinemachine;
 
 public class CameraLockOnState : CameraStateBase
 {
-    private CinemachineVirtualCamera _lockOnVCam;
+    private Vector3 _positionVelocity;
+    private Vector3 _rotationVelocity;
+    private Transform _lockOnTarget;
+    private CinemachineVirtualCamera _lockOnCamera;
     private CinemachineTargetGroup _targetGroup;
-    private Transform _targetboss;
-    private float _currentWeight;
-    private const float TRANSITION_SPEED = 1f;
-    private Transform _playerTransform;
 
-    public override void OnStart()
+    protected override void OnStateEnter()
     {
+        _positionVelocity = Vector3.zero;
+        _rotationVelocity = Vector3.zero;
+        _lockOnTarget = StateManager.GetContext().LockOnTarget;
 
+        InitializeLockOnCamera();
+        PlayLockOnEffect();
     }
 
-    // Update is called once per frame
-    public override void OnUpdate()
-    {
-
-    }
-
-    public override void OnEnd()
-    {
-        //ロックオンカメラを削除
-        if (_lockOnVCam != null) Object.Destroy(_lockOnVCam.gameObject);
-        //ターゲットグループを削除
-        if (_targetGroup != null) Object.Destroy(_targetGroup.gameObject);
-    }
-
-    //ロックオンカメラの初期化
     private void InitializeLockOnCamera()
     {
-        //ロックオンカメラを生成
+        if (_lockOnCamera != null) return;
+
+        var lockOnSettings = Settings.LockOnSettings;
+
+        // Virtual Cameraのセットアップ
         var vcamObject = new GameObject("LockOn VCam");
-        _lockOnVCam = vcamObject.AddComponent<CinemachineVirtualCamera>();
+        _lockOnCamera = vcamObject.AddComponent<CinemachineVirtualCamera>();
 
-        //ターゲットグループを生成
-        var targetGroupObject = new GameObject("TargetGroup");
-        _targetGroup = targetGroupObject.AddComponent<CinemachineTargetGroup>();
+        // Target Groupのセットアップ
+        var groupObject = new GameObject("Target Group");
+        _targetGroup = groupObject.AddComponent<CinemachineTargetGroup>();
 
-        //virtualCameraの設定
-        _lockOnVCam.Priority = 11; //通常のカメラよりも優先度を上げる
-        _lockOnVCam.m_Lens.FieldOfView = 30f;
-        _lockOnVCam.Follow = _targetGroup.transform;
-        _lockOnVCam.LookAt = _targetGroup.transform;
+        _targetGroup.m_Targets = new CinemachineTargetGroup.Target[]
+        {
+            new CinemachineTargetGroup.Target { target = TargetTransform, weight = lockOnSettings.PlayerWeight, radius = 2f },
+            new CinemachineTargetGroup.Target { target = _lockOnTarget, weight = lockOnSettings.TargetWeight, radius = 3f }
+        };
 
-        //Composerの設定
-        var composer = _lockOnVCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        _lockOnCamera.Follow = _targetGroup.transform;
+        _lockOnCamera.LookAt = _targetGroup.transform;
+        ConfigureVirtualCamera(_lockOnCamera);
+    }
+
+    private void ConfigureVirtualCamera(CinemachineVirtualCamera vcam)
+    {
+        var composer = vcam.GetCinemachineComponent<CinemachineComposer>();
         if (composer == null)
-            composer = _lockOnVCam.AddCinemachineComponent<CinemachineFramingTransposer>();
+            composer = vcam.AddCinemachineComponent<CinemachineComposer>();
 
         composer.m_DeadZoneWidth = 0.1f;
         composer.m_DeadZoneHeight = 0.1f;
-        composer.m_SoftZoneWidth = 0.1f;
-        composer.m_SoftZoneHeight = 0.1f;
+        composer.m_SoftZoneWidth = 0.5f;
+        composer.m_SoftZoneHeight = 0.5f;
     }
 
-    //ボスをターゲットに設定
-    //プレイヤーとボスをターゲットグループに追加
-    private void SetBossTarget()
+    private void PlayLockOnEffect()
     {
-        var bossObject = GameObject.FindGameObjectWithTag("Boss");
-        if (bossObject != null)
+        var transitionEffect = new CameraEffectData
         {
-            _targetboss = bossObject.transform;
+            Duration = 0.3f,
+            Intensity = 0.3f
+        };
+        //EffectController.PlayEffect("LockOnTransition", transitionEffect);
+    }
 
-            //ターゲットグループにボスとプレイヤーを追加
-            _targetGroup.m_Targets = new CinemachineTargetGroup.Target[]
-            {
-                new CinemachineTargetGroup.Target{
-                    target = _context.playerTransform,
-                    radius = 1f,
-                    weight = 0.5f
-                },
-                new CinemachineTargetGroup.Target{
-                    target = _targetboss,
-                    radius = 1f,
-                    weight = 0.5f
-                }
-            };
+    protected override void OnStateUpdate()
+    {
+        if (_lockOnTarget == null || TargetTransform == null)
+        {
+            StateManager.TransitionTo("Idle");
+            return;
         }
 
-    }
-
-    private void UpdateCameraWeight()
-    {
-        _currentWeight = Mathf.MoveTowards(_currentWeight, 1f, TRANSITION_SPEED * Time.deltaTime);
+        UpdateTargetGroupWeights();
+        UpdateCameraPosition();
     }
 
     private void UpdateTargetGroupWeights()
     {
         if (_targetGroup == null || _targetGroup.m_Targets.Length < 2) return;
 
-        //プレイヤーとボスの距離に応じてカメラの位置を調整
-        float distance = Vector3.Distance(_playerTransform.position, _targetboss.position);
-        float normalizeDistance = Mathf.Clamp01(distance / 20f);
+        var distance = Vector3.Distance(TargetTransform.position, _lockOnTarget.position);
+        var normalizedDistance = Mathf.Clamp01(distance / Settings.LockOnSettings.MaxLockOnDistance);
 
-        _targetGroup.m_Targets[0].weight = Mathf.Lerp(0.7f, 0.3f, normalizeDistance);
-        _targetGroup.m_Targets[1].weight = Mathf.Lerp(0.3f, 0.7f, normalizeDistance);
+        _targetGroup.m_Targets[0].weight = Mathf.Lerp(0.7f, 0.3f, normalizedDistance);
+        _targetGroup.m_Targets[1].weight = Mathf.Lerp(0.3f, 0.7f, normalizedDistance);
     }
 
-    private void TransitionToNomalState()
+    private void UpdateCameraPosition()
     {
-        //通常状態への遷移をリクエスト
-        //StateManager?.Transitionto("Idle");
+        var midPoint = Vector3.Lerp(TargetTransform.position, _lockOnTarget.position, 0.5f);
+        var targetPosition = midPoint + Settings.LockOnSettings.OffsetFromTarget;
+
+        CameraTransform.position = Vector3.SmoothDamp(
+            CameraTransform.position,
+            targetPosition,
+            ref _positionVelocity,
+            Settings.FollowSettings.PositionSmoothTime);
+
+        var lookDirection = (_lockOnTarget.position - CameraTransform.position).normalized;
+        var targetRotation = Quaternion.LookRotation(lookDirection);
+        CameraTransform.rotation = Quaternion.Slerp(
+            CameraTransform.rotation,
+            targetRotation,
+            Time.deltaTime / Settings.FollowSettings.RotationSmoothTime);
+    }
+
+    protected override void OnStateExit()
+    {
+        if (_lockOnCamera != null)
+            Object.Destroy(_lockOnCamera.gameObject);
+
+        if (_targetGroup != null)
+            Object.Destroy(_targetGroup.gameObject);
     }
 }
