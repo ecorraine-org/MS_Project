@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class TransformationNotication : MonoBehaviour
 {
-    [SerializeField,Header("通知BOX")]
+    [SerializeField,Header("騾夂衍BOX")]
     GameObject transformationnotication;
 
-    [SerializeField, Header("表示時間")]
+    [SerializeField, Header("陦ｨ遉ｺ譎る俣")]
     float displaytime;
 
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            //ゲームオブジェクト非表示→表示
+            //繧ｲ繝ｼ繝繧ｪ繝悶ず繧ｧ繧ｯ繝磯撼陦ｨ遉ｺ竊定｡ｨ遉ｺ
             transformationnotication.SetActive(true);
 
-            //ゲームオブジェクト表示→非表示
+            //繧ｲ繝ｼ繝繧ｪ繝悶ず繧ｧ繧ｯ繝郁｡ｨ遉ｺ竊帝撼陦ｨ遉ｺ
             this.gameObject.SetActive(false);
         }
     }
