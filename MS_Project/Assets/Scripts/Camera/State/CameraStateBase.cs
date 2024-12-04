@@ -2,34 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CameraStateBase : MonoBehaviour
+public abstract class CameraStateBase : ICameraState
 {
-    protected CameraStateContext _context;
-    protected CameraSettings _settings;
+    protected Transform CameraTransform { get; private set; }
+    protected Transform TargetTransform { get; private set; }
+    protected CameraEffectController EffectController { get; private set; }
+    protected CameraSettings Settings { get; private set; }
+    protected CameraStateManager StateManager { get; private set; }
 
-    public virtual void Init(CameraStateContext context)
+    public virtual void EnterState(CameraStateContext context)
     {
-        _context = context;
-        _settings = context.settings;
+        CameraTransform = context.cameraTransform;
+        TargetTransform = context.targetTransform;
+        EffectController = context.cameraEffectController;
+        Settings = context.settings;
+
+        OnStateEnter();
     }
 
-    public virtual void OnStart()
+    public virtual void UpdateState(CameraStateContext context)
     {
+        OnStateUpdate();
     }
 
-    public virtual void OnUpdate()
+    public virtual void ExitState(CameraStateContext context)
     {
+        OnStateExit();
     }
 
-    public virtual void OnLateUpdate()
-    {
-    }
-
-    public virtual void OnFixedUpdate()
-    {
-    }
-
-    public virtual void OnEnd()
-    {
-    }
+    protected virtual void OnStateEnter() { }
+    protected virtual void OnStateUpdate() { }
+    protected virtual void OnStateExit() { }
 }

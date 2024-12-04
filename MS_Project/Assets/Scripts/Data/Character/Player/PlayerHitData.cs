@@ -8,6 +8,7 @@ public struct HitReaction
     public PlayerMode mode;
     public float slowSpeed;//ヒットストップによる減速
     public float stopDuration;//ヒットストップ持続時間
+    public float moveSpeed;//攻撃中進む速度
 }
 
 /// <summary>

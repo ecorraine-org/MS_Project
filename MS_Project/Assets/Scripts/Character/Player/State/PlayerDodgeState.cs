@@ -20,7 +20,8 @@ public class PlayerDodgeState : PlayerState
 
         playerSkillManager. ExecuteDodge(false, playerController.CurDirecVector);
 
-
+        //無敵
+        playerController.StatusManager.IsInvincible = true;
     }
 
     public override void Tick()

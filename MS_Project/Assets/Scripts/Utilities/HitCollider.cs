@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -6,10 +6,10 @@ using System;
 public class HitCollider : MonoBehaviour
 {
     [SerializeField, Header("コライダーリスト")]
-    private List<Collider> collidersList = new List<Collider>();
+    protected List<Collider> collidersList = new List<Collider>();
 
 
-    private void Update()
+    protected virtual void Update()
     {
         // ヌルチェック
         //仮処理、コストが高くなるかも
@@ -29,7 +29,7 @@ public class HitCollider : MonoBehaviour
     }
 
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         // 破壊されたオブジェクトをリストから削除
         collidersList.RemoveAll(item => item == null);

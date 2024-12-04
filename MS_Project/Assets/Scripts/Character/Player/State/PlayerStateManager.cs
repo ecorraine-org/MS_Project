@@ -157,6 +157,8 @@ public class PlayerStateManager : MonoBehaviour
         playerController.SkillManager.Reset();
 
         playerController.AnimManager.Reset();
+
+        playerController.StatusManager.IsInvincible = false;
     }
 
     /// <summary>
@@ -259,9 +261,9 @@ public class PlayerStateManager : MonoBehaviour
     /// </summary>
     public bool CheckHit()
     {
-        if (playerController.IsHit)
+        if (playerController.StatusManager.IsHit)
         {
-            playerController.IsHit = false;
+            playerController.StatusManager.IsHit = false;
 
             TransitionState(StateType.Hit);
 

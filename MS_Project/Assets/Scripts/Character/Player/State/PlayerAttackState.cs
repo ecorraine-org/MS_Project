@@ -10,24 +10,13 @@ public class PlayerAttackState : PlayerState
     [SerializeField, Header("コライダー")]
     HitCollider hitCollider;
 
-    [SerializeField, Header("攻撃段階")]
-    int attackStage = 0;
-
     //受付時間内にボタンを押すと、次のコンボが発動する
     bool willNextStage = false;
 
-    //攻撃test
-    [SerializeField, Header("攻撃力")]
-    float attackDamage;
-
-    [SerializeField, Header("攻撃中進む速度")]
-    float moveSpeed=10;
     public float FrenzyAttackDamage;
-    public LayerMask enemyLayer;
+   // public LayerMask attackableLayer;
     private CameraBasedHitCorrection _CameraBasedHitCorrection;
 
-    //仮処理
-    //private float testTimer;
 
     public override void Init(PlayerController _playerController)
     {
@@ -46,49 +35,29 @@ public class PlayerAttackState : PlayerState
         //方向変更
         playerController.SetEightDirection();
 
-        //攻撃段階リセット
-        if (playerStateManager.PreStateType != StateType.Attack) attackStage = 0;
-
-
+        //前の状態は攻撃でなければ、攻撃段階リセット
+        if (playerStateManager.PreStateType != StateType.Attack) playerSkillManager.AttackStage = 0;
 
         switch (playerModeManager.Mode)
         {
             case PlayerMode.None:
-                attackDamage = 1;
+                playerSkillManager.AttackDamage = 1;
                 spriteAnim.Play("Attack", 0, 0f);
                 break;
             case PlayerMode.Sword:
-                attackDamage = statusManager.StatusData.swordAtk;
-
-                // 突進初期化
-                playerSkillManager.DashHandler.Speed = moveSpeed;
-                playerSkillManager.DashHandler.Duration = -1;
-
-                if (attackStage == 0)
-                {
-                    spriteAnim.Play("Attack", 0, 0f);
-
-                  
-                }
-                  
-                if (attackStage == 1)
-                {
-                    Debug.Log("SwordAttack2");
-                    spriteAnim.Play("SwordAttack2", 0, 0f);
-                }
-
+                playerSkillManager.SwordAttackInit();
                 break;
             case PlayerMode.Hammer:
-                attackDamage = statusManager.StatusData.hammerAtk;
-                spriteAnim.Play("HammerAttack", 0, 0f);
+                playerSkillManager.HammerAttackInit();
+       
                 break;
             case PlayerMode.Spear:
-                attackDamage = statusManager.StatusData.spearAtk;
-                spriteAnim.Play("SpearAttack", 0, 0f);
+                playerSkillManager.SpearAttackInit();
                 break;
             case PlayerMode.Gauntlet:
-                attackDamage = statusManager.StatusData.gauntletAtk;
-                spriteAnim.Play("GauntletAttack", 0, 0f);
+                playerSkillManager.GauntletAttackInit();
+
+          
                 break;
             default:
                 break;
@@ -119,16 +88,11 @@ public class PlayerAttackState : PlayerState
             switch (playerModeManager.Mode)
             {
                 case PlayerMode.Sword:
-
-                    if (attackStage < 1) attackStage++;
-                    else attackStage = 0;
-
-                    playerStateManager.TransitionState(StateType.Attack);
+                    playerSkillManager.SwordNextAttack();
                     break;
                 default:
                     break;
             }
-
             return;
         }
 
@@ -170,9 +134,9 @@ public class PlayerAttackState : PlayerState
         //仮処理
         float damage = 0;
         if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
-        else damage = attackDamage;
+        else damage = playerSkillManager.AttackDamage;
         //コライダーの検出
-        playerController.AttackColliderV2.DetectColliders(damage, enemyLayer, false);
+        playerController.AttackColliderV2.DetectColliders(damage, false);
 
     }
 

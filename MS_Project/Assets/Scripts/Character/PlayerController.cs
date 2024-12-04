@@ -29,6 +29,9 @@ public class PlayerController : WorldObject
     [SerializeField, Header("モードマネージャー")]
     PlayerModeManager modeManager;
 
+    [SerializeField, Header("オーディオマネージャー")]
+    AudioManager audioManager;
+
     private Collider playerCollider;
 
     [SerializeField, Header("アタックコライダーマネージャー")]
@@ -63,7 +66,7 @@ public class PlayerController : WorldObject
     UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1, 0, 0);
 
     //ダメージ受けるかどうか
-    bool isHit;
+    //bool isHit;
 
     // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
@@ -226,6 +229,13 @@ public class PlayerController : WorldObject
             case Direction.Up:
                    spriteAnim.Play("WalkUp");
                     break;
+            case Direction.UpRight:
+                spriteAnim.Play("WalkUpRight");
+                break;
+            case Direction.UpLeft:
+
+                spriteAnim.Play("WalkUpRight");
+                break;
             default:
                 spriteAnim.Play("WalkRight");
                 break;
@@ -279,7 +289,9 @@ public class PlayerController : WorldObject
 
     public override void Hit(bool _canOneHitKill)
     {
-
+        if (statusManager.IsInvincible) return;
+        //被撃状態へ遷移
+        statusManager.IsHit = true;
     }
 
     public override void Attack(Collider _hitCollider)
@@ -347,11 +359,11 @@ public class PlayerController : WorldObject
         return new UnityEngine.Vector3(0, 1, 0);
     }
 
-    public bool IsHit
-    {
-        get => this.isHit;
-        set { this.isHit = value; }
-    }
+    //public bool IsHit
+    //{
+    //    get => this.isHit;
+    //    set { this.isHit = value; }
+    //}
 
     public PlayerStateManager StateManager
     {
@@ -378,6 +390,10 @@ public class PlayerController : WorldObject
         get => this.animManager;
     }
 
+    public AudioManager AudioManager
+    {
+        get => this.audioManager;
+    }
 
     public PlayerInputManager InputManager
     {

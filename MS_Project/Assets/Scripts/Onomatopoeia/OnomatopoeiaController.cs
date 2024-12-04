@@ -8,37 +8,41 @@ public class OnomatopoeiaController : MonoBehaviour
 {
     [HideInInspector, Header("単体オノマトペ情報")]
     public GameObject objOnomatopoeia;
+    [SerializeField, Tooltip("オノマトペデータファイル")]
+    private OnomatopoeiaData data;
     [Tooltip("オノマトペ名")]
     public string onomatopoeiaName;
     [Tooltip("生きているか？")]
     public bool isAlive = true;
     [Tooltip("生命周期")]
-    public float fLifetime = 5f;
+    public float fLifetime = 5.0f;
     [HideInInspector, Tooltip("動いているか？")]
     private bool isMoving = true;
     [HideInInspector, Tooltip("移動方向")]
     public Vector3 emissionDirection = Vector3.up;
     [SerializeField, Tooltip("速度")]
-    public float fStartSpeed = 5f;
+    public float fStartSpeed = 5.0f;
     private Vector3 fVelocity = Vector3.zero;
     [HideInInspector, Tooltip("初期位置")]
     private Vector3 initialPosition;
     [SerializeField, Tooltip("最大距離")]
-    public float fStopDistance = 5f;
+    public float fStopDistance = 5.0f;
 
-    public OnomatopoeiaData data;
+    [SerializeField, Tooltip("オーナー")]
+    private GameObject owningObject;
+
     private Rigidbody rb;
     private GameObject player;
 
-    private Collector collector;
+    private ObjectCollector collector;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         initialPosition = this.transform.position - player.GetComponent<PlayerController>().CurDirecVector * 1.5f;
-        initialPosition = new Vector3(initialPosition.x, initialPosition.y / 1.5f, player.transform.position.z);
+        initialPosition = new Vector3(initialPosition.x, initialPosition.y / 1.5f, this.transform.position.z);
 
-        collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<Collector>();
+        collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject.GetComponent<ObjectCollector>();
 
         objOnomatopoeia = this.gameObject;
     }
@@ -48,30 +52,39 @@ public class OnomatopoeiaController : MonoBehaviour
     {
         //CustomLogger.Log(data.wordToUse);
 
-        GetComponent<TextMeshPro>().font = data.fontAsset;
-        GetComponent<TextMeshPro>().color = new Color32(data.fontColor.r, data.fontColor.g, data.fontColor.b, data.fontColor.a);
-        GetComponent<TextMeshPro>().outlineWidth = 0.1f;
-        GetComponent<TextMeshPro>().outlineColor = new Color32(255, 255, 255, 255);
+        if (data.onomatoSprite && data.onomatoACont)
+        {
+            if (this.transform.GetChild(1).gameObject.activeInHierarchy)
+                this.transform.GetChild(1).gameObject.SetActive(false);
 
-        GetComponent<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
+            GetComponentInChildren<SpriteRenderer>().sprite = data.onomatoSprite;
+            GetComponentInChildren<Animator>().runtimeAnimatorController = data.onomatoACont;
+            this.transform.GetChild(0).gameObject.transform.localScale = new Vector3(data.spriteSize, data.spriteSize, 1.0f);
+        }
+        else
+        {
+            GetComponentInChildren<TextMeshPro>().font = data.fontAsset;
+            GetComponentInChildren<TextMeshPro>().color = new Color32(data.fontColor.r, data.fontColor.g, data.fontColor.b, data.fontColor.a);
+            GetComponentInChildren<TextMeshPro>().outlineWidth = 0.1f;
+            GetComponentInChildren<TextMeshPro>().outlineColor = new Color32(255, 255, 255, 255);
+
+            GetComponentInChildren<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
+        }
 
         fVelocity = RandomizeVelocity(emissionDirection * fStartSpeed);
     }
 
     void Update()
     {
+        CustomLogger.Log(OwningObject.name);
         if (!isAlive)
         {
+            OwningObject.GetComponent<WorldObject>().onomatoPool.Remove(objOnomatopoeia);
             collector.DestroyOtherObjectFromPool(objOnomatopoeia);
         }
         else
         {
             UpdateParticle();
-        }
-
-        if (Debug.isDebugBuild)
-        {
-            Debug.DrawRay(objOnomatopoeia.transform.position, objOnomatopoeia.transform.forward, Color.red);
         }
     }
 
@@ -81,7 +94,7 @@ public class OnomatopoeiaController : MonoBehaviour
         {
             objOnomatopoeia.transform.position += fVelocity * Time.deltaTime;
 
-            // 一定距離離れたら、飛び出す停止
+            //一定距離離れたら、飛び出す停止
             float distanceTraveled = Vector3.Distance(initialPosition, gameObject.transform.position);
             if (distanceTraveled >= fStopDistance)
             {
@@ -111,8 +124,31 @@ public class OnomatopoeiaController : MonoBehaviour
         return baseVelocity + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
     }
 
+
+    #region Getter & Setter
+    
     public OnomatopoeiaData Data
     {
         get => data;
+        set { data = value; }
     }
+
+    public GameObject OwningObject
+    {
+        get => owningObject;
+        set { owningObject = value; }
+    }
+
+    #endregion
+
+    #region Gizmos
+
+    private void OnDrawGizmos()
+    {
+        Collider collider = GetComponent<Collider>();
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, collider.bounds.extents);
+    }
+
+    #endregion
 }

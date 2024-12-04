@@ -7,7 +7,8 @@ using UnityEngine;
 /// </summary>
 public interface ICameraEffect
 {
-    void StartEffect(CameraEffectData cameraEffectData);
-    void UpdateEffect();
-    void EndEffect();
+    bool isPlaying { get; }
+    void Play(CameraEffectData cameraEffectData);
+    void Update();
+    void Stop();
 }

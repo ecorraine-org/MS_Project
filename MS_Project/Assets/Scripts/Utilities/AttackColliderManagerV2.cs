@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -78,6 +78,43 @@ public class AttackColliderManagerV2 : MonoBehaviour
 
         }
 
+    }
+
+    /// <summary>
+    /// コライダーの検出を行い、対象にダメージを与える(レイヤー指定なしのバージョン)
+    /// </summary>
+    public void DetectColliders(float _damage,  bool _oneHitKill)
+    {
+        //アニメーションイベントで
+        //当たり判定有効するかを設定する
+        if (!canHit) return;
+
+        // if (_cameraBasedHitCorrection == null) Debug.Log("_cameraBasedHitCorrection NULL");
+        if (hitCollider == null) Debug.Log(" hitCollider NULL");
+        if (hitCollider.CollidersList == null) Debug.Log(" hitCollider.CollidersList NULL");
+
+        hitCollider.CollidersList.RemoveAll(item => item == null);
+
+        if (hitCollider.CollidersList.Count <= 0) return;
+
+        foreach (Collider hitCollider in hitCollider.CollidersList)
+        {
+
+            if (hitObjects.Contains(hitCollider)) continue;
+
+            //カメラベースの当たり判定補正を行う
+            //bool isHit = _cameraBasedHitCorrection.IsHitCorrected(transform.position, hitCollider.transform.position, hitCollider.bounds.size);
+            bool isHit = true; // 仮
+
+            if (isHit)
+            {
+                //重複処理を避けるため
+                //既に当たり判定を処理したオブジェクトをリストに入れる
+                hitObjects.Add(hitCollider);
+                Hit(hitCollider, _damage, _oneHitKill);
+            }
+
+        }
 
     }
 

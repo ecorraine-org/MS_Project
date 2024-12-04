@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 /// <summary>
@@ -9,6 +9,10 @@ public static class TimerUtility
     /// <summary>
     /// コルーチンを呼び出す(事前処理なし)
     /// </summary>
+    /// <param name="monoBehaviour">基本this</param>
+    /// <param name="time">タイマーの継続時間（秒）</param>
+    /// <param name="onComplete">指定時間経過後に呼び出される処理 eg:() => Func()</param>
+    /// <returns></returns>
     public static Coroutine TimeBasedTimer(MonoBehaviour monoBehaviour, float time, Action onComplete)
     {
         return monoBehaviour.StartCoroutine(TimeBasedTimerCoroutine(time, onComplete));
@@ -22,12 +26,23 @@ public static class TimerUtility
         return monoBehaviour.StartCoroutine(TimeBasedTimerCoroutine(time, onStart, onComplete));
     }
 
+
     /// <summary>
     /// コルーチンを呼び出す( フレーム毎に事前処理を呼び出す)
     /// </summary>
-    public static Coroutine FrameBasedTimer(MonoBehaviour monoBehaviour, float time, Action onTick, Action onComplete)
+    /// <param name="monoBehaviour">基本this</param>
+    /// <param name="time">タイマーの継続時間（秒）</param>
+    /// <param name="onTick">毎フレーム呼び出される処理 eg:() => Func()</param>
+    /// <param name="onComplete">指定時間経過後に呼び出される処理</param>
+    /// <returns></returns>
+    public static Coroutine FrameBasedTimer(MonoBehaviour monoBehaviour, float time, Action onTick = null, Action onComplete = null)
     {
         return monoBehaviour.StartCoroutine( FrameBasedTimerCoroutine(time, onTick, onComplete));
+    }
+
+    public static Coroutine FrameBasedTimerFixed(MonoBehaviour monoBehaviour, float time, Action onTick, Action onComplete)
+    {
+        return monoBehaviour.StartCoroutine(FrameBasedTimerCoroutineFixed(time, onTick, onComplete));
     }
 
     // コルーチン実装部分
@@ -72,6 +87,24 @@ public static class TimerUtility
 
             elapsedTime += Time.deltaTime;
             yield return null;
+        }
+
+        // 時間経過後に呼ばれるコールバック
+        onComplete?.Invoke();
+    }
+
+    private static IEnumerator FrameBasedTimerCoroutineFixed(float time, Action beforeComplete, Action onComplete)
+    {
+        float elapsedTime = 0f;
+
+        // 時間が経過するまで繰り返す
+        while (elapsedTime < time)
+        {
+            //進行中に毎FixedUpdateで呼ばれるコールバック
+            beforeComplete?.Invoke();
+
+            elapsedTime += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
         }
 
         // 時間経過後に呼ばれるコールバック

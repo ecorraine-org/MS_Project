@@ -19,6 +19,12 @@ public class PlayerAnimManager : AnimManager
         playerController = _playerController;
     }
 
+    public void PlayerSoundEvt(int _index)
+    {
+        AudioManager audioManager = playerController.AudioManager;
+        audioManager.PlaySound(_index);
+    }
+
     /// <summary>
     /// 弾を発射、真空連斬
     /// </summary>
@@ -89,6 +95,23 @@ public class PlayerAnimManager : AnimManager
     }
 
     /// <summary>
+    /// 攻撃補正
+    /// </summary>
+    public void CorrectDashEvt()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+
+        skillManager.DashHandler.BeginCorrectDash();
+
+        startTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime *
+             playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length;
+
+        testTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length - startTime;
+
+
+    }
+
+    /// <summary>
     /// 突進開始
     /// </summary>
     public override void StartDash()
@@ -98,9 +121,9 @@ public class PlayerAnimManager : AnimManager
         //方向、画像反転設定
         playerController.SetEightDirection();
        // skillManager.DashHandler.Begin(true, playerController.CurDirecVector);
-        skillManager.DashHandler.Begin(playerController.GetForward());
-        
 
+        skillManager.DashHandler.BeginDashDistanceCheck(playerController.GetForward());
+        
         startTime = playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).normalizedTime*
              playerController.SpriteAnim.GetCurrentAnimatorStateInfo(0).length;
 

@@ -9,10 +9,28 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
 {
     [HideInInspector, Tooltip("生成するオノマトペオブジェクト")]
     protected GameObject onomatoObj;
+    private bool canGenerateOnomatopoeia = false;
+    private int maxPoolCount = 2;
+
+    [Header("生成されたオノマトペ"), Tooltip("生成されたオノマトペプール")]
+    public List<GameObject> onomatoPool;
 
     public virtual void Awake()
     {
-        onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItem");
+        onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItemVariant");
+        canGenerateOnomatopoeia = true;
+    }
+
+    protected virtual void Update()
+    {
+        if (onomatoPool.Count < maxPoolCount)
+        {
+            canGenerateOnomatopoeia = true;
+        }
+        else
+        {
+            canGenerateOnomatopoeia = false;
+        }
     }
 
     /// <summary>
@@ -46,19 +64,27 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
     /// オノマトペ生成
     /// </summary>
     /// <param name="_onomatopoeiaData">オノマトペデータ</param>
-    public void GenerateOnomatopoeia(OnomatopoeiaData _onomatopoeiaData)
+    public void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData)
     {
-        GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
-        onomatoObj.GetComponent<OnomatopoeiaController>().data = _onomatopoeiaData;
-        onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = _onomatopoeiaData.wordToUse;
+        if (canGenerateOnomatopoeia)
+        {
+            GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
 
-        Transform mainCamera = Camera.main.transform;
-        // カメラと同じ角度
-        Quaternion newRotation = mainCamera.rotation;
-        newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
+            onomatoObj.GetComponent<OnomatopoeiaController>().OwningObject = _owner;
+            onomatoObj.GetComponent<OnomatopoeiaController>().Data = _onomatopoeiaData;
+            onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = _onomatopoeiaData.wordToUse;
 
-        GameObject instance = Instantiate(onomatoObj, this.transform.position, newRotation, collector.transform);
-        collector.GetComponent<Collector>().otherObjectPool.Add(instance);
+            Transform mainCamera = Camera.main.transform;
+            //カメラと同じ角度にする
+            Quaternion newRotation = mainCamera.rotation;
+            //newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
+
+            Vector3 newPosition = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - GetComponent<Collider>().bounds.extents.z);
+
+            GameObject instance = Instantiate(onomatoObj, newPosition, newRotation, collector.transform);
+            onomatoPool.Add(instance);
+            collector.GetComponent<ObjectCollector>().otherObjectPool.Add(instance);
+        }
     }
 }
 

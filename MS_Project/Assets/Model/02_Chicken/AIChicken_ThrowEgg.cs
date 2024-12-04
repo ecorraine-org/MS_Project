@@ -3,18 +3,19 @@ using UnityEngine;
 public class AIChicken_ThrowEgg : EnemyAction
 {
     [SerializeField, Header("投げるプレハブ")]
-    public GameObject projectilePrefab;
+    private GameObject projectilePrefab;
     [SerializeField, Header("プレハブの生成位置")]
-    public Transform spawnPoint;
+    private Transform spawnPoint;
     [SerializeField, Header("投擲角度（上向き）")]
-    float upAngle = 30f;
+    float upAngle = 70f;
     [SerializeField, Header("投擲角度（プレイヤー向き）")]
-    float playerAngle = 30f;
+    float playerAngle = 70f;
 
     [SerializeField, Header("投げる力")]
     float throwForce = 10f;
 
-    [SerializeField] GameObject ExplosionPrefab;
+    [SerializeField, Header("VFXプレハブ")]
+    private GameObject explosionPrefab;
 
     /*
     [SerializeField, Header("連続して投げる回数")]
@@ -38,71 +39,69 @@ public class AIChicken_ThrowEgg : EnemyAction
     {
         base.Start();
 
-        maxDistance = enemy.EnemyStatus.StatusData.attackDistance;
-        minDistance = enemy.EnemyStatus.StatusData.attackDistance / 1.3f;
+        maxDistance = enemy.Status.StatusData.attackDistance;
+        minDistance = enemy.Status.StatusData.attackDistance / 1.3f;
     }
 
-    public override void Chase()
+    public void WalkInit()
     {
-        if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
-        {
-            //じわりとみる
-            direction = player.position - enemy.transform.position;
 
-            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
-            targetRotation.x = 0f;
+        enemy.Anim.Play("Walk");
+    }
 
-            enemy.transform.rotation = Quaternion.Slerp(
-            enemy.transform.rotation,
-            targetRotation,
-            0.03f // 補間率（1.0fで即時、0.0fで変化なし）
-        );
+    public void WalkTick()
+    {
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
 
-            if (distanceToPlayer < minDistance)
-            {
-                Quaternion backwardRotation = Quaternion.LookRotation(-direction.normalized);
-                backwardRotation.x = 0f;
-                transform.rotation = backwardRotation;
+        enemy.Move();
 
-                if (enemy.AllowAttack || enemy.IsAttacking)
-                {
-                    enemy.AllowAttack = false;
-                    enemy.IsAttacking = false;
-                }
+        //じわりとみる
+        direction = player.position - enemy.transform.position;
 
-                // 逃げる
-                enemy.Anim.Play("Escape");
-                enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+
+        enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+
+
+        if (distanceToPlayer < minDistance)
+            {//逃げよう
+            //Quaternion backwardRotation = Quaternion.LookRotation(-direction.normalized);
+            //backwardRotation.x = 0f;
+            //transform.rotation = backwardRotation;
+            //Debug.Log("back");
+            enemy.Anim.Play("Escape");
+            enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
             }
             else if (distanceToPlayer <= maxDistance && distanceToPlayer > minDistance)
-            {
-                enemy.OnMovementInput?.Invoke(Vector3.zero);
+            {//攻撃しましょう
+                //クールダウン
+                enemy.StartAttackCoroutine();
 
-                // 攻撃
-                enemy.OnAttack?.Invoke();
+                stateHandler.TransitionState(ObjectStateType.Attack);
+                return;
             }
             else if (distanceToPlayer > maxDistance)
-            {
-                if (enemy.AllowAttack || enemy.IsAttacking)
-                {
-                    enemy.AllowAttack = false;
-                    enemy.IsAttacking = false;
-                }
+            {//追跡しよう
+                enemy.Anim.Play("Walk");
 
+                // 自分を基準にした前進
+                Vector3 forwardDirection = enemy.transform.forward;
+                forwardDirection.y = 0f;// 地面に沿った移動
                 // 追跡
-                enemy.OnMovementInput?.Invoke(direction.normalized);
-            }
-        }
-        else
-        {
-            if (enemy.AllowAttack || enemy.IsAttacking)
-            {
-                enemy.AllowAttack = false;
-                enemy.IsAttacking = false;
-            }
+                enemy.OnMovementInput?.Invoke(forwardDirection.normalized);
 
-            // 停止
-            enemy.OnMovementInput?.Invoke(Vector3.zero);
+
+            if (distanceToPlayer <= EnemyStatus.StatusData.chaseDistance)
+            {
+
+                //enemy.OnMovementInput?.Invoke(Vector3.zero);
+            }
         }
     }
 
@@ -127,10 +126,14 @@ public class AIChicken_ThrowEgg : EnemyAction
         Rigidbody rbEgg = thrownEgg.GetComponent<Rigidbody>();
         rbEgg.useGravity = true;
 
-        collector.GetComponent<Collector>().otherObjectPool.Add(thrownEgg);
+        collector.GetComponent<ObjectCollector>().otherObjectPool.Add(thrownEgg);
 
         Quaternion rotateToPlayer = Quaternion.LookRotation((player.position - spawnPoint.position).normalized);
         spawnPoint.rotation = rotateToPlayer;
+
+        // 前に飛ばす準備
+        Vector3 forwardDirection = enemy.transform.forward;
+        forwardDirection.y = 0f;// 地面に水平に
 
         float radianPlayerAngle = playerAngle * Mathf.Deg2Rad;
         float radianUpAngle = upAngle * Mathf.Deg2Rad;
@@ -138,8 +141,8 @@ public class AIChicken_ThrowEgg : EnemyAction
         Vector3 playerDirection = spawnPoint.forward /*+ (Vector3.forward * Mathf.Cos(radianPlayerAngle))*/;
         // 前方に対してn度上向きに飛ばす
         Vector3 upDirection = spawnPoint.up * Mathf.Sin(radianUpAngle);
-        // 指定角度に応じた方向を計算
-        Vector3 forceDirection = (playerDirection + upDirection).normalized;
+        // 指定角度に応じた方向を計算(自分から見て前に投げちゃう)
+        Vector3 forceDirection = forwardDirection.normalized;
 
         // 力を計算して加える
         Vector3 force = throwForce * forceDirection;
@@ -170,7 +173,7 @@ public class AIChicken_ThrowEgg : EnemyAction
 
         private void Start()
         {
-            aiChickenThrowEgg = FindObjectOfType<AIChicken_ThrowEgg>(); // AIChicken_ThrowEggのインスタンスを取得
+            aiChickenThrowEgg = FindFirstObjectByType<AIChicken_ThrowEgg>(); // AIChicken_ThrowEggのインスタンスを取得
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -180,7 +183,7 @@ public class AIChicken_ThrowEgg : EnemyAction
             {
                 if (aiChickenThrowEgg != null)
                 {
-                    Instantiate(aiChickenThrowEgg.ExplosionPrefab, transform.position, Quaternion.identity);
+                    Instantiate(aiChickenThrowEgg.explosionPrefab, transform.position, Quaternion.identity, aiChickenThrowEgg.collector.transform);
                 }
                 Destroy(gameObject);
             }
@@ -189,13 +192,12 @@ public class AIChicken_ThrowEgg : EnemyAction
             {
                 if (aiChickenThrowEgg != null)
                 {
-                    Instantiate(aiChickenThrowEgg.ExplosionPrefab, transform.position, Quaternion.identity);
+                    Instantiate(aiChickenThrowEgg.explosionPrefab, transform.position, Quaternion.identity, aiChickenThrowEgg.collector.transform);
                 }
                 Destroy(gameObject);
             }
         }
     }
-
 
     #region オノマトペ情報
     private void ChickenWalkData()
@@ -213,7 +215,7 @@ public class AIChicken_ThrowEgg : EnemyAction
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(spawnPoint.position + new Vector3(0f, 1f, 0f), spawnPoint.position + spawnPoint.forward * enemy.EnemyStatus.StatusData.attackDistance);
+        Gizmos.DrawLine(spawnPoint.position + new Vector3(0f, 1f, 0f), spawnPoint.position + spawnPoint.forward * enemy.Status.StatusData.attackDistance);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(enemy.transform.position, minDistance);

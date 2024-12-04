@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraStateContext : MonoBehaviour
 {
@@ -8,23 +9,32 @@ public class CameraStateContext : MonoBehaviour
     /// カメラステート用のコンテキスト
     /// </summary>
 
-    public Transform cameraTransform { get; set; }
-    public Transform playerTransform { get; set; }
+    public Transform cameraTransform { get; }
     public Transform targetTransform { get; set; }
-    public CameraEffectController cameraEffectController { get; set; }
-    public CameraSettings settings { get; set; }
+    public CameraEffectController cameraEffectController { get; }
+    public CameraSettings settings { get; }
     public Vector3 CurrentVelocity { get; set; }
     public Quaternion CurrentRotation { get; set; }
+    public Transform LockOnTarget { get; set; }
+    public CinemachineBrain cinemachineBrain { get; }
 
-    CameraSettings Settings { get; set; }
-    CameraController cameraController { get; set; }
+    public CameraStateManager StateManager { get; }
 
-
-    public CameraStateContext(Transform cameraTransform, Transform playerTransform, Transform targetTransform, CameraSettings settings)
+    public CameraStateContext(Transform _cameraTransform,
+                              Transform _targetTransform,
+                            CameraSettings _settings,
+                            CameraEffectController _cameraEffectController,
+                            CinemachineBrain _cinemachineBrain,
+                            CameraStateManager _cameraStateManager)
     {
-        this.cameraTransform = cameraTransform;
-        this.playerTransform = playerTransform;
-        this.targetTransform = targetTransform;
-        this.settings = settings;
+        cameraTransform = _cameraTransform;
+        targetTransform = _targetTransform;
+        settings = _settings;
+        cameraEffectController = _cameraEffectController;
+        cinemachineBrain = _cinemachineBrain;
+        StateManager = _cameraStateManager;
+
+        CurrentVelocity = Vector3.zero;
+        CurrentRotation = Quaternion.identity;
     }
 }

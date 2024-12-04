@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_VirusSweet
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 100
+  maxHealth: 40
   mass: 100
   gameObjPrefab: Enemy/VirusSweetV2
   enemyRank: 1
@@ -22,8 +22,8 @@ MonoBehaviour:
   attackDistance: 5
   velocity: 3
   chaseDistance: 10
-  knockBackDuration: 0.2
-  knockBackSpeed: 10
+  knockBackDuration: 0.1
+  knockBackSpeed: 5
   SelfType: 4
   onomatoAttack: {fileID: 11400000, guid: 3e28730ae2c3c144f831d76460fe1196, type: 2}
   onomatoWalk: {fileID: 11400000, guid: bbe8fa5a81bafcd4ca04b67d55a1e4e6, type: 2}

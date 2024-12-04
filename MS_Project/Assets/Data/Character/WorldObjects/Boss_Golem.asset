@@ -15,15 +15,15 @@ MonoBehaviour:
   isInvincible: 0
   maxHealth: 100
   mass: 100
-  gameObjPrefab: Enemy/GolemV2
+  gameObjPrefab: Enemy/GolemV2LIST
   enemyRank: 3
   timeTillNextAction: 3
   damage: 1
-  attackDistance: 4
+  attackDistance: 6
   velocity: 3
   chaseDistance: 50
-  knockBackDuration: 0.2
-  knockBackSpeed: 10
+  knockBackDuration: 0
+  knockBackSpeed: 0
   SelfType: 4
   onomatoAttack: {fileID: 0}
   onomatoWalk: {fileID: 0}

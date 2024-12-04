@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Boss_Ultimate
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 1930
+  maxHealth: 320
   mass: 1
   gameObjPrefab: Enemy/UltimateV2
   enemyRank: 3
@@ -22,6 +22,8 @@ MonoBehaviour:
   attackDistance: 4.5
   velocity: 3
   chaseDistance: 50
+  knockBackDuration: 0
+  knockBackSpeed: 0
   SelfType: 2
   onomatoAttack: {fileID: 0}
   onomatoWalk: {fileID: 0}

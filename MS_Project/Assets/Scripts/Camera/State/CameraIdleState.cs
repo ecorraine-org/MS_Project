@@ -2,38 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// カメラアイドルステート
-/// </summary>
+// CameraIdleState.cs
 public class CameraIdleState : CameraStateBase
 {
-    //public CameraIdleState(CameraStateContext context) : base(context) { }
+    private Vector3 _positionVelocity;
+    private Vector3 _rotationVelocity;
 
-    public override void OnStart()
+    protected override void OnStateEnter()
     {
-        // カメラエフェクトの初期化
-        // _context.cameraEffectController.Init(_context.cameraController);
+        _positionVelocity = Vector3.zero;
+        _rotationVelocity = Vector3.zero;
+        //EffectController.StopAllEffects();
     }
 
-    public override void OnUpdate()
+    protected override void OnStateUpdate()
     {
-        // カメラの移動
-        //_context.cameraController.MoveCamera();
+        if (TargetTransform == null) return;
 
-        // カメラの回転
-        //_context.cameraController.RotateCamera();
+        var followSettings = Settings.FollowSettings;
+        var targetPosition = TargetTransform.position + followSettings.PositionOffset;
+        var targetRotation = Quaternion.LookRotation(
+            (TargetTransform.position + followSettings.LookAtOffset - CameraTransform.position).normalized);
 
-        // カメラの衝突判定
-        //_context.cameraController.CollisionCheck();
-
-        // カメラのズーム
-        //_context.cameraController.ZoomCamera();
-
-        // カメラのエフェクト
-        //_context.cameraEffectController.UpdateEffect();
+        ApplyPositionConstraints(ref targetPosition, followSettings);
+        ApplySmoothMovement(targetPosition, targetRotation, followSettings);
     }
 
-    public override void OnEnd()
+    private void ApplyPositionConstraints(ref Vector3 targetPosition, CameraFollowSettings settings)
     {
+        if (settings.LockX) targetPosition.x = CameraTransform.position.x;
+        if (settings.LockY) targetPosition.y = CameraTransform.position.y;
+        if (settings.LockZ) targetPosition.z = CameraTransform.position.z;
+    }
+
+    private void ApplySmoothMovement(Vector3 targetPosition, Quaternion targetRotation, CameraFollowSettings settings)
+    {
+        CameraTransform.position = Vector3.SmoothDamp(
+            CameraTransform.position,
+            targetPosition,
+            ref _positionVelocity,
+            settings.PositionSmoothTime);
+
+        CameraTransform.rotation = Quaternion.Slerp(
+            CameraTransform.rotation,
+            targetRotation,
+            Time.deltaTime / settings.RotationSmoothTime);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_Knight
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 100
+  maxHealth: 50
   mass: 400
   gameObjPrefab: Enemy/KnightV2
   enemyRank: 1
@@ -22,11 +22,11 @@ MonoBehaviour:
   attackDistance: 2.5
   velocity: 3
   chaseDistance: 10
-  knockBackDuration: 0.2
-  knockBackSpeed: 10
+  knockBackDuration: 0.1
+  knockBackSpeed: 5
   SelfType: 1
   onomatoAttack: {fileID: 11400000, guid: d674ac612312ff84e81d4690a44f3c44, type: 2}
-  onomatoWalk: {fileID: 11400000, guid: 5b51e8c360d8352479433df2dcafc4fd, type: 2}
+  onomatoWalk: {fileID: 11400000, guid: 62d699e899679c94aae1db6df11b3c8a, type: 2}
   tolerance: 1
   sfxClip: 
   vfxClip: 

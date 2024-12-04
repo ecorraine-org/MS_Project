@@ -103,7 +103,7 @@ PrefabInstance:
       objectReference: {fileID: 2267719934069659503}
     - target: {fileID: 3896038025235807455, guid: 247db5abe88ece044bb1d05378941e29, type: 3}
       propertyPath: soundEffects.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3896038025235807455, guid: 247db5abe88ece044bb1d05378941e29, type: 3}
       propertyPath: 'soundEffects.Array.data[0]'
@@ -113,6 +113,10 @@ PrefabInstance:
       propertyPath: 'soundEffects.Array.data[1]'
       value: 
       objectReference: {fileID: 8300000, guid: 455f4f906cd6030418e809322741ac4d, type: 3}
+    - target: {fileID: 3896038025235807455, guid: 247db5abe88ece044bb1d05378941e29, type: 3}
+      propertyPath: 'soundEffects.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 751dcef617ea1fb408765d306aa22c02, type: 3}
     - target: {fileID: 5077644171268114123, guid: 247db5abe88ece044bb1d05378941e29, type: 3}
       propertyPath: m_Name
       value: Knight
