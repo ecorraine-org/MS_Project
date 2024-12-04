@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: Virus_Walk
   m_EditorClassIdentifier: 
   wordToUse: "\u30D6\u30E8\u30D6\u30E8"
-  fontAsset: {fileID: 11400000, guid: ad584379139b1df46b9777099a13e04e, type: 2}
+  onomatoSprite: {fileID: 0}
+  spriteSize: 0.1
+  onomatoACont: {fileID: 0}
+  fontAsset: {fileID: 11400000, guid: 40ebecea6a7fb6b4e9bfeb174c259461, type: 2}
   fontColor:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4278239487
   type: 5
   damageBuff: 0
   speedBuff: 0
