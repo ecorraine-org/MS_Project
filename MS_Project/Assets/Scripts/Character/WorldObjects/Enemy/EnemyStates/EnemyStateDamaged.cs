@@ -13,6 +13,13 @@ public class EnemyStateDamaged : EnemyState
         int playerMode = ((int)player.ModeManager.Mode);
         OnomatopoeiaData attackOnomatoData = player.StatusManager.StatusData.onomatoAttackData[playerMode];
         enemy.GenerateOnomatopoeia(enemy.gameObject, attackOnomatoData);
+
+        enemy.DashHandler.Speed = enemyStatusHandler.StatusData.knockBackSpeed;
+        enemy.DashHandler.Duration = enemyStatusHandler.StatusData.knockBackDuration;
+        Vector3 playerDirec = player.transform.position - transform.position;
+        playerDirec.y = 0;
+        playerDirec.z = 0;
+        enemy.DashHandler.Begin(false, -1 * playerDirec.normalized);
     }
 
     public override void Tick()

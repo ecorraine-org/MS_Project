@@ -27,6 +27,9 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, NonEditable, Header("攻撃段階")]
     int attackStage = 0;
 
+    //最大攻撃段階数
+    int maxAttackStage = 0;
+
     [SerializeField, NonEditable, Header("ノーマル攻撃の攻撃力")]
     float attackDamage;
     //*********
@@ -313,6 +316,7 @@ public class PlayerSkillManager : MonoBehaviour
     public void SwordAttackInit()
     {
         attackDamage = playerController.StatusManager.StatusData.swordAtk;
+        maxAttackStage = 1;
 
         // 突進初期化
         dash.Speed = playerHitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
@@ -332,7 +336,7 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void SwordNextAttack()
     {
-        if (attackStage < 1) attackStage++;
+        if (attackStage < maxAttackStage) attackStage++;
         else attackStage = 0;
 
         playerController.StateManager.TransitionState(StateType.Attack);
@@ -357,6 +361,7 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("SpearAttack", 0, 0f);
     }
 
+  
     public void GauntletAttackInit()
     {
         attackDamage = playerController.StatusManager.StatusData.gauntletAtk;
