@@ -66,7 +66,7 @@ public enum WorldObjectType
     None,
     [InspectorName("プレイヤー"), Tooltip("プレイヤー")] Player,
     [InspectorName("敵"), Tooltip("敵")] Enemy,
-    [InspectorName("オブジェクト"), Tooltip("オブジェクト")] StaticObject
+    [InspectorName("固定オブジェクト"), Tooltip("固定オブジェクト")] StaticObject
 }
 
 /// <summary>

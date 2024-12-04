@@ -33,8 +33,8 @@ public class AIGolem : EnemyAction
         base.Start();
         anim = GetComponentInChildren<Animator>();
 
-        maxDistance = enemy.EnemyStatus.StatusData.attackDistance;
-        minDistance = enemy.EnemyStatus.StatusData.attackDistance / 1.3f;
+        maxDistance = enemy.Status.StatusData.attackDistance;
+        minDistance = enemy.Status.StatusData.attackDistance / 1.3f;
     }
 
     private void Update()

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,10 +19,10 @@ public abstract class WorldObjectController : WorldObject
 
     [HideInInspector, Tooltip("オブジェクトタイプ")]
     protected WorldObjectType type;
-
+    /*
     [HideInInspector, Tooltip("ステートマネージャー")]
-    protected ObjectStateHandler objState;
-
+    protected WorldObjectStateHandler objState;
+    */
     [HideInInspector, Tooltip("シングルトンバトルマネージャー")]
     protected BattleManager battleManager;
 
@@ -103,11 +102,13 @@ public abstract class WorldObjectController : WorldObject
         set { isDamaged = value; }
     }
 
-    public ObjectStateHandler State
+    /*
+    public WorldObjectStateHandler State
     {
         get => objState;
         set { objState = value; }
     }
+    */
 
     public EffectHandler EffectHandler
     {

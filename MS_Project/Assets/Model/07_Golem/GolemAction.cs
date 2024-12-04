@@ -141,7 +141,7 @@ public class GolemAction : EnemyAction
         enemy.OnMovementInput?.Invoke(direction.normalized * 0.5f);
 
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
-        enemy.AttackCollider.DetectColliders(enemy.EnemyStatus.StatusData.damage, targetLayer, false);
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 

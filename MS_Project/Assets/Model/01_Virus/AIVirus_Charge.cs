@@ -33,12 +33,12 @@ public class AIVirus_Charge : EnemyAction
         forwardDirection.y = 0f;// 地面に沿った移動
 
         //適度に距離を置く
-        if (distanceToPlayer >= enemy.EnemyStatus.StatusData.attackDistance)
+        if (distanceToPlayer >= enemy.Status.StatusData.attackDistance)
         {
             // 追跡
             enemy.OnMovementInput?.Invoke(forwardDirection.normalized);
         }
-        else if (distanceToPlayer < enemy.EnemyStatus.StatusData.attackDistance * 0.5f)
+        else if (distanceToPlayer < enemy.Status.StatusData.attackDistance * 0.5f)
         {
             // 後ろ
             enemy.OnMovementInput?.Invoke(-forwardDirection.normalized / 2.0f);
