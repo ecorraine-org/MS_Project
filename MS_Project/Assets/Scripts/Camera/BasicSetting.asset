@@ -12,3 +12,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0709d4a08809f40bc5cf46ce0291ec, type: 3}
   m_Name: BasicSetting
   m_EditorClassIdentifier: 
+  BasicSettings:
+    FieldOfView: 60
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    DefaultOffset: {x: 0, y: 2, z: -5}
+    CullingMask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+  EffectSettings:
+    MaxShakeIntensity: 1
+    MaxShakeDuration: 2
+    ShakeFalloff: 1
+    DefaultShakeCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    MaxZoomFOV: 90
+    MinZoomFOV: 30
+    ZoomSpeed: 5
+    MaxRollAngle: 30
+    RollSpeed: 3
+  CollisionSettings:
+    CollisionLayers:
+      serializedVersion: 2
+      m_Bits: 0
+    CollisionRadius: 0.2
+    MinDistance: 1
+    SmoothTime: 0.1
+    UseScreenSpaceCorrection: 1
+    CorrectionStrength: 1
+  FollowSettings:
+    PositionSmoothTime: 0.1
+    RotationSmoothTime: 0.05
+    PositionOffset: {x: 0, y: 3.55, z: -14.8}
+    LookAtOffset: {x: 0, y: 1, z: 0}
+    LockX: 0
+    LockY: 0
+    LockZ: 0
+    HeightMinMax: {x: -1, y: 5}
+    DistanceMinMax: {x: 3, y: 10}
+  LockOnSettings:
+    MaxLockOnDistance: 10
+    TransitionSpeed: 5
+    PlayerWeight: 0.5
+    TargetWeight: 0.5
+    LockOnLayer:
+      serializedVersion: 2
+      m_Bits: 0
+    OffsetFromTarget: {x: 0, y: 1.5, z: 0}
+    UseScreenSpaceTargeting: 1
+    CameraHeight: 1.5
+    CameraDistance: 3
+    DeadZoneWidth: 0.1
+    DeadZoneHeight: 0.1
+    SoftZoneWidth: 0.1
+    SoftZoneHeight: 0.1
