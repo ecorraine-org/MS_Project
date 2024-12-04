@@ -62,6 +62,9 @@ public class DashHandler : MonoBehaviour
     //ダッシュ中かどうか
     private bool isDashing = false;
 
+    [SerializeField, Header("突進しない距離")]
+    float minDashDistance = 2.0f;
+
     public void Init(WorldObject _owner)
     {
         owner = _owner;
@@ -104,9 +107,9 @@ public class DashHandler : MonoBehaviour
         //移動しようとする方向
         blockDetector.DetectUpdate(owner.transform, owner.GetNextDirec());
 
-//#if UNITY_EDITOR
-   //     DebugUpdate();
-//#endif
+        //#if UNITY_EDITOR
+        //     DebugUpdate();
+        //#endif
 
     }
 
@@ -117,10 +120,10 @@ public class DashHandler : MonoBehaviour
         if (isDashing)
         {
             //貫通しないパターンで、当たったら終了
-            if (!canThrough && hitCollider != null && hitCollider.CollidersList.Count > 0)
-            {
-                End();
-            }
+            //if (!canThrough && hitCollider != null && hitCollider.CollidersList.Count > 0)
+            //{
+            //    End();
+            //}
 
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
@@ -148,9 +151,19 @@ public class DashHandler : MonoBehaviour
     /// </summary>
     public void BeginCorrectDash()
     {
+
         if (lockOnCollider.ClosestCollider == null)
         {
             return;
+        }
+
+        //近すぎると突進しない
+        if (lockOnCollider.ClosestCollider != null)
+        {
+            Vector3 ToLock = lockOnCollider.ClosestCollider.transform.position - owner.transform.position;
+            ToLock.y = 0;
+            Debug.Log("ToLock.magnitude " + ToLock.magnitude);
+            if (ToLock.magnitude < minDashDistance) return;
         }
 
         // 突進初期化
@@ -200,11 +213,14 @@ public class DashHandler : MonoBehaviour
                 EndCorrectDash();
             }
 
-            //ターゲット位置(z軸)に到着したら終了
             Vector3 toTarget = _targetPos - transform.position;
             toTarget.y = 0;
+            Vector3 toTargetXZ = toTarget;
             toTarget.x = 0;
-            if (toTarget.magnitude < 1.0f)
+            Vector3 toTargetZ = toTarget;
+
+            //ターゲット位置(z軸)に到着かつ一定距離(平面上)になると終了
+            if (toTargetZ.magnitude < 1.0f && toTargetXZ.magnitude < minDashDistance)
             {
                 EndCorrectDash();
             }
@@ -249,6 +265,29 @@ public class DashHandler : MonoBehaviour
     //canThrough設定なしのバージョン
     public void Begin(Vector3 _direc)
     {
+        dashDirec = _direc;
+
+        startTime = Time.time;
+
+        //ダッシュ処理
+        if (duration != -1)
+            dashCoroutine = StartCoroutine(DashCoroutine());
+
+        isDashing = true;
+    }
+
+    //距離によって突進しないバージョン
+    public void BeginDashDistanceCheck(Vector3 _direc)
+    {
+        //近すぎると突進しない
+        if (lockOnCollider.ClosestCollider != null)
+        {
+            Vector3 ToLock = lockOnCollider.ClosestCollider.transform.position - owner.transform.position;
+            ToLock.y = 0;
+            Debug.Log("ToLock.magnitude " + ToLock.magnitude);
+            if (ToLock.magnitude < minDashDistance) return;
+        }
+
         dashDirec = _direc;
 
         startTime = Time.time;
