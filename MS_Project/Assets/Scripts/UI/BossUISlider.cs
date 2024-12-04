@@ -37,7 +37,7 @@ public class BossUISlider : MonoBehaviour
     {
         if(enemy == null)
         {
-            if (enemy.EnemyStatus.StatusData.enemyRank == EnemyRank.Boss)
+            if (enemy.Status.StatusData.enemyRank == EnemyRank.Boss)
             {
                 //float hp = 100;
             }
@@ -46,7 +46,7 @@ public class BossUISlider : MonoBehaviour
 
         if (label == "HP")
         {
-            currentValue = enemy.EnemyStatus.CurrentHealth;
+            currentValue = enemy.Status.CurrentHealth;
         }
        
         UpdateSliderBar();
@@ -76,7 +76,7 @@ public class BossUISlider : MonoBehaviour
             Debug.Log("NULL");
         }
 
-        float hp = enemy.EnemyStatus.StatusData.maxHealth;
+        float hp = enemy.Status.StatusData.maxHealth;
 
         //float hp = 100;
 

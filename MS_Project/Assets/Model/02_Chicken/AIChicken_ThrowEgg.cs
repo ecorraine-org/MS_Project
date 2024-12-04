@@ -39,8 +39,8 @@ public class AIChicken_ThrowEgg : EnemyAction
     {
         base.Start();
 
-        maxDistance = enemy.EnemyStatus.StatusData.attackDistance;
-        minDistance = enemy.EnemyStatus.StatusData.attackDistance / 1.3f;
+        maxDistance = enemy.Status.StatusData.attackDistance;
+        minDistance = enemy.Status.StatusData.attackDistance / 1.3f;
     }
 
     public void WalkInit()
@@ -215,7 +215,7 @@ public class AIChicken_ThrowEgg : EnemyAction
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(spawnPoint.position + new Vector3(0f, 1f, 0f), spawnPoint.position + spawnPoint.forward * enemy.EnemyStatus.StatusData.attackDistance);
+        Gizmos.DrawLine(spawnPoint.position + new Vector3(0f, 1f, 0f), spawnPoint.position + spawnPoint.forward * enemy.Status.StatusData.attackDistance);
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(enemy.transform.position, minDistance);
