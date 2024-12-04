@@ -83,12 +83,12 @@ public class DashHandler : MonoBehaviour
 
     public void Update()
     {
-        if (owner is PlayerController)
-        {
-            HitReaction hitReaction = battleManager.GetPlayerHitReaction();
-            if (battleManager.IsHitStop/*&& hitReaction.stopDuration!=0*/) slowFactor = hitReaction.slowSpeed;
-            else slowFactor = 1;
-        }
+        //  if (owner is PlayerController)
+        // {
+        HitReaction hitReaction = battleManager.GetPlayerHitReaction();
+        if (battleManager.IsHitStop/*&& hitReaction.stopDuration!=0*/) slowFactor = hitReaction.slowSpeed;
+        else slowFactor = 1;
+        //   }
 
 
         if (blockDetector == null) return;
@@ -301,7 +301,8 @@ public class DashHandler : MonoBehaviour
 
     public IEnumerator DashCoroutine()
     {
-        float elapsedTime = 0f; // 時間累積
+        // 時間累積
+        float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {

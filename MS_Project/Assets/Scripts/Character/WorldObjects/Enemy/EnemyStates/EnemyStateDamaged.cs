@@ -14,6 +14,7 @@ public class EnemyStateDamaged : EnemyState
         OnomatopoeiaData attackOnomatoData = player.StatusManager.StatusData.onomatoAttackData[playerMode];
         enemy.GenerateOnomatopoeia(enemy.gameObject, attackOnomatoData);
 
+        //ノックバック
         enemy.DashHandler.Speed = enemyStatusHandler.StatusData.knockBackSpeed;
         enemy.DashHandler.Duration = enemyStatusHandler.StatusData.knockBackDuration;
         Vector3 playerDirec = player.transform.position - transform.position;
