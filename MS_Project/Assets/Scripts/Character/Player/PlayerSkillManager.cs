@@ -226,7 +226,6 @@ public class PlayerSkillManager : MonoBehaviour
     private void ExecuteSwordSkill()
     {
         playerController.SpriteAnim.Play("SwordSkill");
-        playerController.SpriteRenderer.color = Color.red;
 
         //ヒットストップ
         battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Sword].slowSpeed;
@@ -250,7 +249,6 @@ public class PlayerSkillManager : MonoBehaviour
     public void ExecuteHammerSkill()
     {
         playerController.SpriteAnim.Play("HammerSkill");
-        playerController.SpriteRenderer.color = Color.red;
 
         //ヒットストップ
         battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Hammer].slowSpeed;
@@ -265,7 +263,6 @@ public class PlayerSkillManager : MonoBehaviour
     public void ExecuteHammerSkillCharge()
     {
         //playerController.SpriteAnim.Play("HammerSkill");
-        //playerController.SpriteRenderer.color = Color.red;
 
         //dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
         //dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
@@ -276,7 +273,6 @@ public class PlayerSkillManager : MonoBehaviour
 
 
         playerController.SpriteAnim.Play("HammerSkill2", 0, 0f);
-        playerController.SpriteRenderer.color = Color.red;
 
         dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
         dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
@@ -302,7 +298,6 @@ public class PlayerSkillManager : MonoBehaviour
     private void ExecuteGauntletSkill()
     {
         playerController.SpriteAnim.Play("GauntletSkill");
-        playerController.SpriteRenderer.color = Color.red;
 
         //ヒットストップ
         battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Gauntlet].slowSpeed;
