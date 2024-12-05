@@ -14,7 +14,7 @@ public class PlayerAttackState : PlayerState
     bool willNextStage = false;
 
     public float FrenzyAttackDamage;
-   // public LayerMask attackableLayer;
+
     private CameraBasedHitCorrection _CameraBasedHitCorrection;
 
 
@@ -85,14 +85,8 @@ public class PlayerAttackState : PlayerState
             playerSkillManager.CanComboCancel = false;
             willNextStage = false;
 
-            switch (playerModeManager.Mode)
-            {
-                case PlayerMode.Sword:
-                    playerSkillManager.SwordNextAttack();
-                    break;
-                default:
-                    break;
-            }
+            playerSkillManager.NextAttack();
+
             return;
         }
 

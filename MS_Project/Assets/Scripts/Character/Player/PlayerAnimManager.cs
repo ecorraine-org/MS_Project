@@ -41,7 +41,6 @@ public class PlayerAnimManager : AnimManager
     {
         PlayerSkillManager skillManager = playerController.SkillManager;
         skillManager.CanComboCancel = true;
-        Debug.Log("EnableCombo");
     }
 
     /// <summary>

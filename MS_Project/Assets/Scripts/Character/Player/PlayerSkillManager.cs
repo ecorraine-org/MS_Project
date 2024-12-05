@@ -28,6 +28,7 @@ public class PlayerSkillManager : MonoBehaviour
     int attackStage = 0;
 
     //最大攻撃段階数
+    [SerializeField, NonEditable, Header("最大攻撃段階数")]
     int maxAttackStage = 0;
 
     [SerializeField, NonEditable, Header("ノーマル攻撃の攻撃力")]
@@ -46,7 +47,7 @@ public class PlayerSkillManager : MonoBehaviour
     bool canComboInput = false;
 
     // 当たり判定可能かどうか
-    bool canHit = false;
+    //bool canHit = false;
 
     // 長押ししているか
     bool canCharge = false;
@@ -191,6 +192,9 @@ public class PlayerSkillManager : MonoBehaviour
         canComboInput = false;
 
         canCharge = false;
+
+        //攻撃以外に遷移したら段階数リセット
+        if (playerController !=null&& playerController.StateManager.CurrentStateType!=StateType.Attack) attackStage = 0;
     }
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
@@ -329,12 +333,12 @@ public class PlayerSkillManager : MonoBehaviour
 
         if (attackStage == 1)
         {
-            Debug.Log("SwordAttack2");
+           // Debug.Log("SwordAttack2");
             playerController.SpriteAnim.Play("SwordAttack2", 0, 0f);
         }
     }
 
-    public void SwordNextAttack()
+    public void NextAttack()
     {
         if (attackStage < maxAttackStage) attackStage++;
         else attackStage = 0;
@@ -358,7 +362,33 @@ public class PlayerSkillManager : MonoBehaviour
     public void SpearAttackInit()
     {
         attackDamage = playerController.StatusManager.StatusData.spearAtk;
-        playerController.SpriteAnim.Play("SpearAttack", 0, 0f);
+     
+        maxAttackStage = 4;
+
+        if (attackStage == 0 || attackStage == 2 || attackStage == 1)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, 3);
+            string[] animations = { "SpearAttackPreA", "SpearAttackPreB", "SpearAttackPreC" };
+
+            //ランダムプレイ
+            playerController.SpriteAnim.Play(animations[randomIndex], 0, 0f);
+
+        }
+
+        //if ( attackStage == 2 || attackStage == 1)
+        //{
+        //    int randomIndex = UnityEngine.Random.Range(0, 3);
+        //    string[] animations = { "SpearAttackA", "SpearAttackB", "SpearAttackC" };
+
+        //    //ランダムプレイ
+        //    playerController.SpriteAnim.Play(animations[randomIndex], 0, 0f);
+
+        //}
+
+        if (attackStage == 3) playerController.SpriteAnim.Play("SpearAttack2", 0, 0f);
+        if (attackStage == 4) playerController.SpriteAnim.Play("SpearAttackPreA", 0, 0f);
+
+
     }
 
   
