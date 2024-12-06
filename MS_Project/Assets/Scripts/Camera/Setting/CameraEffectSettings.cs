@@ -16,6 +16,7 @@ public class CameraEffectSettings
 
     public float MaxRollAngle = 30f;   // ロールの最大角度
     public float RollSpeed = 3f;        // ロールの速度
+    public Color DefaultColor = Color.white;    // デフォルトの色
 
     public Dictionary<string, CameraShakeData> ShakePresets = new();    // シェイクのプリセット
 }

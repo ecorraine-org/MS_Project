@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossSubjectCam : MonoBehaviour
+public class BossSubjectCam : CameraEffectBase
 {
-    // Start is called before the first frame update
-    void Start()
+
+    protected override void OnEffectStart()
     {
-        
+        //エフェクト開始時の処理
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnEffectUpdate()
     {
-        
+        //エフェクト更新時の処理
     }
+
+    protected override void OnEffectStop()
+    {
+        //エフェクト終了時の処理
+    }
+
 }
