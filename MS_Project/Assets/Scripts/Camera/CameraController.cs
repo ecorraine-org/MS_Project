@@ -66,14 +66,9 @@ public class CameraController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        //Vector3 targetPosition = playerPos.position + cameraOffset;
-        //Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, blendFactor);
-        //transform.position = smoothedPosition;
 
-        //_mainCamera.transform.LookAt(playerPos);
     }
 
     /// <summary>
@@ -97,7 +92,8 @@ public class CameraController : MonoBehaviour
     private void InitializeComponents()
     {
         _camera = GetComponent<Camera>();
-        //_cameraEffectController = new CameraEffectController(_settings);
+        _cameraEffectController = new CameraEffectController();
+        Debug.Log("CameraEffectController: " + _cameraEffectController);
         //_cameraCollisionHandler = new CameraCollisionHandler(_settings, _cameraTransform, _targetTransform);
         _cameraStateManager = new CameraStateManager();
 
@@ -122,6 +118,7 @@ public class CameraController : MonoBehaviour
 
         _cameraStateManager.Initialize(context);
         _cameraStateManager.TransitionTo("Idle");
+        _cameraEffectController.Initialize(context);
 
     }
 
@@ -141,7 +138,7 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         _cameraStateManager?.Update();
-
+        _cameraEffectController?.Update();
 
     }
 
