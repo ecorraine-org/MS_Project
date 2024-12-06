@@ -5,10 +5,10 @@ using UnityEngine;
 public class SpriteBullet : Bullet
 {
     [SerializeField, Header("スプライトレンダラー")]
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     /// <param name="isFlipX">プレイヤーのスプライトが反転されたか</param>
-    public void Init(bool isFlipX)
+    public virtual void Init(bool isFlipX)
     {
         base.Init();
 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// パーティクルの再生終了時に自動削除するためのビヘイビア
+/// パーティクル管理ビヘイビア
 /// </summary>
-public class DestroyParticle : MonoBehaviour
+public class ParticleManager : MonoBehaviour
 {
     ParticleSystem particle;
 
@@ -16,8 +16,8 @@ public class DestroyParticle : MonoBehaviour
 
     private void Update()
     {
-        if (this.particle.isPlaying) return;
-        Destroy(this.gameObject);
+      //  if (this.particle.isPlaying) return;
+      //  Destroy(this.gameObject);
     }
 
     /// <summary>
