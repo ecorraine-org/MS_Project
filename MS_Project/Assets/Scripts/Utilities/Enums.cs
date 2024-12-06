@@ -118,3 +118,16 @@ public enum MissionType
     [InspectorName("道開き"), Tooltip("道開き")] OpenRoute,
     [InspectorName("保護"), Tooltip("保護")] Protect
 }
+
+/// <summary>
+/// プレイヤースキル
+/// </summary>
+/// <remarks>
+/// モードと同じ順番で定義する必要がある
+/// </remarks>
+public enum PlayerEffect
+{
+    None,
+    [InspectorName("剣攻撃1")] SwordAttack1,
+    [InspectorName("剣攻撃2")] SwordAttack2,
+}

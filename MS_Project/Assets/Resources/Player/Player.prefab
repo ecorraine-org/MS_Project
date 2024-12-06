@@ -1102,7 +1102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dash: {fileID: 433902212357176194}
   skillData: {fileID: 11400000, guid: 63ba82a4e258c7144a51fb35980ba7a5, type: 2}
-  playerHitData: {fileID: 11400000, guid: 7f8a99c6c0383384a8127183674b1a13, type: 2}
+  hitData: {fileID: 11400000, guid: 7f8a99c6c0383384a8127183674b1a13, type: 2}
+  effectData: {fileID: 11400000, guid: 94644de15eb9c7f428b46125e5201723, type: 2}
   attackStage: 0
   maxAttackStage: 0
   attackDamage: 0
@@ -1110,6 +1111,7 @@ MonoBehaviour:
   canComboCancel: 0
   canComboInput: 0
   bulletLauncher: {fileID: 6095909578243480502}
+  curEffect: {fileID: 0}
 --- !u!114 &433902212357176194
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081ae8855aaaee64c9db531abdef9fdc, type: 3}
+  m_Name: PlayerEffectData
+  m_EditorClassIdentifier: 
+  effects:
+  - effectName: 1
+    effectL: {fileID: 1800760304470593153, guid: c1ec245fb5254d4429581dc83e29a2ff, type: 3}
+    effectR: {fileID: 1800760304470593153, guid: c933b84f73dd9f54cbe888a561ba4149, type: 3}
+    rotation: {x: 15, y: 0, z: 15}
+    position: {x: 0.25, y: 1.2, z: 0}
+    isFollow: 1
+  - effectName: 2
+    effectL: {fileID: 1800760304470593153, guid: c1ec245fb5254d4429581dc83e29a2ff, type: 3}
+    effectR: {fileID: 1800760304470593153, guid: c933b84f73dd9f54cbe888a561ba4149, type: 3}
+    rotation: {x: -24, y: 0, z: -150}
+    position: {x: 0.25, y: 1.5, z: 0}
+    isFollow: 1

@@ -20,7 +20,10 @@ public class PlayerSkillManager : MonoBehaviour
     PlayerSkillData skillData;
 
     [SerializeField, Header("ヒットリアクションデータ")]
-    PlayerHitData playerHitData;
+    PlayerHitData hitData;
+
+    [SerializeField, Header("エフェクトデータ")]
+    PlayerEffectData effectData;
 
     //*********
     //ノーマル攻撃
@@ -35,19 +38,16 @@ public class PlayerSkillManager : MonoBehaviour
     float attackDamage;
     //*********
 
-    [SerializeField, Header("今のスキルのクールタイム")]
+    [SerializeField, NonEditable, Header("今のスキルのクールタイム")]
     float curSkillCoolTime;
 
     // 攻撃をキャンセルし、コンボできるかどうか
-    [SerializeField, Header("キャンセルできるか")]
+    [SerializeField, NonEditable, Header("キャンセルできるか")]
     bool canComboCancel = false;
 
     // コンボ入力できるかどうか
-    [SerializeField, Header("コンボできるか")]
+    [SerializeField, NonEditable, Header("コンボできるか")]
     bool canComboInput = false;
-
-    // 当たり判定可能かどうか
-    //bool canHit = false;
 
     // 長押ししているか
     bool canCharge = false;
@@ -55,7 +55,11 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, Header("弾発射装置")]
     BulletLauncher bulletLauncher;
 
+     [SerializeField,NonEditable, Header("エフェクトを格納する変数")]
+     GameObject curEffect;
 
+    //エフェクトデータを格納する変数
+    EffectParam curEffectParam;
 
     // 辞書<キー：スキル種類、値：クールタイム>
     private Dictionary<PlayerSkill, float> coolTimers = new Dictionary<PlayerSkill, float>();
@@ -194,7 +198,7 @@ public class PlayerSkillManager : MonoBehaviour
         canCharge = false;
 
         //攻撃以外に遷移したら段階数リセット
-        if (playerController !=null&& playerController.StateManager.CurrentStateType!=StateType.Attack) attackStage = 0;
+        if (playerController != null && playerController.StateManager.CurrentStateType != StateType.Attack) attackStage = 0;
     }
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
@@ -323,18 +327,25 @@ public class PlayerSkillManager : MonoBehaviour
         maxAttackStage = 1;
 
         // 突進初期化
-        dash.Speed = playerHitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
+        dash.Speed = hitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
         dash.Duration = -1;
 
         if (attackStage == 0)
         {
             playerController.SpriteAnim.Play("Attack", 0, 0f);
+
+            curEffectParam = effectData.dicEffect[PlayerEffect.SwordAttack1];
+
+
+
         }
 
         if (attackStage == 1)
         {
-           // Debug.Log("SwordAttack2");
             playerController.SpriteAnim.Play("SwordAttack2", 0, 0f);
+
+                curEffectParam = effectData.dicEffect[PlayerEffect.SwordAttack2];
+
         }
     }
 
@@ -354,7 +365,7 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("HammerAttack", 0, 0f);
 
         // 突進初期化
-        dash.Speed = playerHitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
+        dash.Speed = hitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
         dash.Duration = -1;
     }
     #endregion
@@ -362,10 +373,10 @@ public class PlayerSkillManager : MonoBehaviour
     public void SpearAttackInit()
     {
         attackDamage = playerController.StatusManager.StatusData.spearAtk;
-     
+
         maxAttackStage = 4;
 
-        if (attackStage == 0 || attackStage == 2 || attackStage == 1)
+        if (attackStage == 0 /*|| attackStage == 2 || attackStage == 1*/)
         {
             int randomIndex = UnityEngine.Random.Range(0, 3);
             string[] animations = { "SpearAttackPreA", "SpearAttackPreB", "SpearAttackPreC" };
@@ -375,15 +386,15 @@ public class PlayerSkillManager : MonoBehaviour
 
         }
 
-        //if ( attackStage == 2 || attackStage == 1)
-        //{
-        //    int randomIndex = UnityEngine.Random.Range(0, 3);
-        //    string[] animations = { "SpearAttackA", "SpearAttackB", "SpearAttackC" };
+        if (attackStage == 2 || attackStage == 1)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, 3);
+            string[] animations = { "SpearAttackA", "SpearAttackB", "SpearAttackC" };
 
-        //    //ランダムプレイ
-        //    playerController.SpriteAnim.Play(animations[randomIndex], 0, 0f);
+            //ランダムプレイ
+            playerController.SpriteAnim.Play(animations[randomIndex], 0, 0f);
 
-        //}
+        }
 
         if (attackStage == 3) playerController.SpriteAnim.Play("SpearAttack2", 0, 0f);
         if (attackStage == 4) playerController.SpriteAnim.Play("SpearAttackPreA", 0, 0f);
@@ -391,11 +402,51 @@ public class PlayerSkillManager : MonoBehaviour
 
     }
 
-  
+
     public void GauntletAttackInit()
     {
         attackDamage = playerController.StatusManager.StatusData.gauntletAtk;
         playerController.SpriteAnim.Play("GauntletAttack", 0, 0f);
+    }
+
+    /// <summary>
+    /// プレイヤーの左/右向きによってエフェクトの向きを変える
+    /// </summary>
+    /// <param name="_effect">参照を渡す</param>
+    private void FlipEffect(ref EffectParam _effect)
+    {
+        if (playerController.SpriteRenderer.flipX)
+        {
+            curEffect = _effect.effectR;
+
+            _effect.position = Vector3.Scale(_effect.position, new Vector3(-1, 1, 1));
+            _effect.rotation = Vector3.Scale(_effect.rotation, new Vector3(1, 1, -1));
+
+        }
+        else
+        {
+            curEffect = _effect.effectL;
+
+        }
+    }
+
+    public void GenerateEffect()
+    {
+
+        FlipEffect(ref curEffectParam);
+
+        // チャージエフェクトを生成
+        if (curEffect != null)
+        {
+            //エフェクト生成
+           // playerController.GetForward();
+
+
+
+            Instantiate(curEffect, transform.TransformPoint(curEffectParam.position), transform.rotation * Quaternion.Euler(curEffectParam.rotation), curEffectParam.isFollow ? transform : null);
+            //Instantiate(curEffect, transform.position, transform.rotation, transform);
+            //  effectCharge.transform.SetParent(transform);
+        }
     }
 
     private IEnumerator SkillCooldown(PlayerSkill _skillType)
