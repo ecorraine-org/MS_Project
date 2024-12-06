@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8535586121741501922}
   - component: {fileID: 836942332867784363}
   m_Layer: 0
-  m_Name: Slas001
+  m_Name: Slas001_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -603,7 +603,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    randomizeRotationDirection: 0
+    randomizeRotationDirection: 1
     gravitySource: 0
     maxNumParticles: 1000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
@@ -4851,8 +4851,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 851394295947456776, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: InitialModule.randomizeRotationDirection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1525938519503282147, guid: 99ae52e92d6da484b934f10053261489, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d822f5785e50dd54eb5e85e9f962ea73, type: 2}
     - target: {fileID: 1901285738012285608, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: m_Name
       value: root
@@ -4903,7 +4907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2822578342834989955, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: InitialModule.randomizeRotationDirection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2822578342834989955, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.m_NumColorKeys
@@ -4923,7 +4927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4127788845956513915, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: InitialModule.randomizeRotationDirection
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4308393261816806229, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4992,6 +4996,10 @@ PrefabInstance:
     - target: {fileID: 8967662342074744904, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967662342074744904, guid: 99ae52e92d6da484b934f10053261489, type: 3}
+      propertyPath: InitialModule.randomizeRotationDirection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
