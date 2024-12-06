@@ -19,6 +19,13 @@ public class PlayerAnimManager : AnimManager
         playerController = _playerController;
     }
 
+    public void GenerateEffectEvt()
+    {
+        PlayerSkillManager skillManager = playerController.SkillManager;
+        skillManager.GenerateEffect();
+    }
+
+    
     public void PlayerSoundEvt(int _index)
     {
         AudioManager audioManager = playerController.AudioManager;
