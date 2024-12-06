@@ -10,14 +10,27 @@ namespace Stage.Utility
     public class StageSelect : MonoBehaviour
     {
         [SerializeField] private List<RingStage> stageList = new List<RingStage>();
+
+        [Header("リングの横、縦、移動時間、後ろの縮小率、縮小時の横幅")]
         // リングの横幅
-        [SerializeField] private float ringWidth;
+        [SerializeField] private float ringWidth = 600;
         // リングの縦幅
-        [SerializeField] private float ringHeight;
+        [SerializeField] private float ringHeight = 100;
         // 移動のインターバル
         [SerializeField] private float magnetSpeed = 0.18f;
         // 要素が一番後ろに移動したときの縮小率(0.5 = 半分の大きさ)
         [SerializeField] private float backZoomScale = 0.5f;
+
+        [SerializeField] private float originWidth = 600;
+
+        [Header("拡大後の横、アニメーション時間")]
+        [SerializeField] private float expandedRingWidth = 3000; // 広げた後の横幅
+        [SerializeField] private float expandDuration = 0.1f; // 広げるアニメーションの時間
+
+        [Header("エンターキー入力後の拡大率")]
+        [SerializeField] private float ZoomScaleX;
+        [SerializeField] private float ZoomScaleY;
+        [SerializeField] private float ZoomScaleZ;
 
         // 左右の回転量
         private float stepAmount;
@@ -32,6 +45,9 @@ namespace Stage.Utility
         public RingStage frontStage;
 
         bool fIris = false; // アイリスアウトのアニメーションフラグ
+        bool fZoomIn = false;    // 拡大フラグ
+        bool fZoomOut = false;   // 縮小フラグ
+        bool flag = false;  // シーン遷移用のフラグ 
 
         [SerializeField] RectTransform unmask;
         //readonly Vector2 IRIS_IN_SCALE = new Vector2(50, 50);
@@ -75,7 +91,7 @@ namespace Stage.Utility
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A)) // Rotate left
+            if (Input.GetKeyDown(KeyCode.A) && !fZoomIn) // Rotate left
             {
                 this.count++;
                 float endValue = this.count * this.oneAngle;
@@ -87,7 +103,7 @@ namespace Stage.Utility
                 seq.Append(DOTween.To(() => this.stepAmount, val => this.stepAmount = val, endValue, this.magnetSpeed));
 
             }
-            if (Input.GetKeyDown(KeyCode.D)) // Rotate right
+            if (Input.GetKeyDown(KeyCode.D) && !fZoomIn) // Rotate right
             {
                 this.count--;
                 float endValue = this.count * this.oneAngle;
@@ -101,13 +117,57 @@ namespace Stage.Utility
 
             if(Input.GetKeyDown(KeyCode.Return))
             {
-                IrisOut();
+                fZoomIn = true;
             }
 
-            if(fIris == true)
+            if(fZoomIn == true)
+            {
+                DOTween.To(() => this.ringWidth, value => this.ringWidth = value, expandedRingWidth, expandDuration).SetEase(Ease.OutCubic);
+
+                // 最前面のステージを拡大し、その拡大状態を永続にする
+                frontStage.Rect.DOScale(new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ), expandDuration).OnComplete(() => {
+                    // アニメーションが完了した後に拡大したスケールを永続的に適用
+                    frontStage.Rect.localScale = new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ);
+
+                    flag = true;
+                });
+            }
+
+            if (fIris == true)
             {
                 LoadStage(frontStage);
             }
+
+            if(flag == true && Input.GetKeyDown(KeyCode.Return))
+            {
+                IrisOut();
+            }
+
+            if(flag == true && Input.GetKeyDown(KeyCode.Escape))
+            {
+                fZoomOut = true;
+
+                fZoomIn = false;
+            }
+
+            if (fZoomOut == true)
+            {
+                // 最前面のステージを縮小し、その縮小状態を永続にする
+                frontStage.Rect.DOScale(new Vector3(1, 1, 1), expandDuration).OnComplete(() => {
+                    // アニメーションが完了した後に縮小したスケールを永続的に適用
+                    frontStage.Rect.localScale = new Vector3(1, 1, 1);
+
+                    // flag をリセット
+                    flag = false;
+                });
+
+                // リングのサイズを元に戻す
+                DOTween.To(() => this.ringWidth, value => this.ringWidth = value, originWidth, expandDuration).SetEase(Ease.OutCubic);
+
+                // fZoomOut フラグをリセット
+                fZoomOut = false;
+            }
+
             this.updateItemsPostion();
         }
         private void updateItemsPostion()

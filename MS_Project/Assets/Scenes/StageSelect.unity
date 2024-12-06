@@ -277,7 +277,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 205769879}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1508,6 +1508,11 @@ MonoBehaviour:
   ringHeight: 100
   magnetSpeed: 0.18
   backZoomScale: 0.5
+  expandedRingWidth: 3000
+  expandDuration: 0.1
+  ZoomScaleX: 2
+  ZoomScaleY: 2
+  ZoomScaleZ: 2
   frontStage: {fileID: 0}
   unmask: {fileID: 1382392022}
   sceneToLoad1: StartScene01
