@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1420457314853614056}
   - component: {fileID: 8535586121741501922}
   - component: {fileID: 836942332867784363}
+  - component: {fileID: 8885551299142967563}
   m_Layer: 0
   m_Name: Slas001
   m_TagString: Untagged
@@ -4833,6 +4834,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8885551299142967563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800760304470593153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f815f0fef4f5549b63bf3653705f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &590169092653246594
 PrefabInstance:
   m_ObjectHideFlags: 0

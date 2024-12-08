@@ -55,11 +55,16 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, Header("弾発射装置")]
     BulletLauncher bulletLauncher;
 
-     [SerializeField,NonEditable, Header("エフェクトを格納する変数")]
-     GameObject curEffect;
+    [SerializeField, NonEditable, Header("エフェクトを格納する変数")]
+    GameObject curEffect;
+
+    //生成したcurEffectを格納する
+    GameObject effectInstance;
 
     //エフェクトデータを格納する変数
     EffectParam curEffectParam;
+
+
 
     // 辞書<キー：スキル種類、値：クールタイム>
     private Dictionary<PlayerSkill, float> coolTimers = new Dictionary<PlayerSkill, float>();
@@ -199,6 +204,9 @@ public class PlayerSkillManager : MonoBehaviour
 
         //攻撃以外に遷移したら段階数リセット
         if (playerController != null && playerController.StateManager.CurrentStateType != StateType.Attack) attackStage = 0;
+
+        //キャラクターについて来ないように
+        if (effectInstance!= null)effectInstance.transform.SetParent(null);
     }
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
@@ -344,7 +352,7 @@ public class PlayerSkillManager : MonoBehaviour
         {
             playerController.SpriteAnim.Play("SwordAttack2", 0, 0f);
 
-                curEffectParam = effectData.dicEffect[PlayerEffect.SwordAttack2];
+            curEffectParam = effectData.dicEffect[PlayerEffect.SwordAttack2];
 
         }
     }
@@ -376,6 +384,9 @@ public class PlayerSkillManager : MonoBehaviour
 
         maxAttackStage = 4;
 
+        curEffectParam = effectData.dicEffect[PlayerEffect.SpearAttack];
+
+        float[] angles = { 0.0f, -15.0f, 10.0f };
         if (attackStage == 0 /*|| attackStage == 2 || attackStage == 1*/)
         {
             int randomIndex = UnityEngine.Random.Range(0, 3);
@@ -383,6 +394,7 @@ public class PlayerSkillManager : MonoBehaviour
 
             //ランダムプレイ
             playerController.SpriteAnim.Play(animations[randomIndex], 0, 0f);
+            curEffectParam.rotation.x = angles[randomIndex];
 
         }
 
@@ -390,9 +402,12 @@ public class PlayerSkillManager : MonoBehaviour
         {
             int randomIndex = UnityEngine.Random.Range(0, 3);
             string[] animations = { "SpearAttackA", "SpearAttackB", "SpearAttackC" };
+          
 
             //ランダムプレイ
             playerController.SpriteAnim.Play(animations[randomIndex], 0, 0f);
+            curEffectParam.rotation.x= angles[randomIndex];
+            Debug.Log(" curEffectParam.rotation.x " + curEffectParam.rotation.x);
 
         }
 
@@ -439,13 +454,19 @@ public class PlayerSkillManager : MonoBehaviour
         if (curEffect != null)
         {
             //エフェクト生成
-           // playerController.GetForward();
+            // playerController.GetForward();
 
-
-
-            Instantiate(curEffect, transform.TransformPoint(curEffectParam.position), transform.rotation * Quaternion.Euler(curEffectParam.rotation), curEffectParam.isFollow ? transform : null);
+            effectInstance = Instantiate(curEffect, transform.TransformPoint(curEffectParam.position), transform.rotation * Quaternion.Euler(curEffectParam.rotation), curEffectParam.isFollow ? transform : null);
             //Instantiate(curEffect, transform.position, transform.rotation, transform);
             //  effectCharge.transform.SetParent(transform);
+
+            ParticleManager particle = effectInstance.GetComponent<ParticleManager>();
+            if (particle != null)
+            {
+                particle.ChangeScale(curEffectParam.scale);
+                particle.ChangePlaybackSpeed(curEffectParam.speed);
+            }
+
         }
     }
 
