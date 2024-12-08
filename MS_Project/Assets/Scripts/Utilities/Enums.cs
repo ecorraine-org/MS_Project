@@ -130,5 +130,5 @@ public enum PlayerEffect
     None,
     [InspectorName("剣攻撃1")] SwordAttack1,
     [InspectorName("剣攻撃2")] SwordAttack2,
-    [InspectorName("剣スキル")] SwordSkill,
+    [InspectorName("スピア攻撃")] SpearAttack,
 }

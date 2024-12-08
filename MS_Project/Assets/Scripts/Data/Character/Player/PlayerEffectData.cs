@@ -10,6 +10,8 @@ public struct EffectParam
     public GameObject effectR;//右向き用
     public Vector3 rotation;
     public Vector3 position;
+    public Vector3 scale;
+    public float speed;
     public bool isFollow;//ついてくるかどうか
 
 }

@@ -66,7 +66,6 @@ public class PlayerAnimManager : AnimManager
     {
         PlayerSkillManager skillManager = playerController.SkillManager;
         skillManager.CanComboInput = true;
-        Debug.Log("EnableComboInput");
     }
 
 
