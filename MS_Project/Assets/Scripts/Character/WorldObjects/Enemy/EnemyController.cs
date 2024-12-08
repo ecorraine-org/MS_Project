@@ -20,6 +20,9 @@ public class EnemyController : WorldObjectController
     [HideInInspector, Tooltip("スキルマネージャー")]
     EnemySkillManager skillManager;
 
+    [HideInInspector, Tooltip("UIマネージャー")]
+    EnemyUIManager uIManager;
+
     [HideInInspector, Tooltip("ダッシュハンドラー")]
     DashHandler dashHandler;
 
@@ -46,6 +49,7 @@ public class EnemyController : WorldObjectController
 
         if (!this.transform.GetChild(0).gameObject.TryGetComponent<EnemyStatusHandler>(out enemyStatus))
             CustomLogger.LogWarning(Status.GetType(), Status.name);
+        enemyStatus.Init(this);
 
         BattleManager = BattleManager.Instance;
 
@@ -73,6 +77,8 @@ public class EnemyController : WorldObjectController
         EffectHandler.Init(this);
 
         dashHandler = GetComponentInChildren<DashHandler>();
+
+        uIManager = GetComponentInChildren<EnemyUIManager>();
 
         AttackCollider = GetComponentInChildren<AttackColliderManagerV2>();
 
@@ -296,6 +302,11 @@ public class EnemyController : WorldObjectController
     public EnemySkillManager SkillManager
     {
         get => this.skillManager;
+    }
+
+    public EnemyUIManager UIManager
+    {
+        get => this.uIManager;
     }
 
     public DashHandler DashHandler

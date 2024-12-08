@@ -13,6 +13,10 @@ public class EnemyStatusHandler : StatusManager
     [Tooltip("生きているか？")]
     private bool isAlive = true;
 
+    //フィニッシャーで殺せるか
+    [Tooltip("殺せるか")]
+    private bool isKillable = false;
+
     [SerializeField, Tooltip("速度")]
     private float moveSpeed;
 
@@ -31,8 +35,14 @@ public class EnemyStatusHandler : StatusManager
     [SerializeField, Tooltip("耐性")]
     private OnomatoType tolerance;
 
+    EnemyController enemy;
 
     EnemyStatusData enemyStatusData;
+
+    public void Init(EnemyController _enemyController)
+    {
+        enemy = _enemyController;
+    }
 
     protected override void Awake()
     {
@@ -66,6 +76,18 @@ public class EnemyStatusHandler : StatusManager
     {
         isDamaged = true;
         base.TakeDamage(_damage);
+
+        //一定hp以下になると、殺せる状態になる
+        if (currentHealth <= enemyStatusData.maxHealth * enemyStatusData.killableHealthRate)
+        {
+            isKillable = true;
+
+            //UIを見えるように
+            enemy.UIManager.FinishIcon.SetActive(true);
+
+       
+        }
+   
     }
 
     public new EnemyStatusData StatusData
@@ -86,6 +108,12 @@ public class EnemyStatusHandler : StatusManager
     {
         get => damage;
         set { damage = value; }
+    }
+
+    public bool IsKillable
+    {
+        get => isKillable;
+    //    set { isKillable = value; }
     }
 
     public float ActionCooldown

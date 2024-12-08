@@ -32,6 +32,9 @@ public class EnemyStatusData : BaseStatusData
     [Header("ノックバック速度")]
     public float knockBackSpeed = 10.0f;
 
+    [Header("殺ろす可能な体力の割合(%)")]
+    public float killableHealthRate = 0.2f;
+
     [Header("エネミータイプ")]
     public OnomatoType SelfType = OnomatoType.None;
 
@@ -41,6 +44,8 @@ public class EnemyStatusData : BaseStatusData
 
     [Header("耐性")]
     public OnomatoType tolerance = OnomatoType.None;
+
+   
 
     [Header("SE")]
     public string sfxClip;
