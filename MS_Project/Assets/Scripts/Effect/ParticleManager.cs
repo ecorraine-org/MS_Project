@@ -23,7 +23,7 @@ public class ParticleManager : MonoBehaviour
         // if (material == null) Debug.Log("material NUll");
         // else Debug.Log("material exist " + material);
 
-
+        //if (particle == null) return;
         //ParticleSystemRenderer[] renderers = particle.GetComponentsInChildren<ParticleSystemRenderer>();  // true 允许获取所有子物体（包括非激活物体）
         //if (renderers == null) Debug.Log("renderers NUll");
         //else Debug.Log("renderers exist " + renderers);
@@ -38,10 +38,11 @@ public class ParticleManager : MonoBehaviour
         //    {
 
         //        material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
-         
-        //        material.renderQueue = 4000; 
 
-        //        particleRenderer.sortingOrder = 10; 
+        //        material.renderQueue += 4000;
+
+        //        particleRenderer.sortingOrder = 100;
+        //        particleRenderer.sortingLayerID = SortingLayer.NameToID("Foreground");
         //        Debug.Log($"Material modified for: {particleRenderer.name}");
         //    }
         //    else
