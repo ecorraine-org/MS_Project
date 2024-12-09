@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class NewBehaviourScript : CameraEffectBase
 {
@@ -12,7 +13,7 @@ public class NewBehaviourScript : CameraEffectBase
 
     protected override void OnEffectStart()
     {
-        _bossDeathData = EffectData as BossDeathEffectCameraData;
+        //_bossDeathData = EffectData as BossDeathEffectCameraData;
         if (_bossDeathData == null)
         {
             Debug.LogError("EffectData is not BossDeathEffectCameraData");
