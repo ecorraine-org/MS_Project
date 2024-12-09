@@ -60,6 +60,25 @@ public class OnomatopoeiaController : MonoBehaviour
             GetComponentInChildren<SpriteRenderer>().sprite = data.onomatoSprite;
             GetComponentInChildren<Animator>().runtimeAnimatorController = data.onomatoACont;
             this.transform.GetChild(0).gameObject.transform.localScale = new Vector3(data.spriteSize, data.spriteSize, 1.0f);
+
+            //-------------------------------
+            // AudioSouceデバック
+            Debug.Log($"OnomatopoeiaData: {data}");
+            Debug.Log($"SE Clip: {data.onomatoSE}");
+
+            // AudioSouceを追加して音をアタッチ
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
+
+            // OnomatopDataからSEを取り出す
+            audioSource.clip = data.onomatoSE;
+            audioSource.playOnAwake = false; // 再生タイミングを制御する場合
+
+            audioSource.Play();
+            //---------------------------------
         }
         else
         {
