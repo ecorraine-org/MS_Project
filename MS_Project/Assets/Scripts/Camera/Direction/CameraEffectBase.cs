@@ -11,6 +11,7 @@ public abstract class CameraEffectBase : ICameraEffect
     protected float ElapsedTime { get; private set; } // 経過時間
     protected bool isActive { get; private set; }   // アクティブ状態
     public bool isPlaying => isActive;  // 再生中か
+    public event System.Action<CameraEffectType> OnEffectCompleted;  // エフェクト完了時のイベント
 
     public virtual void Play(CameraEffectData data)
     {
@@ -39,6 +40,7 @@ public abstract class CameraEffectBase : ICameraEffect
 
         OnEffectUpdate();
     }
+
 
     protected virtual void OnEffectStart() { }
     protected virtual void OnEffectUpdate() { }

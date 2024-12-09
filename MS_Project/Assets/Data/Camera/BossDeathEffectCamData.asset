@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a0709d4a08809f40bc5cf46ce0291ec, type: 3}
-  m_Name: BasicSetting
+  m_Name: BossDeathEffectCamData
   m_EditorClassIdentifier: 
   BasicSettings:
     FieldOfView: 60
@@ -19,32 +19,14 @@ MonoBehaviour:
     DefaultOffset: {x: 0, y: 2, z: -5}
     CullingMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 0
   EffectSettings:
     MaxShakeIntensity: 1
     MaxShakeDuration: 2
     ShakeFalloff: 1
     DefaultShakeCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -63,17 +45,17 @@ MonoBehaviour:
     UseScreenSpaceCorrection: 1
     CorrectionStrength: 1
   FollowSettings:
-    PositionSmoothTime: 0.26
+    PositionSmoothTime: 0.1
     RotationSmoothTime: 0.05
-    PositionOffset: {x: -0.36, y: 6.73, z: -45.8}
-    LookAtOffset: {x: 0.31, y: 1, z: 27.09}
+    PositionOffset: {x: 0, y: 2, z: -5}
+    LookAtOffset: {x: 0, y: 1, z: 0}
     LockX: 0
     LockY: 0
-    LockZ: 1
-    HeightMinMax: {x: -0.28, y: 6.12}
-    DistanceMinMax: {x: 3.18, y: 9.87}
+    LockZ: 0
+    HeightMinMax: {x: -1, y: 5}
+    DistanceMinMax: {x: 3, y: 10}
   LockOnSettings:
-    MaxLockOnDistance: 9.98
+    MaxLockOnDistance: 10
     TransitionSpeed: 5
     PlayerWeight: 0.5
     TargetWeight: 0.5

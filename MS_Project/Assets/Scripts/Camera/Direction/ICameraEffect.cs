@@ -11,4 +11,5 @@ public interface ICameraEffect
     void Play(CameraEffectData cameraEffectData);
     void Update();
     void Stop();
+    //event System.Action<CameraEffectType> OnEffectCompleted;
 }
