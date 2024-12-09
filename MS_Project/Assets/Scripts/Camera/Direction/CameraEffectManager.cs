@@ -4,116 +4,56 @@ using UnityEngine;
 
 public class CameraEffectManager : MonoBehaviour
 {
-    private static CameraEffectManager _instance;
-    public static CameraEffectManager Instance => _instance;
+    public static CameraEffectManager Instance { get; private set; }
 
-    private Dictionary<string, ICameraEffectCommand> _activeEffects = new();
-    private List<ICameraEffectObserver> _observers = new();
-    private Camera _mainCamera;
+    [SerializeField] private Camera _targetCamera;
+    private Queue<ICameraEffectCommand> _effectQueue = new Queue<ICameraEffectCommand>();
+    private ICameraEffectCommand _currentEffect;
 
-    /// <summary>
-    /// 初期化処理
-    /// </summary>
     private void Awake()
     {
-        if (_instance == null)
-        {
-            _instance = this;
-
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+        if (_targetCamera == null)
+        {
+            _targetCamera = Camera.main;
         }
 
-        _mainCamera = Camera.main;
+        DontDestroyOnLoad(gameObject);
     }
-
-    /// <summary>
-    /// 更新処理
-    /// </summary>
     private void Update()
     {
-        var completedEffects = new List<string>();
-
-        foreach (var effect in _activeEffects)
+        if (_currentEffect == null && _effectQueue.Count > 0)
         {
-            effect.Value.Execute(_mainCamera);
+            _currentEffect = _effectQueue.Dequeue();
+            Debug.Log($"Starting camera effect: {_currentEffect.GetType().Name}");
+        }
 
-            if (effect.Value.IsComplete())
+        if (_currentEffect != null)
+        {
+            _currentEffect.Execute(_targetCamera);
+            if (_currentEffect.IsComplete())
             {
-                completedEffects.Add(effect.Key);
+                Debug.Log($"Completed camera effect: {_currentEffect.GetType().Name}");
+                _currentEffect = null;
             }
         }
-
-        foreach (var effectName in completedEffects)
-        {
-            _activeEffects[effectName].Terminate();
-            _activeEffects.Remove(effectName);
-            NotifyEffectCompleted(effectName);
-        }
     }
 
-    /// <summary>
-    /// エフェクトを実行する
-    /// </summary>
-    /// <param name="effectName"></param>
-    /// <param name="effect"></param>
-    public void ExecuteEffect(string effectName, ICameraEffectCommand effect)
+    public void AddEffect(ICameraEffectCommand effect)
     {
-        if (_activeEffects.ContainsKey(effectName))
+        if (effect == null)
         {
-            _activeEffects[effectName].Terminate();
-            _activeEffects.Remove(effectName);
+            Debug.LogError("Attempted to add null effect!");
+            return;
         }
 
-        _activeEffects.Add(effectName, effect);
-        NotifyEffectStarted(effectName);
-    }
-
-
-    /// <summary>
-    /// オブザーバーを登録する
-    /// </summary>
-    public void RegisterObserver(ICameraEffectObserver observer)
-    {
-        if (!_observers.Contains(observer))
-        {
-            _observers.Add(observer);
-        }
-    }
-
-    /// <summary>
-    /// オブザーバーを登録解除する
-    /// </summary>
-
-    public void UnregisterObserver(ICameraEffectObserver observer)
-    {
-        if (_observers.Contains(observer))
-        {
-            _observers.Remove(observer);
-        }
-    }
-
-    /// <summary>
-    /// エフェクト開始通知
-    /// </summary>
-    private void NotifyEffectStarted(string effectName)
-    {
-        foreach (var observer in _observers)
-        {
-            observer.OnEffectStarted(effectName);
-        }
-    }
-
-    /// <summary>
-    /// エフェクト完了通知
-    /// </summary>
-    private void NotifyEffectCompleted(string effectName)
-    {
-        foreach (var observer in _observers)
-        {
-            observer.OnEffectCompleted(effectName);
-        }
+        _effectQueue.Enqueue(effect);
+        Debug.Log($"Added camera effect to queue: {effect.GetType().Name}");
     }
 }

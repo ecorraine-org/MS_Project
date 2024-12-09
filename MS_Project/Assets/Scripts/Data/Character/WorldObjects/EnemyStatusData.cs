@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "ScriptableObjects/WorldObjects/EnemyStatusData", order = 2)]
 public class EnemyStatusData : BaseStatusData
 {
+    [Header("敵のID")]
+    public int enemyID;
+
     [Header("オブジェクトプレハブ")]
     public string gameObjPrefab;
 
@@ -45,7 +48,7 @@ public class EnemyStatusData : BaseStatusData
     [Header("耐性")]
     public OnomatoType tolerance = OnomatoType.None;
 
-   
+
 
     [Header("SE")]
     public string sfxClip;
