@@ -35,8 +35,12 @@ public class EnemyController : WorldObjectController
     private Animator animator;
     private CapsuleCollider capsuleCollider;
 
+    [HideInInspector, Tooltip("スポナー")]
+    private EnemySpawner enemySpawner;
+
     [HideInInspector, Tooltip("ガーベージコレクター")]
     private ObjectCollector objectCollector;
+
 
     //-------------------------------------
     public AudioClip hitSE; // 再生する効果音
@@ -105,6 +109,9 @@ public class EnemyController : WorldObjectController
 
         allowAttack = true;
 
+        enemySpawner = ParentSpawner.GetComponent<EnemySpawner>();
+        if (enemySpawner == null) Debug.Log("enemySpawner NULL");
+
         // AudioSourceコンポーネントを取得--------
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
@@ -122,16 +129,23 @@ public class EnemyController : WorldObjectController
         rigidBody.AddForce(gravity * Time.deltaTime);
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
         if (player == null) return;
 
         //フィニッシュ
         if (Status.CurrentHealth <= Status.StatusData.maxHealth / 2)
         {
             isKillable = true;
+        }
+
+        if (enemySpawner.enemyOnomatoPool.Count < enemySpawner.maxEnemyOnomatopoeiaCount)
+        {
+            canGenerateOnomatopoeia = true;
+        }
+        else
+        {
+            canGenerateOnomatopoeia = false;
         }
 
         /*
@@ -259,6 +273,29 @@ public class EnemyController : WorldObjectController
             spawnPool.DespawnEnemyFromPool(this.gameObject);
         }
         */
+    }
+
+    public override void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData)
+    {
+        if (canGenerateOnomatopoeia)
+        {
+            GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
+
+            onomatoObj.GetComponent<OnomatopoeiaController>().OwningObject = _owner;
+            onomatoObj.GetComponent<OnomatopoeiaController>().Data = _onomatopoeiaData;
+            onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = _onomatopoeiaData.wordToUse;
+
+            Transform mainCamera = Camera.main.transform;
+            //カメラと同じ角度にする
+            Quaternion newRotation = mainCamera.rotation;
+            //newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
+
+            Vector3 newPosition = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - GetComponent<Collider>().bounds.extents.z);
+
+            GameObject instance = Instantiate(onomatoObj, newPosition, newRotation, collector.transform);
+            enemySpawner.enemyOnomatoPool.Add(instance);
+            collector.GetComponent<ObjectCollector>().otherObjectPool.Add(instance);
+        }
     }
 
     #region Getter & Setter

@@ -9,28 +9,21 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
 {
     [HideInInspector, Tooltip("生成するオノマトペオブジェクト")]
     protected GameObject onomatoObj;
-    private bool canGenerateOnomatopoeia = false;
-    private int maxPoolCount = 2;
+    protected bool canGenerateOnomatopoeia = false;
+
+    [Header("オブジェクトの親スポナー"), Tooltip("オブジェクトの親スポナー")]
+    private GameObject parentSpawner;
 
     [Header("生成されたオノマトペ"), Tooltip("生成されたオノマトペプール")]
     public List<GameObject> onomatoPool;
+
+    [Header("生成されたオノマトペ最大数"), Tooltip("生成されたオノマトペ最大数")]
+    protected int maxOnomatopoeiaCount = 2;
 
     public virtual void Awake()
     {
         onomatoObj = Resources.Load<GameObject>("Onomatopoeia/OnomatoItemVariant");
         canGenerateOnomatopoeia = true;
-    }
-
-    protected virtual void Update()
-    {
-        if (onomatoPool.Count < maxPoolCount)
-        {
-            canGenerateOnomatopoeia = true;
-        }
-        else
-        {
-            canGenerateOnomatopoeia = false;
-        }
     }
 
     /// <summary>
@@ -64,7 +57,8 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
     /// オノマトペ生成
     /// </summary>
     /// <param name="_onomatopoeiaData">オノマトペデータ</param>
-    public void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData)
+    public abstract void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData);
+    /*
     {
         if (canGenerateOnomatopoeia)
         {
@@ -86,7 +80,10 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
             collector.GetComponent<ObjectCollector>().otherObjectPool.Add(instance);
         }
     }
+    */
+    public GameObject ParentSpawner
+    {
+        get => parentSpawner;
+        set { parentSpawner = value; }
+    }
 }
-
-
-

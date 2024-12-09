@@ -330,6 +330,8 @@ public class PlayerController : WorldObject
       //  GenerateOnomatopoeia(statusManager.StatusData.onomato???);
     }
 
+    public override void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData) { }
+
     #region Getter&Setter 
 
     /// <summary>
