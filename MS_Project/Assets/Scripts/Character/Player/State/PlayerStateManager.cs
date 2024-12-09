@@ -241,6 +241,16 @@ public class PlayerStateManager : MonoBehaviour
         //    return true;
         //}
 
+        if (isEat && playerController.SkillManager.CanFinish)
+        {
+            playerController.SkillManager.CanFinish = false;
+
+            TransitionState(StateType.FinishSkill);
+            return true;
+        }
+
+
+
         //捕食
         if (isEat
           && (playerController.SkillManager.CoolTimers[PlayerSkill.Eat] <= 0

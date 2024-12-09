@@ -14,7 +14,7 @@ public class EnemyStatusHandler : StatusManager
     private bool isAlive = true;
 
     //フィニッシャーで殺せるか
-    [Tooltip("殺せるか")]
+    [SerializeField,NonEditable,Tooltip("殺せるか")]
     private bool isKillable = false;
 
     [SerializeField, Tooltip("速度")]

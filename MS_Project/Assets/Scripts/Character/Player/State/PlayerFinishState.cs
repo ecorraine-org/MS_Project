@@ -7,6 +7,11 @@ public class PlayerFinishState : PlayerState
     [SerializeField, Header("コライダー")]
     HitCollider hitCollider;
 
+    [SerializeField, Header("検索用コライダー")]
+    HitColliderKillableEnemy hitColliderKillableEnemy;
+
+    Collider killTarget;
+
     //捕食test
     public float attackDamage;
 
@@ -33,6 +38,11 @@ public class PlayerFinishState : PlayerState
 
         //発動
         playerController.SkillManager.ExecuteEat();
+
+        //ターゲットに移動
+        playerSkillManager.DashHandler.BeginFinishDash();
+
+        killTarget = hitColliderKillableEnemy.KillableCollider;
     }
 
     public override void Tick()
@@ -62,7 +72,16 @@ public class PlayerFinishState : PlayerState
         //playerController.AttackCollider.DetectCollidersWithInputDirec(playerController.transform, attackAreaPos, attackSize, 0.0f, eatingDirec, onomatoLayer);
 
         //敵との当たり判定
-        playerController.AttackColliderV2.DetectColliders( 1.0f, enemyLayer,true);
+        // playerController.AttackColliderV2.DetectColliders( 1.0f, enemyLayer,true);
+
+        //FinishTest
+        if (killTarget != null)
+        {
+            EnemyController enemy = killTarget.GetComponentInChildren<EnemyController>();
+            enemy.Status.TakeDamage(99999.0f);//仮処理
+           // Destroy(enemy.gameObject);
+        }
+  
     }
 
  
