@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicSetting
   m_EditorClassIdentifier: 
   BasicSettings:
-    FieldOfView: 60
-    NearClipPlane: 0.3
-    FarClipPlane: 1000
-    DefaultOffset: {x: 0, y: 2, z: -5}
+    FieldOfView: 107.9
+    NearClipPlane: 1.1
+    FarClipPlane: 1023.7
+    DefaultOffset: {x: 0.49, y: 2, z: -5}
     CullingMask:
       serializedVersion: 2
       m_Bits: 4294967295
@@ -64,7 +64,7 @@ MonoBehaviour:
     CorrectionStrength: 1
   FollowSettings:
     PositionSmoothTime: 0.26
-    RotationSmoothTime: 0.05
+    RotationSmoothTime: 0.02
     PositionOffset: {x: -0.36, y: 4.17, z: -9.24}
     LookAtOffset: {x: 0, y: 1.76, z: 0}
     LockX: 0
@@ -73,7 +73,7 @@ MonoBehaviour:
     HeightMinMax: {x: -0.28, y: 6.12}
     DistanceMinMax: {x: 3.18, y: 9.87}
   LockOnSettings:
-    MaxLockOnDistance: 9.98
+    MaxLockOnDistance: 1.84
     TransitionSpeed: 5
     PlayerWeight: 0.5
     TargetWeight: 0.5

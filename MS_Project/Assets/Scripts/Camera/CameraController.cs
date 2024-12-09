@@ -71,7 +71,7 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        _cameraStateManager?.Update();
     }
 
     /// <summary>
