@@ -49,6 +49,9 @@ public class PlayerSkillManager : MonoBehaviour
     [SerializeField, NonEditable, Header("コンボできるか")]
     bool canComboInput = false;
 
+    [SerializeField, NonEditable, Header("フィニッシャーできるか")]
+    bool canFinish = false;
+
     // 長押ししているか
     bool canCharge = false;
 
@@ -562,6 +565,12 @@ public class PlayerSkillManager : MonoBehaviour
     {
         get => this.canComboInput;
         set { this.canComboInput = value; }
+    }
+
+    public bool CanFinish
+    {
+        get => this.canFinish;
+        set { this.canFinish = value; }
     }
 }
 

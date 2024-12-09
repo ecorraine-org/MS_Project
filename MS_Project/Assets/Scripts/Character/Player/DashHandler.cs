@@ -29,6 +29,9 @@ public class DashHandler : MonoBehaviour
     [SerializeField, Header("攻撃補正用ロックオンコライダー")]
     HitColliderSelected lockOnCollider;
 
+    [SerializeField, Header("フィニッシャー用コライダー")]
+    HitColliderKillableEnemy finisherCollider;
+
     // シングルトン
     BattleManager battleManager;
 
@@ -144,39 +147,51 @@ public class DashHandler : MonoBehaviour
 
     }
 
-
-
     /// <summary>
     /// 攻撃補正突進処理
     /// </summary>
     public void BeginCorrectDash()
     {
+        HandleSpecialDash(lockOnCollider.ClosestCollider);
+    }
 
-        if (lockOnCollider.ClosestCollider == null)
+    /// <summary>
+    /// フィニッシャー突進処理
+    /// </summary>
+    public void BeginFinishDash()
+    {
+        HandleSpecialDash(finisherCollider.KillableCollider);
+    }
+
+    /// <summary>
+    /// 攻撃補正とフィニッシャー突進処理
+    /// </summary>
+    public void HandleSpecialDash(Collider _target)
+    {
+
+        if (_target == null)
         {
             return;
         }
 
         //近すぎると突進しない
-        if (lockOnCollider.ClosestCollider != null)
+        //  if (lockOnCollider.ClosestCollider != null)
         {
-            Vector3 ToLock = lockOnCollider.ClosestCollider.transform.position - owner.transform.position;
+            Vector3 ToLock = _target.transform.position - owner.transform.position;
             ToLock.y = 0;
             Debug.Log("ToLock.magnitude " + ToLock.magnitude);
             if (ToLock.magnitude < minDashDistance) return;
         }
 
-        // 突進初期化
-        correctDashParam.speed = 15;
-        correctDashParam.duration = 2;
-        correctDashParam.canThrough = false;
+        
 
-        Vector3 targetPos = lockOnCollider.ClosestCollider.transform.position;
+
+        Vector3 targetPos = _target.transform.position;
 
         float offsetX = 3.0f;
 
         //位置調整
-        if ((lockOnCollider.ClosestCollider.transform.position - transform.position).x >= 0)
+        if ((_target.transform.position - transform.position).x >= 0)
         {
             targetPos.x -= offsetX;
         }
@@ -186,11 +201,31 @@ public class DashHandler : MonoBehaviour
         }
 
         correctDashParam.dashDirec = targetPos - transform.position;
+        float distance= (targetPos - transform.position).magnitude;
 
         testTargetPos = targetPos;
 
         //水平方向を取得
         correctDashParam.dashDirec.y = 0;
+
+
+        // 突進初期化
+        correctDashParam.speed = 40;
+        if (correctDashParam.speed != 0) correctDashParam.duration = distance / correctDashParam.speed; //2;
+        else correctDashParam.duration = 0;
+        correctDashParam.canThrough = false;
+
+        //FinishTest
+        PlayerController player = owner as PlayerController;
+        if (player != null && player.StateManager.CurrentStateType == StateType.FinishSkill)
+        {
+            // 突進初期化
+             correctDashParam.speed = 50;
+            if (correctDashParam.speed != 0) correctDashParam.duration = distance / correctDashParam.speed; //2;
+            else correctDashParam.duration = 0;
+            //correctDashParam.duration = 0.1f;
+            correctDashParam.canThrough = true;
+        }
 
 
         startTime = Time.time;
@@ -214,16 +249,17 @@ public class DashHandler : MonoBehaviour
             }
 
             Vector3 toTarget = _targetPos - transform.position;
+           
             toTarget.y = 0;
             Vector3 toTargetXZ = toTarget;
             toTarget.x = 0;
             Vector3 toTargetZ = toTarget;
 
             //ターゲット位置(z軸)に到着かつ一定距離(平面上)になると終了
-            if (toTargetZ.magnitude < 1.0f && toTargetXZ.magnitude < minDashDistance)
-            {
-                EndCorrectDash();
-            }
+            //if (toTargetZ.magnitude < 1.0f /*&& toTargetXZ.magnitude < minDashDistance*/)//1.0f
+            //{
+            //    EndCorrectDash();
+            //}
 
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
@@ -237,7 +273,34 @@ public class DashHandler : MonoBehaviour
             if (blockDetector != null) blockDetector.IsEnabled = false;
 
             //一定距離を移動
-            owner.RigidBody.MovePosition(owner.RigidBody.position + correctDashParam.dashDirec.normalized * correctDashParam.speed * slowFactor * Time.fixedDeltaTime);
+           // owner.RigidBody.MovePosition(owner.RigidBody.position + correctDashParam.dashDirec.normalized * correctDashParam.speed * slowFactor * Time.fixedDeltaTime);
+
+            //  Vector3 targetPosition = new Vector3(10f, 0f, 5f); 
+
+            //FinishTest
+            PlayerController player = owner as PlayerController;
+            //if (player != null && player.StateManager.CurrentStateType == StateType.FinishSkill)
+            //{
+            //    owner.transform.position = _targetPos;
+            //}
+            //if (player != null && player.StateManager.CurrentStateType != StateType.FinishSkill)
+            {
+                owner.RigidBody.MovePosition(owner.RigidBody.position + correctDashParam.dashDirec.normalized *   correctDashParam.speed   * slowFactor * Time.fixedDeltaTime);
+
+
+                if (_targetPos.z - owner.transform.position.z > 0)
+                {
+                    player.CurDirecVector= new UnityEngine.Vector3(1, 0, 0);
+                   
+                }
+        
+                else player.CurDirecVector =  new UnityEngine.Vector3(-1, 0, 0);
+           
+
+
+            }
+               
+
 
         }
     }
@@ -276,7 +339,7 @@ public class DashHandler : MonoBehaviour
         isDashing = true;
     }
 
-    //距離によって突進しないバージョン
+    //距離によって突進しないバージョン(アニメーションイベントから呼び出される)
     public void BeginDashDistanceCheck(Vector3 _direc)
     {
         //近すぎると突進しない
@@ -284,7 +347,7 @@ public class DashHandler : MonoBehaviour
         {
             Vector3 ToLock = lockOnCollider.ClosestCollider.transform.position - owner.transform.position;
             ToLock.y = 0;
-            Debug.Log("ToLock.magnitude " + ToLock.magnitude);
+         //   Debug.Log("ToLock.magnitude " + ToLock.magnitude);
             if (ToLock.magnitude < minDashDistance) return;
         }
 

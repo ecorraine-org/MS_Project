@@ -11,8 +11,13 @@ public class HitColliderSelected : HitCollider
     [SerializeField, NonEditable,Header("一番近いコライダー")]
     Collider closestCollider = null;
 
+
+   // [SerializeField, NonEditable, Header("一番近い殺せる敵")]
+   //Collider killableCollider = null;
+
     //一番近いコライダーとの距離
     float closestDistance = Mathf.Infinity;
+   // float closestDistanceTokillableCollider = Mathf.Infinity;
 
     protected override void Update()
     {
@@ -32,13 +37,19 @@ public class HitColliderSelected : HitCollider
             closestCollider = null;
         }
 
-  
+        //if (killableCollider == other)
+        //{
+        //    killableCollider = null;
+        //}
+
+
     }
 
     public void HandleSelectedCollider()
     {
         //初期化
         closestDistance = Mathf.Infinity;
+       // closestDistanceTokillableCollider = Mathf.Infinity;
 
         Vector3 ownerPos = owner.transform.position;
 
@@ -55,6 +66,20 @@ public class HitColliderSelected : HitCollider
                 closestDistance = ownerToCollider.magnitude;
                 closestCollider = collider;
             }
+
+            //殺せる敵の処理
+            //EnemyController enemy = collider.GetComponentInChildren<EnemyController>();
+            //if (enemy !=null && enemy.Status.CurrentHealth>0 && enemy.Status.IsKillable && closestDistanceTokillableCollider > ownerToCollider.magnitude)
+            //{
+
+            //    closestDistanceTokillableCollider = ownerToCollider.magnitude;
+            //    killableCollider = collider;
+
+            //    //仮処理FinishTest
+            //    PlayerController player = owner.GetComponentInChildren<PlayerController>();
+            //    player.canFinish = true;
+
+            //}
         }
     }
 
@@ -62,4 +87,10 @@ public class HitColliderSelected : HitCollider
     {
         get => closestCollider;
     }
+
+    //public Collider KillableCollider
+    //{
+    //    get => killableCollider;
+    //}
 }
+
