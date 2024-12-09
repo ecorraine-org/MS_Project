@@ -94,7 +94,7 @@ public class ObjectController : WorldObjectController
             Quaternion newRotation = mainCamera.rotation;
             //newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
 
-            Vector3 newPosition = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - GetComponent<Collider>().bounds.extents.z);
+            Vector3 newPosition = new Vector3(this.transform.position.x + onomatoOffsetPos.x, this.transform.position.y + onomatoOffsetPos.y, this.transform.position.z + onomatoOffsetPos.z - GetComponent<Collider>().bounds.extents.z);
 
             GameObject instance = Instantiate(onomatoObj, newPosition, newRotation, collector.transform);
             onomatoPool.Add(instance);

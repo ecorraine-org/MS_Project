@@ -42,6 +42,8 @@ public class EnemyController : WorldObjectController
     private ObjectCollector objectCollector;
 
 
+
+
     //-------------------------------------
     public AudioClip hitSE; // 再生する効果音
     private AudioSource audioSource;
@@ -290,7 +292,7 @@ public class EnemyController : WorldObjectController
             Quaternion newRotation = mainCamera.rotation;
             //newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
 
-            Vector3 newPosition = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - GetComponent<Collider>().bounds.extents.z);
+            Vector3 newPosition = new Vector3(this.transform.position.x+ onomatoOffsetPos.x, this.transform.position.y+ onomatoOffsetPos.y, this.transform.position.z+ onomatoOffsetPos.z - GetComponent<Collider>().bounds.extents.z);
 
             GameObject instance = Instantiate(onomatoObj, newPosition, newRotation, collector.transform);
             enemySpawner.enemyOnomatoPool.Add(instance);

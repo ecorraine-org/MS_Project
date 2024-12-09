@@ -48,6 +48,9 @@ public abstract class WorldObjectController : WorldObject
     [SerializeField, Tooltip("攻撃されているか？")]
     protected bool isDamaged = false;
 
+    [SerializeField, Header("オノマトペ生成位置調整")]
+    protected Vector3 onomatoOffsetPos;
+
     [Header("イベント")]
     public UnityEvent OnDamaged;
     public UnityEvent OnAttack;
