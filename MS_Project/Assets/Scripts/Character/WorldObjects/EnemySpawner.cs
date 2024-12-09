@@ -63,6 +63,13 @@ public class EnemySpawner : MonoBehaviour
     private int maxPoolSize = 25;
     #endregion
 
+    #region 生成されたオノマトペ
+    [Header("生成されたオノマトペ"), Tooltip("生成されたオノマトペプール")]
+    public List<GameObject> enemyOnomatoPool;
+    [Header("最大オノマトペ数"), Tooltip("最大オノマトペ数")]
+    public int maxEnemyOnomatopoeiaCount = 5;
+    #endregion
+
     [Conditional("UNITY_EDITOR")]
     private void OnValidate()
     {
@@ -171,6 +178,7 @@ public class EnemySpawner : MonoBehaviour
         GameObject obj = Instantiate(Resources.Load<GameObject>("Enemy/EnemyContainer"), _position, Quaternion.identity, enemyCollector.transform);
         obj.GetComponent<EnemyController>().Status.StatusData = _data;
         obj.name = _data.name;
+        obj.GetComponent<EnemyController>().ParentSpawner = this.gameObject;
         return obj;
     }
 

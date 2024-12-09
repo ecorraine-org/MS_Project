@@ -42,9 +42,16 @@ public class ObjectController : WorldObjectController
         objState.Init(this);
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
+        if (onomatoPool.Count < maxOnomatopoeiaCount)
+        {
+            canGenerateOnomatopoeia = true;
+        }
+        else
+        {
+            canGenerateOnomatopoeia = false;
+        }
     }
 
     /// <summary>
@@ -70,6 +77,29 @@ public class ObjectController : WorldObjectController
 
         //エフェクト生成
         EffectHandler.InstantiateHit();
+    }
+
+    public override void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData)
+    {
+        if (canGenerateOnomatopoeia)
+        {
+            GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
+
+            onomatoObj.GetComponent<OnomatopoeiaController>().OwningObject = _owner;
+            onomatoObj.GetComponent<OnomatopoeiaController>().Data = _onomatopoeiaData;
+            onomatoObj.GetComponent<OnomatopoeiaController>().onomatopoeiaName = _onomatopoeiaData.wordToUse;
+
+            Transform mainCamera = Camera.main.transform;
+            //カメラと同じ角度にする
+            Quaternion newRotation = mainCamera.rotation;
+            //newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
+
+            Vector3 newPosition = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - GetComponent<Collider>().bounds.extents.z);
+
+            GameObject instance = Instantiate(onomatoObj, newPosition, newRotation, collector.transform);
+            onomatoPool.Add(instance);
+            collector.GetComponent<ObjectCollector>().otherObjectPool.Add(instance);
+        }
     }
 
     #region Getter & Setter

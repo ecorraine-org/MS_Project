@@ -79,7 +79,15 @@ public class OnomatopoeiaController : MonoBehaviour
         CustomLogger.Log(OwningObject.name);
         if (!isAlive)
         {
-            OwningObject.GetComponent<WorldObject>().onomatoPool.Remove(objOnomatopoeia);
+            switch(OwningObject.GetComponent<WorldObjectController>().Type)
+            {
+                case WorldObjectType.Enemy:
+                    OwningObject.GetComponent<WorldObject>().ParentSpawner.GetComponent<EnemySpawner>().enemyOnomatoPool.Remove(objOnomatopoeia);
+                    break;
+                case WorldObjectType.StaticObject:
+                    OwningObject.GetComponent<WorldObject>().onomatoPool.Remove(objOnomatopoeia);
+                    break;
+            }
             collector.DestroyOtherObjectFromPool(objOnomatopoeia);
         }
         else
