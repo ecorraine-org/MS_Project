@@ -17,6 +17,9 @@ public class CameraController : MonoBehaviour
     [SerializeField, Header("カメラエフェクトコントローラー")]
     CameraEffectController _cameraEffectController;
 
+    [SerializeField, Header("カメラエフェクトマネージャー")]
+    CameraEffectManager _cameraEffectManager;
+
     [SerializeField, Header("コリジョンハンドラ")]
     CameraCollisionHandler _cameraCollisionHandler;
 
