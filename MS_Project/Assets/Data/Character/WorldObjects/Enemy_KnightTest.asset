@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488355e16bc0fbb4cbd0914b5457fdff, type: 3}
+  m_Name: Enemy_KnightTest
+  m_EditorClassIdentifier: 
+  isInvincible: 0
+  maxHealth: 50
+  mass: 4000
+  gameObjPrefab: Enemy/KnightV2
+  enemyRank: 1
+  timeTillNextAction: 1
+  damage: 4
+  attackDistance: 2.5
+  velocity: 0
+  chaseDistance: 10
+  knockBackDuration: 0.1
+  knockBackSpeed: 0
+  killableHealthRate: 0.2
+  SelfType: 1
+  onomatoAttack: {fileID: 11400000, guid: d674ac612312ff84e81d4690a44f3c44, type: 2}
+  onomatoWalk: {fileID: 11400000, guid: 62d699e899679c94aae1db6df11b3c8a, type: 2}
+  tolerance: 1
+  sfxClip: 
+  vfxClip: 
