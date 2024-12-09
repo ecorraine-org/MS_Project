@@ -96,6 +96,7 @@ public class CameraController : MonoBehaviour
     {
         _camera = GetComponent<Camera>();
         _cameraEffectController = new CameraEffectController();
+        _cameraEffectManager = new CameraEffectManager();
         Debug.Log("CameraEffectController: " + _cameraEffectController);
         //_cameraCollisionHandler = new CameraCollisionHandler(_settings, _cameraTransform, _targetTransform);
         _cameraStateManager = new CameraStateManager();
