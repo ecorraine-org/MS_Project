@@ -37,4 +37,9 @@ public class OnomatopoeiaData : ScriptableObject
 
     [Header("回復")]
     public float healBuff = 0.0f;
+
+    [Header("SE")]
+    public AudioClip onomatoSE;
+
+
 }
