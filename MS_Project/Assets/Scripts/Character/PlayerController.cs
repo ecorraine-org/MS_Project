@@ -106,7 +106,7 @@ public class PlayerController : WorldObject
 
     void Start()
     {
-     
+
 
         groundCheck = gameObject.transform.GetChild(1).gameObject.transform;
         if (Debug.isDebugBuild)
@@ -116,7 +116,7 @@ public class PlayerController : WorldObject
     private void Update()
     {
         //前方向で向き設定
-       UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.LookRotation(GetForward());
+        UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.LookRotation(GetForward());
         transform.rotation = UnityEngine.Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
 
         //スプライトをカメラに向く
@@ -152,6 +152,23 @@ public class PlayerController : WorldObject
             thisRigidbody.velocity += new UnityEngine.Vector3(0f, jumpForce, 0f);
         }
          */
+    }
+
+    /// <summary>
+    /// 左右向きを設定する
+    /// </summary>
+    public void SetTwoDirection(bool _isRight)
+    {
+        if (_isRight)
+        {
+            spriteRenderer.flipX = true;
+            curDirecVector = new UnityEngine.Vector3(1, 0, 0);
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+            curDirecVector = new UnityEngine.Vector3(-1, 0, 0);
+        }
     }
 
     /// <summary>
