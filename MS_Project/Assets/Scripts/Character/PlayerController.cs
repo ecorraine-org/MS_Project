@@ -75,9 +75,8 @@ public class PlayerController : WorldObject
     {
         base.Awake();
 
-        //入力設定karitest
-        //InputController.Instance.SetInputContext(InputController.InputContext.Player);
-        int i = 1;//Merge TEST
+        //入力設定
+        InputController.Instance.SetInputContext(InputController.InputContext.Player);
 
         inputManager = PlayerInputManager.Instance;
         battleManager = BattleManager.Instance;
