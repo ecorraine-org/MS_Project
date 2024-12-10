@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 
 [RequireComponent(typeof(Camera))]
-public class CameraController : MonoBehaviour
+public class CameraController : MonoBehaviour, IBossSpawnObserver
 {
     //シングルトンオブジェクト
     //public static CameraController instance;
@@ -83,6 +83,7 @@ public class CameraController : MonoBehaviour
 
         InitializeComponents();
         InitializeStateManager();
+        BossSpawnNotifier.Instance.AddObserver(this);
 
 
         _isInitialized = true;
@@ -183,5 +184,15 @@ public class CameraController : MonoBehaviour
     {
         target = null;
         return false;
+    }
+
+    public void OnBossSpawned(GameObject boss)
+    {
+        SetTarget(boss.transform);
+    }
+
+    public void OnBossDead()
+    {
+        SetTarget(playerPos);
     }
 }
