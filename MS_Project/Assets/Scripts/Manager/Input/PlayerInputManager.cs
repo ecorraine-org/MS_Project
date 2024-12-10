@@ -24,7 +24,7 @@ public class PlayerInputManager : SingletonBaseBehavior<PlayerInputManager>
         inputControls = new InputControls();
 
         // 入力を有効化
-        inputControls.Enable();
+      //  inputControls.Enable();
     }
 
     public void Init(PlayerController _playerController)
