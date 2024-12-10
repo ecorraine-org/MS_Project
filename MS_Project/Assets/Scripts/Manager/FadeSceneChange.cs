@@ -28,17 +28,21 @@ public class FadeSceneChange : MonoBehaviour
     private void Update()
     {
         // Enterキーが押されている間、ボタンのスプライトを変更
-        if (Input.GetKey(KeyCode.Return) && !isFading)
+     
+              if (UIInputManager.Instance.GetEnterPressed() && !isFading)
+           // if (Input.GetKey(KeyCode.Return) && !isFading)
         {
             button.image.sprite = pushButton; // ボタンのスプライトを変更
 
             // Enterキーが押されたらフェードアウトを開始
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
+            if (UIInputManager.Instance.GetEnterTrigger())
+             //   if (Input.GetKeyDown(KeyCode.Return))
+                {
                 StartCoroutine(FadeOutAndLoadScene());
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Return)) // Enterキーが離されたとき
+        else if (UIInputManager.Instance.GetEnterReleased())
+        //else if (Input.GetKeyUp(KeyCode.Return)) // Enterキーが離されたとき
         {
             button.image.sprite = originalSprite; // 元のスプライトに戻す
         }

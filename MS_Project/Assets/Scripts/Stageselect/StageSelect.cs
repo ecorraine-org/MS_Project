@@ -91,8 +91,9 @@ namespace Stage.Utility
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A) && !fZoomIn) // Rotate left
-            {
+            if (UIInputManager.Instance.GetLeftTrigger() && !fZoomIn) // Rotate left
+             //   if (Input.GetKeyDown(KeyCode.A) && !fZoomIn) // Rotate left
+                {
                 this.count++;
                 float endValue = this.count * this.oneAngle;
 
@@ -103,7 +104,8 @@ namespace Stage.Utility
                 seq.Append(DOTween.To(() => this.stepAmount, val => this.stepAmount = val, endValue, this.magnetSpeed));
 
             }
-            if (Input.GetKeyDown(KeyCode.D) && !fZoomIn) // Rotate right
+            if (UIInputManager.Instance.GetRightTrigger() && !fZoomIn) // Rotate right
+                //if (Input.GetKeyDown(KeyCode.D) && !fZoomIn) // Rotate right
             {
                 this.count--;
                 float endValue = this.count * this.oneAngle;
@@ -115,7 +117,8 @@ namespace Stage.Utility
                 seq.Append(DOTween.To(() => this.stepAmount, val => this.stepAmount = val, endValue, this.magnetSpeed));
             }
 
-            if(Input.GetKeyDown(KeyCode.Return))
+            if (UIInputManager.Instance.GetEnterTrigger())
+                //if (Input.GetKeyDown(KeyCode.Return))
             {
                 fZoomIn = true;
             }
@@ -138,12 +141,15 @@ namespace Stage.Utility
                 LoadStage(frontStage);
             }
 
-            if(flag == true && Input.GetKeyDown(KeyCode.Return))
+      
+            if (flag == true && UIInputManager.Instance.GetEnterTrigger())
+                //    if (flag == true && Input.GetKeyDown(KeyCode.Return))
             {
                 IrisOut();
             }
 
-            if(flag == true && Input.GetKeyDown(KeyCode.Escape))
+            if (flag == true && UIInputManager.Instance.GetCancelTrigger())
+             //   if (flag == true && Input.GetKeyDown(KeyCode.Escape))
             {
                 fZoomOut = true;
 
