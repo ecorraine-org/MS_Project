@@ -146,7 +146,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if(startMission && mission.MissionItem.activeInHierarchy)
+        if (startMission && mission.MissionItem.activeInHierarchy)
         {
             string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
             missionDetail = count;
@@ -169,8 +169,16 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        var spawnedEnemy = InstantiateEnemy(_enemydata, _position);
         enemyPool.Add(InstantiateEnemy(_enemydata, _position));
         totalEnemyCount++;
+
+        //ボスの場合、通知を送信
+        if (_enemydata.enemyRank == EnemyRank.Boss)
+        {
+            CustomLogger.Log($"ボスがスポーンしました: {spawnedEnemy.name}");
+            BossSpawnNotifier.Instance.NotifyBossSpawned(spawnedEnemy);
+        }
     }
 
     private GameObject InstantiateEnemy(EnemyStatusData _data, Vector3 _position)
