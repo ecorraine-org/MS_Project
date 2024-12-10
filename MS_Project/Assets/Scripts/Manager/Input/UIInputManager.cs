@@ -62,7 +62,6 @@ public class UIInputManager : SingletonBaseBehavior<UIInputManager>
         return Vector2.zero;
     }
 
-
     /// <summary>
     /// 確認入力(トリガー)を取得
     /// </summary>
@@ -96,12 +95,36 @@ public class UIInputManager : SingletonBaseBehavior<UIInputManager>
     }
 
     /// <summary>
-    /// 捕食入力(ボタン長押し)を取得
+    /// 任意入力を取得
     /// </summary>
-    //public bool GetEatPressed()
-    //{
-    //    return inputControls.GamePlay.Eat.IsPressed();
-    //}
+    public bool GetAnyKeyTrigger()
+    {
+        return inputControls.UI.AnyKey.triggered;
+    }
+
+    /// <summary>
+    /// 移動入力(トリガー)を取得
+    /// </summary>
+    public bool GetUPTrigger()
+    {
+        return inputControls.UI.UP.triggered;
+    }
+
+    public bool GetDownTrigger()
+    {
+        return inputControls.UI.DOWN.triggered;
+    }
+
+    public bool GetRightTrigger()
+    {
+        return inputControls.UI.RIGHT.triggered;
+    }
+
+    public bool GetLeftTrigger()
+    {
+        return inputControls.UI.LEFT.triggered;
+    }
+
 
     /// <summary>
     /// 捕食入力(ボタン離す)を取得

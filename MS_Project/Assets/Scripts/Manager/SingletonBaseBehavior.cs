@@ -12,14 +12,27 @@ public abstract class SingletonBaseBehavior<T> : MonoBehaviour
 
     public virtual void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this as T;
-        }
-        else
+        //if (Instance == null)
+        //{
+        //    Instance = this as T;
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
+
+        //新しいシーンに行っても消えないように
+        //DontDestroyOnLoad(gameObject); 
+
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+
+        Instance = this as T;
+        //新しいシーンに行っても消えないように
+        DontDestroyOnLoad(gameObject); 
 
         this.AwakeProcess();
     }

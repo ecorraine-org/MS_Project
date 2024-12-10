@@ -235,6 +235,15 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             ""id"": ""aeb65e22-e196-4bf1-9f85-d2e6ffca38d9"",
             ""actions"": [
                 {
+                    ""name"": ""AnyKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""186f8f4e-5d55-4c47-ba99-072b01e9a509"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""288642d6-4680-4075-8bc2-2f0600cc5566"",
@@ -256,6 +265,42 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""2f78338e-0b64-4495-8cbb-995aebd578a5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UP"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb09fed1-5081-49ca-8e63-49bdd72e92bc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DOWN"",
+                    ""type"": ""Button"",
+                    ""id"": ""6735bd6e-1780-4fb2-ac95-1ed57846c247"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LEFT"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a4ceaa8-9ddf-4795-9670-201e5fceee91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RIGHT"",
+                    ""type"": ""Button"",
+                    ""id"": ""37616a1e-1110-49b7-b310-7cb7731c134a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -372,6 +417,160 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f0385267-10d8-4e7b-9845-2093531e7c22"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""UP"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e66e7591-9bcf-4d25-a354-f6634477388e"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""UP"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""028e4dd3-749e-47f4-9aae-5e688e65fbe2"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""UP"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1a19f82b-f583-4fa6-ae43-720b4d719e8b"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""LEFT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2abe532-8860-4411-a488-10df06077230"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LEFT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25f7a1c7-e7de-42c3-b1b8-5a0eb42d66a2"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""LEFT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99a9df68-4e35-4a78-bc7a-e6daa6e3d37a"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""RIGHT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0618016-c68c-4c4a-b7cd-9f750c49193e"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RIGHT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42563545-8cad-4034-a426-607426c4d76b"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""RIGHT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ccc4697b-07ac-426b-ba41-28ae6f2562a2"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""DOWN"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41d5a5e4-a9c4-46b5-9e60-bbf60301c7b2"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DOWN"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b535bf17-583e-40db-84a5-73113b0f64ad"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""DOWN"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1679852a-d723-4d54-986b-f933a1179c8b"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""AnyKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb2de679-9bce-4a0c-a77e-a8595d5f2445"",
+                    ""path"": ""<Gamepad>/*"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""AnyKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -398,9 +597,14 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_GamePlay_Dash = m_GamePlay.FindAction("Dash", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_AnyKey = m_UI.FindAction("AnyKey", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
         m_UI_Enter = m_UI.FindAction("Enter", throwIfNotFound: true);
         m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
+        m_UI_UP = m_UI.FindAction("UP", throwIfNotFound: true);
+        m_UI_DOWN = m_UI.FindAction("DOWN", throwIfNotFound: true);
+        m_UI_LEFT = m_UI.FindAction("LEFT", throwIfNotFound: true);
+        m_UI_RIGHT = m_UI.FindAction("RIGHT", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -540,16 +744,26 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_AnyKey;
     private readonly InputAction m_UI_Move;
     private readonly InputAction m_UI_Enter;
     private readonly InputAction m_UI_Cancel;
+    private readonly InputAction m_UI_UP;
+    private readonly InputAction m_UI_DOWN;
+    private readonly InputAction m_UI_LEFT;
+    private readonly InputAction m_UI_RIGHT;
     public struct UIActions
     {
         private @InputControls m_Wrapper;
         public UIActions(@InputControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @AnyKey => m_Wrapper.m_UI_AnyKey;
         public InputAction @Move => m_Wrapper.m_UI_Move;
         public InputAction @Enter => m_Wrapper.m_UI_Enter;
         public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
+        public InputAction @UP => m_Wrapper.m_UI_UP;
+        public InputAction @DOWN => m_Wrapper.m_UI_DOWN;
+        public InputAction @LEFT => m_Wrapper.m_UI_LEFT;
+        public InputAction @RIGHT => m_Wrapper.m_UI_RIGHT;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -559,6 +773,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @AnyKey.started += instance.OnAnyKey;
+            @AnyKey.performed += instance.OnAnyKey;
+            @AnyKey.canceled += instance.OnAnyKey;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -568,10 +785,25 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @UP.started += instance.OnUP;
+            @UP.performed += instance.OnUP;
+            @UP.canceled += instance.OnUP;
+            @DOWN.started += instance.OnDOWN;
+            @DOWN.performed += instance.OnDOWN;
+            @DOWN.canceled += instance.OnDOWN;
+            @LEFT.started += instance.OnLEFT;
+            @LEFT.performed += instance.OnLEFT;
+            @LEFT.canceled += instance.OnLEFT;
+            @RIGHT.started += instance.OnRIGHT;
+            @RIGHT.performed += instance.OnRIGHT;
+            @RIGHT.canceled += instance.OnRIGHT;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
         {
+            @AnyKey.started -= instance.OnAnyKey;
+            @AnyKey.performed -= instance.OnAnyKey;
+            @AnyKey.canceled -= instance.OnAnyKey;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
@@ -581,6 +813,18 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @UP.started -= instance.OnUP;
+            @UP.performed -= instance.OnUP;
+            @UP.canceled -= instance.OnUP;
+            @DOWN.started -= instance.OnDOWN;
+            @DOWN.performed -= instance.OnDOWN;
+            @DOWN.canceled -= instance.OnDOWN;
+            @LEFT.started -= instance.OnLEFT;
+            @LEFT.performed -= instance.OnLEFT;
+            @LEFT.canceled -= instance.OnLEFT;
+            @RIGHT.started -= instance.OnRIGHT;
+            @RIGHT.performed -= instance.OnRIGHT;
+            @RIGHT.canceled -= instance.OnRIGHT;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -626,8 +870,13 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     }
     public interface IUIActions
     {
+        void OnAnyKey(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+        void OnUP(InputAction.CallbackContext context);
+        void OnDOWN(InputAction.CallbackContext context);
+        void OnLEFT(InputAction.CallbackContext context);
+        void OnRIGHT(InputAction.CallbackContext context);
     }
 }
