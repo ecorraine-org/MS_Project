@@ -305,6 +305,15 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""START"",
+                    ""type"": ""Button"",
+                    ""id"": ""0dbb0245-265d-46fa-bb50-b56d3158b2a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -564,11 +573,33 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""bb2de679-9bce-4a0c-a77e-a8595d5f2445"",
-                    ""path"": ""<Gamepad>/*"",
+                    ""path"": ""<Gamepad>/<Button>"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""AnyKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cdff6804-45ad-4ca0-8c61-b5a32e882ca5"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""START"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""360211f6-c6c8-4f7a-a484-52a96b3831bd"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""START"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -605,6 +636,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_UI_DOWN = m_UI.FindAction("DOWN", throwIfNotFound: true);
         m_UI_LEFT = m_UI.FindAction("LEFT", throwIfNotFound: true);
         m_UI_RIGHT = m_UI.FindAction("RIGHT", throwIfNotFound: true);
+        m_UI_START = m_UI.FindAction("START", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -752,6 +784,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_DOWN;
     private readonly InputAction m_UI_LEFT;
     private readonly InputAction m_UI_RIGHT;
+    private readonly InputAction m_UI_START;
     public struct UIActions
     {
         private @InputControls m_Wrapper;
@@ -764,6 +797,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         public InputAction @DOWN => m_Wrapper.m_UI_DOWN;
         public InputAction @LEFT => m_Wrapper.m_UI_LEFT;
         public InputAction @RIGHT => m_Wrapper.m_UI_RIGHT;
+        public InputAction @START => m_Wrapper.m_UI_START;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -797,6 +831,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @RIGHT.started += instance.OnRIGHT;
             @RIGHT.performed += instance.OnRIGHT;
             @RIGHT.canceled += instance.OnRIGHT;
+            @START.started += instance.OnSTART;
+            @START.performed += instance.OnSTART;
+            @START.canceled += instance.OnSTART;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -825,6 +862,9 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @RIGHT.started -= instance.OnRIGHT;
             @RIGHT.performed -= instance.OnRIGHT;
             @RIGHT.canceled -= instance.OnRIGHT;
+            @START.started -= instance.OnSTART;
+            @START.performed -= instance.OnSTART;
+            @START.canceled -= instance.OnSTART;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -878,5 +918,6 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         void OnDOWN(InputAction.CallbackContext context);
         void OnLEFT(InputAction.CallbackContext context);
         void OnRIGHT(InputAction.CallbackContext context);
+        void OnSTART(InputAction.CallbackContext context);
     }
 }
