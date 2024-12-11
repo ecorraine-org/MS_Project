@@ -152,12 +152,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ee9ff03b2a4154c9b6fab736a712e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionType: 0
   triggerArea: {fileID: 8587441111825499368}
   spawnArea: {fileID: 186812419073611722}
+  resultPrefab: {fileID: 238185225647412290, guid: 3986f459eedb8bf4990e5244326e4377, type: 3}
+  missionType: 0
+  killCount: 0
+  hasCleared: 0
   mobMaxCount: 1
   mobList:
   - {fileID: 11400000, guid: 942005179a949ce4c8a7912d2eddeaaa, type: 2}
   eliteMaxCount: 0
   eliteList: []
   enemyPool: []
+  enemyOnomatoPool: []
+  maxEnemyOnomatopoeiaCount: 5
