@@ -10,8 +10,6 @@ public class FadeSceneChange : MonoBehaviour
     private bool isFading = false;      // フェード中かどうかを判定
     public GameObject buttonObject;     // ボタンのGameObjectを参照する変数
     private Button button;              // Buttonコンポーネントの参照
-    public Sprite pushButton;           // ボタンが押されたときのスプライト
-    private Sprite originalSprite;      // 元のボタンのスプライト
 
     [SerializeField] string sceneToLoad; // 切り替えるシーン名を指定
 
@@ -19,32 +17,14 @@ public class FadeSceneChange : MonoBehaviour
     {
         fadePanel.enabled = false;       // フェードパネルを無効化
         fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0.0f); // 初期状態では透明
-
-        // Buttonコンポーネントを取得
-        button = buttonObject.GetComponent<Button>();
-        originalSprite = button.image.sprite; // 元のスプライトを保存
     }
 
-    private void Update()
+    void Update()
     {
-        // Enterキーが押されている間、ボタンのスプライトを変更
-     
-              if (UIInputManager.Instance.GetEnterPressed() && !isFading)
-           // if (Input.GetKey(KeyCode.Return) && !isFading)
+        // A,B,X,Yキーが押されたらフェードアウトを開始
+        if (UIInputManager.Instance.GetEnterTrigger() || UIInputManager.Instance.GetCancelTrigger() && !isFading)
         {
-            button.image.sprite = pushButton; // ボタンのスプライトを変更
-
-            // Enterキーが押されたらフェードアウトを開始
-            if (UIInputManager.Instance.GetEnterTrigger())
-             //   if (Input.GetKeyDown(KeyCode.Return))
-                {
-                StartCoroutine(FadeOutAndLoadScene());
-            }
-        }
-        else if (UIInputManager.Instance.GetEnterReleased())
-        //else if (Input.GetKeyUp(KeyCode.Return)) // Enterキーが離されたとき
-        {
-            button.image.sprite = originalSprite; // 元のスプライトに戻す
+            StartCoroutine(FadeOutAndLoadScene());
         }
     }
 
