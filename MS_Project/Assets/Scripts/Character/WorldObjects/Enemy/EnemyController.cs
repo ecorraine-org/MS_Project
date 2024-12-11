@@ -238,15 +238,6 @@ public class EnemyController : WorldObjectController
         //被撃状態へ遷移
         isDamaged = true;
 
-        //ノックバック
-        //dashHandler.Speed = enemyStatus.StatusData.knockBackSpeed;
-        //dashHandler.Duration = enemyStatus.StatusData.knockBackDuration;
-        //Vector3 playerDirec = player.position - transform.position;
-        //playerDirec.y = 0;
-        //playerDirec.z = 0;
-        //dashHandler.Begin(false, -1 * playerDirec.normalized);
-
-
         HitReaction hitReaction = BattleManager.GetPlayerHitReaction();
         //ヒットストップ
         BattleManager.StartHitStop(animator);

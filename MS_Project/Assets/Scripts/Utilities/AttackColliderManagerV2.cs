@@ -73,7 +73,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
                 //重複処理を避けるため
                 //既に当たり判定を処理したオブジェクトをリストに入れる
                 hitObjects.Add(hitCollider);
-                Hit(hitCollider, _damage, _oneHitKill);
+                HandleHit(hitCollider, _damage, _oneHitKill);
             }
 
         }
@@ -111,7 +111,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
                 //重複処理を避けるため
                 //既に当たり判定を処理したオブジェクトをリストに入れる
                 hitObjects.Add(hitCollider);
-                Hit(hitCollider, _damage, _oneHitKill);
+                HandleHit(hitCollider, _damage, _oneHitKill);
             }
 
         }
@@ -164,7 +164,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
     /// <summary>
     ///被撃処理
     /// </summary>
-    private void Hit(Collider _hitCollider, float _damage, bool _canOneHitKill)
+    private void HandleHit(Collider _hitCollider, float _damage, bool _canOneHitKill)
     {
         var life = _hitCollider.GetComponentInChildren<ILife>();
         if (life != null)
@@ -172,21 +172,21 @@ public class AttackColliderManagerV2 : MonoBehaviour
             life.TakeDamage(_damage);
         }
 
-        //攻撃を受けた側の処理
+      
         var hit = _hitCollider.GetComponentInChildren<IHit>();
-        if (hit != null)
-        {
-
-            hit.Hit(_canOneHitKill);
-        }
-
-        //攻撃側の処理
         var attack = transform.root.GetComponentInChildren<IAttack>();
-        if (attack != null)
-        {
-            attack.Attack(_hitCollider);
-        }
 
+        //ヒットリアクションなどの情報を先に渡す
+        if (attack != null && hit != null)
+            hit.ReceiveHitData(attack.GetAttackerParams());
+
+        //攻撃を受けた側の処理
+        if (hit != null) hit.Hit(_canOneHitKill);
+
+        //攻撃側の処理 
+        if (attack != null) attack.Attack(_hitCollider);
+
+    
         //最初の衝突が発生した
         hasCollided = true;
     }
@@ -233,7 +233,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
         Debug.DrawLine(_owner.position, _owner.position + ToClosestColliderDirec, Color.blue, 1.0f);
 
         //ダメージ処理
-        Hit(closestCollider, _damage, false);
+        HandleHit(closestCollider, _damage, false);
     }
 
     public void HandleSelectedClosestCollider(Transform _owner, float _damage)
@@ -242,7 +242,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
         if (closestCollider == null) return;
 
         //ダメージ処理
-        Hit(closestCollider, _damage, false);
+        HandleHit(closestCollider, _damage, false);
     }
 
     /// <summary>
