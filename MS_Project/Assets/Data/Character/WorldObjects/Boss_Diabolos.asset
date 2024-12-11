@@ -15,15 +15,17 @@ MonoBehaviour:
   isInvincible: 0
   maxHealth: 300
   mass: 1
+  enemyID: 0
   gameObjPrefab: Enemy/DiabolosV2
   enemyRank: 3
   timeTillNextAction: 1
   damage: 1
-  attackDistance: 5
-  velocity: 3
-  chaseDistance: 10
+  attackDistance: 20
+  velocity: 4
+  chaseDistance: 50
   knockBackDuration: 0
   knockBackSpeed: 0
+  killableHealthRate: 0.2
   SelfType: 2
   onomatoAttack: {fileID: 0}
   onomatoWalk: {fileID: 0}
