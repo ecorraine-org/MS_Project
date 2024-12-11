@@ -95,7 +95,7 @@ public class OnomatopoeiaController : MonoBehaviour
 
     void Update()
     {
-        CustomLogger.Log(OwningObject.name);
+       // CustomLogger.Log(OwningObject.name);
         if (!isAlive)
         {
             switch(OwningObject.GetComponent<WorldObjectController>().Type)

@@ -209,7 +209,7 @@ public class PlayerSkillManager : MonoBehaviour
         if (playerController != null && playerController.StateManager.CurrentStateType != StateType.Attack) attackStage = 0;
 
         //キャラクターについて来ないように
-        if (effectInstance!= null)effectInstance.transform.SetParent(null);
+        if (effectInstance != null) effectInstance.transform.SetParent(null);
     }
 
     public void ExecuteDodge(bool _canThrough, Vector3 _direc = default)
@@ -331,10 +331,22 @@ public class PlayerSkillManager : MonoBehaviour
         dash.CanThrough = false;
     }
 
+    /// <summary>
+    /// ヒット情報設定
+    /// </summary>
+    private void HandleAttackerParams()
+    {
+        AttackerParams attackerParams = playerController.CurAttackerParams;
+        //攻撃属性設定
+        attackerParams.onomatoType = hitData.dicHitReac[playerController.ModeManager.Mode].onomatoType;
+        playerController.CurAttackerParams = attackerParams;
+    }
+
     #region swordAttack
     public void SwordAttackInit()
     {
-        attackDamage = playerController.StatusManager.StatusData.swordAtk;
+        HandleAttackerParams();
+        attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;     
         maxAttackStage = 1;
 
         // 突進初期化
@@ -372,7 +384,8 @@ public class PlayerSkillManager : MonoBehaviour
     #region HammerAttack
     public void HammerAttackInit()
     {
-        attackDamage = playerController.StatusManager.StatusData.hammerAtk;
+        HandleAttackerParams();
+        attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;
         playerController.SpriteAnim.Play("HammerAttack", 0, 0f);
 
         // 突進初期化
@@ -383,7 +396,8 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void SpearAttackInit()
     {
-        attackDamage = playerController.StatusManager.StatusData.spearAtk;
+        HandleAttackerParams();
+        attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;
 
         maxAttackStage = 4;
 
@@ -405,11 +419,11 @@ public class PlayerSkillManager : MonoBehaviour
         {
             int randomIndex = UnityEngine.Random.Range(0, 3);
             string[] animations = { "SpearAttackA", "SpearAttackB", "SpearAttackC" };
-          
+
 
             //ランダムプレイ
             playerController.SpriteAnim.Play(animations[randomIndex], 0, 0f);
-            curEffectParam.rotation.x= angles[randomIndex];
+            curEffectParam.rotation.x = angles[randomIndex];
             Debug.Log(" curEffectParam.rotation.x " + curEffectParam.rotation.x);
 
         }
@@ -423,7 +437,8 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void GauntletAttackInit()
     {
-        attackDamage = playerController.StatusManager.StatusData.gauntletAtk;
+        HandleAttackerParams();
+        attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;
         playerController.SpriteAnim.Play("GauntletAttack", 0, 0f);
     }
 

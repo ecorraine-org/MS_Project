@@ -5,12 +5,12 @@ using UnityEngine;
 /// <summary>
 /// 全オブジェクトの基底クラス
 /// </summary>
-public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
+public abstract class WorldObject : MonoBehaviour, IHit, IAttack, IMiss
 {
-    [SerializeField,Header("攻撃側のパラメーター")]
+    [SerializeField, NonEditable, Header("攻撃時に使うパラメーター")]
     protected AttackerParams curAttackerParams;
 
-    [SerializeField, Header("攻撃受け側のパラメーター")]
+    [SerializeField, NonEditable, Header("被撃時に使うパラメーター")]
     protected ReceiverParams curReceiverParams;
 
     [HideInInspector, Tooltip("生成するオノマトペオブジェクト")]
@@ -42,9 +42,9 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
     /// <summary>
     /// 攻撃受けた場合、攻撃側の攻撃データを取得
     /// </summary>
-    public virtual void ReceiveHitData(AttackerParams _attackParams) 
+    public virtual void ReceiveHitData(AttackerParams _attackParams)
     {
-        //curReceiverParams.xxx = _attackParams.xxx;
+        curReceiverParams.onomatoType = _attackParams.onomatoType;
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
     /// <param name="_onomatopoeiaData">オノマトペデータ</param>
     public abstract void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData);
 
-  
+
 
     /*
 {
@@ -110,5 +110,17 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack,IMiss
     {
         get => parentSpawner;
         set { parentSpawner = value; }
+    }
+
+    public AttackerParams CurAttackerParams
+    {
+        get => curAttackerParams;
+        set { curAttackerParams = value; }
+    }
+
+    public ReceiverParams CurReceiverParams
+    {
+        get => curReceiverParams;
+        set { curReceiverParams = value; }
     }
 }

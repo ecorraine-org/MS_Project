@@ -48,7 +48,8 @@ public class EnemyStatusData : BaseStatusData
     [Header("耐性")]
     public OnomatoType tolerance = OnomatoType.None;
 
-
+    [Header("弱点")]
+    public OnomatoType weakness = OnomatoType.None;
 
     [Header("SE")]
     public string sfxClip;

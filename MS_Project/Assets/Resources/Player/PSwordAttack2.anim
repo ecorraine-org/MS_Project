@@ -32,7 +32,7 @@ AnimationClip:
       value: {fileID: -1110406998, guid: 77c6249ee24e9f140b6a8f5a2f1dc466, type: 3}
     - time: 0.5833333
       value: {fileID: -1860628427, guid: 77c6249ee24e9f140b6a8f5a2f1dc466, type: 3}
-    - time: 0.68333334
+    - time: 1
       value: {fileID: -1860628427, guid: 77c6249ee24e9f140b6a8f5a2f1dc466, type: 3}
     attribute: m_Sprite
     path: 
@@ -68,7 +68,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.7
+    m_StopTime: 1.0166667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -110,14 +110,14 @@ AnimationClip:
     intParameter: 1
     messageOptions: 0
   - time: 0.1
-    functionName: EnableHit
+    functionName: StartDash
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.1
-    functionName: StartDash
+    functionName: EnableHit
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -130,13 +130,6 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.48333332
-    functionName: EnableCombo
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
   - time: 0.55
     functionName: DisableHit
     data: 
@@ -144,14 +137,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.68333334
+  - time: 0.93333334
+    functionName: EnableCombo
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
     functionName: DisableCombo
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.68333334
+  - time: 1
     functionName: EndAnim
     data: 
     objectReferenceParameter: {fileID: 0}

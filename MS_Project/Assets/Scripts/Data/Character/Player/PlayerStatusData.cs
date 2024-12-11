@@ -17,17 +17,17 @@ public class PlayerStatusData : BaseStatusData
     [Header("暴走時間(秒)")]
     public float frenzyTime = 5.0f;
 
-    [Header("剣の攻撃力")]
-    public float swordAtk = 1.0f;
+    //[Header("剣の攻撃力")]
+    //public float swordAtk = 1.0f;
 
-    [Header("ハンマーの攻撃力")]
-    public float hammerAtk = 1.0f;
+    //[Header("ハンマーの攻撃力")]
+    //public float hammerAtk = 1.0f;
 
-    [Header("スピアの攻撃力")]
-    public float spearAtk = 1.0f;
+    //[Header("スピアの攻撃力")]
+    //public float spearAtk = 1.0f;
 
-    [Header("メリケンサックの攻撃力")]
-    public float gauntletAtk = 1.0f;
+    //[Header("メリケンサックの攻撃力")]
+    //public float gauntletAtk = 1.0f;
 
     [Header("攻撃オノマトペリスト")]
     public List<OnomatopoeiaData> onomatoAttackData = new List<OnomatopoeiaData>();
