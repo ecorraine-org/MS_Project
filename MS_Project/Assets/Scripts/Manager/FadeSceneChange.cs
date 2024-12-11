@@ -22,7 +22,7 @@ public class FadeSceneChange : MonoBehaviour
     void Update()
     {
         // A,B,X,Yキーが押されたらフェードアウトを開始
-        if (UIInputManager.Instance.GetEnterTrigger() || UIInputManager.Instance.GetCancelTrigger() && !isFading)
+        if (UIInputManager.Instance.GetAnyKeyTrigger() && !isFading)
         {
             StartCoroutine(FadeOutAndLoadScene());
         }

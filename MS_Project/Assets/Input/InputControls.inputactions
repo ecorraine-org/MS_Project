@@ -283,6 +283,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "START",
+                    "type": "Button",
+                    "id": "0dbb0245-265d-46fa-bb50-b56d3158b2a3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -542,11 +551,33 @@
                 {
                     "name": "",
                     "id": "bb2de679-9bce-4a0c-a77e-a8595d5f2445",
-                    "path": "<Gamepad>/*",
+                    "path": "<Gamepad>/<Button>",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "AnyKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cdff6804-45ad-4ca0-8c61-b5a32e882ca5",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "START",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "360211f6-c6c8-4f7a-a484-52a96b3831bd",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "START",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
