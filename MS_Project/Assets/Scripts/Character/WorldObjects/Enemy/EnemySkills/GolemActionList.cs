@@ -27,10 +27,12 @@ public class GolemActionList : EnemyAction
         //nullを防止するため、再取得する
         stateHandler = enemy.State;
 
+
         if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
 
         //ダメージチェック
-        if (stateHandler.CheckHit()) return;
+        //if (stateHandler.CheckHit()) return;
 
         //移動へ遷移
         float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
@@ -73,7 +75,8 @@ public class GolemActionList : EnemyAction
 
     public void WalkTick()
     {
-        //frameTime++; //時間計測
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
 
         if (moveStage == 0) HandleWalk();
         if (moveStage == 1) HandleDash();
@@ -144,6 +147,9 @@ public class GolemActionList : EnemyAction
 
     public void ThrowSkillTick()
     {
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
+
         //ちょっとずつ見る
         direction = player.position - enemy.transform.position;
 
@@ -182,12 +188,11 @@ public class GolemActionList : EnemyAction
 
     public void SpinTick()
     {
-        frameTime++;
-
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
+        //Debug.Log(frameTime);
         //移動
-        enemy.Move();
-        // 追跡
-        enemy.OnMovementInput?.Invoke(direction.normalized);
+        enemy.Move();        
 
         //ちょっとずつ見る
         direction = player.position - enemy.transform.position;
@@ -197,38 +202,51 @@ public class GolemActionList : EnemyAction
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (stateInfo.normalizedTime <= 0.4f)
-            enemy.transform.rotation = Quaternion.Slerp(
-            enemy.transform.rotation,
-            targetRotation,
-            0.25f // 補間率（1.0fで即時、0.0fで変化なし）
-        );
-
-        //アニメーション終了
-        //if (stateInfo.normalizedTime >= 1.0f)
-        if (frameTime >= 420.0f)
+        //回ってる間は追跡
+        if (stateInfo.IsName("Spin_Start"))
         {
-            stateHandler.TransitionState(ObjectStateType.Idle);
+            // 追跡
+            enemy.OnMovementInput?.Invoke(direction.normalized);
+
+            if (stateInfo.normalizedTime <= 0.4f)
+                enemy.transform.rotation = Quaternion.Slerp(
+                enemy.transform.rotation,
+                targetRotation,
+                0.25f // 補間率（1.0fで即時、0.0fで変化なし）
+            );
+        }
+
+        //アニメーション終了からのフィニッシュ攻撃
+        //if (stateInfo.normalizedTime >= 1.0f)
+        if (frameTime >= 4.0f)
+        {
+            animator.Play("Spin_End");
+
+            enemy.OnMovementInput?.Invoke(direction.normalized * 0.5f);
+
+            if (stateInfo.IsName("Spin_End") && stateInfo.normalizedTime >= 1.0f)
+                stateHandler.TransitionState(ObjectStateType.Idle);
         }
     }
     #endregion
 
-    #region SpinEnd
+    #region Attack2
     /// <summary>
     /// 投げ初期化
     /// </summary>
-    public void SpinEndInit()
+    public void AttackTwoInit()
     {
-        animator.Play("Spin_End");
+        animator.Play("Attack2");
 
         frameTime = 0.0f;
 
-        currentUpdateAction = SpinEndTick;
+        currentUpdateAction = AttackTwoTick;
     }
 
-    public void SpinEndTick()
+    public void AttackTwoTick()
     {
-        frameTime++;
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
 
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -292,6 +310,8 @@ public class GolemActionList : EnemyAction
 
     public void AttackTick()
     {
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
 
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
