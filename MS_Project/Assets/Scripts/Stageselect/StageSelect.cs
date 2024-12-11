@@ -79,9 +79,15 @@ namespace Stage.Utility
             {
                 RingStage item = this.stageList[i];
 
+                // ステージにロックをかける
+                item.isLocked = true;
+
                 // リストの先頭の要素が一番前に来るように調整
                 item.InitDegree = (this.oneAngle * i) + 270.0f;
             }
+
+            // 最初のステージのロックを解除する
+            stageList[0].isLocked = false;
 
             // 並び順用の整列用のキャッシュを作成
             this.stageListCache.AddRange(this.stageList);
@@ -142,7 +148,7 @@ namespace Stage.Utility
             }
 
       
-            if (flag == true && UIInputManager.Instance.GetEnterTrigger())
+            if (flag == true && UIInputManager.Instance.GetEnterTrigger() && !frontStage.isLocked)
                 //    if (flag == true && Input.GetKeyDown(KeyCode.Return))
             {
                 IrisOut();
