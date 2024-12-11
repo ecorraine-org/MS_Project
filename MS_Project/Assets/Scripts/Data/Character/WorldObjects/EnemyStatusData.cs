@@ -35,7 +35,7 @@ public class EnemyStatusData : BaseStatusData
     [Header("ノックバック速度")]
     public float knockBackSpeed = 10.0f;
 
-    [Header("殺ろす可能な体力の割合(%)")]
+    [Header("殺ろす可能な体力の割合")]
     public float killableHealthRate = 0.2f;
 
     [Header("エネミータイプ")]
