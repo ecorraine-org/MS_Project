@@ -10,7 +10,7 @@ using UnityEngine;
 public class AttackColliderManagerV2 : MonoBehaviour
 {
     // 当たり判定用のコライダーの配列
-    [SerializeField, Header("当たったオブジェクト配列")]
+    [SerializeField,NonEditable, Header("当たったオブジェクト配列")]
     HitCollider hitCollider;
 
     // 重複処理を避けるために使用される配列
@@ -32,6 +32,8 @@ public class AttackColliderManagerV2 : MonoBehaviour
     {
         //コンポーネントの取得
         _cameraBasedHitCorrection = GetComponentInChildren<CameraBasedHitCorrection>();
+
+        hitCollider = GetComponentInChildren<HitCollider>();
 
         //Logで_cameraBasedHitCorrectionがnullかどうかを確認
         // Debug.Log("CameraBasedHitCorrection:" + _cameraBasedHitCorrection);

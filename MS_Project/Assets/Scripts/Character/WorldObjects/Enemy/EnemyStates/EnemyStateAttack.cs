@@ -6,7 +6,6 @@ using System.Reflection;
 public class EnemyStateAttack : EnemyState
 {
     private MethodInfo attackTickMethod;
-    public LayerMask targetLayer;
 
     public override void Init(WorldObjectController _objectController)
     {
@@ -47,7 +46,7 @@ public class EnemyStateAttack : EnemyState
     private void normalTick()
     {
         enemy.AttackCollider.CanHit = true;
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
         if (enemyStateHandler.CheckDeath()) return;
 
