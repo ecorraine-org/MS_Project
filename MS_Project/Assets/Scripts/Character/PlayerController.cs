@@ -37,9 +37,6 @@ public class PlayerController : WorldObject
     [SerializeField, Header("アタックコライダーマネージャー")]
     AttackColliderManagerV2 attackColliderV2;
 
-    //[SerializeField, Header("ヒットコライダー")]
-    //HitCollider hitCollider;
-
     [SerializeField, Header("エネミーディテクター")]
     DetectEnemyArea detectEnemy;
 
@@ -64,9 +61,6 @@ public class PlayerController : WorldObject
 
     //現在の向き(ベクトル)
     UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1, 0, 0);
-
-    //ダメージ受けるかどうか
-    //bool isHit;
 
     // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
@@ -324,6 +318,8 @@ public class PlayerController : WorldObject
             battleManager.StartHitStop(spriteAnim);
         }
     }
+
+
 
     public override void Miss()
     {

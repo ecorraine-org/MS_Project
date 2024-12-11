@@ -12,4 +12,9 @@ public interface IHit
     /// </summary>
     /// <param name="canOneHitKill">直接殺せるか</param>
     void Hit(bool _canOneHitKill);
+
+    /// <summary>
+    /// 攻撃側からヒットリアクションの情報をもらう
+    /// </summary>
+    void ReceiveHitData(AttackerParams _attackParams);
 }

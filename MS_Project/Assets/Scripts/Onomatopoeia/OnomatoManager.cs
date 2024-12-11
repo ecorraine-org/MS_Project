@@ -62,6 +62,10 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
         defaultScale = transform.localScale;
     }
 
+    public void ReceiveHitData(AttackerParams _attackParams)
+    { 
+    }
+
     /// <summary>
     /// 被撃処理
     /// </summary>
