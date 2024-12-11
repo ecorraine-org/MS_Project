@@ -46,10 +46,12 @@ public class EnemyStatusData : BaseStatusData
     public OnomatopoeiaData onomatoWalk;
 
     [Header("耐性")]
-    public OnomatoType tolerance = OnomatoType.None;
+  //  public OnomatoType tolerance = OnomatoType.None;
+    public OnomatoType[] tolerances;
 
     [Header("弱点")]
-    public OnomatoType weakness = OnomatoType.None;
+   // public OnomatoType weakness = OnomatoType.None;
+    public OnomatoType[] weaknesses;
 
     [Header("SE")]
     public string sfxClip;
