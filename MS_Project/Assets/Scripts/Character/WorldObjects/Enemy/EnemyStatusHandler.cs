@@ -35,6 +35,9 @@ public class EnemyStatusHandler : StatusManager
     [SerializeField, Tooltip("耐性")]
     private OnomatoType tolerance;
 
+    [SerializeField, Tooltip("弱点")]
+    private OnomatoType weakness;
+
     EnemyController enemy;
 
     EnemyStatusData enemyStatusData;
@@ -70,11 +73,27 @@ public class EnemyStatusHandler : StatusManager
         selfType = enemyStatusData.SelfType;
         onomatoData = enemyStatusData.onomatoAttack;
         tolerance = enemyStatusData.tolerance;
+        weakness = enemyStatusData.weakness;
     }
 
     public override void TakeDamage(float _damage)
     {
         isDamaged = true;
+
+        //耐性処理
+        if (enemy.CurReceiverParams.onomatoType == weakness)
+        {
+            Debug.Log("受けたのは "   + enemy.CurReceiverParams.onomatoType + ", 弱点 "+ weakness);
+            _damage *= 2;
+        }
+        if (enemy.CurReceiverParams.onomatoType == tolerance)
+        {
+            Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 耐性 " + tolerance);
+            _damage /= 2;
+        }
+            
+           
+
         base.TakeDamage(_damage);
 
         //一定hp以下になると、殺せる状態になる

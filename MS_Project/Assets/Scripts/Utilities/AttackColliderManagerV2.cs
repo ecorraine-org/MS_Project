@@ -34,19 +34,19 @@ public class AttackColliderManagerV2 : MonoBehaviour
         _cameraBasedHitCorrection = GetComponentInChildren<CameraBasedHitCorrection>();
 
         //Logで_cameraBasedHitCorrectionがnullかどうかを確認
-       // Debug.Log("CameraBasedHitCorrection:" + _cameraBasedHitCorrection);
+        // Debug.Log("CameraBasedHitCorrection:" + _cameraBasedHitCorrection);
     }
 
     /// <summary>
     /// コライダーの検出を行い、対象にダメージを与える
     /// </summary>
     public void DetectColliders(float _damage, LayerMask _targetLayer, bool _oneHitKill)
-    {     
+    {
         //アニメーションイベントで
         //当たり判定有効するかを設定する
         if (!canHit) return;
 
-       // if (_cameraBasedHitCorrection == null) Debug.Log("_cameraBasedHitCorrection NULL");
+        // if (_cameraBasedHitCorrection == null) Debug.Log("_cameraBasedHitCorrection NULL");
         if (hitCollider == null) Debug.Log(" hitCollider NULL");
         if (hitCollider.CollidersList == null) Debug.Log(" hitCollider.CollidersList NULL");
 
@@ -83,7 +83,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
     /// <summary>
     /// コライダーの検出を行い、対象にダメージを与える(レイヤー指定なしのバージョン)
     /// </summary>
-    public void DetectColliders(float _damage,  bool _oneHitKill)
+    public void DetectColliders(float _damage, bool _oneHitKill)
     {
         //アニメーションイベントで
         //当たり判定有効するかを設定する
@@ -167,16 +167,10 @@ public class AttackColliderManagerV2 : MonoBehaviour
     private void HandleHit(Collider _hitCollider, float _damage, bool _canOneHitKill)
     {
         var life = _hitCollider.GetComponentInChildren<ILife>();
-        if (life != null)
-        {
-            life.TakeDamage(_damage);
-        }
-
-      
         var hit = _hitCollider.GetComponentInChildren<IHit>();
         var attack = transform.root.GetComponentInChildren<IAttack>();
 
-        //ヒットリアクションなどの情報を先に渡す
+        //ダメージ処理する前に、ヒットリアクションなどの情報を渡す
         if (attack != null && hit != null)
             hit.ReceiveHitData(attack.GetAttackerParams());
 
@@ -186,7 +180,11 @@ public class AttackColliderManagerV2 : MonoBehaviour
         //攻撃側の処理 
         if (attack != null) attack.Attack(_hitCollider);
 
-    
+        if (life != null)
+        {
+            life.TakeDamage(_damage);
+        }
+
         //最初の衝突が発生した
         hasCollided = true;
     }
@@ -320,7 +318,7 @@ public class AttackColliderManagerV2 : MonoBehaviour
 
         //変数初期化
         hasCollided = false;
-          
+
     }
 
     /// <summary>
@@ -334,9 +332,9 @@ public class AttackColliderManagerV2 : MonoBehaviour
         //当たったオブジェクトの配列を初期化
         hitObjects.Clear();
 
-    
+
         if (hasCollided)
-        {         
+        {
             hasCollided = false;
         }
         else

@@ -15,6 +15,7 @@ MonoBehaviour:
   isInvincible: 0
   maxHealth: 40
   mass: 100
+  enemyID: 0
   gameObjPrefab: Enemy/VirusNormalV2
   enemyRank: 1
   timeTillNextAction: 3
@@ -24,9 +25,11 @@ MonoBehaviour:
   chaseDistance: 10
   knockBackDuration: 0.1
   knockBackSpeed: 5
+  killableHealthRate: 0.2
   SelfType: 4
   onomatoAttack: {fileID: 11400000, guid: 3e28730ae2c3c144f831d76460fe1196, type: 2}
   onomatoWalk: {fileID: 11400000, guid: bbe8fa5a81bafcd4ca04b67d55a1e4e6, type: 2}
-  tolerance: 1
+  tolerance: 2
+  weakness: 1
   sfxClip: 
   vfxClip: 

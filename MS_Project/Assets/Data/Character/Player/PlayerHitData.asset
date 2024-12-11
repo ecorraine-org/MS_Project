@@ -14,18 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitReac:
   - mode: 1
+    onomatoType: 1
     slowSpeed: 0
     stopDuration: 0.1
     moveSpeed: 15
+    damage: 10
   - mode: 2
+    onomatoType: 2
     slowSpeed: 0
     stopDuration: 0.3
     moveSpeed: 15
+    damage: 10
   - mode: 3
+    onomatoType: 3
     slowSpeed: 0
-    stopDuration: 0.04
+    stopDuration: 0.05
     moveSpeed: 0
+    damage: 10
   - mode: 4
+    onomatoType: 4
     slowSpeed: 0
     stopDuration: 0.1
     moveSpeed: 0
+    damage: 10
