@@ -22,11 +22,14 @@ public class EnemySpawner : MonoBehaviour
     #endregion
 
     #region ミッション情報
+    [SerializeField, Header("リザルトプレハブ")]
+    GameObject resultPrefab;
+
     [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
     private MissionType missionType = MissionType.None;
     [Tooltip("ミッション詳細")]
     private string missionDetail = "";
-    [Tooltip("キル数")]
+    [SerializeField,NonEditable,Header("キル数")]
     private int killCount = 0;
 
     [SerializeField, Header("ミッション済み"), Tooltip("ミッション済み")]
@@ -152,11 +155,17 @@ public class EnemySpawner : MonoBehaviour
             missionDetail = count;
             missionDetail = mission.GetMissionDetails(missionType, missionDetail);
 
+         
+
             if (killCount >= mobCount)
             {
                 hasCleared = true;
                 mission.MissionItem.SetActive(false);
                 mission.MissionTitle.SetActive(false);
+
+                //ボスを倒したら、リザルト画面を出す
+                if(missionType== MissionType.KillBoss) 
+                    Instantiate(resultPrefab, transform.position,Quaternion.identity);
             }
         }
     }
@@ -170,8 +179,8 @@ public class EnemySpawner : MonoBehaviour
         }
 
         var spawnedEnemy = InstantiateEnemy(_enemydata, _position);
-        enemyPool.Add(InstantiateEnemy(_enemydata, _position));
-        totalEnemyCount++;
+        enemyPool.Add(spawnedEnemy);
+            totalEnemyCount++;
 
         //ボスの場合、通知を送信
         if (_enemydata.enemyRank == EnemyRank.Boss)
