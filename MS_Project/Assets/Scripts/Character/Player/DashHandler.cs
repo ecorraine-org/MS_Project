@@ -198,7 +198,7 @@ public class DashHandler : MonoBehaviour
         {
             Vector3 ToLock = _target.transform.position - owner.transform.position;
             ToLock.y = 0;
-            Debug.Log("ToLock.magnitude " + ToLock.magnitude);
+          //  Debug.Log("ToLock.magnitude " + ToLock.magnitude);
             if (ToLock.magnitude < minDashDistance) return;
         }
 

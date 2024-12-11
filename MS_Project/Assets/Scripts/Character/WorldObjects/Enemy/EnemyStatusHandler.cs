@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -33,10 +34,12 @@ public class EnemyStatusHandler : StatusManager
     private OnomatopoeiaData onomatoData;
 
     [SerializeField, Tooltip("耐性")]
-    private OnomatoType tolerance;
+    private OnomatoType[] tolerances;
+    //private OnomatoType[] tolerances;
 
     [SerializeField, Tooltip("弱点")]
-    private OnomatoType weakness;
+    private OnomatoType[] weaknesses;
+    //private OnomatoType[] weakness;
 
     EnemyController enemy;
 
@@ -72,29 +75,40 @@ public class EnemyStatusHandler : StatusManager
         actionCooldown = enemyStatusData.timeTillNextAction;
         selfType = enemyStatusData.SelfType;
         onomatoData = enemyStatusData.onomatoAttack;
-        tolerance = enemyStatusData.tolerance;
-        weakness = enemyStatusData.weakness;
+        tolerances = enemyStatusData.tolerances;
+        weaknesses = enemyStatusData.weaknesses;
     }
 
     public override void TakeDamage(float _damage)
     {
         isDamaged = true;
 
-        //耐性処理
-        if (enemy.CurReceiverParams.onomatoType == weakness)
+        //耐性処理(単一)
+        //if (enemy.CurReceiverParams.onomatoType == weakness)
+        //{
+        //    Debug.Log("受けたのは "   + enemy.CurReceiverParams.onomatoType + ", 弱点 "+ weakness);
+        //    _damage *= 2;
+        //}
+        //if (enemy.CurReceiverParams.onomatoType == tolerance)
+        //{
+        //    Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 耐性 " + tolerance);
+        //    _damage /= 2;
+        //}
+
+        //耐性処理(複数)
+        if (weaknesses.Contains(enemy.CurReceiverParams.onomatoType))
         {
-            Debug.Log("受けたのは "   + enemy.CurReceiverParams.onomatoType + ", 弱点 "+ weakness);
+            Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 弱点 " + string.Join(", ", weaknesses));
             _damage *= 2;
         }
-        if (enemy.CurReceiverParams.onomatoType == tolerance)
+        if (tolerances.Contains(enemy.CurReceiverParams.onomatoType))
         {
-            Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 耐性 " + tolerance);
+            Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 耐性 " + string.Join(", ", tolerances));
             _damage /= 2;
         }
-            
-           
+        Debug.Log("最終ダメージ "+ _damage);
 
-        base.TakeDamage(_damage);
+       base.TakeDamage(_damage);
 
         //一定hp以下になると、殺せる状態になる
         if (currentHealth <= enemyStatusData.maxHealth * enemyStatusData.killableHealthRate)
