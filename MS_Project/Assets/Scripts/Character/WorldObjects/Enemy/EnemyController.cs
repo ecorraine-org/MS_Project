@@ -47,6 +47,10 @@ public class EnemyController : WorldObjectController
     //-------------------------------------
     public AudioClip hitSE; // 再生する効果音
     private AudioSource audioSource;
+
+    // ピッチ操作
+    public float minPitch = 0.8f; // 最小値
+    public float maxPitch = 1.2f; // 最大値
     //-------------------------------------
 
     public override void Awake()
@@ -119,7 +123,14 @@ public class EnemyController : WorldObjectController
         if (audioSource == null)
         {
             Debug.LogWarning("AudioSourceがない");
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
+
+        // Pitchをランダムに設定
+        float randomPitch = Random.Range(minPitch, maxPitch);
+        audioSource.pitch = randomPitch;
+
+        Debug.Log($"AudioSourceのPitchをランダムに設定しました: {randomPitch}");
         //----------------------------------------
     }
 
