@@ -75,8 +75,8 @@ public class EnemyStatusHandler : StatusManager
         actionCooldown = enemyStatusData.timeTillNextAction;
         selfType = enemyStatusData.SelfType;
         onomatoData = enemyStatusData.onomatoAttack;
-        tolerances = enemyStatusData.tolerances;
-        weaknesses = enemyStatusData.weaknesses;
+        if(enemyStatusData.tolerances != null)tolerances = enemyStatusData.tolerances;
+        if (enemyStatusData.weaknesses != null) weaknesses = enemyStatusData.weaknesses;
     }
 
     public override void TakeDamage(float _damage)
@@ -96,12 +96,12 @@ public class EnemyStatusHandler : StatusManager
         //}
 
         //耐性処理(複数)
-        if (weaknesses.Contains(enemy.CurReceiverParams.onomatoType))
+        if (weaknesses !=null&& weaknesses.Contains(enemy.CurReceiverParams.onomatoType))
         {
             Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 弱点 " + string.Join(", ", weaknesses));
             _damage *= 2;
         }
-        if (tolerances.Contains(enemy.CurReceiverParams.onomatoType))
+        if (tolerances != null && tolerances.Contains(enemy.CurReceiverParams.onomatoType))
         {
             Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 耐性 " + string.Join(", ", tolerances));
             _damage /= 2;
