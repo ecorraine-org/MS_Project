@@ -363,6 +363,11 @@ public class EnemyController : WorldObjectController
     {
         get => this.dashHandler;
     }
+    public EnemySpawner EnemySpawner
+    {
+        get => this.enemySpawner;
+        // set { enemySpawner = value; }
+    }
 
     #endregion
 
