@@ -106,11 +106,13 @@ MonoBehaviour:
   initialVelocity: 10
   attackCollider: {fileID: 8536549422878019664}
   attackSize: {x: 2.5, y: 1.6, z: 0.3}
-  attackDamage: 3
+  attackDamage: 20
   targetLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 16384
   spriteRenderer: {fileID: 1791320073203051602}
+  attackCollider: {fileID: 0}
+  windBladeScale: 0.5
 --- !u!54 &4852545608690506026
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -166,7 +168,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2449339700370574986}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: decf8e94694e7874e83b8412f934948f, type: 3}
   m_Name: 
@@ -182,6 +184,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3646057735440928138}
     m_Modifications:
+    - target: {fileID: 2289919781567306079, guid: f1bb56e2af39ca04fafafb0af5363c76, type: 3}
+      propertyPath: damage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6022291685769267226, guid: f1bb56e2af39ca04fafafb0af5363c76, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

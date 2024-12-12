@@ -260,7 +260,6 @@ public class DashHandler : MonoBehaviour
 
     private void HandleCorrectDash(Vector3 _targetPos)
     {
-        Debug.Log("ClosestCollider " + targetCollider.transform.position.x);
 
         if (correctDashParam.isDashing)
         {

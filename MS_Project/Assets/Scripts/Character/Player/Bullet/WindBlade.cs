@@ -6,13 +6,38 @@ public class WindBlade : SpriteBullet
 {
     ParticleManager particleManager;
 
+    [SerializeField, NonEditable, Header("アタックコライダーマネージャー")]
+    AttackColliderManagerV3 attackColliderV3;
+
     [SerializeField, Header("エフェクトスケール")]
-    float windBladeScale =0.5f;
+    float windBladeScale = 0.5f;
+
+
+
+    private void Awake()
+    {
+        attackColliderV3 = GetComponentInChildren<AttackColliderManagerV3>();
+
+        if (attackColliderV3 != null)
+        {
+            attackColliderV3.Damage = attackDamage;
+
+            // LayerMask からレイヤー番号を取得して設定
+            attackColliderV3.gameObject.layer = (int)Mathf.Log(targetLayer.value, 2);
+        }
+        else Debug.LogError("attackCollider NULL");
+
+        if ((targetLayer.value & (targetLayer.value - 1)) != 0)
+        {
+            Debug.LogError("targetLayer に複数のレイヤーが含まれています。1つのレイヤーのみを指定してください！");
+        }
+
+    }
 
     public override void Init(bool _isFlipX)
     {
         base.Init(_isFlipX);
-        
+
         spriteRenderer.flipX = !_isFlipX;
         //親オブジェクトの向きによる反転処理
         Vector3 currentEulerAngles = transform.rotation.eulerAngles;
@@ -29,7 +54,24 @@ public class WindBlade : SpriteBullet
         //パーティクル処理
         particleManager = GetComponentInChildren<ParticleManager>();
         particleManager.ChangeScale(windBladeScale);
-}
+
+        //if (attackColliderV3 != null)
+        //    attackColliderV3.transform.localScale *= windBladeScale;
+        //else Debug.LogError("attackCollider NULL");
+    }
+
+    private void Update()
+    {
+
+        //画面内かをチェック
+        CheckCamera();
+
+        //当たると消す
+        if (attackColliderV3.HasCollided)
+        {
+            Destroy(gameObject);
+        }
+    }
 
 
 }

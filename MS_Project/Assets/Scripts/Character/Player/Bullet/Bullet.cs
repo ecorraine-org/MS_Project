@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
     //攻撃test
     public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
     public float attackDamage;
+    //ターゲットレイヤー
     public LayerMask targetLayer;
 
     //発射方向
@@ -71,7 +72,7 @@ public class Bullet : MonoBehaviour
     /// <summary>
     /// 画面内かをチェック
     /// </summary>
-    private void CheckCamera()
+    protected void CheckCamera()
     {
 
         Camera mainCamera = Camera.main;
@@ -89,9 +90,9 @@ public class Bullet : MonoBehaviour
     /// <summary>
     /// 描画test
     /// </summary>
-    private void OnDrawGizmosSelected()
-    {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(transform.position, attackSize);   
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //        Gizmos.color = Color.yellow;
+    //        Gizmos.DrawWireCube(transform.position, attackSize);   
+    //}
 }
