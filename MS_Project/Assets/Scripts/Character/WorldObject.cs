@@ -45,6 +45,7 @@ public abstract class WorldObject : MonoBehaviour, IHit, IAttack, IMiss
     public virtual void ReceiveHitData(AttackerParams _attackParams)
     {
         curReceiverParams.onomatoType = _attackParams.onomatoType;
+        curReceiverParams.receiveDamage = _attackParams.attackDamage;
     }
 
     /// <summary>
