@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindBlade : SpriteBullet
+public class WindBlade : SpriteBullet,IAttack
 {
     ParticleManager particleManager;
 
@@ -34,9 +34,9 @@ public class WindBlade : SpriteBullet
 
     }
 
-    public override void Init(bool _isFlipX)
+    public override void Init(bool _isFlipX, AttackerParams _attackerParams)
     {
-        base.Init(_isFlipX);
+        base.Init(_isFlipX, _attackerParams);
 
         spriteRenderer.flipX = !_isFlipX;
         //親オブジェクトの向きによる反転処理
@@ -55,9 +55,6 @@ public class WindBlade : SpriteBullet
         particleManager = GetComponentInChildren<ParticleManager>();
         particleManager.ChangeScale(windBladeScale);
 
-        //if (attackColliderV3 != null)
-        //    attackColliderV3.transform.localScale *= windBladeScale;
-        //else Debug.LogError("attackCollider NULL");
     }
 
     private void Update()
@@ -73,5 +70,13 @@ public class WindBlade : SpriteBullet
         }
     }
 
+    public void Attack(Collider _hitCollider)
+    {
+        
+    }
 
+    public AttackerParams GetAttackerParams()
+    {
+        return attackerParams;
+    }
 }

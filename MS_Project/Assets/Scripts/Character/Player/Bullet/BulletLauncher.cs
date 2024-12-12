@@ -30,13 +30,17 @@ public class BulletLauncher : MonoBehaviour
         {
             adjustSpawnPos = new Vector3(spawnPos.x, spawnPos.y, spawnPos.z);
         }
-        else 
+        else
         {
-            adjustSpawnPos = new Vector3(-1*spawnPos.x, spawnPos.y, spawnPos.z);
+            adjustSpawnPos = new Vector3(-1 * spawnPos.x, spawnPos.y, spawnPos.z);
         }
 
-        spriteBullet = Instantiate(this.spritePrefab, transform.position+ adjustSpawnPos, transform.rotation);
-        spriteBullet.Init(_spriteRenderer.flipX);
+        spriteBullet = Instantiate(this.spritePrefab, transform.position + adjustSpawnPos, transform.rotation);
+
+        var attack = transform.root.GetComponentInChildren<IAttack>();
+        //親オブジェクトからヒットリアクション情報を弾に渡す
+        if (attack != null)
+            spriteBullet.Init(_spriteRenderer.flipX, attack.GetAttackerParams());
     }
 
     private void Update()
