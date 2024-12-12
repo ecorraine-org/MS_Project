@@ -63,6 +63,9 @@ public class DiabolosActionList : EnemyAction
 
     public void BiteTick()
     {
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
         //死んでいるかと時間計測
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
@@ -95,6 +98,9 @@ public class DiabolosActionList : EnemyAction
 
     public void PunchTick()
     {
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(18.0f, false);
+
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
 
@@ -134,6 +140,9 @@ public class DiabolosActionList : EnemyAction
 
     public void SlapTick()
     {
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
         //死んでいるかと時間計測
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
