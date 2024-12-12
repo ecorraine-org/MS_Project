@@ -9,6 +9,11 @@ public class AIKnight_Shield : EnemyAction
 
     private Vector3 direction;
 
+    public void UpDate()
+    {
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+    }
+
     // 確率で防御
     public void Guard()
     {

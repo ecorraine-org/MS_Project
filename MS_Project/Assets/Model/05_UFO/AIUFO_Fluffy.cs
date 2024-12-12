@@ -22,20 +22,11 @@ public class AIUFO_Fluffy : EnemyAction
         //距離確認
         distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
 
-        //攻撃射程外なら浮く
-        //if (distanceToPlayer >= EnemyStatus.StatusData.attackDistance)
-        //{
-        //    noGravity = false;
-        //}
-        //else
-        //{
-        //    noGravity = true;
-        //    //Debug.Log("get out of my swamp!");
-        //}
-
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
         //浮いてるかの確認
-        if(!noGravity)
+        if (!noGravity)
         {
             //浮く関数
             Fluffy();

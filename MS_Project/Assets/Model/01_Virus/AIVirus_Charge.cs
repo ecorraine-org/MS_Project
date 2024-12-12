@@ -9,6 +9,11 @@ public class AIVirus_Charge : EnemyAction
 
     private Vector3 direction;
 
+    public void UpDate()
+    {
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+    }
+
     // 前にツッコむ
     private void SlimeCharge()
     {
