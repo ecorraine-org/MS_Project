@@ -106,12 +106,12 @@ MonoBehaviour:
   initialVelocity: 10
   attackCollider: {fileID: 8536549422878019664}
   attackSize: {x: 2.5, y: 1.6, z: 0.3}
-  attackDamage: 20
+  attackDamage: 24
   targetLayer:
     serializedVersion: 2
     m_Bits: 16384
   spriteRenderer: {fileID: 1791320073203051602}
-  attackCollider: {fileID: 0}
+  attackColliderV3: {fileID: 0}
   windBladeScale: 0.5
 --- !u!54 &4852545608690506026
 Rigidbody:

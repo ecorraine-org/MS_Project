@@ -249,6 +249,9 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("SwordSkill");
 
+        //パラメーター設定
+        HandleAttackerParams();
+
         //ヒットストップ
         battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Sword].slowSpeed;
         battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Sword].stopDuration;
