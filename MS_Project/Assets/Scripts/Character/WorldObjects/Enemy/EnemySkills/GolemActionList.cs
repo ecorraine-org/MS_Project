@@ -150,6 +150,10 @@ public class GolemActionList : EnemyAction
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
 
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
+
         //ちょっとずつ見る
         direction = player.position - enemy.transform.position;
 
@@ -192,7 +196,11 @@ public class GolemActionList : EnemyAction
         frameTime += Time.deltaTime;
         //Debug.Log(frameTime);
         //移動
-        enemy.Move();        
+        enemy.Move();
+
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(5.0f, false);
+
 
         //ちょっとずつ見る
         direction = player.position - enemy.transform.position;
@@ -248,6 +256,8 @@ public class GolemActionList : EnemyAction
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
 
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(20.0f, false);
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
@@ -312,6 +322,10 @@ public class GolemActionList : EnemyAction
     {
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
+
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
 
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);

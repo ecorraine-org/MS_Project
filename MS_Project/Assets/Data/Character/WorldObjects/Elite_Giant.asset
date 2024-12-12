@@ -13,20 +13,23 @@ MonoBehaviour:
   m_Name: Elite_Giant
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 100
+  maxHealth: 150
   mass: 400
+  enemyID: 0
   gameObjPrefab: Enemy/GiantV2LIST
   enemyRank: 0
   timeTillNextAction: 1
-  damage: 4
+  damage: 16
   attackDistance: 4.5
   velocity: 3
   chaseDistance: 30
   knockBackDuration: 0.1
   knockBackSpeed: 5
+  killableHealthRate: 0.2
   SelfType: 3
   onomatoAttack: {fileID: 0}
   onomatoWalk: {fileID: 0}
-  tolerance: 0
+  tolerances: 
+  weaknesses: 
   sfxClip: 
   vfxClip: 

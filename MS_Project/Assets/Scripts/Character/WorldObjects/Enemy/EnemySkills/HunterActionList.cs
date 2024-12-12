@@ -73,7 +73,7 @@ public class HunterActionList : EnemyAction
 
     public void WalkTick()
     {
-        frameTime++; //時間計測
+        frameTime += Time.deltaTime; //時間計測
 
         //ダメージチェック
         if (stateHandler.CheckHit()) return;
@@ -94,7 +94,7 @@ public class HunterActionList : EnemyAction
         // 追跡
         enemy.OnMovementInput?.Invoke(direction.normalized);
 
-        if (frameTime >= 240.0f &&
+        if (frameTime >= 2.0f &&
               distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 3.0f ||
               distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 6.0f)
         {
@@ -119,7 +119,7 @@ public class HunterActionList : EnemyAction
         // 追跡
         enemy.OnMovementInput?.Invoke(direction.normalized * 5.0f);
 
-        if (frameTime >= 320.0f ||
+        if (frameTime >= 4.0f ||
             distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())//もう待ちきれない  
         {
 
@@ -149,6 +149,8 @@ public class HunterActionList : EnemyAction
 
     public void ThrowSkillTick()
     {
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
         //ダメージチェック
         if (stateHandler.CheckHit()) return;
 
@@ -206,12 +208,12 @@ public class HunterActionList : EnemyAction
 
     #endregion
 
-    #region Test1
+    #region Attack
 
     /// <note>
     /// 関数名は「Attack」や「Skill」にならないように
     /// </note>
-    public void Test1Init()
+    public void AttackInit()
     {
 
         animator.Play("Attack");
@@ -220,13 +222,16 @@ public class HunterActionList : EnemyAction
 
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
-        currentUpdateAction = Test1Tick;
+        currentUpdateAction = AttackTick;
     }
 
-    public void Test1Tick()
+    public void AttackTick()
     {
         //ダメージチェック
         if (stateHandler.CheckHit()) return;
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
 
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
@@ -272,6 +277,8 @@ public class HunterActionList : EnemyAction
 
     public void Attack_DualTick()
     {
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(18.0f, false);
         //ダメージチェック
         if (stateHandler.CheckHit()) return;
 

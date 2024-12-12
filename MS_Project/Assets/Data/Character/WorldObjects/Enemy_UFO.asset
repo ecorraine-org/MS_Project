@@ -15,18 +15,21 @@ MonoBehaviour:
   isInvincible: 0
   maxHealth: 30
   mass: 500
+  enemyID: 0
   gameObjPrefab: Enemy/UFOV2
   enemyRank: 1
   timeTillNextAction: 5
-  damage: 1
+  damage: 10
   attackDistance: 9
   velocity: 7
   chaseDistance: 20
   knockBackDuration: 0.1
   knockBackSpeed: 5
+  killableHealthRate: 0.2
   SelfType: 0
   onomatoAttack: {fileID: 11400000, guid: 97b0e324e4ef70b46ad0641aa8470f75, type: 2}
   onomatoWalk: {fileID: 11400000, guid: 54420362a08d5844d824122acb61fd21, type: 2}
-  tolerance: 0
+  tolerances: 
+  weaknesses: 
   sfxClip: 
   vfxClip: 

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Enemy_VirusNormal
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 40
+  maxHealth: 50
   mass: 100
   enemyID: 0
   gameObjPrefab: Enemy/VirusNormalV2
   enemyRank: 1
   timeTillNextAction: 3
-  damage: 4
+  damage: 5
   attackDistance: 5
   velocity: 3
   chaseDistance: 10
@@ -29,7 +29,7 @@ MonoBehaviour:
   SelfType: 4
   onomatoAttack: {fileID: 11400000, guid: 3e28730ae2c3c144f831d76460fe1196, type: 2}
   onomatoWalk: {fileID: 11400000, guid: bbe8fa5a81bafcd4ca04b67d55a1e4e6, type: 2}
-  tolerance: 2
-  weakness: 1
+  tolerances: 
+  weaknesses: 
   sfxClip: 
   vfxClip: 

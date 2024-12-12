@@ -13,20 +13,23 @@ MonoBehaviour:
   m_Name: Elite_Hunter
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 80
+  maxHealth: 100
   mass: 300
+  enemyID: 0
   gameObjPrefab: Enemy/HunterV2LIST
   enemyRank: 2
   timeTillNextAction: 1
-  damage: 1
+  damage: 12
   attackDistance: 3
   velocity: 3
   chaseDistance: 10
   knockBackDuration: 0.1
   knockBackSpeed: 5
+  killableHealthRate: 0.2
   SelfType: 3
   onomatoAttack: {fileID: 11400000, guid: 185a41ef0d08e5a4ab36cf4e18b9303a, type: 2}
   onomatoWalk: {fileID: 11400000, guid: 893d76a0677a3b54d9a95a30e7dd1368, type: 2}
-  tolerance: 0
+  tolerances: 
+  weaknesses: 
   sfxClip: 
   vfxClip: 
