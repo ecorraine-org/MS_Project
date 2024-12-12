@@ -20,17 +20,26 @@ public class WindBlade : SpriteBullet,IAttack
 
         if (attackColliderV3 != null)
         {
-            attackColliderV3.Damage = attackDamage;
-
-            // LayerMask からレイヤー番号を取得して設定
-            attackColliderV3.gameObject.layer = (int)Mathf.Log(targetLayer.value, 2);
+            // コライダーに弾と同じレイヤーを設定する
+            attackColliderV3.gameObject.layer = gameObject.layer;
         }
-        else Debug.LogError("attackCollider NULL");
-
-        if ((targetLayer.value & (targetLayer.value - 1)) != 0)
+        else
         {
-            Debug.LogError("targetLayer に複数のレイヤーが含まれています。1つのレイヤーのみを指定してください！");
+            Debug.LogError("attackCollider NULL");
         }
+
+
+        //if (attackColliderV3 != null)
+        //{
+        //    // LayerMask からレイヤー番号を取得して設定
+        //    attackColliderV3.gameObject.layer = (int)Mathf.Log(targetLayer.value, 2);
+        //}
+        //else Debug.LogError("attackCollider NULL");
+
+        //if ((targetLayer.value & (targetLayer.value - 1)) != 0)
+        //{
+        //    Debug.LogError("targetLayer に複数のレイヤーが含まれています。1つのレイヤーのみを指定してください！");
+        //}
 
     }
 
@@ -38,7 +47,12 @@ public class WindBlade : SpriteBullet,IAttack
     {
         base.Init(_isFlipX, _attackerParams);
 
-        spriteRenderer.flipX = !_isFlipX;
+        if (attackColliderV3 != null)
+        {
+            attackColliderV3.Damage = _attackerParams.attackDamage;
+        }
+
+            spriteRenderer.flipX = !_isFlipX;
         //親オブジェクトの向きによる反転処理
         Vector3 currentEulerAngles = transform.rotation.eulerAngles;
         if (_isFlipX)

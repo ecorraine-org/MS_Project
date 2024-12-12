@@ -250,7 +250,12 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("SwordSkill");
 
         //パラメーター設定
-        HandleAttackerParams();
+     //   HandleAttackerParams();
+        AttackerParams attackerParams = playerController.CurAttackerParams;
+        //攻撃属性設定
+        attackerParams.onomatoType = OnomatoType.SlashType;
+        attackerParams.attackDamage = skillData.dicSkill[PlayerSkill.Sword].damage;
+        playerController.CurAttackerParams = attackerParams;
 
         //ヒットストップ
         battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Sword].slowSpeed;

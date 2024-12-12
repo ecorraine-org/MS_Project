@@ -10,16 +10,18 @@ using UnityEngine;
 public struct AttackerParams
 {
     public OnomatoType onomatoType;//攻撃属性
-                                   //   public float slowSpeed;//ヒットストップによる減速
-                                   //public float stopDuration;//ヒットストップ持続時間
-                                   //  public float moveSpeed;//攻撃中進む速度
+    public float attackDamage;//攻撃力
+    //   public float slowSpeed;//ヒットストップによる減速
+    //public float stopDuration;//ヒットストップ持続時間
+    //  public float moveSpeed;//攻撃中進む速度
 }
 
 [System.Serializable]
 public struct ReceiverParams
 {
     public OnomatoType onomatoType;//攻撃属性
-                                   //public float slowSpeed;//ヒットストップによる減速
-                                   //  public float stopDuration;//ヒットストップ持続時間
-                                   //  public float moveSpeed;//攻撃中進む速度
+    public float receiveDamage;//攻撃力
+                              //public float slowSpeed;//ヒットストップによる減速
+                              //  public float stopDuration;//ヒットストップ持続時間
+                              //  public float moveSpeed;//攻撃中進む速度
 }

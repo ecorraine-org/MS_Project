@@ -14,10 +14,11 @@ public class Bullet : MonoBehaviour
     protected Vector3 InitialPosition;
 
     //攻撃test
-    public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
-    public float attackDamage;
-    //ターゲットレイヤー
-    public LayerMask targetLayer;
+    //public UnityEngine.Vector3 attackSize = new UnityEngine.Vector3(1f, 1f, 1f);
+    //public float attackDamage;
+    ////ターゲットレイヤー
+  //  [SerializeField, Header("ターゲットレイヤー")]
+  //  protected LayerMask targetLayer;
 
     //発射方向
     protected Vector3 shootDirec;
@@ -37,7 +38,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         //コライダーの検出
-        attackCollider.DetectColliders(transform.position, attackSize, attackDamage, targetLayer, false);
+       // attackCollider.DetectColliders(transform.position, attackSize, attackDamage, targetLayer, false);
 
         //画面内かをチェック
         CheckCamera();
