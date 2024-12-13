@@ -108,23 +108,62 @@ public class UltimateActionList : EnemyAction
         0.3f // 補間率（1.0fで即時、0.0fで変化なし）
     );
 
-
-        if (frameTime >= 1.6f &&
-              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 1.2f)
+        //移動状態(走り)へ遷移
+        if (distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 3.0f ||
+              frameTime >= 3.0f)
         {
-            //移動状態(走り)へ遷移
             moveStage = 1;
             stateHandler.TransitionState(ObjectStateType.Walk);
 
             return;
         }
 
-        //攻撃へ遷移
+        //攻撃へ遷移近い
         if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())
         {
             stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
             return;
         }
+        //攻撃へ遷移遠め
+        if (distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 2.0f && CheckListTimer())
+        {
+            stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
+            return;
+        }
+    }
+    #endregion
+
+    #region Move
+
+    /// <summary>
+    /// 移動処理初期化(一回だけ実行する)
+    /// </summary>
+    public void MoveInit()
+    {
+        //初期化
+        frameTime = 0.0f;
+
+        //前の状態は歩きでなければ、初期化
+        //歩きの場合、走りに変更した時、walkStageを1にする
+        if (stateHandler.CurrentStateType != ObjectStateType.Walk) moveStage = 0;
+
+        //歩き
+        if (moveStage == 0) enemy.Anim.Play("Walk");
+
+        currentUpdateAction = MoveTick;
+    }
+
+    public void MoveTick()
+    {
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
+
+        if (moveStage == 0) HandleWalk();
+        if (moveStage == 1) HandleDash();
+
+        //移動
+        enemy.Move();
+
     }
     #endregion
 
@@ -160,7 +199,7 @@ public class UltimateActionList : EnemyAction
         if (stateHandler.CheckDeath()) return;
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (frameTime >= 1.2f)//もう待ちきれない  
+        if (frameTime >= 5.0f)//もう待ちきれない  
         {
             //攻撃へ遷移
             stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
@@ -172,7 +211,7 @@ public class UltimateActionList : EnemyAction
         {//ダッシュ攻撃
             enemy.Anim.Play("Dash_Attack");
             // 追跡
-            enemy.OnMovementInput?.Invoke(direction.normalized * 0.1f);
+            enemy.OnMovementInput?.Invoke(direction.normalized * 0.3f);
         }
         if (!stateInfo.IsName("Dash_Attack"))
         {
@@ -181,7 +220,7 @@ public class UltimateActionList : EnemyAction
             //ダッシュ
             enemy.Anim.Play("Dash");
             // 追跡
-            enemy.OnMovementInput?.Invoke(direction.normalized * 8.0f);
+            enemy.OnMovementInput?.Invoke(direction.normalized * 19.3f);
         }
 
         if (stateInfo.IsName("Dash_Attack") && stateInfo.normalizedTime >= 1.0f)
@@ -235,7 +274,7 @@ public class UltimateActionList : EnemyAction
 
             if (stateInfo.IsName("Back_Step"))
             {
-                Vector3 forceDirection = -enemy.transform.forward * 19.3f; // 後ろ方向の力
+                Vector3 forceDirection = -enemy.transform.forward * 12.0f; // 後ろ方向の力
                 enemy.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.VelocityChange);
             }
         }
@@ -475,7 +514,7 @@ public class UltimateActionList : EnemyAction
         else
         {
             // 追跡
-            enemy.OnMovementInput?.Invoke(direction.normalized * 8.0f);
+            enemy.OnMovementInput?.Invoke(direction.normalized * 16.0f);
         }
 
         //フィニッシュ攻撃
@@ -509,7 +548,7 @@ public class UltimateActionList : EnemyAction
     public void Charge_SlashTick()
     {
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(45.0f, false);
+        enemy.AttackCollider.DetectColliders(36.0f, false);
 
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
@@ -582,7 +621,7 @@ public class UltimateActionList : EnemyAction
                 enemy.transform.rotation = Quaternion.Slerp(
                 enemy.transform.rotation,
                 targetRotation,
-                0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+                0.2f // 補間率（1.0fで即時、0.0fで変化なし）
             );
         }
         else if (stateInfo.IsName("Spin"))
@@ -597,18 +636,38 @@ public class UltimateActionList : EnemyAction
             enemy.transform.rotation = Quaternion.Slerp(
             enemy.transform.rotation,
             targetRotation,
-            0.002f // 補間率（1.0fで即時、0.0fで変化なし）
+            0.001f // 補間率（1.0fで即時、0.0fで変化なし）
         );
             //攻撃判定
             enemy.AttackCollider.DetectColliders(5.0f, false);
             // 追跡
-            enemy.OnMovementInput?.Invoke(direction.normalized * 3.0f);
+            //enemy.OnMovementInput?.Invoke(direction.normalized * 4.5f);
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 0.8f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
+
         }
 
         //フィニッシュ攻撃
-        if (frameTime >= 1.3f)
+        if (frameTime >= 1.4f)
         {
-            enemy.OnMovementInput?.Invoke(direction.normalized * 0.85f);
+            //ちょっとずつ見る
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
+
+            enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.003f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
+
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 0.18f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
+
             //攻撃判定
             enemy.AttackCollider.DetectColliders(10.0f, false);
             animator.Play("Dash_Attack");
