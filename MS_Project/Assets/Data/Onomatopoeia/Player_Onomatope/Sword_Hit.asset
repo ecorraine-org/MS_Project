@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Sword_Hit
   m_EditorClassIdentifier: 
   wordToUse: "\u30B6\u30B7\u30E5\u30C3"
+  onomatoSprite: {fileID: 0}
+  spriteSize: 1
+  onomatoACont: {fileID: 0}
   fontAsset: {fileID: 11400000, guid: ad584379139b1df46b9777099a13e04e, type: 2}
   fontColor:
     serializedVersion: 2
@@ -20,4 +23,5 @@ MonoBehaviour:
   type: 1
   damageBuff: 0
   speedBuff: 0
-  healBuff: 0
+  healBuff: 10
+  onomatoSE: {fileID: 0}
