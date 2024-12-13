@@ -245,9 +245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29e362c077c4a14f91a4ca73526fdab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &1742953556207336692 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8338354472550600448, guid: 46b2277a634196a4194c6e780317d854, type: 3}
@@ -274,7 +271,8 @@ MonoBehaviour:
   actionCooldown: 0
   selfType: 0
   onomatoData: {fileID: 0}
-  tolerance: 0
+  tolerances: 
+  weaknesses: 
 --- !u!1 &5238224164112705696 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2537240931671268180, guid: 46b2277a634196a4194c6e780317d854, type: 3}
@@ -334,6 +332,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ceae777d0280e45bb15ce11944ae87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curAttackerParams:
+    onomatoType: 0
+    attackDamage: 0
+  curReceiverParams:
+    onomatoType: 0
+    receiveDamage: 0
   onomatoPool: []
   gameObj: {fileID: 0}
   isInvincible: 0
@@ -341,6 +345,7 @@ MonoBehaviour:
   isAttacking: 0
   usingSkill: 0
   isDamaged: 0
+  onomatoOffsetPos: {x: 0, y: 3, z: 0}
   OnDamaged:
     m_PersistentCalls:
       m_Calls: []
@@ -363,8 +368,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   isKillable: 0
-  onomatoOffsetPos: {x: 0, y: -3, z: 0}
   hitSE: {fileID: 0}
+  minPitch: 0.8
+  maxPitch: 1.2
 --- !u!1 &7027611072177599122 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 720832374801793382, guid: 46b2277a634196a4194c6e780317d854, type: 3}
