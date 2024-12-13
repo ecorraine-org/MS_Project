@@ -9,16 +9,16 @@ public class TitleButtonAudio : MonoBehaviour
 
     private void Start()
     {
-        // ƒ{ƒ^ƒ“ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾
+        // ãƒœã‚¿ãƒ³ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
         button = GetComponent<Button>();
 
-        // AudioSource‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Í©“®“I‚É’Ç‰Á
+        // AudioSourceãŒè¨­å®šã•ã‚Œã¦ã„ãªã„å ´åˆã¯è‡ªå‹•çš„ã«è¿½åŠ 
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // ƒ{ƒ^ƒ“ƒNƒŠƒbƒN‚ÌƒCƒxƒ“ƒg‚ÉSEÄ¶ˆ—‚ğ’Ç‰Á
+        // ãƒœã‚¿ãƒ³ã‚¯ãƒªãƒƒã‚¯æ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆã«SEå†ç”Ÿå‡¦ç†ã‚’è¿½åŠ 
         button.onClick.AddListener(PlayButtonSound);
     }
 
@@ -26,14 +26,14 @@ public class TitleButtonAudio : MonoBehaviour
     {
         if (buttonSound != null && audioSource != null)
         {
-            // Ä¶‚³‚ê‚éƒI[ƒfƒBƒIƒNƒŠƒbƒv–¼‚ğƒfƒoƒbƒOƒƒO‚É•\¦
-            Debug.Log($"Ä¶’†‚Ì‰¹: {buttonSound.name}");
+            // å†ç”Ÿã•ã‚Œã‚‹ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚¯ãƒªãƒƒãƒ—åã‚’ãƒ‡ãƒãƒƒã‚°ãƒ­ã‚°ã«è¡¨ç¤º
+            Debug.Log($"å†ç”Ÿä¸­ã®éŸ³: {buttonSound.name}");
 
             audioSource.PlayOneShot(buttonSound);
         }
         else
         {
-            Debug.LogWarning("AudioSource ‚Ü‚½‚Í AudioClip ‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogWarning("AudioSource ã¾ãŸã¯ AudioClip ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
         }
     }
 }
