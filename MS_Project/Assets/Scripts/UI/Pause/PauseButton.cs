@@ -7,33 +7,33 @@ using UnityEngine.UI;
 
 public class PauseButton : MonoBehaviour
 {
-    [SerializeField, Header("•\¦‚³‚¹‚é‰æ–Êæ")]
+    [SerializeField, Header("è¡¨ç¤ºã•ã›ã‚‹ç”»é¢å…ˆ")]
     GameObject canvas;
 
-    //[SerializeField, Header("‘S•”Á‚·")]
+    //[SerializeField, Header("å…¨éƒ¨æ¶ˆã™æ™‚")]
     //GameObject allCanvas;
 
-    //[SerializeField, Header("ƒQ[ƒ€‚É–ß‚éƒ{ƒ^ƒ“")]
+    //[SerializeField, Header("ã‚²ãƒ¼ãƒ ã«æˆ»ã‚‹ãƒœã‚¿ãƒ³")]
     //Button BackButton;
 
-    //[SerializeField, Header("ƒZƒŒƒNƒg‰æ–Ê‚É–ß‚éƒ{ƒ^ƒ“")]
+    //[SerializeField, Header("ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã«æˆ»ã‚‹ãƒœã‚¿ãƒ³")]
     //Button FinishButton;
 
     bool gametime;
 
-    /*//ƒQ[ƒ€‰æ–Ê‚É–ß‚é•û
+    /*//ã‚²ãƒ¼ãƒ ç”»é¢ã«æˆ»ã‚‹æ–¹
     public void BackClick()
     {
-        //ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg•\¦¨”ñ•\¦
+        //ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè¡¨ç¤ºâ†’éè¡¨ç¤º
         allCanvas.SetActive(false);
 
-        //ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg”ñ•\¦¨•\¦
+        //ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆéè¡¨ç¤ºâ†’è¡¨ç¤º
         canvas.SetActive(true);
 
         gametime = true;
     }
 
-    //ƒXƒe[ƒWƒZƒŒƒNƒg‰æ–Ê‚É–ß‚é•û
+    //ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã«æˆ»ã‚‹æ–¹
     public void FinishClick()
     {
         SceneManager.LoadScene("StageSelect");

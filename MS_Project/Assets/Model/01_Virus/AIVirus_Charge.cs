@@ -9,7 +9,7 @@ public class AIVirus_Charge : EnemyAction
 
     private Vector3 direction;
 
-    public void UpDate()
+    public void Update()
     {
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
     }
