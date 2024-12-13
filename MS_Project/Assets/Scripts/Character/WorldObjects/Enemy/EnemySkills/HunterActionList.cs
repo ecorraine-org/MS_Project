@@ -152,7 +152,7 @@ public class HunterActionList : EnemyAction
         //攻撃判定
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
         //ダメージチェック
-        if (stateHandler.CheckHit()) return;
+        //if (stateHandler.CheckHit()) return;
 
         //ちょっとずつ見る
         direction = player.position - enemy.transform.position;
@@ -228,7 +228,7 @@ public class HunterActionList : EnemyAction
     public void AttackTick()
     {
         //ダメージチェック
-        if (stateHandler.CheckHit()) return;
+        //if (stateHandler.CheckHit()) return;
         //攻撃判定
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
@@ -280,7 +280,7 @@ public class HunterActionList : EnemyAction
         //攻撃判定
         enemy.AttackCollider.DetectColliders(18.0f, false);
         //ダメージチェック
-        if (stateHandler.CheckHit()) return;
+        //if (stateHandler.CheckHit()) return;
 
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
