@@ -21,7 +21,9 @@ public class BossDetector : MonoBehaviour
         if (Time.time < _nextCheckTime) return;
         _nextCheckTime = Time.time + _checkInterval;
 
+        // ボスを検出
         var possibleBoss = GameObject.Find("Boss_Golem");
+
 
         if (possibleBoss != null && !_isMonitoring)
         {
@@ -52,7 +54,7 @@ public class BossDetector : MonoBehaviour
         CameraEffectManager.Instance.AddEffect(deathEffect);
     }
 
-    private void OnValidate()
+    /*private void OnValidate()
     {
         if (_cameraManager == null)
         {
@@ -62,5 +64,5 @@ public class BossDetector : MonoBehaviour
                 Debug.LogError("CameraEffectManager not found in scene!");
             }
         }
-    }
+    }*/
 }
