@@ -73,32 +73,39 @@ namespace Stage.Utility
 
         void Start()
         {
-            // 持ってる要素数に応じて初期位置を計算する
-            this.oneAngle = 360.0f / this.stageList.Count;
-            for (int i = 0; i < this.stageList.Count; i++)
+            // リストが空の場合のみ初期化
+            if (this.stageListCache.Count == 0)
             {
-                RingStage item = this.stageList[i];
+                this.oneAngle = 360.0f / this.stageList.Count;
+                for (int i = 0; i < this.stageList.Count; i++)
+                {
+                    RingStage item = this.stageList[i];
 
-                // ステージにロックをかける
-                item.isLocked = true;
+                    // ステージにロックをかける
+                    item.isLocked = true;
 
-                // リストの先頭の要素が一番前に来るように調整
-                item.InitDegree = (this.oneAngle * i) + 270.0f;
+                    // リストの先頭の要素が一番前に来るように調整
+                    item.InitDegree = (this.oneAngle * i) + 270.0f;
+                }
+
+                // 最初のステージのロックを解除する
+                stageList[0].isLocked = false;
+
+                // 並び順用の整列用のキャッシュを作成
+                this.stageListCache.AddRange(this.stageList);
             }
 
-            // 最初のステージのロックを解除する
-            stageList[0].isLocked = false;
+            // 初期値のリセット
+            this.stepAmount = 0;
+            this.count = 0;
 
-            // 並び順用の整列用のキャッシュを作成
-            this.stageListCache.AddRange(this.stageList);
-
-            this.updateItemsPostion(); // 位置と大きさを決めるために1回だけ呼び出す
+            this.updateItemsPostion();
         }
 
         void Update()
         {
             if (UIInputManager.Instance.GetLeftTrigger() && !fZoomIn) // Rotate left
-             //   if (Input.GetKeyDown(KeyCode.A) && !fZoomIn) // Rotate left
+            //    if (Input.GetKeyDown(KeyCode.A) && !fZoomIn) // Rotate left
                 {
                 this.count++;
                 float endValue = this.count * this.oneAngle;
