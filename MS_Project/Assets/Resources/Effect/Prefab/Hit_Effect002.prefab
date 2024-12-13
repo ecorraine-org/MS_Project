@@ -48,7 +48,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4815,7 +4815,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -5989,10 +5989,10 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.25335026, b: 1, a: 1}
-        key1: {r: 0, g: 0.38247347, b: 1, a: 0.49803922}
-        key2: {r: 0, g: 0.45698738, b: 1, a: 0.039215688}
-        key3: {r: 0, g: 0.3927497, b: 0.654902, a: 0.039215688}
+        key0: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0.49803922}
+        key2: {r: 1, g: 0.71227986, b: 0, a: 0.039215688}
+        key3: {r: 0.654902, g: 0.5056117, b: 0, a: 0.039215688}
         key4: {r: 1, g: 0, b: 0, a: 0.039215688}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -9564,7 +9564,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -10738,10 +10738,10 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.25335026, b: 1, a: 1}
-        key1: {r: 0, g: 0.38247347, b: 1, a: 0.49803922}
-        key2: {r: 0, g: 0.45698738, b: 1, a: 0.039215688}
-        key3: {r: 0, g: 0.3927497, b: 0.654902, a: 0.039215688}
+        key0: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0.49803922}
+        key2: {r: 1, g: 0.71227986, b: 0, a: 0.039215688}
+        key3: {r: 0.654902, g: 0.5056117, b: 0, a: 0.039215688}
         key4: {r: 1, g: 0, b: 0, a: 0.039215688}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -14313,7 +14313,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -15523,9 +15523,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.25335026, b: 1, a: 1}
-        key1: {r: 0, g: 0.38247347, b: 1, a: 0.49803922}
-        key2: {r: 0, g: 0.45698738, b: 1, a: 0.039215688}
+        key0: {r: 1, g: 0.89390385, b: 0, a: 1}
+        key1: {r: 1, g: 0.9667849, b: 0, a: 0.49803922}
+        key2: {r: 1, g: 0.925559, b: 0, a: 0.039215688}
         key3: {r: 0, g: 0.3927497, b: 0.654902, a: 0.039215688}
         key4: {r: 1, g: 0, b: 0, a: 0.039215688}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -19189,7 +19189,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -20363,10 +20363,10 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.25335026, b: 1, a: 1}
-        key1: {r: 0, g: 0.38247347, b: 1, a: 0.49803922}
-        key2: {r: 0, g: 0.45698738, b: 1, a: 0.039215688}
-        key3: {r: 0, g: 0.3927497, b: 0.654902, a: 0.039215688}
+        key0: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0.49803922}
+        key2: {r: 1, g: 0.71227986, b: 0, a: 0.039215688}
+        key3: {r: 0.654902, g: 0.5056117, b: 0, a: 0.039215688}
         key4: {r: 1, g: 0, b: 0, a: 0.039215688}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -23862,7 +23862,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -25036,10 +25036,10 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.25335026, b: 1, a: 1}
-        key1: {r: 0, g: 0.38247347, b: 1, a: 0.49803922}
-        key2: {r: 0, g: 0.45698738, b: 1, a: 0.039215688}
-        key3: {r: 0, g: 0.3927497, b: 0.654902, a: 0.039215688}
+        key0: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 1, b: 1, a: 0.49803922}
+        key2: {r: 1, g: 0.71227986, b: 0, a: 0.039215688}
+        key3: {r: 0.654902, g: 0.5056117, b: 0, a: 0.039215688}
         key4: {r: 1, g: 0, b: 0, a: 0.039215688}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -28605,7 +28605,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 0, g: 0.4340171, b: 0.654902, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0
   m_Range: 6
   m_SpotAngle: 30

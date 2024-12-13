@@ -83,7 +83,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 2867163864938312783}
           m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
-          m_MethodName: Slash_JumpInit
+          m_MethodName: MoveInit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -93,13 +93,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0.5
   - OnAction:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2867163864938312783}
           m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
-          m_MethodName: SpinInit
+          m_MethodName: Slash_TripleInit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -109,39 +109,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
-  - OnAction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2867163864938312783}
-          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
-          m_MethodName: Charge_SlashInit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    recoveryTime: 1
-  - OnAction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2867163864938312783}
-          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
-          m_MethodName: Charge_SlashInit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0
   - OnAction:
       m_PersistentCalls:
         m_Calls:
@@ -157,7 +125,39 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0.1
+  - OnAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2867163864938312783}
+          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
+          m_MethodName: SpinInit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    recoveryTime: 0.1
+  - OnAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2867163864938312783}
+          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
+          m_MethodName: Slash_TripleInit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    recoveryTime: 0.1
   - OnAction:
       m_PersistentCalls:
         m_Calls:
@@ -173,7 +173,39 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0.1
+  - OnAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2867163864938312783}
+          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
+          m_MethodName: Charge_SlashInit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    recoveryTime: 0
+  - OnAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2867163864938312783}
+          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
+          m_MethodName: Charge_SlashInit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    recoveryTime: 0
 --- !u!1 &9176923774088203080
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +256,22 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 2867163864938312783}
           m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
+          m_MethodName: MoveInit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    recoveryTime: 0.5
+  - OnAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2867163864938312783}
+          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
           m_MethodName: Slash_TripleInit
           m_Mode: 1
           m_Arguments:
@@ -234,7 +282,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0.1
   - OnAction:
       m_PersistentCalls:
         m_Calls:
@@ -250,23 +298,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
-  - OnAction:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2867163864938312783}
-          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
-          m_MethodName: SpinInit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0.1
   - OnAction:
       m_PersistentCalls:
         m_Calls:
@@ -282,7 +314,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0.1
   - OnAction:
       m_PersistentCalls:
         m_Calls:
@@ -298,7 +330,23 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0.1
+  - OnAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2867163864938312783}
+          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
+          m_MethodName: SpinInit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    recoveryTime: 0.1
   - OnAction:
       m_PersistentCalls:
         m_Calls:
@@ -314,7 +362,23 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    recoveryTime: 1
+    recoveryTime: 0
+  - OnAction:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2867163864938312783}
+          m_TargetAssemblyTypeName: UltimateActionList, Assembly-CSharp
+          m_MethodName: Charge_SlashInit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    recoveryTime: 0
 --- !u!1001 &5284657989075699011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -849,7 +913,7 @@ PrefabInstance:
       objectReference: {fileID: 259300551759975004}
     - target: {fileID: 4792376225027291187, guid: 94d4d523eef635c47b87c9ed9a9b3d2d, type: 3}
       propertyPath: soundEffects.Array.size
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4792376225027291187, guid: 94d4d523eef635c47b87c9ed9a9b3d2d, type: 3}
       propertyPath: 'soundEffects.Array.data[0]'
@@ -891,6 +955,14 @@ PrefabInstance:
       propertyPath: 'soundEffects.Array.data[9]'
       value: 
       objectReference: {fileID: 8300000, guid: cb40d5f2fd7de4f40a03c53b2d1d49ee, type: 3}
+    - target: {fileID: 4792376225027291187, guid: 94d4d523eef635c47b87c9ed9a9b3d2d, type: 3}
+      propertyPath: 'soundEffects.Array.data[10]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 4df13efb1f3b3bf42ba4b8acb04963c6, type: 3}
+    - target: {fileID: 4792376225027291187, guid: 94d4d523eef635c47b87c9ed9a9b3d2d, type: 3}
+      propertyPath: 'soundEffects.Array.data[11]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 139146656fbdf6e408a8bcabe581fcbf, type: 3}
     - target: {fileID: 4906462419934972259, guid: 94d4d523eef635c47b87c9ed9a9b3d2d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0.6410403

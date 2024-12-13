@@ -164,8 +164,12 @@ public class EnemySpawner : MonoBehaviour
                 mission.MissionTitle.SetActive(false);
 
                 //ボスを倒したら、リザルト画面を出す
-                if(missionType== MissionType.KillBoss) 
-                    Instantiate(resultPrefab, transform.position,Quaternion.identity);
+                if(missionType== MissionType.KillBoss)
+                {
+                    //Time.timeScale = 0;
+                    Instantiate(resultPrefab, transform.position, Quaternion.identity);
+                } 
+                    
             }
         }
     }
