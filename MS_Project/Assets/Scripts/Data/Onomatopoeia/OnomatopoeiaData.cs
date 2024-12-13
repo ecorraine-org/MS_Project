@@ -16,6 +16,9 @@ public class OnomatopoeiaData : ScriptableObject
     [Header("画像サイズ")]
     public float spriteSize = 1.0f;
 
+    [Header("アニメーション速度")]
+    public float spriteAnimSpeed = 1.0f;
+
     [Header("アニメーションコントローラー")]
     public AnimatorOverrideController onomatoACont;
 

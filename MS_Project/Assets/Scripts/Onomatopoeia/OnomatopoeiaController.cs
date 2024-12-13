@@ -61,6 +61,16 @@ public class OnomatopoeiaController : MonoBehaviour
             GetComponentInChildren<Animator>().runtimeAnimatorController = data.onomatoACont;
             this.transform.GetChild(0).gameObject.transform.localScale = new Vector3(data.spriteSize, data.spriteSize, 1.0f);
 
+        }
+        else
+        {
+            GetComponentInChildren<TextMeshPro>().font = data.fontAsset;
+            GetComponentInChildren<TextMeshPro>().color = new Color32(data.fontColor.r, data.fontColor.g, data.fontColor.b, data.fontColor.a);
+            GetComponentInChildren<TextMeshPro>().outlineWidth = 0.1f;
+            GetComponentInChildren<TextMeshPro>().outlineColor = new Color32(255, 255, 255, 255);
+
+            GetComponentInChildren<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
+        }
             //-------------------------------
             // AudioSouceデバック
             Debug.Log($"OnomatopoeiaData: {data}");
@@ -74,7 +84,7 @@ public class OnomatopoeiaController : MonoBehaviour
             }
 
             // シーン内のAudioSourceをすべて取得して重複チェック
-            AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+            AudioSource[] allAudioSources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
             bool isClipAlreadyAssigned = false;
 
             foreach (AudioSource existingAudioSource in allAudioSources)
@@ -98,18 +108,8 @@ public class OnomatopoeiaController : MonoBehaviour
                 //Debug.Log("同じSEがすでに存在");
             }
             //---------------------------------
-        }
-        else
-        {
-            GetComponentInChildren<TextMeshPro>().font = data.fontAsset;
-            GetComponentInChildren<TextMeshPro>().color = new Color32(data.fontColor.r, data.fontColor.g, data.fontColor.b, data.fontColor.a);
-            GetComponentInChildren<TextMeshPro>().outlineWidth = 0.1f;
-            GetComponentInChildren<TextMeshPro>().outlineColor = new Color32(255, 255, 255, 255);
 
-            GetComponentInChildren<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
-        }
-
-        fVelocity = RandomizeVelocity(emissionDirection * fStartSpeed);
+        objOnomatopoeia.transform.position = RandomizePosition(objOnomatopoeia.transform.position);
     }
 
     void Update()
@@ -137,6 +137,9 @@ public class OnomatopoeiaController : MonoBehaviour
 
     void UpdateParticle()
     {
+        fLifetime -= Time.deltaTime;
+
+        /*
         if (isMoving)
         {
             objOnomatopoeia.transform.position += fVelocity * Time.deltaTime;
@@ -149,8 +152,6 @@ public class OnomatopoeiaController : MonoBehaviour
             }
         }
 
-        fLifetime -= Time.deltaTime;
-
         if (fLifetime < 1f)
         {
             bool hasRB = this.gameObject.TryGetComponent<Rigidbody>(out rb);
@@ -159,16 +160,19 @@ public class OnomatopoeiaController : MonoBehaviour
                 this.gameObject.AddComponent<Rigidbody>();
             }
         }
+        */
         if (fLifetime <= 0)
         {
             isAlive = false;
         }
     }
 
-    Vector3 RandomizeVelocity(Vector3 baseVelocity)
+    Vector3 RandomizePosition(Vector3 basePosition)
     {
-        // 速度に乱数
-        return baseVelocity + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        // 位置に乱数
+        Vector3 finalPosition = basePosition;
+        finalPosition += new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        return finalPosition;
     }
 
 

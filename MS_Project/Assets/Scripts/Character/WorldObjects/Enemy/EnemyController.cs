@@ -294,7 +294,9 @@ public class EnemyController : WorldObjectController
             Quaternion newRotation = mainCamera.rotation;
             //newRotation = newRotation * Quaternion.Euler(0, 0, -90.0f);
 
-            Vector3 newPosition = new Vector3(this.transform.position.x+ onomatoOffsetPos.x, this.transform.position.y+ onomatoOffsetPos.y, this.transform.position.z+ onomatoOffsetPos.z - GetComponent<Collider>().bounds.extents.z);
+            Vector3 boundsOffset = GetComponent<Collider>().bounds.extents;
+
+            Vector3 newPosition = new Vector3(this.transform.position.x + onomatoOffsetPos.x, this.transform.position.y + onomatoOffsetPos.y + boundsOffset.y, this.transform.position.z + onomatoOffsetPos.z - boundsOffset.z);
 
             GameObject instance = Instantiate(onomatoObj, newPosition, newRotation, collector.transform);
             enemySpawner.enemyOnomatoPool.Add(instance);
