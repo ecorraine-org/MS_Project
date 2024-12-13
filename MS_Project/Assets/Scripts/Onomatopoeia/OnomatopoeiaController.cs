@@ -73,11 +73,30 @@ public class OnomatopoeiaController : MonoBehaviour
                 audioSource = gameObject.AddComponent<AudioSource>();
             }
 
-            // OnomatopDataからSEを取り出す
-            audioSource.clip = data.onomatoSE;
-            audioSource.playOnAwake = false; // 再生タイミングを制御する場合
+            // シーン内のAudioSourceをすべて取得して重複チェック
+            AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+            bool isClipAlreadyAssigned = false;
 
-            audioSource.Play();
+            foreach (AudioSource existingAudioSource in allAudioSources)
+            {
+                if (existingAudioSource.clip == data.onomatoSE)
+                {
+                    isClipAlreadyAssigned = true;
+                    break;
+                }
+            }
+
+            if (!isClipAlreadyAssigned)
+            {
+                // クリップを設定して再生
+                audioSource.clip = data.onomatoSE;
+                audioSource.playOnAwake = false;
+                audioSource.Play();
+            }
+            else
+            {
+                //Debug.Log("同じSEがすでに存在");
+            }
             //---------------------------------
         }
         else
@@ -95,7 +114,7 @@ public class OnomatopoeiaController : MonoBehaviour
 
     void Update()
     {
-       // CustomLogger.Log(OwningObject.name);
+        // CustomLogger.Log(OwningObject.name);
         if (!isAlive)
         {
             switch(OwningObject.GetComponent<WorldObjectController>().Type)
@@ -113,6 +132,7 @@ public class OnomatopoeiaController : MonoBehaviour
         {
             UpdateParticle();
         }
+        
     }
 
     void UpdateParticle()
@@ -153,7 +173,7 @@ public class OnomatopoeiaController : MonoBehaviour
 
 
     #region Getter & Setter
-    
+
     public OnomatopoeiaData Data
     {
         get => data;
