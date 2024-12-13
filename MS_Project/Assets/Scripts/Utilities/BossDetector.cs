@@ -54,15 +54,5 @@ public class BossDetector : MonoBehaviour
         CameraEffectManager.Instance.AddEffect(deathEffect);
     }
 
-    /*private void OnValidate()
-    {
-        if (_cameraManager == null)
-        {
-            _cameraManager = FindObjectOfType<CameraEffectManager>();
-            if (_cameraManager == null)
-            {
-                Debug.LogError("CameraEffectManager not found in scene!");
-            }
-        }
-    }*/
+
 }
