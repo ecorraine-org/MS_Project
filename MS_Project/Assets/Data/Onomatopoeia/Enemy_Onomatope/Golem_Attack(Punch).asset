@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dc0296d4a0259249be7c496d9fbfcbb, type: 3}
-  m_Name: Knuckle_Hit
+  m_Name: Golem_Attack(Punch)
   m_EditorClassIdentifier: 
-  wordToUse: "\u30C9\u30AB\u30C3"
-  fontAsset: {fileID: 11400000, guid: ad584379139b1df46b9777099a13e04e, type: 2}
+  wordToUse: 
+  onomatoSprite: {fileID: 0}
+  spriteSize: 1
+  onomatoACont: {fileID: 0}
+  fontAsset: {fileID: 0}
   fontColor:
     serializedVersion: 2
     rgba: 4278190080
-  type: 4
+  type: 0
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  onomatoSE: {fileID: 0}
