@@ -4,6 +4,8 @@ using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : WorldObject
@@ -68,6 +70,12 @@ public class PlayerController : WorldObject
     // 入力方向角度の閾値
     private const float angleThreshold = 22.5f;
 
+    [SerializeField, Header("死亡時のフェード用パネル")]
+    public Image fadePanel;             // フェード用のUIパネル（Image）
+    public float fadeDuration = 1.0f;   // フェードの完了にかかる時間
+    [SerializeField, Header("遷移先のシーン名")]
+    string sceneToLoad; // 切り替えるシーン名を指定
+
     public override void Awake()
     {
         base.Awake();
@@ -111,6 +119,9 @@ public class PlayerController : WorldObject
         groundCheck = gameObject.transform.GetChild(1).gameObject.transform;
         if (Debug.isDebugBuild)
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
+
+        fadePanel.enabled = false;       // フェードパネルを無効化
+        fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0.0f); // 初期状態では透明
     }
     private void TutorialUpdate()
     {
@@ -146,6 +157,11 @@ public class PlayerController : WorldObject
         if (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2))
         {
             statusManager.CurrentHealth = 0;
+        }
+
+        if(statusManager.CurrentHealth == 0)
+        {
+            StartCoroutine(FadeOutAndLoadScene());
         }
 
             //前方向で向き設定
@@ -497,4 +513,25 @@ public class PlayerController : WorldObject
     }
 
     #endregion
+
+     public IEnumerator FadeOutAndLoadScene()
+    {
+        fadePanel.enabled = true;   // フェードパネルを有効化
+
+        float elapsedTime = 0.0f;                        // 経過時間を初期化
+        Color startColor = fadePanel.color;              // フェードパネルの開始色を取得
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // フェードパネルの最終色を設定
+
+        // フェードアウトアニメーションを実行
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;                        // 経過時間を増やす
+            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // フェードの進行度を計算
+            fadePanel.color = Color.Lerp(startColor, endColor, t); // パネルの色を変更してフェードアウト
+            yield return null;                                     // 1フレーム待機
+        }
+
+        fadePanel.color = endColor;                                // フェードが完了したら最終色に設定
+        SceneManager.LoadScene(sceneToLoad);                    // シーンをロードしてメニューシーンに遷移
+    }
 }
