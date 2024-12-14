@@ -24,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
     #region ミッション情報
     [SerializeField, Header("リザルトプレハブ")]
     GameObject resultPrefab;
+    ResultScreenShot _resultScreenShot;
 
     [SerializeField, Header("ミッションエリアプレハブ")]
     PlayerBoundary missionArea;
@@ -35,16 +36,16 @@ public class EnemySpawner : MonoBehaviour
     PlayerBoundary missionAreaComp;
 
     [SerializeField, Header("ミッションエリア範囲")]
-    Vector3 missionAreaScale=new Vector3(1,1,1);
+    Vector3 missionAreaScale = new Vector3(1, 1, 1);
 
     //ミッションエリアサイズの初期値を記録
-  //  Vector3 areaDefaultScale;
+    //  Vector3 areaDefaultScale;
 
- [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
+    [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
     private MissionType missionType = MissionType.None;
     [Tooltip("ミッション詳細")]
     private string missionDetail = "";
-    [SerializeField,NonEditable,Header("キル数")]
+    [SerializeField, NonEditable, Header("キル数")]
     private int killCount = 0;
 
     [SerializeField, Header("ミッション済み"), Tooltip("ミッション済み")]
@@ -106,7 +107,7 @@ public class EnemySpawner : MonoBehaviour
 
         mission = GameObject.FindGameObjectWithTag("Mission").gameObject.GetComponent<UIMissionController>();
 
-       
+
     }
 
     private void Start()
@@ -158,7 +159,7 @@ public class EnemySpawner : MonoBehaviour
             startMission = true;
 
             //ミッションエリア生成
-            missionAreaInstance= Instantiate(missionArea.gameObject, transform.position, Quaternion.identity);
+            missionAreaInstance = Instantiate(missionArea.gameObject, transform.position, Quaternion.identity);
             missionAreaComp = missionAreaInstance.GetComponent<PlayerBoundary>();
             //元のサイズを記録
             // missionArea.DefaultScale = missionAreaInstance.transform.localScale;
@@ -166,17 +167,17 @@ public class EnemySpawner : MonoBehaviour
             string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
             missionDetail = count;
             missionDetail = mission.GetMissionDetails(missionType, missionDetail);
-            
+
         }
     }
 
     private void Update()
     {
-        if (missionAreaInstance != null&& missionAreaComp!=null)
+        if (missionAreaInstance != null && missionAreaComp != null)
         {
 
-                //サイズ変更
-                missionAreaComp.ChangeScale(missionAreaScale);
+            //サイズ変更
+            missionAreaComp.ChangeScale(missionAreaScale);
 
         }
 
@@ -186,7 +187,7 @@ public class EnemySpawner : MonoBehaviour
             missionDetail = count;
             missionDetail = mission.GetMissionDetails(missionType, missionDetail);
 
-         
+
 
             if (killCount >= mobCount)
             {
@@ -195,14 +196,14 @@ public class EnemySpawner : MonoBehaviour
                 mission.MissionTitle.SetActive(false);
 
                 //ボスを倒したら、リザルト画面を出す
-                if(missionType== MissionType.KillBoss)
+                if (missionType == MissionType.KillBoss)
                 {
-                    Instantiate(resultPrefab, transform.position, Quaternion.identity);
+                    HandleBossDefeated();
                 }
 
                 //エリアを無効にする
                 missionAreaInstance.SetActive(false);
-                    
+
             }
         }
     }
@@ -217,7 +218,7 @@ public class EnemySpawner : MonoBehaviour
 
         var spawnedEnemy = InstantiateEnemy(_enemydata, _position);
         enemyPool.Add(spawnedEnemy);
-            totalEnemyCount++;
+        totalEnemyCount++;
 
         //ボスの場合、通知を送信
         if (_enemydata.enemyRank == EnemyRank.Boss)
@@ -234,6 +235,40 @@ public class EnemySpawner : MonoBehaviour
         obj.name = _data.name;
         obj.GetComponent<EnemyController>().ParentSpawner = this.gameObject;
         return obj;
+    }
+
+    /// <summary>
+    /// ボスが倒されたときに呼び出されるコールバック
+    /// 仮
+    /// </summary>
+    private void HandleBossDefeated()
+    {
+
+
+        GameObject resultObj = Instantiate(resultPrefab, transform.position, Quaternion.identity);
+        _resultScreenShot = resultObj.GetComponent<ResultScreenShot>();
+
+        if (_resultScreenShot == null)
+        {
+            UnityEngine.Debug.LogError("ResultScreenShot component not found on prefab!");
+            return;
+        }
+
+        _resultScreenShot.OnScreenshotCompleted += OnScreenshotCompleted;
+        _resultScreenShot.StartScreenshotProcess();
+    }
+
+    /// <summary>
+    /// スクリーンショットが完了したときに呼び出されるコールバック
+    /// 仮
+    /// </summary>
+    private void OnScreenshotCompleted()
+    {
+        UnityEngine.Debug.Log("Screenshot process completed");
+        if (_resultScreenShot != null)
+        {
+            _resultScreenShot.OnScreenshotCompleted -= OnScreenshotCompleted;
+        }
     }
 
     private Vector3 RandomizeWithinRadius()
