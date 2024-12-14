@@ -16,7 +16,7 @@ public class BossDetector : MonoBehaviour
     private bool _waitingForDeath = false;
     private Vector3 _lastKnownPosition;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Time.time < _nextCheckTime) return;
         _nextCheckTime = Time.time + _checkInterval;
@@ -37,6 +37,8 @@ public class BossDetector : MonoBehaviour
         {
             Debug.Log("Boss death detected at position: " + _lastKnownPosition);
             HandleBossDeath();
+            //タイムスケールを一時的に遅くする
+            //StartCoroutine(SlowTimeForBossDeath());
             _waitingForDeath = false;
             _isMonitoring = false;
         }
@@ -54,5 +56,12 @@ public class BossDetector : MonoBehaviour
         CameraEffectManager.Instance.AddEffect(deathEffect);
     }
 
+    //ボス死亡時に一時的に時間を遅らせるコルーチン
+    public IEnumerator SlowTimeForBossDeath()
+    {
+        Time.timeScale = 0.1f;
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 1f;
+    }
 
 }

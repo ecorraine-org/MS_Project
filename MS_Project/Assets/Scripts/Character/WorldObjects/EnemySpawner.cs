@@ -25,6 +25,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Header("リザルトプレハブ")]
     GameObject resultPrefab;
     ResultScreenShot _resultScreenShot;
+    BossDetector _bossDetector;
 
     [SerializeField, Header("ミッションエリアプレハブ")]
     PlayerBoundary missionArea;
@@ -289,8 +290,10 @@ public class EnemySpawner : MonoBehaviour
         killCount++;
         totalEnemyCount--;
         enemyPool.Remove(_self);
+
         Destroy(_self);
     }
+
 
     /// <summary>
     /// エネミーオブジェクトを全て削除
@@ -312,5 +315,5 @@ public class EnemySpawner : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(center, spawnRadius);
     }
-    #endregion
 }
+#endregion
