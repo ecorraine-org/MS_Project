@@ -25,7 +25,22 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Header("リザルトプレハブ")]
     GameObject resultPrefab;
 
-    [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
+    [SerializeField, Header("ミッションエリアプレハブ")]
+    PlayerBoundary missionArea;
+
+    //生成されたミッションエリアを格納する
+    GameObject missionAreaInstance;
+
+    //ミッションエリア用のビヘイビア
+    PlayerBoundary missionAreaComp;
+
+    [SerializeField, Header("ミッションエリア範囲")]
+    Vector3 missionAreaScale=new Vector3(1,1,1);
+
+    //ミッションエリアサイズの初期値を記録
+  //  Vector3 areaDefaultScale;
+
+ [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
     private MissionType missionType = MissionType.None;
     [Tooltip("ミッション詳細")]
     private string missionDetail = "";
@@ -90,6 +105,8 @@ public class EnemySpawner : MonoBehaviour
         enemyCollector = this.transform.GetChild(1).gameObject;
 
         mission = GameObject.FindGameObjectWithTag("Mission").gameObject.GetComponent<UIMissionController>();
+
+       
     }
 
     private void Start()
@@ -139,16 +156,30 @@ public class EnemySpawner : MonoBehaviour
             mission.MissionItem.SetActive(true);
 
             startMission = true;
-            /*
+
+            //ミッションエリア生成
+            missionAreaInstance= Instantiate(missionArea.gameObject, transform.position, Quaternion.identity);
+            missionAreaComp = missionAreaInstance.GetComponent<PlayerBoundary>();
+            //元のサイズを記録
+            // missionArea.DefaultScale = missionAreaInstance.transform.localScale;
+
             string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
             missionDetail = count;
             missionDetail = mission.GetMissionDetails(missionType, missionDetail);
-            */
+            
         }
     }
 
     private void Update()
     {
+        if (missionAreaInstance != null&& missionAreaComp!=null)
+        {
+
+                //サイズ変更
+                missionAreaComp.ChangeScale(missionAreaScale);
+
+        }
+
         if (startMission && mission.MissionItem.activeInHierarchy)
         {
             string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
@@ -166,9 +197,11 @@ public class EnemySpawner : MonoBehaviour
                 //ボスを倒したら、リザルト画面を出す
                 if(missionType== MissionType.KillBoss)
                 {
-                    //Time.timeScale = 0;
                     Instantiate(resultPrefab, transform.position, Quaternion.identity);
-                } 
+                }
+
+                //エリアを無効にする
+                missionAreaInstance.SetActive(false);
                     
             }
         }

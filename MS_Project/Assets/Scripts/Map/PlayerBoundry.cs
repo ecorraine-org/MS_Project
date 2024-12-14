@@ -10,6 +10,9 @@ public class PlayerBoundary : MonoBehaviour
 
     Transform player;
 
+    //サイズの初期値を記録
+    Vector3 defaultScale;
+
     bool isInArea;
 
     private void Awake()
@@ -21,6 +24,9 @@ public class PlayerBoundary : MonoBehaviour
             // 初期位置記録
             lastValidPosition = player.position; 
         }
+
+        //初期サイズを記録
+        defaultScale = transform.localScale;
     }
 
     void FixedUpdate()
@@ -54,16 +60,31 @@ public class PlayerBoundary : MonoBehaviour
         return distanceToClosestPoint < 0.1f; // この閾値は胶囊のサイズに応じて調整可能
     }
 
-
-    //void OnTriggerExit(Collider other)
-    //{
-    //    if (player != null && other.CompareTag("Player"))
-    //    {
-    //        Debug.Log("制限");
-    //        //元の位置に戻す
-    //        other.transform.position = lastValidPosition;
-    //    }
+    /// <summary>
+    /// 元のスケールに基づいて、新しいスケールを適用
+    /// </summary>
+    public void ChangeScale(Vector3 _scale)
+    {
+        transform.localScale = Vector3.Scale(defaultScale, _scale);
+    }
 
 
-    //}
-}
+
+        //void OnTriggerExit(Collider other)
+        //{
+        //    if (player != null && other.CompareTag("Player"))
+        //    {
+        //        Debug.Log("制限");
+        //        //元の位置に戻す
+        //        other.transform.position = lastValidPosition;
+        //    }
+
+
+        //}
+
+        //public Vector3 DefaultScale
+        //{
+        //    get => defaultScale;
+        //    set { defaultScale=value; }
+        //}
+    }
