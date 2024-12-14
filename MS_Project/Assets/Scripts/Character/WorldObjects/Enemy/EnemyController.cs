@@ -283,6 +283,9 @@ public class EnemyController : WorldObjectController
     {
         if (canGenerateOnomatopoeia)
         {
+            //ミッションに追加
+            OnomatoMissionManager.Instance.AddToCurData(_onomatopoeiaData);
+
             GameObject collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
 
             onomatoObj.GetComponent<OnomatopoeiaController>().OwningObject = _owner;
