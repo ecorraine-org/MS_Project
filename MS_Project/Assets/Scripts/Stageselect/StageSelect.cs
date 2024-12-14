@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace Stage.Utility
 {
@@ -40,6 +41,10 @@ namespace Stage.Utility
         private int count;
         // リングの前後関係整列用のバッファー
         private List<RingStage> stageListCache = new List<RingStage>();
+
+        // アニメーション関係
+        private Sequence rotation;
+        private Tween zoomTween;
 
         // 最前面の要素
         public RingStage frontStage;
@@ -86,6 +91,8 @@ namespace Stage.Utility
 
                     // リストの先頭の要素が一番前に来るように調整
                     item.InitDegree = (this.oneAngle * i) + 270.0f;
+
+                    item.Rect.localScale = new Vector3(1, 1, 1); // スケールをリセット
                 }
 
                 // 最初のステージのロックを解除する
@@ -110,11 +117,13 @@ namespace Stage.Utility
                 this.count++;
                 float endValue = this.count * this.oneAngle;
 
-                this.enabled = true;
+                if (rotation != null && rotation.IsActive())
+                {
+                    rotation.Kill();
+                }
 
-                // GCAlloc -> 1.2K
-                var seq = DOTween.Sequence();
-                seq.Append(DOTween.To(() => this.stepAmount, val => this.stepAmount = val, endValue, this.magnetSpeed));
+                rotation = DOTween.Sequence();
+                rotation.Append(DOTween.To(() => this.stepAmount, val => this.stepAmount = val, endValue, this.magnetSpeed));
 
             }
             if (UIInputManager.Instance.GetRightTrigger() && !fZoomIn) // Rotate right
@@ -123,11 +132,13 @@ namespace Stage.Utility
                 this.count--;
                 float endValue = this.count * this.oneAngle;
 
-                this.enabled = true;
+                if (rotation != null && rotation.IsActive())
+                {
+                    rotation.Kill();
+                }
 
-                // GCAlloc -> 1.2K
-                var seq = DOTween.Sequence();
-                seq.Append(DOTween.To(() => this.stepAmount, val => this.stepAmount = val, endValue, this.magnetSpeed));
+                rotation = DOTween.Sequence();
+                rotation.Append(DOTween.To(() => this.stepAmount, val => this.stepAmount = val, endValue, this.magnetSpeed));
             }
 
             if (UIInputManager.Instance.GetEnterTrigger())
@@ -140,11 +151,17 @@ namespace Stage.Utility
             {
                 DOTween.To(() => this.ringWidth, value => this.ringWidth = value, expandedRingWidth, expandDuration).SetEase(Ease.OutCubic);
 
-                // 最前面のステージを拡大し、その拡大状態を永続にする
-                frontStage.Rect.DOScale(new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ), expandDuration).OnComplete(() => {
-                    // アニメーションが完了した後に拡大したスケールを永続的に適用
-                    frontStage.Rect.localScale = new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ);
+                //// 最前面のステージを拡大し、その拡大状態を永続にする
+                //frontStage.Rect.DOScale(new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ), expandDuration).OnComplete(() =>
+                //{
+                //    // アニメーションが完了した後に拡大したスケールを永続的に適用
+                //    frontStage.Rect.localScale = new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ);
 
+                //    flag = true;
+                //});
+
+                transform.DOScale(new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ), expandDuration).OnComplete(() =>
+                {
                     flag = true;
                 });
             }
@@ -171,17 +188,23 @@ namespace Stage.Utility
 
             if (fZoomOut == true)
             {
-                // 最前面のステージを縮小し、その縮小状態を永続にする
-                frontStage.Rect.DOScale(new Vector3(1, 1, 1), expandDuration).OnComplete(() => {
-                    // アニメーションが完了した後に縮小したスケールを永続的に適用
-                    frontStage.Rect.localScale = new Vector3(1, 1, 1);
+                //// 最前面のステージを縮小し、その縮小状態を永続にする
+                //frontStage.Rect.DOScale(new Vector3(1, 1, 1), expandDuration).OnComplete(() => {
+                //    // アニメーションが完了した後に縮小したスケールを永続的に適用
+                //    frontStage.Rect.localScale = new Vector3(1, 1, 1);
 
-                    // flag をリセット
-                    flag = false;
-                });
+                //    // flag をリセット
+                //    flag = false;
+                //});
 
-                // リングのサイズを元に戻す
-                DOTween.To(() => this.ringWidth, value => this.ringWidth = value, originWidth, expandDuration).SetEase(Ease.OutCubic);
+                transform.DOScale(new Vector3(1, 1, 1), expandDuration).OnComplete(() => {
+
+                        // flag をリセット
+                        flag = false;
+                 });
+
+                    // リングのサイズを元に戻す
+                    DOTween.To(() => this.ringWidth, value => this.ringWidth = value, originWidth, expandDuration).SetEase(Ease.OutCubic);
 
                 // fZoomOut フラグをリセット
                 fZoomOut = false;
@@ -304,6 +327,11 @@ namespace Stage.Utility
                     SceneManager.LoadScene(sceneToLoad9);
                     break;
             }
+        }
+
+        void OnDestroy()
+        {
+            DOTween.KillAll();
         }
     }
 
