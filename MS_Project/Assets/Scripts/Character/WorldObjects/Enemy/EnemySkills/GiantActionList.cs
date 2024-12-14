@@ -79,8 +79,6 @@ public class GiantActionList : EnemyAction
         if (moveStage == 0) HandleWalk();
         if (moveStage == 1) HandleDash();
 
-        Looking();
-
         //移動
         enemy.Move();
 
@@ -91,6 +89,19 @@ public class GiantActionList : EnemyAction
     {
         // 追跡
         enemy.OnMovementInput?.Invoke(direction.normalized);
+
+        direction = player.position - enemy.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+        targetRotation.z = 0f;
+
+        enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.3f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+
 
         if (frameTime >= 5.0f &&
               distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 3.0f ||
@@ -145,7 +156,7 @@ public class GiantActionList : EnemyAction
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(30.0f, false);
+        enemy.AttackCollider.DetectColliders(18.0f, false);
 
         if (!stateInfo.IsName("Dash_Attack"))
         {
@@ -156,7 +167,20 @@ public class GiantActionList : EnemyAction
         {
             // 追跡
             enemy.OnMovementInput?.Invoke(direction.normalized * 10.0f);
-            Looking();
+
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
+
+                enemy.transform.rotation = Quaternion.Slerp(
+                enemy.transform.rotation,
+                targetRotation,
+                0.3f // 補間率（1.0fで即時、0.0fで変化なし）
+            );
+
+
             if (frameTime >= 4.0f ||
             distanceToPlayer <= enemyStatus.StatusData.attackDistance * 1.5f && CheckListTimer())//もう待ちきれない  
             {
@@ -205,15 +229,17 @@ public class GiantActionList : EnemyAction
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
 
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
         //攻撃判定
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
         direction = player.position - enemy.transform.position;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
         targetRotation.x = 0f;
+        targetRotation.z = 0f;
 
         if (stateInfo.normalizedTime <= 0.5f)
             enemy.transform.rotation = Quaternion.Slerp(
@@ -252,6 +278,7 @@ public class GiantActionList : EnemyAction
 
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
         targetRotation.x = 0f;
+        targetRotation.z = 0f;
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
