@@ -7,10 +7,19 @@ public class BossAreaLockCamera : MonoBehaviour
 {
     //シネマシーンブレイン
     private CinemachineBrain _cinemachineBrain;
+    //プレイヤー
+    private Transform _player;
 
     private void Update()
     {
-        //
+        //プレイヤーがいる場合
+        if (_player != null)
+        {
+            //プレイヤーの位置を取得
+            Vector3 playerPos = _player.position;
+            //プレイヤーの位置をカメラの位置に設定
+            transform.position = new Vector3(playerPos.x, playerPos.y, playerPos.z - 10);
+        }
     }
 
     //プレイヤーがOnTriggerEnterでボスエリアに入ったときにカメラをロックする
@@ -21,7 +30,11 @@ public class BossAreaLockCamera : MonoBehaviour
         {
             Debug.Log("BossAreaLockCamera");
             GameObject.Find("VCam_BossArea").GetComponent<CinemachineVirtualCamera>().Priority = 100;
-            //VCamのTargetGroupを設定する
+            //VCamのTargetGroupにプレイヤーを追加
+            //GameObject.Find("VCam_BossArea").GetComponent<CinemachineVirtualCamera>().Follow = other.transform;
+            //ボスを追加
+            GameObject.Find("VCam_BossArea").GetComponent<CinemachineVirtualCamera>().LookAt = other.transform;
+            //GameObject.Find("VCam_BossArea").GetComponent<CinemachineVirtualCamera>().LookAt = GameObject.Find("Boss_Golem(Clone)").transform;
 
         }
     }
