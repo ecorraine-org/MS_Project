@@ -112,8 +112,14 @@ public class PlayerController : WorldObject
 
     private void Update()
     {
-        //前方向で向き設定
-        UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.LookRotation(GetForward());
+        //デバグ用即死
+        if (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2))
+        {
+            statusManager.CurrentHealth = 0;
+        }
+
+            //前方向で向き設定
+            UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.LookRotation(GetForward());
         transform.rotation = UnityEngine.Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
 
         //スプライトをカメラに向く
