@@ -57,4 +57,12 @@ public class EnemyAnimManager : AnimManager
 
         skillManager.DashHandler.End();
     }
+
+    public void TutorialJumpStopEvt()
+    {
+        if (enemy.PlayerController.tutorialStage == TutorialStage.Step2)
+        {
+            enemy.EnemyAction.TutorialStopTime();
+        }
+    }
 }

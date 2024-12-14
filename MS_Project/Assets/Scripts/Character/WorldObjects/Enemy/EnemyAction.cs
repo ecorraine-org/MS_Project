@@ -158,4 +158,15 @@ public abstract class EnemyAction : MonoBehaviour
         get { return enemyStatus; }
         set { enemyStatus = value; }
     }
+
+
+    //仮りで作った
+    public void TutorialStopTime()
+    {
+        Time.timeScale = 0;
+        //UI操作
+        InputController.Instance.SetInputContext(InputController.InputContext.UI);
+
+        enemy.PlayerController.tutorialStage = TutorialStage.Step3;
+    }
 }

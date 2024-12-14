@@ -5,8 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PlayerController : WorldObject
 {
+    public TutorialStage tutorialStage= TutorialStage.None;
+
     //シングルトン
     protected PlayerInputManager inputManager;
     BattleManager battleManager;
@@ -109,9 +112,36 @@ public class PlayerController : WorldObject
         if (Debug.isDebugBuild)
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
     }
+    private void TutorialUpdate()
+    {
+        //仮でチュートリアル
+        switch (tutorialStage)
+        {
+            case TutorialStage.Step1:
+                Debug.Log("チュートリアル第1段階");
+
+                if (Input.GetKey(KeyCode.Return))
+                    tutorialStage = TutorialStage.Step2;
+                break;
+
+            //時間速度を戻す
+            case TutorialStage.Step2:
+                Debug.Log("チュートリアル第2段階");
+
+                InputController.Instance.SetInputContext(InputController.InputContext.Player);
+                Time.timeScale = 1;
+
+                break;
+            case TutorialStage.Step3:
+                break;
+        }
+    }
 
     private void Update()
     {
+        TutorialUpdate();
+
+      
         //デバグ用即死
         if (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2))
         {
