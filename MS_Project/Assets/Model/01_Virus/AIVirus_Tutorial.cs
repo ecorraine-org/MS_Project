@@ -14,19 +14,11 @@ public class AIVirus_Tutorial : EnemyAction
 
     private void Awake()
     {
-      //  playerComp = player.GetComponent<PlayerController>();
     }
 
     public void Update()
     {
-      
-
-        //if (playerComp == null)
-        //{
-        //    playerComp = player.GetComponent<PlayerController>();
-        //}
-
-
+    
         distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
 
       //  Debug.Log("distanceToPlayer "+ distanceToPlayer);
@@ -43,7 +35,26 @@ public class AIVirus_Tutorial : EnemyAction
         //HP70以下攻撃
         if (enemy.PlayerController.tutorialStage == TutorialStage.Step2&&enemy.Status.CurrentHealth<=0.7* enemy.Status.StatusData.maxHealth)
         {
+            if(stateHandler.CurrentStateType!=ObjectStateType.Attack)
             stateHandler.TransitionState(ObjectStateType.Attack);
+
+
+
+
+        //    //ちょっとずつ見る
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
+
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
 
         }
     }
