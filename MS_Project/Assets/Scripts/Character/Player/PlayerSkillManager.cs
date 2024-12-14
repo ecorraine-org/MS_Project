@@ -354,7 +354,7 @@ public class PlayerSkillManager : MonoBehaviour
     public void SwordAttackInit()
     {
         HandleAttackerParams();
-        attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;     
+     //   attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;     
         maxAttackStage = 1;
 
         // 突進初期化
@@ -368,7 +368,7 @@ public class PlayerSkillManager : MonoBehaviour
             curEffectParam = effectData.dicEffect[PlayerEffect.SwordAttack1];
 
 
-
+            attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;
         }
 
         if (attackStage == 1)
@@ -377,6 +377,7 @@ public class PlayerSkillManager : MonoBehaviour
 
             curEffectParam = effectData.dicEffect[PlayerEffect.SwordAttack2];
 
+            attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage*2;
         }
     }
 
@@ -396,8 +397,15 @@ public class PlayerSkillManager : MonoBehaviour
         attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;
         playerController.SpriteAnim.Play("HammerAttack", 0, 0f);
 
-        // 突進初期化
-        dash.Speed = hitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
+        curEffectParam = effectData.dicEffect[PlayerEffect.HammerAttack];
+        ParticleManager particle = effectInstance.GetComponent<ParticleManager>();
+        if (particle != null)
+        {
+            //particle.//イベント
+        }
+
+            // 突進初期化
+            dash.Speed = hitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
         dash.Duration = -1;
     }
     #endregion

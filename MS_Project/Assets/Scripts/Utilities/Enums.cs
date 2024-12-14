@@ -131,4 +131,18 @@ public enum PlayerEffect
     [InspectorName("剣攻撃1")] SwordAttack1,
     [InspectorName("剣攻撃2")] SwordAttack2,
     [InspectorName("スピア攻撃")] SpearAttack,
+    [InspectorName("ハンマー攻撃")] HammerAttack,
+}
+
+/// <summary>
+/// チュートリアル段階
+/// </summary>
+public enum TutorialStage
+{
+    None,
+    Step1,
+    Step2,
+    Step3,
+    Step4,
+    Step5
 }
