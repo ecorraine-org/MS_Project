@@ -48,9 +48,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, NonEditable, Header("キル数")]
     private int killCount = 0;
 
-    [SerializeField, Header("ミッション済み"), Tooltip("ミッション済み")]
+    [SerializeField,NonEditable, Header("ミッション済み")]
     private bool hasCleared = false;
-    private bool startMission = false;
+    [SerializeField, NonEditable, Header("ミッション開始")]
+    private bool isStartMission = false;
 
     private UIMissionController mission;
     #endregion
@@ -113,12 +114,14 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         hasFinishedSpawn = false;
-        startMission = false;
+        isStartMission = false;
         hasCleared = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+   
+
         if (!other.CompareTag("Player")) return;
 
         if (hasFinishedSpawn) return;
@@ -150,13 +153,25 @@ public class EnemySpawner : MonoBehaviour
 
         if (mission)
         {
-            CustomLogger.Log(this.gameObject.scene.name + "のスポナー起動");
+            CustomLogger.Log(this.gameObject.scene.name + "のスポナー" + name + "起動");
 
             mission.Spawner = this;
             mission.MissionTitle.SetActive(true);
-            mission.MissionItem.SetActive(true);
+            //if (!mission.MissionPanel.activeSelf)
+            //{
+            //    //子オブジェクト含めて、有効にする
+            //    mission.MissionPanel.SetActive(true);
+            //    // 一旦子オブジェクトを全部無効にして、条件によって有効にする
+            //    mission.EnemyMissionItem.SetActive(false);
+            //    mission.BossMissionItem.SetActive(false);
+            //}
 
-            startMission = true;
+              
+            if (missionType == MissionType.KillAll) mission.EnemyMissionItem.SetActive(true);
+            if (missionType == MissionType.KillBoss) mission.BossMissionItem.SetActive(true);
+
+
+            isStartMission = true;
 
             //ミッションエリア生成
             missionAreaInstance = Instantiate(missionArea.gameObject, transform.position, Quaternion.identity);
@@ -164,40 +179,65 @@ public class EnemySpawner : MonoBehaviour
             //元のサイズを記録
             // missionArea.DefaultScale = missionAreaInstance.transform.localScale;
 
-            string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
-            missionDetail = count;
-            missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+          // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
+            //string count =  killCount + "/" + mobCount.ToString();
+            //UnityEngine.Debug.Log("count "+ count);
+            //missionDetail = count;
+            //missionDetail = mission.GetMissionDetails(missionType, missionDetail);
 
+            ////表示する
+            //if (missionType == MissionType.KillAll) mission.EnemyTxt.text = count;
+            //if (missionType == MissionType.KillBoss) mission.BossTxt.text = count;
+
+            UpdateText();
         }
+    }
+
+    private void UpdateText()
+    {
+        // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
+        string count = killCount + "/" + mobCount.ToString();
+        UnityEngine.Debug.Log("count " + count);
+        missionDetail = count;
+        missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+
+        //表示する
+        if (missionType == MissionType.KillAll) mission.EnemyTxt.text = count;
+        if (missionType == MissionType.KillBoss) mission.BossTxt.text = count;
     }
 
     private void Update()
     {
+
         if (missionAreaInstance != null && missionAreaComp != null)
         {
-
-            //サイズ変更
+            //エリアサイズ変更
             missionAreaComp.ChangeScale(missionAreaScale);
-
         }
 
-        if (startMission && mission.MissionItem.activeInHierarchy)
+        // if (isStartMission&& !hasCleared && mission.MissionPanel.activeInHierarchy)
+        if (isStartMission && !hasCleared)
         {
             string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
             missionDetail = count;
             missionDetail = mission.GetMissionDetails(missionType, missionDetail);
 
-
-
             if (killCount >= mobCount)
             {
                 hasCleared = true;
-                mission.MissionItem.SetActive(false);
+                isStartMission = false;
+               // mission.MissionPanel.SetActive(false);
                 mission.MissionTitle.SetActive(false);
 
-                //ボスを倒したら、リザルト画面を出す
-                if (missionType == MissionType.KillBoss)
+                if (missionType == MissionType.KillAll)
                 {
+                    mission.EnemyMissionItem.SetActive(false);
+                }
+
+                    //ボスを倒したら、リザルト画面を出す
+                    if (missionType == MissionType.KillBoss)
+                {
+                    mission.BossMissionItem.SetActive(false);
                     HandleBossDefeated();
                 }
 
@@ -288,6 +328,8 @@ public class EnemySpawner : MonoBehaviour
     {
         killCount++;
         totalEnemyCount--;
+        //表示更新
+        UpdateText();
         enemyPool.Remove(_self);
         Destroy(_self);
     }

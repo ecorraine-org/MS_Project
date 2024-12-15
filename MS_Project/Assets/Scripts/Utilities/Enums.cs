@@ -116,7 +116,8 @@ public enum MissionType
     [InspectorName("敵殲滅"), Tooltip("敵殲滅")] KillAll,
     [InspectorName("ボス撃破"), Tooltip("ボス撃破")] KillBoss,
     [InspectorName("道開き"), Tooltip("道開き")] OpenRoute,
-    [InspectorName("保護"), Tooltip("保護")] Protect
+    [InspectorName("保護"), Tooltip("保護")] Protect,
+    [InspectorName("チュートリアル"), Tooltip("チュートリアル")] Tutorial
 }
 
 /// <summary>

@@ -10,7 +10,25 @@ public class UIMissionController : MonoBehaviour
     [SerializeField, Header("ミッションＵＩ")]
     private GameObject missionTitle;
     [SerializeField]
-    private GameObject missionItem;
+    private GameObject missionPanel;
+
+    [SerializeField, Header("エネミーミッション")]
+    private GameObject enemyMissionItem;
+
+    [SerializeField, Header("ボスミッション")]
+    private GameObject bossMissionItem;
+
+    [SerializeField, Header("オノマトペミッション")]
+    private GameObject onomatoMissionItem;
+
+    [SerializeField, Header("倒したエネミー数")]
+    private Text enemyTxt;
+
+    [SerializeField, Header("倒したボス数")]
+    private Text bossTxt;
+
+    [SerializeField, Header("集めたオノマトペ数")]
+    private Text onomatoTxt;
 
     [SerializeField, Header("ミッションタイプ"), Tooltip("ミッションタイプ")]
     private MissionType missionType = MissionType.None;
@@ -37,6 +55,12 @@ public class UIMissionController : MonoBehaviour
             if (this.transform.GetChild(child).gameObject.activeInHierarchy)
                 this.transform.GetChild(child).gameObject.SetActive(false);
         }
+
+        //子オブジェクト含めて、有効にする
+        missionPanel.SetActive(true);
+        // 一旦子オブジェクトを全部無効にして、条件によって有効にする
+        enemyMissionItem.SetActive(false);
+        bossMissionItem.SetActive(false);
     }
 
     private void CheckMission(MissionType _missiontype)
@@ -80,13 +104,25 @@ public class UIMissionController : MonoBehaviour
                 missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>？？？</b>";
                 missionText = "？？？";
                 break;
+
+            case MissionType.Tutorial:
+                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>チュートリアル</b>";
+                missionText = " ";
+                break;
+            default:
+                missionText = " ";
+                break;
+                
         }
 
         missionTitle.GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0, 0, 0, 255);
         missionTitle.GetComponentInChildren<TextMeshProUGUI>().outlineWidth = 0.2f;
         missionTitle.GetComponentInChildren<TextMeshProUGUI>().outlineColor = new Color32(255, 255, 255, 255);
 
-        return tmpMission.text = missionText;
+
+        // return tmpMission.text = missionText;
+        if (tmpMission) tmpMission.text = missionText;
+        return missionText;
     }
 
     #region　Getter and Setter
@@ -95,14 +131,47 @@ public class UIMissionController : MonoBehaviour
         get => missionTitle;
     }
 
-    public GameObject MissionItem
+    public GameObject MissionPanel
     {
-        get => missionItem;
+        get => missionPanel;
+    }
+
+    public GameObject EnemyMissionItem
+    {
+        get => enemyMissionItem;
+    }
+
+    public GameObject BossMissionItem
+    {
+        get => bossMissionItem;
+    }
+
+    public GameObject OnomatoMissionItem
+    {
+        get => onomatoMissionItem;
+    }
+
+    public Text EnemyTxt
+    {
+        get => enemyTxt;
+        set { enemyTxt = value; }
+    }
+
+    public Text BossTxt
+    {
+        get => bossTxt;
+        set { bossTxt = value; }
+    }
+
+    public Text OnomatoTxt
+    {
+        get => onomatoTxt;
+        set { onomatoTxt = value; }
     }
 
     public TextMeshProUGUI tmpMission
     {
-        get => MissionItem.GetComponentInChildren<TextMeshProUGUI>();
+        get => MissionPanel.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public EnemySpawner Spawner
