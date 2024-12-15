@@ -9,9 +9,9 @@ public class TransformationNotication : MonoBehaviour
 
     float cunt;
 
-    //フレームを60に固定
     private void Start()
     {
+        //フレームを60に固定
         //Application.targetFrameRate = 60;
     }
     private void Update()
