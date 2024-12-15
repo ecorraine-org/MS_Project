@@ -174,22 +174,7 @@ public class PlayerStateManager : MonoBehaviour
         return false;
     }
 
-    /// <summary>
-    /// 回避状態チェック
-    /// </summary>
-    public bool CheckDodge()
-    {
-        //ボタン入力
-        bool isDashTrigger = playerController.InputManager.GetDashTrigger();
-        //回避中は再度回避できないようにする
-        if (isDashTrigger && playerController.StateManager.CurrentStateType!= StateType.Dodge)
-        {
-            TransitionState(StateType.Dodge);
-            return true;
-        }
-
-        return false;
-    }
+  
 
     /// <summary>
     /// 攻撃状態チェック
@@ -201,6 +186,24 @@ public class PlayerStateManager : MonoBehaviour
         if (isAttack)
         {
             TransitionState(StateType.Attack);
+            return true;
+        }
+
+        return false;
+    }
+    /// <summary>
+    /// 回避状態チェック
+    /// </summary>
+    public bool CheckDodge()
+    {
+        //ボタン入力
+        bool isDashTrigger = playerController.InputManager.GetDashTrigger();
+     
+        if (isDashTrigger   
+            && playerController.SkillManager.CoolTimers[PlayerSkill.Dodge] <= 0
+            &&playerController.StateManager.CurrentStateType != StateType.Dodge)   //回避中は再度回避できないようにする
+        {
+            TransitionState(StateType.Dodge);
             return true;
         }
 

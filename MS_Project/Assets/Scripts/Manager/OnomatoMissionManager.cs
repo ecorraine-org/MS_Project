@@ -14,7 +14,7 @@ public class OnomatoMissionManager : SingletonBaseBehavior<OnomatoMissionManager
     StageOnomatoData targetData;
 
     //集めたオノマトペを格納する配列
-    [SerializeField,NonEditable,Header("集めたオノマトペを格納する配列")]
+    [SerializeField, NonEditable, Header("集めたオノマトペを格納する配列")]
     List<OnomatopoeiaData> curData = new List<OnomatopoeiaData>();
 
     [SerializeField, NonEditable, Header("個数記録")]
@@ -23,13 +23,15 @@ public class OnomatoMissionManager : SingletonBaseBehavior<OnomatoMissionManager
     [SerializeField, NonEditable, Header("総数")]
     int maxNum;
 
+    [SerializeField, NonEditable, Header("ミッションコントローラー")]
+    UIMissionController missionController;
+
     protected override void AwakeProcess()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
 
         if (currentSceneName == "StartScene01")
         {
-            // Debug.Log("Stage Name" + currentSceneName);
             //初期化
             if (targetData == null)
             {
@@ -40,6 +42,8 @@ public class OnomatoMissionManager : SingletonBaseBehavior<OnomatoMissionManager
             {
                 targetData.StageOnomatoList = new List<OnomatopoeiaData>(stage1Data.StageOnomatoList);
                 maxNum = targetData.StageOnomatoList.Count();
+
+                UpdateText();
             }
             else
             {
@@ -47,10 +51,25 @@ public class OnomatoMissionManager : SingletonBaseBehavior<OnomatoMissionManager
             }
 
         }
-        //else
-        //{
-        //    Debug.Log("Name" + currentSceneName);
-        //}
+    }
+
+    private void UpdateText()
+    {
+
+        //UI取得
+        if (missionController == null)
+        {
+            missionController = GameObject.FindGameObjectWithTag("Mission").gameObject.GetComponent<UIMissionController>();
+        
+        }
+
+        if (missionController)
+        {
+            //表示更新
+            missionController.OnomatoTxt.text = count.ToString() + "/" + maxNum.ToString();
+        }
+
+
     }
 
     public void AddToCurData(OnomatopoeiaData _data)
@@ -58,10 +77,17 @@ public class OnomatoMissionManager : SingletonBaseBehavior<OnomatoMissionManager
         //入ってないオノマトペ
         //ターゲットになる
         //を入れる
-        if (!curData.Contains(_data)&& targetData.StageOnomatoList.Contains(_data))
+        if (!curData.Contains(_data) && targetData.StageOnomatoList.Contains(_data))
         {
             curData.Add(_data);
             count++;
+
+            //表示更新
+            UpdateText();
+
+
+
+
         }
     }
 

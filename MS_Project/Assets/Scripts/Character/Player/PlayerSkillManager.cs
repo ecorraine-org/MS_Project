@@ -157,6 +157,10 @@ public class PlayerSkillManager : MonoBehaviour
 
                 ExecuteGauntletSkill();
                 break;
+            case PlayerSkill.Dodge:
+
+                ExecuteDodge(false, playerController.CurDirecVector);
+                break;
             default:
                 break;
         }

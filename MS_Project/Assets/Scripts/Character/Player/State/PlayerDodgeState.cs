@@ -18,7 +18,8 @@ public class PlayerDodgeState : PlayerState
         ////   方向設定
         //if (inputDirec == Vector2.zero) playerController.CurDirecVector = playerController.GetForward();
 
-        playerSkillManager. ExecuteDodge(false, playerController.CurDirecVector);
+        // playerSkillManager. ExecuteDodge(false, playerController.CurDirecVector);
+        playerSkillManager.UseSkill(PlayerSkill.Dodge);
 
         //無敵
         playerController.StatusManager.IsInvincible = true;
