@@ -347,7 +347,7 @@ public class UltimateActionList : EnemyAction
     {
 
         animator.Play("Slash_Dual");
-
+        enemy.OnMovementInput?.Invoke(direction.normalized * 0.0f);
         frameTime = 0;
 
         //Updateで呼び出すために必須のバインド
@@ -370,8 +370,6 @@ public class UltimateActionList : EnemyAction
 
         if (stateInfo.normalizedTime <= 0.3f)
         {
-            enemy.OnMovementInput?.Invoke(direction.normalized * 0.0f);
-
             direction = player.position - enemy.transform.position;
 
             Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
@@ -384,14 +382,11 @@ public class UltimateActionList : EnemyAction
             0.3f // 補間率（1.0fで即時、0.0fで変化なし）
         );
         }
-        else if (stateInfo.normalizedTime > 0.3f && stateInfo.normalizedTime <= 0.5f)
+        else if ((stateInfo.normalizedTime > 0.3f && stateInfo.normalizedTime <= 0.5f))
         {
-            // 追跡
-            enemy.OnMovementInput?.Invoke(direction.normalized * 5.5f);
-        }
-        else
-        {
-            enemy.OnMovementInput?.Invoke(direction.normalized * 0.0f);
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 1.0f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
         }
 
         //移動
@@ -411,7 +406,7 @@ public class UltimateActionList : EnemyAction
     {
 
         animator.Play("Slash_Triple");
-
+        enemy.OnMovementInput?.Invoke(direction.normalized * 0.0f);
         frameTime = 0;
 
         //Updateで呼び出すために必須のバインド
@@ -435,8 +430,6 @@ public class UltimateActionList : EnemyAction
 
         if (stateInfo.normalizedTime <= 0.3f)
         {
-            enemy.OnMovementInput?.Invoke(direction.normalized * 0.0f);
-
             direction = player.position - enemy.transform.position;
 
             Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
@@ -451,11 +444,21 @@ public class UltimateActionList : EnemyAction
         }
         else if (stateInfo.normalizedTime > 0.3f && stateInfo.normalizedTime <= 0.65f)
         {
-            enemy.OnMovementInput?.Invoke(direction.normalized * 3.0f);
-        }
-        else
-        {
-            enemy.OnMovementInput?.Invoke(direction.normalized * 0.0f);
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
+
+            enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.02f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
+
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 0.7f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
         }
 
         //移動

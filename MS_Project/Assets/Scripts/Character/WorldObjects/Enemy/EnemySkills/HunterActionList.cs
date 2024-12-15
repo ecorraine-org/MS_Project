@@ -32,18 +32,20 @@ public class HunterActionList : EnemyAction
         //ダメージチェック
         if (stateHandler.CheckHit()) return;
 
-        //移動へ遷移
         float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
-        if (distanceToPlayer <= enemyStatus.StatusData.chaseDistance)
+
+        //攻撃へ遷移
+        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())
         {
-            enemy.State.TransitionState(ObjectStateType.Walk);
+            stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
             return;
         }
 
-        //リストへ遷移
-        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())
+        //移動へ遷移
+        if (distanceToPlayer > enemyStatus.StatusData.attackDistance * 0.7f && 
+            distanceToPlayer <= enemyStatus.StatusData.chaseDistance)
         {
-            enemy.State.TransitionState(ObjectStateType.Skill);
+            enemy.State.TransitionState(ObjectStateType.Walk);
             return;
         }
 
@@ -101,12 +103,12 @@ public class HunterActionList : EnemyAction
         enemy.transform.rotation = Quaternion.Slerp(
         enemy.transform.rotation,
         targetRotation,
-        0.3f // 補間率（1.0fで即時、0.0fで変化なし）
+        0.1f // 補間率（1.0fで即時、0.0fで変化なし）
     );
 
 
-        if (frameTime >= 1.8f ||
-            distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 4.0f)
+        if (frameTime >= 2.0f ||
+            distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 5.0f)
         {
             //移動状態(走り)へ遷移
             moveStage = 1;
@@ -122,10 +124,16 @@ public class HunterActionList : EnemyAction
             return;
         }
         //攻撃へ遷移遠め
-        if (distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 2.8f && CheckListTimer())
+        if (distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 3.0f && CheckListTimer())
         {
             stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
             return;
+        }
+
+        //ニュートラルに
+        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance * 0.7f)
+        {
+            stateHandler.TransitionState(ObjectStateType.Idle);
         }
 
     }
@@ -206,7 +214,7 @@ public class HunterActionList : EnemyAction
         enemy.transform.rotation = Quaternion.Slerp(
         enemy.transform.rotation,
         targetRotation,
-        0.3f // 補間率（1.0fで即時、0.0fで変化なし）
+        0.1f // 補間率（1.0fで即時、0.0fで変化なし）
     );
 
         //攻撃へ遷移
@@ -338,23 +346,22 @@ public class HunterActionList : EnemyAction
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        direction = player.position - enemy.transform.position;
+        if (stateInfo.normalizedTime <= 0.2f)
+        {
+            direction = player.position - enemy.transform.position;
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
-        targetRotation.x = 0f;
-        targetRotation.z = 0f;
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
 
-        if (stateInfo.normalizedTime <= 0.25f)
             enemy.transform.rotation = Quaternion.Slerp(
             enemy.transform.rotation,
             targetRotation,
-            0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+            0.01f // 補間率（1.0fで即時、0.0fで変化なし）
         );
 
-        if (stateInfo.normalizedTime <= 0.2f)
-        {
             // 前に進行
-            float chargeForce = enemy.RigidBody.mass * 11.0f;
+            float chargeForce = enemy.RigidBody.mass * 1.2f;
             enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
 
         }
@@ -399,14 +406,14 @@ public class HunterActionList : EnemyAction
         if (stateInfo.normalizedTime <= 0.1f)
         {
             // 前に進行
-            float chargeForce = enemy.RigidBody.mass * 14.0f;
+            float chargeForce = enemy.RigidBody.mass * 1.6f;
             enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
 
         }
         else if (stateInfo.normalizedTime >= 0.32f && stateInfo.normalizedTime <= 0.4f)
         {
             // 前に進行
-            float chargeForce = enemy.RigidBody.mass * 20.0f;
+            float chargeForce = enemy.RigidBody.mass * 2.0f;
             enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
 
         }
@@ -421,7 +428,7 @@ public class HunterActionList : EnemyAction
             enemy.transform.rotation = Quaternion.Slerp(
             enemy.transform.rotation,
             targetRotation,
-            0.2f // 補間率（1.0fで即時、0.0fで変化なし）
+            0.01f // 補間率（1.0fで即時、0.0fで変化なし）
         );
         }
 
