@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 6914096066945144450}
     - target: {fileID: 879825497817295576, guid: 8143d7c01188c284381ad02543b0ca94, type: 3}
       propertyPath: soundEffects.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 879825497817295576, guid: 8143d7c01188c284381ad02543b0ca94, type: 3}
       propertyPath: 'soundEffects.Array.data[0]'
@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: 'soundEffects.Array.data[1]'
       value: 
       objectReference: {fileID: 8300000, guid: 0b32c5c98ee64a248ba49f77eef77beb, type: 3}
+    - target: {fileID: 879825497817295576, guid: 8143d7c01188c284381ad02543b0ca94, type: 3}
+      propertyPath: 'soundEffects.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 10b4fbae42486514aa3b43b5f815a5d6, type: 3}
     - target: {fileID: 7347500976573047283, guid: 8143d7c01188c284381ad02543b0ca94, type: 3}
       propertyPath: m_Name
       value: virus_sweet
@@ -108,7 +112,7 @@ PrefabInstance:
       objectReference: {fileID: 7082523648186422436}
     - target: {fileID: 410899465779312302, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
       propertyPath: m_Name
-      value: Virus_sweetV2
+      value: VirusSweetV2
       objectReference: {fileID: 0}
     - target: {fileID: 1143648682989078331, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
       propertyPath: m_LocalPosition.x

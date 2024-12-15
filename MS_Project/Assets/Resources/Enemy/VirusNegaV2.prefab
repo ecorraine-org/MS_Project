@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 62359762741083638}
     - target: {fileID: 8101853193036491703, guid: b06dac3a726634042804bf7d109faa8b, type: 3}
       propertyPath: soundEffects.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8101853193036491703, guid: b06dac3a726634042804bf7d109faa8b, type: 3}
       propertyPath: 'soundEffects.Array.data[0]'
@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: 'soundEffects.Array.data[1]'
       value: 
       objectReference: {fileID: 8300000, guid: 0b32c5c98ee64a248ba49f77eef77beb, type: 3}
+    - target: {fileID: 8101853193036491703, guid: b06dac3a726634042804bf7d109faa8b, type: 3}
+      propertyPath: 'soundEffects.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 10b4fbae42486514aa3b43b5f815a5d6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

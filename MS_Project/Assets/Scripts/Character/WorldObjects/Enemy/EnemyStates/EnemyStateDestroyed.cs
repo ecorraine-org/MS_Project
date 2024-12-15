@@ -2,21 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Reflection;
 
 public class EnemyStateDestroyed : EnemyState
 {
-    //éûä‘åvë™
-    float frameTime = 0.0f;
-    protected Animator animator;
+    private MethodInfo diedTickMethod;
 
 
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
 
-        enemy.Anim.Play("Damaged", 0, 0.0f);
+        enemy.Anim.Play("Died", 0, 0.0f);
+
+        diedTickMethod = enemy.EnemyAction.GetType().GetMethod("DiedTick");
+
+        //ìGÇ…ÇÊÇÈì∆é©ÇÃèàóù
+        var method = enemy.EnemyAction.GetType().GetMethod("DiedInit");
+        if (method != null)
+        {
+            method.Invoke(enemy.EnemyAction, null);
+        }
 
 
+        //éÄ
         //enemy.EnemySpawner.DespawnEnemyFromPool(enemy.gameObject);
 
         //if (enemyStatusHandler.StatusData.enemyRank != EnemyRank.Boss)
@@ -29,10 +38,6 @@ public class EnemyStateDestroyed : EnemyState
         //}
     }
 
-    public void Update()
-    {
-    }
-
     public override void Tick()
     {
         base.Tick();
@@ -42,6 +47,12 @@ public class EnemyStateDestroyed : EnemyState
         {
             //éÄ
             enemy.EnemySpawner.DespawnEnemyFromPool(enemy.gameObject);
+        }
+
+        //ìGÇ…ÇÊÇÈì∆é©ÇÃèàóù
+        if (diedTickMethod != null)
+        {
+            diedTickMethod.Invoke(enemy.EnemyAction, null);
         }
 
     }

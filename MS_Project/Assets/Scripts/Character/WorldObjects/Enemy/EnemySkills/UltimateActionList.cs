@@ -15,6 +15,26 @@ public class UltimateActionList : EnemyAction
 
     private Vector3 direction;
 
+    #region Died
+    public void DiedInit()
+    {
+        enemy.Anim.Play("Died", 0, 0.0f);
+    }
+    public void DiedTick()
+    {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        //後ろへ
+        if (stateInfo.normalizedTime < 1.0f)
+        {
+            Vector3 forceDirection = -enemy.transform.forward * 0.6f; // 後ろ方向の力
+            enemy.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.VelocityChange);
+        }
+
+
+    }
+    #endregion
+
     #region Idle
     public void IdleInit()
     {
