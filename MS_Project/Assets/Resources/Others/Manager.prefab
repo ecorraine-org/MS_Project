@@ -89,7 +89,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 81e3a90f51734e14bb37b38113fda2ea, type: 3}
   m_Resource: {fileID: 8300000, guid: 81e3a90f51734e14bb37b38113fda2ea, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.18
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -266,6 +266,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stage1Data: {fileID: 11400000, guid: b37f56560de0c4244a2643c735957b2e, type: 2}
   curData: []
+  count: 0
+  maxNum: 0
 --- !u!1 &4060349111146290312
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,9 +312,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f818fbf5be418f468f8a4d77877609d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _screenShotCamera: {fileID: 0}
+  _screenshotCamera: {fileID: 0}
   _screenshotUI: {fileID: 0}
-  _screenshotImage: {fileID: 0}
+  _captureDelay: 0.5
 --- !u!1 &4949234477844954448
 GameObject:
   m_ObjectHideFlags: 0

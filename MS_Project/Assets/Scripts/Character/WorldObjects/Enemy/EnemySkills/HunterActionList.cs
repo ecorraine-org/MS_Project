@@ -41,7 +41,7 @@ public class HunterActionList : EnemyAction
         }
 
         //リストへ遷移
-        if (CheckListTimer())
+        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())
         {
             enemy.State.TransitionState(ObjectStateType.Skill);
             return;
@@ -81,8 +81,6 @@ public class HunterActionList : EnemyAction
         if (moveStage == 0) HandleWalk();
         if (moveStage == 1) HandleDash();
 
-        Looking();
-
         //移動
         enemy.Move();
 
@@ -94,9 +92,21 @@ public class HunterActionList : EnemyAction
         // 追跡
         enemy.OnMovementInput?.Invoke(direction.normalized);
 
-        if (frameTime >= 2.0f &&
-              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 3.0f ||
-              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 6.0f)
+        direction = player.position - enemy.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+        targetRotation.z = 0f;
+
+        enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.3f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+
+
+        if (frameTime >= 1.8f ||
+            distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 4.0f)
         {
             //移動状態(走り)へ遷移
             moveStage = 1;
@@ -111,16 +121,104 @@ public class HunterActionList : EnemyAction
             stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
             return;
         }
+        //攻撃へ遷移遠め
+        if (distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 2.8f && CheckListTimer())
+        {
+            stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
+            return;
+        }
+
+    }
+    #endregion
+
+    #region Move
+
+    /// <summary>
+    /// 移動処理初期化(一回だけ実行する)
+    /// </summary>
+    public void MoveInit()
+    {
+        //初期化
+        frameTime = 0.0f;
+
+        //前の状態は歩きでなければ、初期化
+        //歩きの場合、走りに変更した時、walkStageを1にする
+        if (stateHandler.CurrentStateType != ObjectStateType.Walk) moveStage = 0;
+
+        //歩き
+        if (moveStage == 0) enemy.Anim.Play("Walk");
+
+        currentUpdateAction = MoveTick;
     }
 
-    //WalkTickに呼び出される
+    public void MoveTick()
+    {
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
+
+        if (moveStage == 0) HandleWalk();
+        if (moveStage == 1) HandleDash();
+
+        //移動
+        enemy.Move();
+
+    }
+    #endregion
+
+    #region Dash
+
+    /// <summary>
+    /// 移動処理初期化(一回だけ実行する)
+    /// </summary>
+    public void DashInit()
+    {
+        //初期化
+        frameTime = 0.0f;
+        moveStage = 1;
+        //ダッシュ
+        enemy.Anim.Play("Dash");
+
+        currentUpdateAction = DashTick;
+    }
+
+    public void DashTick()
+    {
+        frameTime += Time.deltaTime;
+
+        HandleDash();
+
+        //移動
+        enemy.Move();
+
+    }
+    //WalkTickやDashTickに呼び出される
     private void HandleDash()
     {
         // 追跡
         enemy.OnMovementInput?.Invoke(direction.normalized * 5.0f);
 
-        if (frameTime >= 4.0f ||
-            distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())//もう待ちきれない  
+        direction = player.position - enemy.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+        targetRotation.z = 0f;
+
+        enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.3f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+
+        //攻撃へ遷移
+        if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())
+        {
+            //リセット(歩きに戻る)
+            moveStage = 0;
+            stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
+            return;
+        }
+        if (frameTime >= 1.5f ||
+            distanceToPlayer <= enemyStatus.StatusData.attackDistance && CheckListTimer())
         {
 
             //リセット(歩きに戻る)
@@ -150,7 +248,7 @@ public class HunterActionList : EnemyAction
     public void ThrowSkillTick()
     {
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        //enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
         //ダメージチェック
         //if (stateHandler.CheckHit()) return;
 
@@ -217,7 +315,7 @@ public class HunterActionList : EnemyAction
     {
 
         animator.Play("Attack");
-
+        enemy.OnMovementInput?.Invoke(direction.normalized * 0.0f);
         frameTime = 0;
 
         //Updateで呼び出すために必須のバインド
@@ -232,6 +330,8 @@ public class HunterActionList : EnemyAction
         //攻撃判定
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
+        //移動
+        enemy.Move();
 
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
@@ -242,6 +342,7 @@ public class HunterActionList : EnemyAction
 
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
         targetRotation.x = 0f;
+        targetRotation.z = 0f;
 
         if (stateInfo.normalizedTime <= 0.25f)
             enemy.transform.rotation = Quaternion.Slerp(
@@ -249,6 +350,14 @@ public class HunterActionList : EnemyAction
             targetRotation,
             0.1f // 補間率（1.0fで即時、0.0fで変化なし）
         );
+
+        if (stateInfo.normalizedTime <= 0.2f)
+        {
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 11.0f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
+
+        }
 
         //アニメーション終了
         if (stateInfo.normalizedTime >= 1.0f)
@@ -278,7 +387,7 @@ public class HunterActionList : EnemyAction
     public void Attack_DualTick()
     {
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(18.0f, false);
+        enemy.AttackCollider.DetectColliders(10.0f, false);
         //ダメージチェック
         //if (stateHandler.CheckHit()) return;
 
@@ -286,6 +395,35 @@ public class HunterActionList : EnemyAction
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (stateInfo.normalizedTime <= 0.1f)
+        {
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 14.0f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
+
+        }
+        else if (stateInfo.normalizedTime >= 0.32f && stateInfo.normalizedTime <= 0.4f)
+        {
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 20.0f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
+
+        }
+        else if(stateInfo.normalizedTime <= 0.32f)
+        {
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
+
+            enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.2f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
+        }
 
         //アニメーション終了
         if (stateInfo.normalizedTime >= 1.0f)
