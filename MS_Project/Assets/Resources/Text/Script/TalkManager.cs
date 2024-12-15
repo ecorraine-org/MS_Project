@@ -21,8 +21,13 @@ public class Story
     public List<DialogPrefab> npcDialogPrefabs;
 }
 
-public class TalkManager : MonoBehaviour
+public class TalkManager : SingletonBaseBehavior<TalkManager>
 {
+    //会話終了イベント定義
+    public delegate void DialogFinishEvtHandler();
+    public static event DialogFinishEvtHandler OnDialogFinish;
+
+
     [Header("Story Settings")]
     [Tooltip("全ストーリーのリスト")]
     public List<Story> stories; // 複数のストーリーを格納
@@ -43,12 +48,19 @@ public class TalkManager : MonoBehaviour
     [Range(0f, 1f)]
     public float dialogTransparency = 0.7f;
 
+    [SerializeField,NonEditable,Header("現在のストーリー番号")]
     private int currentStoryIndex = 0; // 現在のストーリー番号
+    [SerializeField, NonEditable, Header("現在のダイアログ番号")]
     private int currentDialogIndex = 0; // 現在のダイアログ番号
     private List<GameObject> displayedPlayerInstances = new List<GameObject>();
     private List<GameObject> displayedNpcInstances = new List<GameObject>();
     private Image backgroundOverlay;
     private GameObject backgroundInstance; // 背景インスタンス
+
+    protected override void AwakeProcess()
+    {
+       // throw new System.NotImplementedException();
+    }
 
     void Start()
     {
@@ -70,9 +82,13 @@ public class TalkManager : MonoBehaviour
         {
             LoadNextStory();
         }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            SkipDialog();
+        }
     }
 
-    void LoadStory(int storyIndex)
+    public void LoadStory(int storyIndex)
     {
         if (storyIndex < 0 || storyIndex >= stories.Count)
         {
@@ -88,7 +104,7 @@ public class TalkManager : MonoBehaviour
         Debug.Log($"ストーリー '{stories[storyIndex].storyName}' をロードしました。");
     }
 
-    void LoadNextStory()
+    public void LoadNextStory()
     {
         int nextStoryIndex = currentStoryIndex + 1;
         if (nextStoryIndex >= stories.Count)
@@ -100,7 +116,19 @@ public class TalkManager : MonoBehaviour
         LoadStory(nextStoryIndex);
     }
 
-    void ShowNextPrefab()
+    public void SkipDialog()
+    {
+        var currentStory = stories[currentStoryIndex];
+        List<DialogPrefab> allDialogs = new List<DialogPrefab>();
+        allDialogs.AddRange(currentStory.playerDialogPrefabs);
+        allDialogs.AddRange(currentStory.npcDialogPrefabs);
+
+        currentDialogIndex = allDialogs.Count;
+
+        ShowNextPrefab();
+    }
+
+    public void ShowNextPrefab()
     {
         if (currentStoryIndex >= stories.Count) return;
 
@@ -172,7 +200,7 @@ public class TalkManager : MonoBehaviour
             float curveValue = movementCurve.Evaluate(t);
             prefabInstance.transform.position = Vector3.Lerp(initialPosition, initialPosition + new Vector3(0, offset, 0), curveValue);
             ChangeDialogColor(prefabInstance, dialogColor);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -250,11 +278,14 @@ public class TalkManager : MonoBehaviour
         while (elapsedTime < fadeDuration)
         {
             canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
 
         Destroy(dialogInstance);
+
+        //終了イベント発信
+        OnDialogFinish?.Invoke();
     }
 
     IEnumerator FadeOutAllDialogs()
@@ -272,6 +303,8 @@ public class TalkManager : MonoBehaviour
 
         // 背景も非表示にする
         ShowBackgroundOverlay(false);
+
+      
     }
 
     void CreateBackgroundOverlay()
@@ -309,4 +342,6 @@ public class TalkManager : MonoBehaviour
             backgroundInstance.SetActive(show);
         }
     }
+
+
 }
