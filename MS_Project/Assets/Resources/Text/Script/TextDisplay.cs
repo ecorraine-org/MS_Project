@@ -1,39 +1,49 @@
 using UnityEngine;
-using UnityEngine.UI;  // Text (Legacy)‚ğg—p‚·‚é‚½‚ß‚É•K—v
-using System.Collections;  // IEnumerator‚ğg—p‚·‚é‚½‚ß‚É•K—v
+using UnityEngine.UI;  // Text (Legacy)ã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã«å¿…è¦
+using System.Collections;  // IEnumeratorã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã«å¿…è¦
 
 public class TextDisplay : MonoBehaviour
 {
-    [SerializeField, TextArea] private string message = "‚±‚ñ‚É‚¿‚ÍAUnityI";  // ƒCƒ“ƒXƒyƒNƒ^[‚Å•¡”s‚Ì“ü—Í‚ğ‰Â”\‚É‚·‚é
-    [SerializeField] private Color textColor = Color.white;  // ƒCƒ“ƒXƒyƒNƒ^[‚ÅF‚ğİ’è‰Â”\
-    [SerializeField] private int fontSize = 30;  // •¶š‚ÌƒTƒCƒY‚ğİ’è‚·‚éƒtƒB[ƒ‹ƒh
-    public Text uiText;  // TextƒRƒ“ƒ|[ƒlƒ“ƒg‚Ö‚ÌQÆ
-    public float typingSpeed = 0.1f;  // •¶š‚Ì•\¦‘¬“x
+    [SerializeField, TextArea] private string message = "ã“ã‚“ã«ã¡ã¯ã€Unityï¼";  // ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã§è¤‡æ•°è¡Œã®å…¥åŠ›ã‚’å¯èƒ½ã«ã™ã‚‹
+    [SerializeField] private Color textColor = Color.white;  // ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã§è‰²ã‚’è¨­å®šå¯èƒ½
+    [SerializeField] private int fontSize = 30;  // æ–‡å­—ã®ã‚µã‚¤ã‚ºã‚’è¨­å®šã™ã‚‹ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
+    public Text uiText;  // Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¸ã®å‚ç…§
+    public float typingSpeed = 0.1f;  // æ–‡å­—ã®è¡¨ç¤ºé€Ÿåº¦
 
     void Start()
     {
-        // TextƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌF‚ÆƒtƒHƒ“ƒgƒTƒCƒY‚ğİ’è
+        // Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®è‰²ã¨ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚ºã‚’è¨­å®š
         uiText.color = textColor;
         uiText.fontSize = fontSize;
 
-        // ©“®ƒTƒCƒY’²®‚ğ–³Œø‚É‚·‚é
+        // è‡ªå‹•ã‚µã‚¤ã‚ºèª¿æ•´ã‚’ç„¡åŠ¹ã«ã™ã‚‹
         uiText.resizeTextForBestFit = false;
         uiText.resizeTextMinSize = fontSize;
         uiText.resizeTextMaxSize = fontSize;
 
-        // ƒRƒ‹[ƒ`ƒ“‚ğŒÄ‚Ño‚µ‚Ä•¶š‚ğˆê•¶š‚¸‚Â•\¦
+        // ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’å‘¼ã³å‡ºã—ã¦æ–‡å­—ã‚’ä¸€æ–‡å­—ãšã¤è¡¨ç¤º
         StartCoroutine(TypeText());
     }
 
-    // •¶š‚ğˆê•¶š‚¸‚Â•\¦‚·‚éƒRƒ‹[ƒ`ƒ“
+    // æ–‡å­—ã‚’ä¸€æ–‡å­—ãšã¤è¡¨ç¤ºã™ã‚‹ã‚³ãƒ«ãƒ¼ãƒãƒ³
     private IEnumerator TypeText()
     {
-        uiText.text = "";  // Å‰‚Í‹ó‚É‚·‚é
+        uiText.text = "";  // æœ€åˆã¯ç©ºã«ã™ã‚‹
 
         foreach (char letter in message)
         {
-            uiText.text += letter;  // ˆê•¶š‚¸‚Â’Ç‰Á
-            yield return new WaitForSeconds(typingSpeed);  // ƒ^ƒCƒsƒ“ƒO‘¬“x‚ğ§Œä
+            uiText.text += letter;  // ä¸€æ–‡å­—ãšã¤è¿½åŠ 
+            //yield return new WaitForSeconds(typingSpeed);  // ã‚¿ã‚¤ãƒ”ãƒ³ã‚°é€Ÿåº¦ã‚’åˆ¶å¾¡
+
+            // ãƒãƒ¼ã‚ºçŠ¶æ…‹ã§ã‚‚å‹•ä½œã™ã‚‹ã‚ˆã†ã«ã‚«ã‚¹ã‚¿ãƒ å¾…æ©Ÿæ™‚é–“ã‚’å®Ÿè£…
+            float elapsed = 0f;
+            while (elapsed < typingSpeed)
+            {
+                // ã‚¹ã‚±ãƒ¼ãƒ«ã•ã‚Œã¦ã„ãªã„æ™‚é–“ã‚’ä½¿ç”¨ã—ã¦çµŒéæ™‚é–“ã‚’åŠ ç®—
+                elapsed += Time.unscaledDeltaTime;  
+                yield return null;  // æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã¾ã§å¾…æ©Ÿ
+            }
+
         }
     }
 }
