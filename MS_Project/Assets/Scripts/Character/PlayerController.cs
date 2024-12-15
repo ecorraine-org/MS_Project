@@ -144,6 +144,13 @@ public class PlayerController : WorldObject
 
                 break;
             case TutorialStage.Step3:
+                if (Input.GetKey(KeyCode.Return))
+                {
+                    InputController.Instance.SetInputContext(InputController.InputContext.Player);
+                    Time.timeScale = 1;
+                }
+           
+
                 break;
         }
     }
