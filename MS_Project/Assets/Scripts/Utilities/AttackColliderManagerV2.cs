@@ -17,15 +17,15 @@ public class AttackColliderManagerV2 : MonoBehaviour
     //当たったオブジェクト配列
     private HashSet<Collider> hitObjects = new HashSet<Collider>();
 
-    [SerializeField, Header("最も近いオブジェクト")]
+    [SerializeField, NonEditable,Header("最も近いオブジェクト")]
     Collider closestCollider;
 
     private CameraBasedHitCorrection _cameraBasedHitCorrection;
 
-    [SerializeField, Header("最初の衝突が発生したかどうかを示す")]
+    [SerializeField, NonEditable,Header("最初の衝突が発生したかどうかを示す")]
     bool hasCollided = false;
 
-    //当たり判定可能かどうか
+    [SerializeField, NonEditable,Header(" 当たり判定可能かどうか")]
     bool canHit = false;
 
     private void Awake()

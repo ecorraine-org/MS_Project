@@ -8,6 +8,8 @@ using UnityEngine;
 public class EnemyAnimManager : AnimManager
 {
     EnemyController enemy;
+    [SerializeField,NonEditable, Header("アタックコライダー")]
+    AttackColliderManagerV2 attackColliderV2 ;
 
     public void Init(EnemyController _enemyController)
     {
@@ -19,8 +21,10 @@ public class EnemyAnimManager : AnimManager
     /// </summary>
     public override void EnableHit() 
     {
-        AttackColliderManagerV2 attackColliderV2 = enemy.AttackCollider;
+        attackColliderV2 = enemy.AttackCollider;
         attackColliderV2.StartHit();
+
+    
     }
 
     /// <summary>
@@ -28,9 +32,8 @@ public class EnemyAnimManager : AnimManager
     /// </summary>
     public override void DisableHit()
     {
-        AttackColliderManagerV2 attackColliderV2 = enemy.AttackCollider;
+        attackColliderV2 = enemy.AttackCollider;
         attackColliderV2.EndHit();
-
     }
 
     /// <summary>
@@ -60,7 +63,7 @@ public class EnemyAnimManager : AnimManager
 
     public void TutorialJumpStopEvt()
     {
-        if (enemy.PlayerController.tutorialStage == TutorialStage.Step2)
+       
         {
             enemy.EnemyAction.TutorialStopTime();
         }

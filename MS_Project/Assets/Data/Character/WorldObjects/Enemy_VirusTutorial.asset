@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_VirusTutorial
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 100
+  maxHealth: 150
   mass: 100
   enemyID: 0
   gameObjPrefab: Enemy/VirusNormalTutorial
@@ -28,7 +28,7 @@ MonoBehaviour:
   killableHealthRate: 0.2
   SelfType: 4
   onomatoAttack: {fileID: 11400000, guid: 3e28730ae2c3c144f831d76460fe1196, type: 2}
-  onomatoWalk: {fileID: 11400000, guid: bbe8fa5a81bafcd4ca04b67d55a1e4e6, type: 2}
+  onomatoWalk: {fileID: 11400000, guid: 3e28730ae2c3c144f831d76460fe1196, type: 2}
   tolerances: 02000000
   weaknesses: 03000000
   sfxClip: 
