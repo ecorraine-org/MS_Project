@@ -18,6 +18,21 @@ public class AIVirus_Charge : EnemyAction
         {
             enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
         }
+        else if (stateInfo.IsName("PreSkill"))
+        {
+            //ちょっとずつ見る
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
+
+            enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
+        }
     }
 
     // 前にツッコむ

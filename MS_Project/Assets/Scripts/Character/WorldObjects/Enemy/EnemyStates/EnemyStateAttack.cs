@@ -45,8 +45,8 @@ public class EnemyStateAttack : EnemyState
     /// </summary>
     private void normalTick()
     {
-        enemy.AttackCollider.CanHit = true;
-        //enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        //enemy.AttackCollider.CanHit = true;
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
         if (enemyStateHandler.CheckDeath()) return;
 
