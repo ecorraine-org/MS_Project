@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Chicken_Walk
   m_EditorClassIdentifier: 
   wordToUse: "\u30DA\u30BF\u30DA\u30BF"
+  onomatoSprite: {fileID: 0}
+  spriteSize: 1
+  spriteAnimSpeed: 1
+  onomatoACont: {fileID: 22100000, guid: d19fe12cbd580284bbcec9e0ab604d08, type: 2}
   fontAsset: {fileID: 11400000, guid: 40ebecea6a7fb6b4e9bfeb174c259461, type: 2}
   fontColor:
     serializedVersion: 2
@@ -21,3 +25,4 @@ MonoBehaviour:
   damageBuff: 0
   speedBuff: 0
   healBuff: 10
+  onomatoSE: {fileID: 0}
