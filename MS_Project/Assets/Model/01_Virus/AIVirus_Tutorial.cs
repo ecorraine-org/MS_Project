@@ -8,12 +8,14 @@ public class AIVirus_Tutorial : EnemyAction
     {
         //イベントをバインドする
         TalkManager.OnDialogFinish += DialogFinish;
+        PlayerModeManager.OnModelCHange += ReceiveModeCHange;
     }
 
     private void OnDisable()
     {
         //バインドを解除する
         TalkManager.OnDialogFinish -= DialogFinish;
+        PlayerModeManager.OnModelCHange -= ReceiveModeCHange;
     }
 
 
@@ -24,54 +26,64 @@ public class AIVirus_Tutorial : EnemyAction
 
     private Vector3 direction;
 
-    public float tutorialTimer=0;
+    public float tutorialTimer = 0;
 
     private void Awake()
     {
     }
-
-    void DialogFinish()
+    void ReceiveModeCHange(PlayerMode _mode)
     {
-     //   Debug.Log("DialogFinish!!!!!!!!!!!!!!!!!!!!! " + enemy.PlayerController.tutorialStage);
+        if (enemy.PlayerController.tutorialStage == TutorialStage.Step5)
+        {
+            Time.timeScale = 0;
+            //UI操作
+            InputController.Instance.SetInputContext(InputController.InputContext.UI);
+
+            enemy. PlayerController.tutorialStage = TutorialStage.Step6;
+
+            //新しい会話(会話7:変身)
+            TalkManager.Instance.LoadNextStory();
+            TalkManager.Instance.ShowNextPrefab();
+        }
+    }
+      
+
+void DialogFinish()
+    {
         switch (enemy.PlayerController.tutorialStage)
         {
             case TutorialStage.Step1:
                 Debug.Log("チュートリアル第1段階");
-                
 
-                    //遷移
-                    enemy.PlayerController.tutorialStage = TutorialStage.Step2;
+                //遷移
+                enemy.PlayerController.tutorialStage = TutorialStage.Step2;
 
-                    //新しい会話(会話3:初めてオノマトペを見た)
-                    TalkManager.Instance.LoadNextStory();
-                    TalkManager.Instance.ShowNextPrefab();
-                
+                //新しい会話(会話3:初めてオノマトペを見た)
+                TalkManager.Instance.LoadNextStory();
+                TalkManager.Instance.ShowNextPrefab();
+
                 break;
             case TutorialStage.Step2:
                 Debug.Log("チュートリアル第2段階");
 
                 //新しい会話(会話4:ペコペコ)
                 TalkManager.Instance.LoadNextStory();
-                    TalkManager.Instance.ShowNextPrefab();
+                TalkManager.Instance.ShowNextPrefab();
 
-                    enemy.PlayerController.tutorialStage = TutorialStage.Step3;
-                
+                enemy.PlayerController.tutorialStage = TutorialStage.Step3;
+
 
                 break;
 
             case TutorialStage.Step3:
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
                 Time.timeScale = 1;
-                Debug.Log("何もないチュートリアル第3段階");
+                Debug.Log("チュートリアル第3段階　HP70以下にしてください");
 
-                //   TalkManager.Instance.LoadNextStory();
-                // TalkManager.Instance.ShowNextPrefab();
                 break;
 
             case TutorialStage.Step4:
-                Debug.Log("チュートリアル第4段階");
-                //InputController.Instance.SetInputContext(InputController.InputContext.Player);
-                // Time.timeScale = 1;
+                Debug.Log("敵攻撃時の会話5→チュートリアル第4段階");
 
                 //新しい会話(会話6:)
                 TalkManager.Instance.LoadNextStory();
@@ -79,37 +91,26 @@ public class AIVirus_Tutorial : EnemyAction
 
                 enemy.PlayerController.tutorialStage = TutorialStage.Step5;
                 break;
-            case TutorialStage.Step5:
+            case TutorialStage.Step5:   
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
                 Time.timeScale = 1;
-
-
-
-
+                Debug.Log("チュートリアル第5段階　食べてください");
                 break;
+
             //変身、会話7終了
             case TutorialStage.Step6:
+             //   Debug.Log("変身の会話7→チュートリアル第6段階");
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
                 Time.timeScale = 1;
-                //新しい会話(会話7:)
-                //   TalkManager.Instance.LoadNextStory();
-                //  TalkManager.Instance.ShowNextPrefab();
+                Debug.Log("変身の会話7→チュートリアル第6段階 ");
                 break;
             //死亡、会話8終了
             case TutorialStage.Step7:
+                Debug.Log("美味しかったって会話8→チュートリアル第7段階 ");
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
                 Time.timeScale = 1;
                 break;
-
-            ////死亡、会話8終了
-            //case TutorialStage.Step8:
-            //    InputController.Instance.SetInputContext(InputController.InputContext.Player);
-            //    Time.timeScale = 1;
-            //    break;
         }
-
-
-
     }
 
     public void Update()
@@ -122,11 +123,11 @@ public class AIVirus_Tutorial : EnemyAction
                 if (distanceToPlayer <= 5)
                 {
                     tutorialTimer += Time.unscaledDeltaTime;
-                    if(tutorialTimer>=0.3)
+                    if (tutorialTimer >= 0.7)
                     {
                         tutorialTimer = 0;
 
-                        Debug.Log("チュートリアル第1段階"+ enemy.PlayerController.tutorialStage);
+                        Debug.Log("チュートリアル第1段階" + enemy.PlayerController.tutorialStage);
                         enemy.PlayerController.tutorialStage = TutorialStage.Step1;
                         //Step初期化
                         TalkManager.Instance.LoadNextStory();
@@ -137,65 +138,20 @@ public class AIVirus_Tutorial : EnemyAction
                         InputController.Instance.SetInputContext(InputController.InputContext.UI);
 
                     }
-
-
-
-
                 }
 
                 break;
-            case TutorialStage.Step1:
-
-                // if (Input.GetKey(KeyCode.Return))
-                //     enemy.PlayerController.tutorialStage = TutorialStage.Step2;
-
-                break;
-
-            //時間速度を戻す
-            case TutorialStage.Step2:
-                //  Debug.Log("チュートリアル第2段階");
-
-                //InputController.Instance.SetInputContext(InputController.InputContext.Player);
-                //Time.timeScale = 1;
-                break;
-            case TutorialStage.Step3:
-            case TutorialStage.Step5:
-                //HP70以下攻撃
-                if (enemy.Status.CurrentHealth <= 0.7 * enemy.Status.StatusData.maxHealth)
-                {
-                    if (stateHandler.CurrentStateType != ObjectStateType.Attack)
-                        stateHandler.TransitionState(ObjectStateType.Attack);
-
-
-                    //    //ちょっとずつ見る
-                    direction = player.position - enemy.transform.position;
-
-                    Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
-                    targetRotation.x = 0f;
-                    targetRotation.z = 0f;
-
-                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-                    enemy.transform.rotation = Quaternion.Slerp(
-                    enemy.transform.rotation,
-                    targetRotation,
-                    0.1f // 補間率（1.0fで即時、0.0fで変化なし）
-                );
-
-                }
-
-                break;
-
-
             case TutorialStage.Step6:
-                if (enemy.Status.CurrentHealth<=0)
+
+                if (enemy.Status.CurrentHealth <= 0)
                 {
+                    enemy.PlayerController.tutorialStage = TutorialStage.Step7;
+
                     Time.timeScale = 0;
                     //UI操作
                     InputController.Instance.SetInputContext(InputController.InputContext.UI);
 
-                    enemy.PlayerController.tutorialStage = TutorialStage.Step7;
-
+             
                     //新しい会話(会話8:変身)
                     TalkManager.Instance.LoadNextStory();
                     TalkManager.Instance.ShowNextPrefab();
@@ -203,21 +159,12 @@ public class AIVirus_Tutorial : EnemyAction
                 }
                 break;
         }
-
-
-        distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
-
-
-
-
-
-
     }
 
 
-    private void AttackTick()
+    public void AttackTick()
     {
-
+       // Debug.Log("tuto AttackTick更新している");
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
         if (stateHandler.CheckDeath()) return;
@@ -242,8 +189,12 @@ public class AIVirus_Tutorial : EnemyAction
 
     public void WalkTick()
     {
-        //ダメージチェック
-        if (stateHandler.CheckHit()) return;
+        if (enemy.PlayerController.tutorialStage > TutorialStage.None)
+        {
+            //ダメージチェック
+            if (stateHandler.CheckHit()) return;
+        }
+       
 
         enemy.Move();
 
@@ -252,6 +203,8 @@ public class AIVirus_Tutorial : EnemyAction
         forwardDirection.y = 0f;// 地面に沿った移動
 
         //適度に距離を置く
+        distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
+
         if (distanceToPlayer >= enemy.Status.StatusData.attackDistance)
         {
             // 追跡
@@ -279,14 +232,16 @@ public class AIVirus_Tutorial : EnemyAction
     );
 
         //攻撃へ遷移
-        //if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && enemy.AllowAttack)
-        //{
-        //    //クールダウン
-        //    enemy.StartAttackCoroutine();
+        if (enemy.PlayerController.tutorialStage >= TutorialStage.Step3
+            && enemy.Status.CurrentHealth <= 0.8 * enemy.Status.StatusData.maxHealth
+            && distanceToPlayer <= enemyStatus.StatusData.attackDistance && enemy.AllowAttack)
+        {
+            //クールダウン
+            enemy.StartAttackCoroutine();
 
-        //    stateHandler.TransitionState(ObjectStateType.Attack);
-        //    return;
-        //}
+            stateHandler.TransitionState(ObjectStateType.Attack);
+            return;
+        }
     }
 
 

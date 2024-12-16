@@ -7,6 +7,10 @@ using UnityEngine;
 /// </summary>
 public class PlayerModeManager : MonoBehaviour
 {
+    //モードチェンジイベント定義
+    public delegate void ModelCHangeEvtHandler(PlayerMode _mode);
+    public static event ModelCHangeEvtHandler OnModelCHange;
+
     //PlayerControllerの参照
     PlayerController playerController;
 
@@ -49,19 +53,25 @@ public class PlayerModeManager : MonoBehaviour
         //スキル設定
         //  playerController.SkillManager.SetCurSkill(mode);
 
-        if (playerController.tutorialStage == TutorialStage.Step5)
+        TimerUtility.TimeBasedTimer(this, 0.5f, () =>
         {
-            Time.timeScale = 0;
-            //UI操作
-            InputController.Instance.SetInputContext(InputController.InputContext.UI);
+            //モードチェンジイベント発信
+            OnModelCHange?.Invoke(_mode);
+        });
 
-            playerController.tutorialStage = TutorialStage.Step6;
 
-            //新しい会話(会話7:変身)
-            TalkManager.Instance.LoadNextStory();
-            TalkManager.Instance.ShowNextPrefab();
+        //if (playerController.tutorialStage == TutorialStage.Step5)
+        //{
+        //    Time.timeScale = 0;
+        //    //UI操作
+        //    InputController.Instance.SetInputContext(InputController.InputContext.UI);
 
-        }
+        //    playerController.tutorialStage = TutorialStage.Step6;
+
+        //    //新しい会話(会話7:変身)
+        //    TalkManager.Instance.LoadNextStory();
+        //    TalkManager.Instance.ShowNextPrefab();
+        //}
     }
 
     public PlayerMode Mode
