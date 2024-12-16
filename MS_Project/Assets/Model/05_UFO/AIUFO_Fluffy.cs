@@ -22,8 +22,11 @@ public class AIUFO_Fluffy : EnemyAction
         //距離確認
         distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
 
-        //攻撃判定
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            if (stateInfo.IsName("PostSkill"))
+            {
+            enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+            }
 
         //浮いてるかの確認
         if (!noGravity)
