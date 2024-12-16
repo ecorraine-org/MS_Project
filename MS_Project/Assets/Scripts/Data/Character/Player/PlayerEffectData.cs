@@ -11,6 +11,7 @@ public struct EffectParam
     public Vector3 rotation;
     public Vector3 position;
     public Vector3 scale;
+    public Vector2 startSize;
     public float speed;
     public bool isFollow;//ついてくるかどうか
 

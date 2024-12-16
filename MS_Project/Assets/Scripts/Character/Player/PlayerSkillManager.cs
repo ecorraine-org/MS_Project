@@ -254,7 +254,7 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("SwordSkill");
 
         //パラメーター設定
-     //   HandleAttackerParams();
+        //   HandleAttackerParams();
         AttackerParams attackerParams = playerController.CurAttackerParams;
         //攻撃属性設定
         attackerParams.onomatoType = OnomatoType.SlashType;
@@ -358,7 +358,7 @@ public class PlayerSkillManager : MonoBehaviour
     public void SwordAttackInit()
     {
         HandleAttackerParams();
-     //   attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;     
+        //   attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;     
         maxAttackStage = 1;
 
         // 突進初期化
@@ -381,7 +381,7 @@ public class PlayerSkillManager : MonoBehaviour
 
             curEffectParam = effectData.dicEffect[PlayerEffect.SwordAttack2];
 
-            attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage*2;
+            attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage * 2;
         }
     }
 
@@ -402,14 +402,9 @@ public class PlayerSkillManager : MonoBehaviour
         playerController.SpriteAnim.Play("HammerAttack", 0, 0f);
 
         curEffectParam = effectData.dicEffect[PlayerEffect.HammerAttack];
-        ParticleManager particle = effectInstance.GetComponent<ParticleManager>();
-        if (particle != null)
-        {
-            //particle.//イベント
-        }
 
-            // 突進初期化
-            dash.Speed = hitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
+        // 突進初期化
+        dash.Speed = hitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
         dash.Duration = -1;
     }
     #endregion
@@ -503,6 +498,8 @@ public class PlayerSkillManager : MonoBehaviour
             {
                 particle.ChangeScale(curEffectParam.scale);
                 particle.ChangePlaybackSpeed(curEffectParam.speed);
+                particle.SetStartSize(curEffectParam.startSize);
+
             }
 
         }

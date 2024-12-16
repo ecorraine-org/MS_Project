@@ -8,48 +8,15 @@ using UnityEngine;
 public class ParticleManager : MonoBehaviour
 {
     ParticleSystem particle;
+   
+    ParticleCompStartSize[] startSizeComps;
 
 
     private void Awake()
     {
         this.particle = this.GetComponent<ParticleSystem>();
 
-        // ParticleSystemRenderer particleRenderer = particle.GetComponent<ParticleSystemRenderer>();
-        // if (particleRenderer == null) Debug.Log("particleRenderer NUll");
-        // else Debug.Log("particleRenderer exist " + particleRenderer);
-        //// 一番前に表示する
-        // Material material = particleRenderer.material;
-        // material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
-        // if (material == null) Debug.Log("material NUll");
-        // else Debug.Log("material exist " + material);
-
-        //if (particle == null) return;
-        //ParticleSystemRenderer[] renderers = particle.GetComponentsInChildren<ParticleSystemRenderer>();  // true 允许获取所有子物体（包括非激活物体）
-        //if (renderers == null) Debug.Log("renderers NUll");
-        //else Debug.Log("renderers exist " + renderers);
-
-        //foreach (Renderer particleRenderer in renderers)
-        //{
-        //    Material material = particleRenderer.material;
-        //    if (material == null) Debug.Log("material NUll");
-        //    else Debug.Log("material exist " + material);
-
-        //    if (material != null)
-        //    {
-
-        //        material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
-
-        //        material.renderQueue += 4000;
-
-        //        particleRenderer.sortingOrder = 100;
-        //        particleRenderer.sortingLayerID = SortingLayer.NameToID("Foreground");
-        //        Debug.Log($"Material modified for: {particleRenderer.name}");
-        //    }
-        //    else
-        //    {
-        //        Debug.LogWarning($"No material found on: {particleRenderer.name}");
-        //    }
-        //}
+        startSizeComps = GetComponentsInChildren<ParticleCompStartSize>();
 
     }
 
@@ -57,6 +24,16 @@ public class ParticleManager : MonoBehaviour
     {
         //  if (this.particle.isPlaying) return;
         //  Destroy(this.gameObject);
+    }
+
+    public void SetStartSize(Vector2 size)
+    {
+        if (startSizeComps.Length == 0) return;
+
+        foreach (var comp in startSizeComps)
+        {    
+            comp.SetStartSize(size);  
+        }
     }
 
     /// <summary>
@@ -152,5 +129,47 @@ public class ParticleManager : MonoBehaviour
         }
     }
 
+    public ParticleCompStartSize[] StartSizeComps
+    {
+        get =>startSizeComps; 
+    }
 
 }
+
+
+// ParticleSystemRenderer particleRenderer = particle.GetComponent<ParticleSystemRenderer>();
+// if (particleRenderer == null) Debug.Log("particleRenderer NUll");
+// else Debug.Log("particleRenderer exist " + particleRenderer);
+//// 一番前に表示する
+// Material material = particleRenderer.material;
+// material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
+// if (material == null) Debug.Log("material NUll");
+// else Debug.Log("material exist " + material);
+
+//if (particle == null) return;
+//ParticleSystemRenderer[] renderers = particle.GetComponentsInChildren<ParticleSystemRenderer>();  // true 允许获取所有子物体（包括非激活物体）
+//if (renderers == null) Debug.Log("renderers NUll");
+//else Debug.Log("renderers exist " + renderers);
+
+//foreach (Renderer particleRenderer in renderers)
+//{
+//    Material material = particleRenderer.material;
+//    if (material == null) Debug.Log("material NUll");
+//    else Debug.Log("material exist " + material);
+
+//    if (material != null)
+//    {
+
+//        material.SetFloat("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
+
+//        material.renderQueue += 4000;
+
+//        particleRenderer.sortingOrder = 100;
+//        particleRenderer.sortingLayerID = SortingLayer.NameToID("Foreground");
+//        Debug.Log($"Material modified for: {particleRenderer.name}");
+//    }
+//    else
+//    {
+//        Debug.LogWarning($"No material found on: {particleRenderer.name}");
+//    }
+//}
