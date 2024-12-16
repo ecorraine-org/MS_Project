@@ -76,6 +76,8 @@ namespace Stage.Utility
         [Header("ステージ９の名前")]
         [SerializeField] string sceneToLoad9;
 
+        private const string LastStageKey = "LastPlayedStage"; // 保存用のキー
+
         void Start()
         {
             // リストが空の場合のみ初期化
@@ -288,10 +290,14 @@ namespace Stage.Utility
 
         private void LoadStage(RingStage stage)
         {
+            // ステージ名を保存
+            PlayerPrefs.SetString(LastStageKey, stage.name);
+            PlayerPrefs.Save(); // 保存
+
             switch (stage.name)
             {
-                case "Stage1":
-                    Debug.Log("Stage1に遷移");
+                case "StartScene01":
+                    Debug.Log("StartScene01に遷移");
                     SceneManager.LoadScene(sceneToLoad1);
                     break;
                 case "Stage2":
