@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5680501141735472870}
   - component: {fileID: 6630947415352495245}
   - component: {fileID: 2836904415361421130}
+  - component: {fileID: 354717599636116435}
   m_Layer: 0
   m_Name: HammerShock001
   m_TagString: Untagged
@@ -4766,6 +4767,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &354717599636116435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2579607340242140387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b6c7779c6fb17c4f8b8a0215a3d82c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7882868666210565615
 GameObject:
   m_ObjectHideFlags: 0
@@ -4777,6 +4790,7 @@ GameObject:
   - component: {fileID: 8539900071447033098}
   - component: {fileID: 2184485947526052485}
   - component: {fileID: 6915928799994751177}
+  - component: {fileID: 879700626472315811}
   m_Layer: 0
   m_Name: Hamme001
   m_TagString: Untagged
@@ -9499,6 +9513,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &879700626472315811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882868666210565615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f815f0fef4f5549b63bf3653705f79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8038863404171547530
 GameObject:
   m_ObjectHideFlags: 0
