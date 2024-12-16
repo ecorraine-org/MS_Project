@@ -7,8 +7,8 @@ public class AIUFO_Fluffy : EnemyAction
     
     public float floatSpeed = 2.0f; // UFOが目標の高さまで浮き上がる速度
     public float floatPos = 4.0f;   // プレイヤーとのY座標の間隔
-    public int floatDilayTime = 100;      //  浮き始める時間
-    int floatDilay = 0;
+    public float floatDilayTime = 2.0f;      //  浮き始める時間
+    float floatDilay = 0;
 
     [SerializeField, Header("突進スピード")]
     public float chargeSpeed = 100.0f;
@@ -23,10 +23,26 @@ public class AIUFO_Fluffy : EnemyAction
         distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (stateInfo.IsName("PostSkill"))
-            {
-            enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
-            }
+
+        if (stateInfo.IsName("PostSkill"))
+        {
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        }
+        else if (stateInfo.IsName("PreSkill"))
+        {
+            //ちょっとずつ見る
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
+
+            enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
+        }
 
         //浮いてるかの確認
         if (!noGravity)
@@ -36,7 +52,7 @@ public class AIUFO_Fluffy : EnemyAction
         }
         else
         {
-            floatDilay++;
+            floatDilay += Time.deltaTime;
             if(floatDilayTime <= floatDilay)
             {
                 noGravity = false;
@@ -87,7 +103,7 @@ public class AIUFO_Fluffy : EnemyAction
             // 追跡
             enemy.OnMovementInput?.Invoke(forwardDirection.normalized);
         }
-        else if (distanceToPlayer < enemy.Status.StatusData.attackDistance * 0.5f)
+        else if (distanceToPlayer < enemy.Status.StatusData.attackDistance * 0.6f)
         {
             enemy.Anim.Play("Idle");
 
