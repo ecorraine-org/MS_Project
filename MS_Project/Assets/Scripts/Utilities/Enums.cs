@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 public enum Direction
 {
+    None,
     [InspectorName("上")] Up,
     [InspectorName("下")] Down,
     [InspectorName("左")] Left,

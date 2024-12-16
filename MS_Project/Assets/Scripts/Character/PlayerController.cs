@@ -12,6 +12,11 @@ public class PlayerController : WorldObject
 {
     public TutorialStage tutorialStage= TutorialStage.None;
 
+    [SerializeField, Header("足元のエフェクト")]
+    GameObject dustEffect;
+    //格納する
+    GameObject dustEffectInstance;
+
     //シングルトン
     protected PlayerInputManager inputManager;
     BattleManager battleManager;
@@ -63,6 +68,7 @@ public class PlayerController : WorldObject
 
     //現在の向き
     Direction currentDirec = Direction.Left;
+    Direction preDirec= Direction.None;
 
     //現在の向き(ベクトル)
     UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1, 0, 0);
@@ -122,13 +128,19 @@ public class PlayerController : WorldObject
 
         fadePanel.enabled = false;       // フェードパネルを無効化
         fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0.0f); // 初期状態では透明
+
+
+        //dustEffectInstance = Instantiate(dustEffect, transform.position, UnityEngine.Quaternion.LookRotation(-transform.forward) * UnityEngine.Quaternion.Euler(60, 0, 0), transform);
     }
- 
+
+
+
     private void Update()
     {
-       // TutorialUpdate();
+        GenerateDustEffect();
+        // TutorialUpdate();
 
-      
+
         //デバグ用即死
         if (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2))
         {
@@ -214,6 +226,7 @@ public class PlayerController : WorldObject
         {
             spriteRenderer.flipX = true;
             currentDirec = Direction.Right;
+           
         }
 
         if (angle >= angleThreshold && angle < angleThreshold * 3)
@@ -358,6 +371,53 @@ public class PlayerController : WorldObject
     }
 
     public override void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData) { }
+
+    private void GenerateDustEffect()
+    {
+        if (preDirec != currentDirec)
+        {
+
+            if (dustEffectInstance != null)
+            {
+                dustEffectInstance.transform.SetParent(null);
+                ParticleSystem particleSystem = dustEffectInstance.GetComponent<ParticleSystem>();
+
+                if (particleSystem != null)
+                {
+                    // ループ停止
+                    var mainModule = particleSystem.main;
+                    mainModule.loop = false;
+                }
+            }
+            //消滅してから、新しいのを生成
+            if (stateManager.CurrentStateType == StateType.Walk || stateManager.CurrentStateType == StateType.Dodge)
+                dustEffectInstance = Instantiate(dustEffect, transform.position, UnityEngine.Quaternion.LookRotation(-transform.forward) * UnityEngine.Quaternion.Euler(60, 0, 0), transform);
+
+        }
+        if (stateManager.CurrentStateType == StateType.Walk || stateManager.CurrentStateType == StateType.Dodge)
+            preDirec = currentDirec;
+
+        //消す
+        if (stateManager.CurrentStateType != StateType.Walk && stateManager.CurrentStateType != StateType.Dodge)
+        {
+            if (dustEffectInstance != null)
+            {
+                dustEffectInstance.transform.SetParent(null);
+                ParticleSystem particleSystem = dustEffectInstance.GetComponent<ParticleSystem>();
+
+                if (particleSystem != null)
+                {
+                    // ループ停止
+                    var mainModule = particleSystem.main;
+                    mainModule.loop = false;
+                }
+            }
+        }
+
+
+
+
+    }
 
     #region Getter&Setter 
 
