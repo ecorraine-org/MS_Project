@@ -308,9 +308,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3348951937556669584, guid: 6aaf12d5f2bbb1b4fb70868202a6f637, type: 3}
+      propertyPath: weakHitEffect
+      value: 
+      objectReference: {fileID: 983767980220012205, guid: 83f5406e6e1a8b84a9559d86ba70d876, type: 3}
+    - target: {fileID: 3348951937556669584, guid: 6aaf12d5f2bbb1b4fb70868202a6f637, type: 3}
+      propertyPath: normalHitEffect
+      value: 
+      objectReference: {fileID: 4697408730827824223, guid: 42af19bf70ca08942a8d9e112fb34aa5, type: 3}
+    - target: {fileID: 3348951937556669584, guid: 6aaf12d5f2bbb1b4fb70868202a6f637, type: 3}
+      propertyPath: spriteHitEffect
+      value: 
+      objectReference: {fileID: 6226865062110874252, guid: ec4739d2304e43c4290c7dff46829895, type: 3}
+    - target: {fileID: 3348951937556669584, guid: 6aaf12d5f2bbb1b4fb70868202a6f637, type: 3}
       propertyPath: finishIconPrefab
       value: 
       objectReference: {fileID: 193877216818812518, guid: 48280ff75b5cf374fb1cc323ee5df2e7, type: 3}
+    - target: {fileID: 3348951937556669584, guid: 6aaf12d5f2bbb1b4fb70868202a6f637, type: 3}
+      propertyPath: toleranceHitEffect
+      value: 
+      objectReference: {fileID: 2495543976131361238, guid: c1849727eea8c6343ae864a4cdeb8914, type: 3}
     - target: {fileID: 7022523217844711418, guid: 6aaf12d5f2bbb1b4fb70868202a6f637, type: 3}
       propertyPath: m_Name
       value: BaseEnemy
@@ -386,6 +402,7 @@ MonoBehaviour:
   hitCollider: {fileID: 0}
   closestCollider: {fileID: 0}
   hasCollided: 0
+  canHit: 0
 --- !u!4 &1143648682989078331 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7717413983041691247, guid: 6aaf12d5f2bbb1b4fb70868202a6f637, type: 3}

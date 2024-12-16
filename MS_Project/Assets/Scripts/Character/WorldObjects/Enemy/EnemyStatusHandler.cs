@@ -95,20 +95,27 @@ public class EnemyStatusHandler : StatusManager
         //    _damage /= 2;
         //}
 
+        HitEffect effectType = HitEffect.Normal;
+
         //耐性処理(複数)
         if (weaknesses !=null&& weaknesses.Contains(enemy.CurReceiverParams.onomatoType))
         {
+            effectType = HitEffect.Weakness;
             Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 弱点 " + string.Join(", ", weaknesses));
             _damage *= 2;
         }
         if (tolerances != null && tolerances.Contains(enemy.CurReceiverParams.onomatoType))
         {
+            effectType = HitEffect.Tolerance;
             Debug.Log("受けたのは " + enemy.CurReceiverParams.onomatoType + ", 耐性 " + string.Join(", ", tolerances));
             _damage /= 2;
         }
         Debug.Log("最終ダメージ "+ _damage);
 
-       base.TakeDamage(_damage);
+        //エフェクト生成
+        enemy.EffectHandler.InstantiateHit(effectType);
+
+        base.TakeDamage(_damage);
 
         //一定hp以下になると、殺せる状態になる
         if (currentHealth <= enemyStatusData.maxHealth * enemyStatusData.killableHealthRate)
