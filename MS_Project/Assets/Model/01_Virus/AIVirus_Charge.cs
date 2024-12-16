@@ -11,7 +11,13 @@ public class AIVirus_Charge : EnemyAction
 
     public void Update()
     {
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
+        if (stateInfo.IsName("PostSkill"))
+        {
+            enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        }
     }
 
     // 前にツッコむ

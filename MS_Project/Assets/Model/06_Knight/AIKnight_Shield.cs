@@ -9,10 +9,18 @@ public class AIKnight_Shield : EnemyAction
 
     private Vector3 direction;
 
-    public void UpDate()
+    public void Update()
     {
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        distanceToPlayer = Vector3.Distance(player.position, enemy.transform.position);
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("Skill"))
+        {
+            enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage/2, false);
+        }
+
     }
+
 
     // 確率で防御
     public void Guard()
@@ -78,6 +86,28 @@ public class AIKnight_Shield : EnemyAction
         }
     }
 
+    public void AttackkInit()
+    {
+        enemy.Anim.Play("PostSkill");
+        currentUpdateAction = AttackkTick;
+    }
+
+    public void AttackkTick()
+    {
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
+        enemy.AttackCollider.CanHit = true;
+
+        if (stateHandler.CheckDeath()) return;
+
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
+
+        if (enemy.AnimManager != null && enemy.AnimManager.IsAnimEnd)
+        {
+            enemy.State.TransitionState(ObjectStateType.Idle);
+        }
+    }
 
     #region オノマトペ情報
     private void KnightWalkData()
