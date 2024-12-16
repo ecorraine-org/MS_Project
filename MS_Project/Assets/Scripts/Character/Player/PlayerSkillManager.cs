@@ -284,6 +284,15 @@ public class PlayerSkillManager : MonoBehaviour
     {
         playerController.SpriteAnim.Play("HammerSkill");
 
+        AttackerParams attackerParams = playerController.CurAttackerParams;
+        //攻撃属性設定
+        attackerParams.onomatoType = OnomatoType.SmashType;
+        attackerParams.attackDamage = skillData.dicSkill[PlayerSkill.Hammer].damage;
+        playerController.CurAttackerParams = attackerParams;
+
+        //エフェクト設定
+        curEffectParam = effectData.dicEffect[PlayerEffect.HammerAttack];
+
         //ヒットストップ
         battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Hammer].slowSpeed;
         battleManager.stopDuration = skillData.dicSkill[PlayerSkill.Hammer].stopDuration;
@@ -304,8 +313,6 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void ExecuteHammerSkillChargeFinished()
     {
-
-
         playerController.SpriteAnim.Play("HammerSkill2", 0, 0f);
 
         dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
@@ -315,10 +322,13 @@ public class PlayerSkillManager : MonoBehaviour
 
     private void ExecuteSpearSkill()
     {
-        HandleAttackerParams();
-        //今はSkillStateで制御している
-        // attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;
+        AttackerParams attackerParams = playerController.CurAttackerParams;
+        //攻撃属性設定
+        attackerParams.onomatoType = OnomatoType.PierceType;
+        attackerParams.attackDamage = skillData.dicSkill[PlayerSkill.Spear].damage;
+        playerController.CurAttackerParams = attackerParams;
 
+        //エフェクト設定
         curEffectParam = effectData.dicEffect[PlayerEffect.SpearAttack];
 
         //ランダムプレイ
@@ -489,6 +499,10 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// アニメーションイベントに呼び出される
+    /// スキルエフェクト生成
+    /// </summary>
     public void GenerateEffect()
     {
 
