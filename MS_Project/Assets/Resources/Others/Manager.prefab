@@ -268,6 +268,7 @@ MonoBehaviour:
   curData: []
   count: 0
   maxNum: 0
+  missionController: {fileID: 0}
 --- !u!1 &4060349111146290312
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +351,7 @@ Transform:
   - {fileID: 8315171066877854026}
   - {fileID: 1369461641669623452}
   - {fileID: 6945337708615553022}
+  - {fileID: 6223047203468546117}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6312678333357551653
@@ -486,5 +488,63 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 744c172affe914f49b4b329e9dfc0f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &6710821469940911756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6223047203468546117}
+  - component: {fileID: 1138880742750708123}
+  - component: {fileID: 5943782652992689638}
+  m_Layer: 0
+  m_Name: ToResult
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6223047203468546117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710821469940911756}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 264235273972372471}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1138880742750708123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710821469940911756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24100a82ea7fa545a5d2e9c8bd8fded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultSceneName: Result
+--- !u!114 &5943782652992689638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710821469940911756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f72e8491c43f043889b2855907045b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

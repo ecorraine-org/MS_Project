@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, NonEditable, Header("キル数")]
     private int killCount = 0;
 
-    [SerializeField,NonEditable, Header("ミッション済み")]
+    [SerializeField, NonEditable, Header("ミッション済み")]
     private bool hasCleared = false;
     [SerializeField, NonEditable, Header("ミッション開始")]
     private bool isStartMission = false;
@@ -120,7 +120,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-   
+
 
         if (!other.CompareTag("Player")) return;
 
@@ -166,7 +166,7 @@ public class EnemySpawner : MonoBehaviour
             //    mission.BossMissionItem.SetActive(false);
             //}
 
-              
+
             if (missionType == MissionType.KillAll) mission.EnemyMissionItem.SetActive(true);
             if (missionType == MissionType.KillBoss) mission.BossMissionItem.SetActive(true);
 
@@ -179,7 +179,7 @@ public class EnemySpawner : MonoBehaviour
             //元のサイズを記録
             // missionArea.DefaultScale = missionAreaInstance.transform.localScale;
 
-          // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
+            // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
             //string count =  killCount + "/" + mobCount.ToString();
             //UnityEngine.Debug.Log("count "+ count);
             //missionDetail = count;
@@ -226,7 +226,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 hasCleared = true;
                 isStartMission = false;
-               // mission.MissionPanel.SetActive(false);
+                // mission.MissionPanel.SetActive(false);
                 mission.MissionTitle.SetActive(false);
 
                 if (missionType == MissionType.KillAll)
@@ -234,8 +234,8 @@ public class EnemySpawner : MonoBehaviour
                     mission.EnemyMissionItem.SetActive(false);
                 }
 
-                    //ボスを倒したら、リザルト画面を出す
-                    if (missionType == MissionType.KillBoss)
+                //ボスを倒したら、リザルト画面を出す
+                if (missionType == MissionType.KillBoss)
                 {
                     mission.BossMissionItem.SetActive(false);
                     HandleBossDefeated();
@@ -296,6 +296,8 @@ public class EnemySpawner : MonoBehaviour
 
         _resultScreenShot.OnScreenshotCompleted += OnScreenshotCompleted;
         _resultScreenShot.StartScreenshotProcess();
+
+        MissionResultManager.Instance.NotifyMissionComplete(MissionType.KillBoss);
     }
 
     /// <summary>

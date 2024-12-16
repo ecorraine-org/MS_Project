@@ -7,17 +7,28 @@ using System.Reflection;
 public class EnemyStateDestroyed : EnemyState
 {
     private MethodInfo diedTickMethod;
-
+    BossDetector bossDetector;
 
     public override void Init(WorldObjectController _objectController)
     {
         base.Init(_objectController);
+        if (enemyStatusHandler.StatusData.enemyRank == EnemyRank.Boss)
+        {
+            bossDetector = GameObject.Find("BossDetector").GetComponent<BossDetector>();
+            bossDetector.StartCoroutine(bossDetector.SlowTimeForSeconds(1.2f));
+            //ƒ{ƒX‚ğÁ‚·
+            //enemy.EnemySpawner.DespawnEnemyFromPool(enemy.gameObject);
+        }
+        else
+        {
+            enemy.EnemySpawner.DespawnEnemyFromPool(enemy.gameObject);
+        }
 
         enemy.Anim.Play("Died", 0, 0.0f);
 
         diedTickMethod = enemy.EnemyAction.GetType().GetMethod("DiedTick");
 
-        //“G‚É‚æ‚é“Æ©‚Ìˆ—
+        //?¿½G?¿½É‚ï¿½?¿½Æï¿½?¿½Ìï¿½?¿½?¿½
         var method = enemy.EnemyAction.GetType().GetMethod("DiedInit");
         if (method != null)
         {
@@ -25,7 +36,8 @@ public class EnemyStateDestroyed : EnemyState
         }
 
 
-        //€
+
+        //?¿½?¿½
         //enemy.EnemySpawner.DespawnEnemyFromPool(enemy.gameObject);
 
         //if (enemyStatusHandler.StatusData.enemyRank != EnemyRank.Boss)
@@ -42,14 +54,14 @@ public class EnemyStateDestroyed : EnemyState
     {
         base.Tick();
 
-        //€‚Ö‘JˆÚ
+        //?¿½?¿½?¿½Ö‘J?¿½?¿½
         if (enemy.AnimManager != null && enemy.AnimManager.IsAnimEnd)
         {
-            //€
+            //?¿½?¿½
             enemy.EnemySpawner.DespawnEnemyFromPool(enemy.gameObject);
         }
 
-        //“G‚É‚æ‚é“Æ©‚Ìˆ—
+        //?¿½G?¿½É‚ï¿½?¿½Æï¿½?¿½Ìï¿½?¿½?¿½
         if (diedTickMethod != null)
         {
             diedTickMethod.Invoke(enemy.EnemyAction, null);
