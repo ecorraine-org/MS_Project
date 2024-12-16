@@ -32,7 +32,7 @@ public abstract class SingletonBaseBehavior<T> : MonoBehaviour
 
         Instance = this as T;
         //新しいシーンに行っても消えないように
-        DontDestroyOnLoad(gameObject); 
+      //  DontDestroyOnLoad(gameObject); 
 
         this.AwakeProcess();
     }

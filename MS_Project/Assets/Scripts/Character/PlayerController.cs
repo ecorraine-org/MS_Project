@@ -123,41 +123,10 @@ public class PlayerController : WorldObject
         fadePanel.enabled = false;       // フェードパネルを無効化
         fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0.0f); // 初期状態では透明
     }
-    private void TutorialUpdate()
-    {
-        //仮でチュートリアル
-        switch (tutorialStage)
-        {
-            case TutorialStage.Step1:
-                Debug.Log("チュートリアル第1段階");
-
-                if (Input.GetKey(KeyCode.Return))
-                    tutorialStage = TutorialStage.Step2;
-                break;
-
-            //時間速度を戻す
-            case TutorialStage.Step2:
-                Debug.Log("チュートリアル第2段階");
-
-                InputController.Instance.SetInputContext(InputController.InputContext.Player);
-                Time.timeScale = 1;
-
-                break;
-            case TutorialStage.Step3:
-                if (Input.GetKey(KeyCode.Return))
-                {
-                    InputController.Instance.SetInputContext(InputController.InputContext.Player);
-                    Time.timeScale = 1;
-                }
-           
-
-                break;
-        }
-    }
-
+ 
     private void Update()
     {
-        TutorialUpdate();
+       // TutorialUpdate();
 
       
         //デバグ用即死
@@ -542,3 +511,36 @@ public class PlayerController : WorldObject
         SceneManager.LoadScene(sceneToLoad);                    // シーンをロードしてメニューシーンに遷移
     }
 }
+
+
+//private void TutorialUpdate()
+//{
+//    //仮でチュートリアル
+//    switch (tutorialStage)
+//    {
+//        //case TutorialStage.Step1:
+//        //    Debug.Log("チュートリアル第1段階");
+
+
+//        //    break;
+
+//        //時間速度を戻す
+//        case TutorialStage.Step2:
+//            Debug.Log("チュートリアル第2段階");
+
+//            InputController.Instance.SetInputContext(InputController.InputContext.Player);
+//            Time.timeScale = 1;
+
+//            break;
+//        case TutorialStage.Step3:
+//            if (Input.GetKey(KeyCode.Return))
+//            {
+//                InputController.Instance.SetInputContext(InputController.InputContext.Player);
+//                Time.timeScale = 1;
+//            }
+
+//            break;
+//        case TutorialStage.None:
+//            break;
+//    }
+//}

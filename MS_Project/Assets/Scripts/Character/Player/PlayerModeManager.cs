@@ -48,6 +48,20 @@ public class PlayerModeManager : MonoBehaviour
 
         //スキル設定
         //  playerController.SkillManager.SetCurSkill(mode);
+
+        if (playerController.tutorialStage == TutorialStage.Step5)
+        {
+            Time.timeScale = 0;
+            //UI操作
+            InputController.Instance.SetInputContext(InputController.InputContext.UI);
+
+            playerController.tutorialStage = TutorialStage.Step6;
+
+            //新しい会話(会話7:変身)
+            TalkManager.Instance.LoadNextStory();
+            TalkManager.Instance.ShowNextPrefab();
+
+        }
     }
 
     public PlayerMode Mode
