@@ -17,7 +17,7 @@ public class MetamorphosisBoxSlider : MonoBehaviour
     [SerializeField, Header("剣の素材")]
     public GameObject swordbox;
     [SerializeField, Header("ハンマーの素材")]
-    public GameObject hammerdbox;
+    public GameObject hammerbox;
     [SerializeField, Header("槍の素材")]
     public GameObject spearbox;
     
@@ -26,7 +26,7 @@ public class MetamorphosisBoxSlider : MonoBehaviour
 
     private void Start()
     {
-        // 初期位置を設定
+        // 通知BOXを初期位置に設定
         if (box != null) 
         {
             box.anchoredPosition = offScreenPosition;
@@ -34,13 +34,62 @@ public class MetamorphosisBoxSlider : MonoBehaviour
     }
     private void Update()
     {
-        // ここを変身した時の変数にしてください
+        // 変身したときに～するif文に変更
         if (Input.GetKeyDown(KeyCode.K))
         {
+            //通知BOXを表示
             TogglePanel();
         }
+
+        // 武器の切り替え←ここのif文の中を変身の変数に
+        if (Input.anyKeyDown)
+        {
+            // 剣、ハンマー、槍の切り替え用
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SetWeapon("Sword");
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SetWeapon("Hammer");
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                SetWeapon("Spear");
+            }
+        }
     }
-    //スライドさせる関数
+
+    // 武器を切り替える
+    private void SetWeapon(string weaponType)
+    {
+        // すべての武器素材を非表示
+        swordbox.SetActive(false);
+        hammerbox.SetActive(false);
+        spearbox.SetActive(false);
+
+        //表示する武器を決定
+        switch (weaponType)
+        {
+            case "Sword":
+                swordbox.SetActive(true);
+                Debug.Log("剣を選択しました");
+                break;
+            case "Hammer":
+                hammerbox.SetActive(true);
+                Debug.Log("ハンマーを選択しました");
+                break;
+            case "Spear":
+                spearbox.SetActive(true);
+                Debug.Log("槍を選択しました");
+                break;
+            default:
+                Debug.LogWarning("無効な武器タイプが指定されました: " + weaponType);
+                break;
+        }
+    }
+
+    //スライド制御関数
     public void TogglePanel()
     {
         //if (isSliding) return; //スライド中は操作しない
@@ -52,7 +101,7 @@ public class MetamorphosisBoxSlider : MonoBehaviour
         StartCoroutine(SlidePanel(targetPosition));
 
     }
-
+    //スライドさせる関数
     private IEnumerator SlidePanel(Vector2 targetPosition)
     {
         float elapsedTime = 0f; //アニメーションの経過時間を追跡するための変数
