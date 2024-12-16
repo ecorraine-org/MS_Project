@@ -24,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
     #region ミッション情報
     [SerializeField, Header("リザルトプレハブ")]
     GameObject resultPrefab;
+    private bool isTransitioning = false;
     ResultScreenShot _resultScreenShot;
 
     [SerializeField, Header("ミッションエリアプレハブ")]
@@ -281,7 +282,7 @@ public class EnemySpawner : MonoBehaviour
     /// ボスが倒されたときに呼び出されるコールバック
     /// 仮
     /// </summary>
-    private void HandleBossDefeated()
+    public void HandleBossDefeated()
     {
 
 
@@ -297,7 +298,9 @@ public class EnemySpawner : MonoBehaviour
         _resultScreenShot.OnScreenshotCompleted += OnScreenshotCompleted;
         _resultScreenShot.StartScreenshotProcess();
 
+
         MissionResultManager.Instance.NotifyMissionComplete(MissionType.KillBoss);
+        UnityEngine.Debug.Log("ボスを倒しました。");
     }
 
     /// <summary>

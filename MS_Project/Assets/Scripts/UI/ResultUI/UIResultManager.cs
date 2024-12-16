@@ -1,25 +1,48 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; // シーンを遷移するために必要
-using TMPro; // TextMeshPro用の名前空間
+using UnityEngine.SceneManagement;
+using TMPro;
+using PixelCrushers.SceneStreamer;
 
 public class UIResultManager : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText; // TextMeshProUGUIコンポーネント
-    public Button restartButton; // リスタートボタン
+    public TextMeshProUGUI scoreText;
+    public Button restartButton;
 
     void Start()
     {
-        // スコアを表示
-        scoreText.text = "スコア: " + GameManager.playerScore;
+        // GameManagerのインスタンスを通してスコアにアクセス
+        if (GameManager.Instance != null)
+        {
+            scoreText.text = "スコア: " + GameManager.Instance.PlayerScore.ToString();
+        }
+        else
+        {
+            Debug.LogError("GameManager instance not found!");
+            scoreText.text = "スコア: 0";
+        }
 
-        // ボタンにリスナーを追加（クリックしたときの処理）
         restartButton.onClick.AddListener(RestartGame);
     }
 
     void RestartGame()
     {
-        // シーンをリロード（ゲームに戻る）
-        SceneManager.LoadScene("Title"); // ゲームシーンの名前に変更
+        // ゲーム状態をリセット（必要に応じて）
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.ResetGameState();
+        }
+
+        // タイトルシーンに戻る
+        SceneStreamerManager.TransitionScene("Title", false);
+    }
+
+    private void OnDestroy()
+    {
+        // ボタンのリスナーを解除
+        if (restartButton != null)
+        {
+            restartButton.onClick.RemoveListener(RestartGame);
+        }
     }
 }
