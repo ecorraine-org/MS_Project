@@ -48,7 +48,7 @@ private void Start()
         if (Input.GetKeyDown(KeyCode.K))
         {
             TogglePanel();
-            ShowTextByVariable();
+            //ShowTextByVariable();
         }
         else
         {
