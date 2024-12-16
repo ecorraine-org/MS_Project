@@ -1353,7 +1353,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58eb9bfa86b327a4fb2811fea5a9f0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curAttackerParams:
+    onomatoType: 0
+    attackDamage: 0
+  curReceiverParams:
+    onomatoType: 0
+    receiveDamage: 0
   onomatoPool: []
+  tutorialStage: 0
+  dustEffect: {fileID: 1829770302506663124, guid: 4e971695f95587f4b906ffcae824073d, type: 3}
   spriteObject: {fileID: 6777233189667550420}
   statusManager: {fileID: 2584761046635776466}
   stateManager: {fileID: 2304777744165196105}
@@ -1369,6 +1377,9 @@ MonoBehaviour:
   groundCheck: {fileID: 0}
   isGrounded: 0
   material: {fileID: 0}
+  fadePanel: {fileID: 0}
+  fadeDuration: 1
+  sceneToLoad: 
 --- !u!114 &9210122227401630925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1384,6 +1395,7 @@ MonoBehaviour:
   hitCollider: {fileID: 0}
   closestCollider: {fileID: 0}
   hasCollided: 0
+  canHit: 0
 --- !u!1 &8886337804035478247
 GameObject:
   m_ObjectHideFlags: 0
