@@ -132,6 +132,43 @@ public class GolemActionList : EnemyAction
     }
     #endregion
 
+    #region Move
+
+    /// <summary>
+    /// 移動処理初期化(一回だけ実行する)
+    /// </summary>
+    public void MoveInit()
+    {
+        //初期化
+        frameTime = 0.0f;
+
+        //前の状態は歩きでなければ、初期化
+        //歩きの場合、走りに変更した時、walkStageを1にする
+        if (stateHandler.CurrentStateType != ObjectStateType.Walk) moveStage = 0;
+
+        //歩き
+        if (moveStage == 0) enemy.Anim.Play("Walk");
+        //走り
+        //if (moveStage == 1) enemy.Anim.Play("Dash");
+        currentUpdateAction = MoveTick;
+    }
+
+    public void MoveTick()
+    {
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
+
+        if (moveStage == 0) HandleWalk();
+        if (moveStage == 1) HandleDash();
+
+        Looking();
+
+        //移動
+        enemy.Move();
+
+    }
+    #endregion
+
     #region ThrowSkill
     /// <summary>
     /// 投げ初期化

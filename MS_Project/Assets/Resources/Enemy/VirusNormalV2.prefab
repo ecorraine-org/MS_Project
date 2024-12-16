@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 2698568975020192414}
     - target: {fileID: -1733712913277658140, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
       propertyPath: soundEffects.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -1733712913277658140, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
       propertyPath: 'soundEffects.Array.data[0]'
@@ -24,6 +24,14 @@ PrefabInstance:
       propertyPath: 'soundEffects.Array.data[1]'
       value: 
       objectReference: {fileID: 8300000, guid: 0b32c5c98ee64a248ba49f77eef77beb, type: 3}
+    - target: {fileID: -1733712913277658140, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: 'soundEffects.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 10b4fbae42486514aa3b43b5f815a5d6, type: 3}
+    - target: {fileID: 1052077386745205554, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 1230446234430820359, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
       propertyPath: m_Name
       value: Virus
@@ -67,6 +75,30 @@ PrefabInstance:
     - target: {fileID: 1898475016891599549, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080628098544602557, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 82.71786
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080628098544602557, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -178.61427
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080628098544602557, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -176.02284
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176313733064473551, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 4.891027
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176313733064473551, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.5460784
+      objectReference: {fileID: 0}
+    - target: {fileID: 9176313733064473551, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -6.090722
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

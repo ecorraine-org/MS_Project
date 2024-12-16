@@ -58,6 +58,7 @@ public class EnemyStateWalk : EnemyState
         //進む方向に向く
         Quaternion forwardRotation = Quaternion.LookRotation(direction.normalized);
         forwardRotation.x = 0f;
+        forwardRotation.z = 0f;
         enemy.transform.rotation = forwardRotation;
 
         //追跡
