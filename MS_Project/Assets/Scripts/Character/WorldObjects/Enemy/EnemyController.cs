@@ -243,7 +243,7 @@ public class EnemyController : WorldObjectController
         BattleManager.StartHitStop(animator);
 
         //エフェクト生成
-        EffectHandler.InstantiateHit();
+       // EffectHandler.InstantiateSpriteHit();
 
         // ヒット時に音を鳴らす----------
         base.Hit(_canOneHitKill); // 親クラスの処理を呼び出し

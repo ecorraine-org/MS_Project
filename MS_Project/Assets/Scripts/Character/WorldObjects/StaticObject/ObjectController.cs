@@ -76,7 +76,7 @@ public class ObjectController : WorldObjectController
         isDamaged = true;
 
         //エフェクト生成
-        EffectHandler.InstantiateHit();
+        EffectHandler.InstantiateSpriteHit();
     }
 
     public override void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData)

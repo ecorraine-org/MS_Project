@@ -136,6 +136,19 @@ public enum PlayerEffect
 }
 
 /// <summary>
+/// ヒットスキル
+/// </summary>
+
+public enum HitEffect
+{
+    None,
+    [InspectorName("スプライト")] Sprite,
+    [InspectorName("耐性")] Tolerance,
+    [InspectorName("弱点")] Weakness,
+    [InspectorName("ノーマル")] Normal,
+}
+
+/// <summary>
 /// チュートリアル段階
 /// </summary>
 public enum TutorialStage
