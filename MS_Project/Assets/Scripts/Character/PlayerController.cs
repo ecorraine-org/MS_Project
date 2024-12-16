@@ -138,7 +138,9 @@ public class PlayerController : WorldObject
     private void Update()
     {
         GenerateDustEffect();
-        // TutorialUpdate();
+
+        //仮設定
+        BattleManager.Instance.CurPlayerMode =modeManager.Mode;
 
 
         //デバグ用即死
