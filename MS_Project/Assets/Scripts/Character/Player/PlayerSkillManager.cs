@@ -315,8 +315,19 @@ public class PlayerSkillManager : MonoBehaviour
 
     private void ExecuteSpearSkill()
     {
-        playerController.SpriteAnim.Play("SpearSkill");
-        playerController.SpriteRenderer.color = Color.red;
+        HandleAttackerParams();
+        //今はSkillStateで制御している
+        // attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;
+
+        curEffectParam = effectData.dicEffect[PlayerEffect.SpearAttack];
+
+        //ランダムプレイ
+        curEffectParam.rotation.x = 0.0f;
+
+
+
+        //ランダムプレイ
+        playerController.SpriteAnim.Play("SpearAttackA", 0, 0f);
 
         //ヒットストップ
         battleManager.slowSpeed = skillData.dicSkill[PlayerSkill.Spear].slowSpeed;
