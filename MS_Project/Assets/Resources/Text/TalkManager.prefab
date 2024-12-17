@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5837871469174092385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7203163735639057456}
+  - component: {fileID: 1910552349240057206}
+  m_Layer: 0
+  m_Name: TalkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7203163735639057456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837871469174092385}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 971, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910552349240057206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5837871469174092385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd9052955b7047438650347f62bd4e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stories:
+  - storyName: "\u4F1A\u8A711"
+    playerDialogPrefabs:
+    - prefab: {fileID: 3003526254258647158, guid: f9e8b0bf9b9b54f44ba12f0206ea5d1f, type: 3}
+      priority: 1
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    npcDialogPrefabs:
+    - prefab: {fileID: 1411227765845071814, guid: d509e8d5fdf445e43b56cdae6e861427, type: 3}
+      priority: 2
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+  - storyName: "\u4F1A\u8A712"
+    playerDialogPrefabs:
+    - prefab: {fileID: 3003526254258647158, guid: b7a3891699f797b46b3f143ce3df685f, type: 3}
+      priority: 3
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: a980b0517f8350c4f84d9072d314bdc8, type: 3}
+      priority: 6
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: 6d8fa74afd6a7f440996e1b7beb887a2, type: 3}
+      priority: 8
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    npcDialogPrefabs:
+    - prefab: {fileID: 1411227765845071814, guid: 781577dcbf008b44998b9a1825005a67, type: 3}
+      priority: 5
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+    - prefab: {fileID: 1411227765845071814, guid: 28ec95dba3544b842bb438e53f019d0d, type: 3}
+      priority: 7
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+  - storyName: "\u4F1A\u8A713"
+    playerDialogPrefabs:
+    - prefab: {fileID: 3003526254258647158, guid: f9991baae622e5c429c36d82c9ae075c, type: 3}
+      priority: 10
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    npcDialogPrefabs: []
+  - storyName: "\u4F1A\u8A714"
+    playerDialogPrefabs:
+    - prefab: {fileID: 3003526254258647158, guid: c62b0ceac71eb2a49b1ed980c4fe4bb6, type: 3}
+      priority: 12
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: c658fd59017713a4ba6118d38832f2c0, type: 3}
+      priority: 14
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: 8ad030c64bc17234c84387d1ed49b7f5, type: 3}
+      priority: 16
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: 58e5621cbbb644348b9970741c8dd029, type: 3}
+      priority: 18
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    npcDialogPrefabs:
+    - prefab: {fileID: 1411227765845071814, guid: 7281ea2bec8673640a6fe365d590ee0d, type: 3}
+      priority: 11
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+    - prefab: {fileID: 1411227765845071814, guid: e35abb72bd6b3034fb5c23e796d27025, type: 3}
+      priority: 13
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+    - prefab: {fileID: 1411227765845071814, guid: 31e3766ee8c19e84bba1af2830ff0aee, type: 3}
+      priority: 15
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+    - prefab: {fileID: 1411227765845071814, guid: d46278de69db76941ab577f3eac015a4, type: 3}
+      priority: 17
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+  - storyName: "\u4F1A\u8A715"
+    playerDialogPrefabs:
+    - prefab: {fileID: 3003526254258647158, guid: 5e1f09b52428a7f489264daeb03670e8, type: 3}
+      priority: 19
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    npcDialogPrefabs: []
+  - storyName: "\u4F1A\u8A716"
+    playerDialogPrefabs:
+    - prefab: {fileID: 3003526254258647158, guid: b6ffb9f1dd79359439f6fe93018ba271, type: 3}
+      priority: 21
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    npcDialogPrefabs:
+    - prefab: {fileID: 1411227765845071814, guid: 14b9f52400634234f8af06924612f11f, type: 3}
+      priority: 20
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+  - storyName: "\u4F1A\u8A717"
+    playerDialogPrefabs:
+    - prefab: {fileID: 3003526254258647158, guid: 5b0e07c0482f8544b88473a0bf500a77, type: 3}
+      priority: 22
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: ad1661bc299de5542b290f30b412115f, type: 3}
+      priority: 24
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    npcDialogPrefabs:
+    - prefab: {fileID: 1411227765845071814, guid: 973a95078d33d464c959ef63c521eed3, type: 3}
+      priority: 23
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+  - storyName: "\u4F1A\u8A718"
+    playerDialogPrefabs:
+    - prefab: {fileID: 3003526254258647158, guid: b6dd01d959c1314408a306a6ebc098d1, type: 3}
+      priority: 25
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: 5ce0850027f789d4ea8969890069cfd7, type: 3}
+      priority: 27
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: cc3b3007465017b4b87d7d9d3006fee2, type: 3}
+      priority: 29
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    - prefab: {fileID: 3003526254258647158, guid: cd944892795b3384991ef47725cca547, type: 3}
+      priority: 31
+      dialogColor: {r: 1, g: 1, b: 1, a: 0}
+    npcDialogPrefabs:
+    - prefab: {fileID: 1411227765845071814, guid: 25812b4c92502d84092490b7e2ad4250, type: 3}
+      priority: 26
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+    - prefab: {fileID: 1411227765845071814, guid: ca9708efaf54e0e4d836bc5a0c02ebed, type: 3}
+      priority: 28
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+    - prefab: {fileID: 1411227765845071814, guid: ca9708efaf54e0e4d836bc5a0c02ebed, type: 3}
+      priority: 30
+      dialogColor: {r: 1, g: 1, b: 1, a: 1}
+  parentTransform: {fileID: 0}
+  playerVerticalOffset: 150
+  npcVerticalOffset: 150
+  movePlayerDialogsUp: 1
+  moveNpcDialogsUp: 0
+  maxDialogCount: 2
+  movementCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  backgroundPrefab: {fileID: 2897331992264484442, guid: 4b1461b3b06c05c4c94d31798a33411e, type: 3}
+  dialogTransparency: 0.7
+  enterCooldown: 1
+  currentStoryIndex: 0
+  currentDialogIndex: 0
