@@ -8,36 +8,36 @@ using static EatBoxSlider;
 
 public class EatBoxSlider : MonoBehaviour
 {
-    [SerializeField, Header("’Ê’mBOX")]
-    public RectTransform box; // ‘€ì‚·‚éPanel‚ÌRectTransform
-    [SerializeField, Header("ŠJn’n“_")]
-    public Vector2 offScreenPosition; // Panel‚ª‰æ–ÊŠO‚É‚ ‚é‚Æ‚«‚ÌÀ•W
-    [SerializeField, Header("I—¹’n“_")]
-    public Vector2 onScreenPosition;  // Panel‚ª‰æ–Ê“à‚É‚ ‚é‚Æ‚«‚ÌÀ•W
-    [SerializeField, Header("ƒXƒ‰ƒCƒhŠÔ")]
-    public float slideDuration; // ƒXƒ‰ƒCƒhƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŠ—vŠÔi•bj
+    [SerializeField, Header("é€šçŸ¥BOX")]
+    public RectTransform box; // æ“ä½œã™ã‚‹Panelã®RectTransform
+    [SerializeField, Header("é–‹å§‹åœ°ç‚¹")]
+    public Vector2 offScreenPosition; // PanelãŒç”»é¢å¤–ã«ã‚ã‚‹ã¨ãã®åº§æ¨™
+    [SerializeField, Header("çµ‚äº†åœ°ç‚¹")]
+    public Vector2 onScreenPosition;  // PanelãŒç”»é¢å†…ã«ã‚ã‚‹ã¨ãã®åº§æ¨™
+    [SerializeField, Header("ã‚¹ãƒ©ã‚¤ãƒ‰æ™‚é–“")]
+    public float slideDuration; // ã‚¹ãƒ©ã‚¤ãƒ‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ‰€è¦æ™‚é–“ï¼ˆç§’ï¼‰
 
-    [SerializeField, Header("•\¦æ‚ÌTextƒRƒ“ƒ|[ƒlƒ“ƒg")]
+    [SerializeField, Header("è¡¨ç¤ºå…ˆã®Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ")]
     private TextMeshProUGUI uiText;
-    [SerializeField, Header("•Ï”‚ÉŠî‚Ã‚­ƒeƒLƒXƒg‚Ìƒ}ƒbƒsƒ“ƒO")]
-    private TextMapping[] textMappings; // “Á’è‚Ì•Ï”‚ÉŠî‚Ã‚­ƒeƒLƒXƒg‚ğƒ}ƒbƒsƒ“ƒO
-    private int currentIndex = 0; // Œ»İ•\¦‚µ‚Ä‚¢‚éƒeƒLƒXƒg‚ÌƒCƒ“ƒfƒbƒNƒX
+    [SerializeField, Header("å¤‰æ•°ã«åŸºã¥ããƒ†ã‚­ã‚¹ãƒˆã®ãƒãƒƒãƒ”ãƒ³ã‚°")]
+    private TextMapping[] textMappings; // ç‰¹å®šã®å¤‰æ•°ã«åŸºã¥ããƒ†ã‚­ã‚¹ãƒˆã‚’ãƒãƒƒãƒ”ãƒ³ã‚°
+    private int currentIndex = 0; // ç¾åœ¨è¡¨ç¤ºã—ã¦ã„ã‚‹ãƒ†ã‚­ã‚¹ãƒˆã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 
-    private bool isVisible = false; // box‚ª•\¦’†‚©‚Ç‚¤‚©
-    private bool isSliding = false; // ƒXƒ‰ƒCƒh’†‚©‚Ç‚¤‚©
+    private bool isVisible = false; // boxãŒè¡¨ç¤ºä¸­ã‹ã©ã†ã‹
+    private bool isSliding = false; // ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã‹ã©ã†ã‹
 
     [System.Serializable]
     public class TextMapping
     {
-        [SerializeField, Header("•Ï”–¼")]
+        [SerializeField, Header("å¤‰æ•°å")]
         public string variableName;
-        [SerializeField, Header("‘Î‰‚·‚éƒeƒLƒXƒg")]
+        [SerializeField, Header("å¯¾å¿œã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
         public string text;
     }
 
 private void Start()
     {
-        // ‰ŠúˆÊ’u‚ğİ’è
+        // åˆæœŸä½ç½®ã‚’è¨­å®š
         if (box != null)
         {
             box.anchoredPosition = offScreenPosition;
@@ -52,17 +52,17 @@ private void Start()
         }
         else
         {
-            Debug.LogError("UI TextƒRƒ“ƒ|[ƒlƒ“ƒg‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogError("UI Textã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
         }
     }
-    //ƒXƒ‰ƒCƒh‚³‚¹‚éŠÖ”
+    //ã‚¹ãƒ©ã‚¤ãƒ‰ã•ã›ã‚‹é–¢æ•°
     public void TogglePanel()
     {
-        //if (isSliding) return; //ƒXƒ‰ƒCƒh’†‚Í‘€ì‚µ‚È‚¢
+        //if (isSliding) return; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã¯æ“ä½œã—ãªã„
 
-        isSliding = true; //ƒXƒ‰ƒCƒh’†‚©‚Ç‚¤‚©
+        isSliding = true; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã‹ã©ã†ã‹
 
-        //isVisible = true ‚È‚ç offScreenPosition‚Ü‚ÅƒXƒ‰ƒCƒhAfalse ‚È‚ç onScreenPosition ‚Ü‚ÅƒXƒ‰ƒCƒh
+        //isVisible = true ãªã‚‰ offScreenPositionã¾ã§ã‚¹ãƒ©ã‚¤ãƒ‰ã€false ãªã‚‰ onScreenPosition ã¾ã§ã‚¹ãƒ©ã‚¤ãƒ‰
         Vector2 targetPosition = isVisible ? offScreenPosition : onScreenPosition;
         StartCoroutine(SlidePanel(targetPosition));
 
@@ -70,32 +70,32 @@ private void Start()
 
     private IEnumerator SlidePanel(Vector2 targetPosition)
     {
-        float elapsedTime = 0f; //ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŒo‰ßŠÔ‚ğ’ÇÕ‚·‚é‚½‚ß‚Ì•Ï”
-        Vector2 startPosition = box.anchoredPosition; //ƒXƒ‰ƒCƒhŠJn‚Ìƒpƒlƒ‹‚ÌŒ»İˆÊ’u‚ğ•Û
+        float elapsedTime = 0f; //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çµŒéæ™‚é–“ã‚’è¿½è·¡ã™ã‚‹ãŸã‚ã®å¤‰æ•°
+        Vector2 startPosition = box.anchoredPosition; //ã‚¹ãƒ©ã‚¤ãƒ‰é–‹å§‹æ™‚ã®ãƒ‘ãƒãƒ«ã®ç¾åœ¨ä½ç½®ã‚’ä¿æŒ
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹ŠÔ‚Ü‚Åƒ‹[ƒv‚·‚é‚æ
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†æ™‚é–“ã¾ã§ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‚ˆ
         while (elapsedTime < slideDuration)
         {
-            elapsedTime += Time.deltaTime; //‘OƒtƒŒ[ƒ€‚©‚çŠÔŒo‰ß‚ğ‰ÁZ
+            elapsedTime += Time.deltaTime; //å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰æ™‚é–“çµŒéã‚’åŠ ç®—
             float t = elapsedTime / slideDuration;
             box.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, t);
             yield return null;
 
-            // Š„‚è‚İƒ`ƒFƒbƒNi•K—v‚È‚çğŒ‚ğ’Ç‰Áj
+            // å‰²ã‚Šè¾¼ã¿ãƒã‚§ãƒƒã‚¯ï¼ˆå¿…è¦ãªã‚‰æ¡ä»¶ã‚’è¿½åŠ ï¼‰
             if (Input.GetKeyDown(KeyCode.K))
             {
-                Debug.Log("Š„‚è‚İ’Ê’m");
-                //‹­§‰ŠúˆÊ’u‘—ŠÒ
+                Debug.Log("å‰²ã‚Šè¾¼ã¿é€šçŸ¥");
+                //å¼·åˆ¶åˆæœŸä½ç½®é€é‚„
                 box.anchoredPosition = offScreenPosition;
                 isVisible = true;
             }
         }
-        box.anchoredPosition = targetPosition; //ÅŒã‚É–Ú•WˆÊ’u‚Éƒsƒbƒ^ƒŠ‡‚í‚¹‚é
-        isVisible = !isVisible; //^‹U’l‚Ì“ü‚ê‘Ö‚¦
-        isSliding = false; //ƒXƒ‰ƒCƒhƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰Šú‰»
+        box.anchoredPosition = targetPosition; //æœ€å¾Œã«ç›®æ¨™ä½ç½®ã«ãƒ”ãƒƒã‚¿ãƒªåˆã‚ã›ã‚‹
+        isVisible = !isVisible; //çœŸå½å€¤ã®å…¥ã‚Œæ›¿ãˆ
+        isSliding = false; //ã‚¹ãƒ©ã‚¤ãƒ‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–
     }
 
-    // ŠO•”‚©‚ç’¼ÚƒeƒLƒXƒg‚ğİ’è‚·‚éƒƒ\ƒbƒh
+    // å¤–éƒ¨ã‹ã‚‰ç›´æ¥ãƒ†ã‚­ã‚¹ãƒˆã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void SetText(string newText)
     {
         if (uiText != null)
@@ -104,10 +104,10 @@ private void Start()
         }
         else
         {
-            Debug.LogError("TextMeshProUGUIƒRƒ“ƒ|[ƒlƒ“ƒg‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+            Debug.LogError("TextMeshProUGUIã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
         }
     }
-    // “Á’è‚Ì•Ï”‚ÉŠî‚Ã‚¢‚ÄƒeƒLƒXƒg‚ğ•\¦‚·‚éƒƒ\ƒbƒh
+    // ç‰¹å®šã®å¤‰æ•°ã«åŸºã¥ã„ã¦ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void ShowTextByVariable(string variable)
     {
         foreach (var mapping in textMappings)
@@ -118,6 +118,6 @@ private void Start()
                 return;
             }
         }
-        Debug.LogWarning($"w’è‚³‚ê‚½•Ï” '{variable}' ‚É‘Î‰‚·‚éƒeƒLƒXƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+        Debug.LogWarning($"æŒ‡å®šã•ã‚ŒãŸå¤‰æ•° '{variable}' ã«å¯¾å¿œã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚");
     }
 }
