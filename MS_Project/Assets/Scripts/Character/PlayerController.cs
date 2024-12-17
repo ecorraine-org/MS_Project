@@ -149,7 +149,7 @@ public class PlayerController : WorldObject
             statusManager.CurrentHealth = 0;
         }
 
-        if(statusManager.CurrentHealth == 0)
+        if(statusManager.CurrentHealth <= 0)
         {
             StartCoroutine(FadeOutAndLoadScene());
         }
