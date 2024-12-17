@@ -22,6 +22,7 @@ MonoBehaviour:
     slowSpeed: 0
     stopDuration: 0
     canCharge: 0
+    SizeRate: 0
     canCancel: 0
   - skillName: 2
     coolTime: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
     slowSpeed: 0
     stopDuration: 0.1
     canCharge: 1
+    SizeRate: 0
     canCancel: 0
   - skillName: 3
     coolTime: 0
@@ -42,6 +44,7 @@ MonoBehaviour:
     slowSpeed: 0
     stopDuration: 0.03
     canCharge: 0
+    SizeRate: 0
     canCancel: 0
   - skillName: 4
     coolTime: 0
@@ -52,6 +55,7 @@ MonoBehaviour:
     slowSpeed: 0
     stopDuration: 0.1
     canCharge: 0
+    SizeRate: 0
     canCancel: 1
   - skillName: 5
     coolTime: 0
@@ -62,9 +66,10 @@ MonoBehaviour:
     slowSpeed: 0
     stopDuration: 0.2
     canCharge: 0
+    SizeRate: 0
     canCancel: 0
   - skillName: 6
-    coolTime: 0.3
+    coolTime: 0.5
     dashSpeed: 30
     dashDuration: 0.2
     hpCost: 0
@@ -72,4 +77,5 @@ MonoBehaviour:
     slowSpeed: 0
     stopDuration: 0
     canCharge: 0
+    SizeRate: 0
     canCancel: 0

@@ -103,13 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42f043ee2147044bb143c3912156c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVelocity: 10
+  initialVelocity: 20
   attackCollider: {fileID: 8536549422878019664}
-  attackSize: {x: 2.5, y: 1.6, z: 0.3}
-  attackDamage: 24
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 16384
   spriteRenderer: {fileID: 1791320073203051602}
   attackColliderV3: {fileID: 0}
   windBladeScale: 0.5
