@@ -47,6 +47,10 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
     [Header("Transparency Settings")]
     [Range(0f, 1f)]
     public float dialogTransparency = 0.7f;
+    [Header("Input Cooldown Settings")]
+    public float enterCooldown = 1f; // エンターキーを押せる間隔（秒）
+
+    private float lastEnterPressTime = 0f; // 最後にエンターキーが押された時間
 
     [SerializeField,NonEditable,Header("現在のストーリー番号")]
     private int currentStoryIndex = 0; // 現在のストーリー番号
@@ -64,28 +68,23 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     void Start()
     {
-        CreateBackgroundOverlay();
-        if (stories.Count > 0)
-        {
-            LoadStory(currentStoryIndex);
-            ShowNextPrefab();
-        }
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            ShowNextPrefab();
+            if (Time.time - lastEnterPressTime >= enterCooldown)
+            {
+                ShowNextPrefab();
+                lastEnterPressTime = Time.time; // 押した時間を記録
+            }
+            else
+            {
+                Debug.Log("エンターキーを押すのは少し待ってください。");
+            }
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            LoadNextStory();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            SkipDialog();
-        }
+
     }
 
     public void LoadStory(int storyIndex)
@@ -102,6 +101,9 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         displayedNpcInstances.Clear();
 
         Debug.Log($"ストーリー '{stories[storyIndex].storyName}' をロードしました。");
+        ShowNextPrefab();
+        CreateBackgroundOverlay();
+
     }
 
     public void LoadNextStory()
@@ -339,8 +341,76 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
     {
         if (backgroundInstance != null)
         {
-            backgroundInstance.SetActive(show);
+            if (show)
+            {
+                backgroundInstance.SetActive(true);
+                StartCoroutine(FadeBackground(backgroundInstance, 0f, 1f)); // フェードイン
+            }
+            else
+            {
+                StartCoroutine(FadeBackground(backgroundInstance, 1f, 0f, () =>
+                {
+                    backgroundInstance.SetActive(false); // 完全に消えたら非アクティブ化
+                }));
+            }
         }
+        else if (backgroundOverlay != null)
+        {
+            if (show)
+            {
+                StartCoroutine(FadeBackgroundOverlay(0f, 1f)); // フェードイン
+            }
+            else
+            {
+                StartCoroutine(FadeBackgroundOverlay(1f, 0f, () =>
+                {
+                    backgroundOverlay.gameObject.SetActive(false); // 完全に消えたら非アクティブ化
+                }));
+            }
+        }
+    }
+
+    IEnumerator FadeBackground(GameObject background, float startAlpha, float endAlpha, System.Action onComplete = null)
+    {
+        CanvasGroup canvasGroup = background.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = background.AddComponent<CanvasGroup>();
+        }
+
+        float duration = 1f; // フェード時間
+        float elapsedTime = 0f;
+
+        canvasGroup.alpha = startAlpha;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration);
+            yield return null;
+        }
+
+        canvasGroup.alpha = endAlpha;
+        onComplete?.Invoke();
+    }
+
+    IEnumerator FadeBackgroundOverlay(float startAlpha, float endAlpha, System.Action onComplete = null)
+    {
+        float duration = 1f; // フェード時間
+        float elapsedTime = 0f;
+
+        backgroundOverlay.canvasRenderer.SetAlpha(startAlpha);
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            float newAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration);
+            backgroundOverlay.canvasRenderer.SetAlpha(newAlpha);
+            yield return null;
+        }
+
+        backgroundOverlay.canvasRenderer.SetAlpha(endAlpha);
+        onComplete?.Invoke();
     }
 
 
