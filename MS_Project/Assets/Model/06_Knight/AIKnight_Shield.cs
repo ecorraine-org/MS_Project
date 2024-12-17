@@ -16,7 +16,23 @@ public class AIKnight_Shield : EnemyAction
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Skill"))
         {
-            enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage/2, false);
+            enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
+            if (stateInfo.normalizedTime <= 0.32f)
+            {
+                //ちょっとずつ見る
+                direction = player.position - enemy.transform.position;
+
+                Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+                targetRotation.x = 0f;
+                targetRotation.z = 0f;
+
+                enemy.transform.rotation = Quaternion.Slerp(
+                enemy.transform.rotation,
+                targetRotation,
+                0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+            );
+            }
         }
 
     }
@@ -54,10 +70,11 @@ public class AIKnight_Shield : EnemyAction
             // 追跡
             enemy.OnMovementInput?.Invoke(forwardDirection.normalized);
         }
-        else if (distanceToPlayer < enemy.Status.StatusData.attackDistance * 0.5f)
+        else if (distanceToPlayer < enemy.Status.StatusData.attackDistance * 0.8f)
         {
+            enemy.Anim.Play("Idle");
             // 後ろ
-            //enemy.OnMovementInput?.Invoke(-forwardDirection.normalized / 5.0f);
+            //enemy.OnMovementInput?.Invoke(-forwardDirection.normalized / 2.0f);
         }
 
         //ちょっとずつ見る
