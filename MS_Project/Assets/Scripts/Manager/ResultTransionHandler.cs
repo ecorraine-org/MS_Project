@@ -7,7 +7,7 @@ using PixelCrushers.SceneStreamer;
 /// </summary>
 public class ResultTransitionHandler : MonoBehaviour
 {
-    [SerializeField] private string resultSceneName = "Result";
+    [SerializeField] private string resultSceneName = "StageSelect";
 
     private void Start()
     {
@@ -36,8 +36,13 @@ public class ResultTransitionHandler : MonoBehaviour
     {
         // スクリーンショットの処理を待つ
         Debug.Log("Transition to Result scene");
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.0f);
 
+        //CameraPivot(Clone)を探sして削除
+        Destroy
+        (
+            GameObject.Find("CameraPivot(Clone)")
+        );
         // リザルトシーンへ遷移
         SceneStreamerManager.TransitionScene(resultSceneName, false);
         Debug.Log("Transition to Result scene");
