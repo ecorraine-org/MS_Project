@@ -41,7 +41,7 @@ public class PlayerModeManager : MonoBehaviour
     /// <summary>
     /// モードチェンジ
     /// </summary>
-    private void ModeChange(PlayerMode _mode)
+    private void ModeChange(PlayerMode _mode,string onomatoName)
     {
         //モード設定
         mode = _mode;
