@@ -9,7 +9,7 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
     private OnomatopoeiaController controller;
 
     //  モードチェンジのイベント
-    public delegate void OnomatoEventHandler(PlayerMode mode);
+    public delegate void OnomatoEventHandler(PlayerMode mode,string onomatoName);
     public static event OnomatoEventHandler OnModeChangeEvent;
 
     // 暴走ゲージを溜めるイベント
@@ -77,13 +77,13 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
 
         Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
         //モードチェンジのイベント送信
-        ChangeMode(nextDataType);
+        ChangeMode(nextDataType, controller.Data.wordToUse);
 
         //暴走ゲージを溜めるイベント送信
         OnIncreaseFrenzyEvent?.Invoke(5.0f);
     }
 
-    public static void ChangeMode(OnomatoType _datatype)
+    public static void ChangeMode(OnomatoType _datatype,string name)
     {
         string nextMode = "";
         switch (_datatype)
@@ -92,19 +92,19 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
                 break;
             case OnomatoType.SlashType:
                 nextMode = PlayerMode.Sword.ToString();
-                OnModeChangeEvent?.Invoke(PlayerMode.Sword);
+                OnModeChangeEvent?.Invoke(PlayerMode.Sword, name);
                 break;
             case OnomatoType.SmashType:
                 nextMode = PlayerMode.Hammer.ToString();
-                OnModeChangeEvent?.Invoke(PlayerMode.Hammer);
+                OnModeChangeEvent?.Invoke(PlayerMode.Hammer, name);
                 break;
             case OnomatoType.PierceType:
                 nextMode = PlayerMode.Spear.ToString();
-                OnModeChangeEvent?.Invoke(PlayerMode.Spear);
+                OnModeChangeEvent?.Invoke(PlayerMode.Spear, name);
                 break;
             case OnomatoType.PunchType:
                 nextMode = PlayerMode.Gauntlet.ToString();
-                OnModeChangeEvent?.Invoke(PlayerMode.Gauntlet);
+                OnModeChangeEvent?.Invoke(PlayerMode.Gauntlet, name);
                 break;
             case OnomatoType.OtherType:
                 break;
