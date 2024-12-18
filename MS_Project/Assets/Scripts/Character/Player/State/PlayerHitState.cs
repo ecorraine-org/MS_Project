@@ -12,7 +12,7 @@ public class PlayerHitState : PlayerState
         SetIsPerformDamage(false);
 
         base.Init(_playerController);
-        Debug.Log("被撃ステート");
+     //   Debug.Log("被撃ステート");
 
         spriteAnim.Play("Damaged", 0, 0f);
         playerController.SpriteRenderer.color = Color.red;

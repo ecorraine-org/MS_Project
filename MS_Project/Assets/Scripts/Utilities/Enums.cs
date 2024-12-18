@@ -122,7 +122,7 @@ public enum MissionType
 }
 
 /// <summary>
-/// プレイヤースキル
+/// プレイヤーエフェクト
 /// </summary>
 /// <remarks>
 /// モードと同じ順番で定義する必要がある
@@ -134,6 +134,21 @@ public enum PlayerEffect
     [InspectorName("剣攻撃2")] SwordAttack2,
     [InspectorName("スピア攻撃")] SpearAttack,
     [InspectorName("ハンマー攻撃")] HammerAttack,
+}
+
+/// <summary>
+/// 敵エフェクト
+/// </summary>
+/// <remarks>
+/// モードと同じ順番で定義する必要がある
+/// </remarks>
+public enum EnemyEffect
+{
+    None,
+    [InspectorName("???攻撃1")] Attack1,
+    [InspectorName("???攻撃2")] Attack2,
+    [InspectorName("???攻撃3")] Attack3,
+    [InspectorName("???攻撃4")] Attack4,
 }
 
 /// <summary>
