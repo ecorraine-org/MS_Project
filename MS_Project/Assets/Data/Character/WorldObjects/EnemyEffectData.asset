@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0238402efad5c29449692ee6f05968e4, type: 3}
+  m_Name: EnemyEffectData
+  m_EditorClassIdentifier: 
+  effects:
+  - effectName: 1
+    effect: {fileID: 1800760304470593153, guid: c1ec245fb5254d4429581dc83e29a2ff, type: 3}
+    rotation: {x: 44.3, y: 81.6, z: 19.36}
+    position: {x: 0, y: 8.2, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    speed: 1
+    isFollow: 1
+  - effectName: 2
+    effect: {fileID: 7882868666210565615, guid: ba902cd53241f8e42b50627e6a1bc241, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    speed: 1
+    isFollow: 1

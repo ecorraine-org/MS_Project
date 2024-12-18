@@ -68,4 +68,11 @@ public class EnemyAnimManager : AnimManager
             enemy.EnemyAction.TutorialStopTime();
         }
     }
+
+    public void GenerateEffectEvt(int _index)
+    {
+        EffectHandler effectHandler = enemy.EffectHandler;
+        effectHandler.GenerateEffect(_index);
+      
+    }
 }

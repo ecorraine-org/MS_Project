@@ -22,6 +22,19 @@ public class EffectHandler : MonoBehaviour
     [SerializeField, Header("エフェクト生成位置")]
     Transform hitEffectPoint;
 
+
+    [SerializeField, Header("エフェクトデータ")]
+    EnemyEffectData effectData;
+
+    //[SerializeField, NonEditable, Header("エフェクトを格納する変数")]
+    //GameObject curEffect;
+
+    //生成したエフェクトを格納する
+    GameObject effectInstance;
+
+    //エフェクトデータを格納する変数
+    List<EnemyEffectParam> curEffectParams = new List<EnemyEffectParam>();
+
     //所有者の参照
     WorldObject owner;
 
@@ -40,24 +53,64 @@ public class EffectHandler : MonoBehaviour
 
     public void InstantiateHit(HitEffect _hitType)
     {
-        GameObject curEffect= spriteHitEffect;
+        GameObject curHitEffect = spriteHitEffect;
 
         switch (_hitType)
         {
             case HitEffect.Sprite:
-                curEffect = spriteHitEffect;
+                curHitEffect = spriteHitEffect;
                 break;
             case HitEffect.Tolerance:
-                curEffect = toleranceHitEffect;
+                curHitEffect = toleranceHitEffect;
                 break;
             case HitEffect.Weakness:
-                curEffect = weakHitEffect;
+                curHitEffect = weakHitEffect;
                 break;
             case HitEffect.Normal:
-                curEffect = normalHitEffect;
+                curHitEffect = normalHitEffect;
                 break;
         }
 
-        Instantiate(curEffect, hitEffectPoint.position, Quaternion.identity);
+        Instantiate(curHitEffect, hitEffectPoint.position, Quaternion.identity);
+    }
+
+    /// <summary>
+    /// アニメーションイベントに呼び出される
+    /// スキルエフェクト生成
+    /// </summary>
+    public void GenerateEffect(int _index)
+    {
+        // フェクトを生成
+        effectInstance = Instantiate(curEffectParams[_index].effect, transform.TransformPoint(curEffectParams[_index].position), transform.rotation * Quaternion.Euler(curEffectParams[_index].rotation), curEffectParams[_index].isFollow ? transform : null);
+
+        ParticleManager particle = effectInstance.GetComponent<ParticleManager>();
+        if (particle != null)
+        {
+            particle.ChangeScale(curEffectParams[_index].scale);
+            particle.ChangePlaybackSpeed(curEffectParams[_index].speed);
+            //  particle.SetStartSize(curEffectParam[_index].startSize);
+
+        }
+
+
+    }
+
+    public void SetCurEffectParam(int _index, EnemyEffect _effectType)
+    {
+
+        while (curEffectParams.Count <= _index)
+        {
+            //要素追加
+            curEffectParams.Add(new EnemyEffectParam());
+        }
+
+        curEffectParams[_index] = effectData.dicEffect[_effectType];
+
+    }
+
+
+    public List<EnemyEffectParam> CurEffectParam
+    {
+        get => curEffectParams;
     }
 }
