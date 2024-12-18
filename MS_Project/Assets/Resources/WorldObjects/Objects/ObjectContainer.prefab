@@ -44,8 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3baa073fbe86f4e81cd0e361e11bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffect: {fileID: 6226865062110874252, guid: ec4739d2304e43c4290c7dff46829895, type: 3}
+  spriteHitEffect: {fileID: 6226865062110874252, guid: ec4739d2304e43c4290c7dff46829895, type: 3}
+  toleranceHitEffect: {fileID: 0}
+  weakHitEffect: {fileID: 0}
+  normalHitEffect: {fileID: 0}
   hitEffectPoint: {fileID: 67514608461796955}
+  effectData: {fileID: 0}
 --- !u!1001 &5529436651181989062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -223,6 +227,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5630c913ac5e74db5b1688d7fbf7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curAttackerParams:
+    onomatoType: 0
+    attackDamage: 0
+  curReceiverParams:
+    onomatoType: 0
+    receiveDamage: 0
   onomatoPool: []
   gameObj: {fileID: 0}
   isInvincible: 0

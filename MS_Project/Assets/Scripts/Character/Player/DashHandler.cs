@@ -168,7 +168,8 @@ public class DashHandler : MonoBehaviour
                     $"Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}, Position: {hit.point}");
 
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Terrain")
-                    || hit.collider.gameObject.layer == LayerMask.NameToLayer("Default")
+                    || hit.collider.gameObject.layer == LayerMask.NameToLayer("Building")
+                     || hit.collider.gameObject.layer == LayerMask.NameToLayer("Default")
                      || hit.collider.gameObject.layer == LayerMask.NameToLayer("AttackableObject"))
                 {
                     return;
@@ -214,6 +215,7 @@ public class DashHandler : MonoBehaviour
         {
             return;
         }
+
 
         //近すぎると突進しない
         //  if (lockOnCollider.ClosestCollider != null)
@@ -290,6 +292,12 @@ public class DashHandler : MonoBehaviour
             //{
             //    EndCorrectDash();
             //}
+
+            //壁とオブジェクトに当たったら終了
+            if (/*!canThrough &&*/ hitCollider != null && hitCollider.CollidersList.Count > 0)
+            {
+                EndCorrectDash();
+            }
 
             //ターゲット位置(z軸)に到着かつ一定距離(平面上)になると終了
             //if (toTargetZ.magnitude < 1.0f /*&& toTargetXZ.magnitude < minDashDistance*/)//1.0f
