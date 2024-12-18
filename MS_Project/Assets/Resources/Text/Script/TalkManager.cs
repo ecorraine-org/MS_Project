@@ -68,21 +68,15 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     void Start()
     {
+        LoadStory(7);
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (Time.time - lastEnterPressTime >= enterCooldown)
-            {
-                ShowNextPrefab();
-                lastEnterPressTime = Time.time; // 押した時間を記録
-            }
-            else
-            {
-                Debug.Log("エンターキーを押すのは少し待ってください。");
-            }
+            ShowNextPrefab();
+
         }
 
     }
@@ -138,6 +132,9 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         List<DialogPrefab> allDialogs = new List<DialogPrefab>();
         allDialogs.AddRange(currentStory.playerDialogPrefabs);
         allDialogs.AddRange(currentStory.npcDialogPrefabs);
+
+        // Priority順にソート
+        allDialogs.Sort((a, b) => a.priority.CompareTo(b.priority));
 
         if (currentDialogIndex < allDialogs.Count)
         {

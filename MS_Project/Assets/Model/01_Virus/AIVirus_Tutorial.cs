@@ -30,6 +30,8 @@ public class AIVirus_Tutorial : EnemyAction
 
     private void Awake()
     {
+        TalkManager.Instance.LoadStory(0);
+
     }
     void ReceiveModeCHange(PlayerMode _mode)
     {
@@ -59,16 +61,14 @@ void DialogFinish()
                 enemy.PlayerController.tutorialStage = TutorialStage.Step2;
 
                 //新しい会話(会話3:初めてオノマトペを見た)
-                TalkManager.Instance.LoadNextStory();
-                TalkManager.Instance.ShowNextPrefab();
+                TalkManager.Instance.LoadStory(1);
 
                 break;
             case TutorialStage.Step2:
                 Debug.Log("チュートリアル第2段階");
 
                 //新しい会話(会話4:ペコペコ)
-                TalkManager.Instance.LoadNextStory();
-                TalkManager.Instance.ShowNextPrefab();
+                TalkManager.Instance.LoadStory(2);
 
                 enemy.PlayerController.tutorialStage = TutorialStage.Step3;
 
