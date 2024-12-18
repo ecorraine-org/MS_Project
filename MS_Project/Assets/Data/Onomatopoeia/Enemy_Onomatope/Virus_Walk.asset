@@ -15,12 +15,14 @@ MonoBehaviour:
   wordToUse: "\u30D6\u30E8\u30D6\u30E8"
   onomatoSprite: {fileID: 0}
   spriteSize: 0.1
-  onomatoACont: {fileID: 0}
+  spriteAnimSpeed: 1
+  onomatoACont: {fileID: 22100000, guid: f3431b8aa03aa1441a6cb4aff5482e76, type: 2}
   fontAsset: {fileID: 11400000, guid: 40ebecea6a7fb6b4e9bfeb174c259461, type: 2}
   fontColor:
     serializedVersion: 2
     rgba: 4278239487
-  type: 5
+  type: 3
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  onomatoSE: {fileID: 0}
