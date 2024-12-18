@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chicken_Attack
   m_EditorClassIdentifier: 
   wordToUse: "\u30DD\u30A4\u30C3"
-  onomatoSprite: {fileID: 21300000, guid: 971442f7dd37c504da62d32a77293eea, type: 3}
+  onomatoSprite: {fileID: 21300000, guid: 6809498b25807b54aa56b2c668b91a84, type: 3}
   spriteSize: 1
   spriteAnimSpeed: 1
   onomatoACont: {fileID: 22100000, guid: f92ed71a299897e49934b9802919b0d9, type: 2}
@@ -23,6 +23,6 @@ MonoBehaviour:
     rgba: 4294901760
   type: 2
   damageBuff: 0
-  speedBuff: 0
+  speedBuff: 10
   healBuff: 0
   onomatoSE: {fileID: 0}

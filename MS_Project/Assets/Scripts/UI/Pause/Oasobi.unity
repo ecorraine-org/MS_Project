@@ -129,8 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 272917190}
   - component: {fileID: 272917189}
-  - component: {fileID: 272917191}
-  - component: {fileID: 272917192}
   m_Layer: 0
   m_Name: TransformationNotication
   m_TagString: Untagged
@@ -166,40 +164,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &272917191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272917188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe5b18c37909f15419dc9defc9415000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  box: {fileID: 877114443}
-  offScreenPosition: {x: 1172, y: 256}
-  onScreenPosition: {x: 751.08, y: 256}
-  slideDuration: 0.2
-  swordbox: {fileID: 1625333785}
-  hammerbox: {fileID: 1670217464}
-  spearbox: {fileID: 1958627064}
---- !u!114 &272917192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272917188}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10d06e15f97b47b46beee759d86ea8e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  variables: []
-  uiPrefab: {fileID: 0}
-  uiContainer: {fileID: 0}
 --- !u!1 &296473775
 GameObject:
   m_ObjectHideFlags: 0
