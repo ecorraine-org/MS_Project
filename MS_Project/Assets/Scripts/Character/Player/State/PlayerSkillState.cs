@@ -91,12 +91,13 @@ public class PlayerSkillState : PlayerState
                 //長押しチェック
                 if (inputManager.GetSkillPressed())
                 {
-                    playerSkillManager.ExecuteSkillCharge((PlayerSkill)playerModeManager.Mode);
+                    //チャージ中、フレームごとの処理
+                    playerSkillManager.ExecuteSkillChargeFrameBased((PlayerSkill)playerModeManager.Mode);
 
-                    //今後秒ごとに変化する
-                    statusManager.TakeDamage(0.05f);
-                    //attackSize *= 1.01f;
-                    hitCollider.transform.localScale *= 1.01f;
+                    ////今後秒ごとに変化する
+                    //statusManager.TakeDamage(0.05f);
+                    ////attackSize *= 1.01f;
+                    //hitCollider.transform.localScale *= 1.01f;
 
                     return;
                 }
@@ -110,6 +111,7 @@ public class PlayerSkillState : PlayerState
 
             case SkillState.ExecuteInit:
 
+                //終了処理
                 playerSkillManager.ExecuteSkillChargeFinished((PlayerSkill)playerModeManager.Mode);
                 skillState = SkillState.Execute;
 

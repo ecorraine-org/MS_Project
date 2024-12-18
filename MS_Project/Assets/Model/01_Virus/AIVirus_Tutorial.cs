@@ -42,8 +42,7 @@ public class AIVirus_Tutorial : EnemyAction
             enemy. PlayerController.tutorialStage = TutorialStage.Step6;
 
             //新しい会話(会話7:変身)
-            TalkManager.Instance.LoadNextStory();
-            TalkManager.Instance.ShowNextPrefab();
+            TalkManager.Instance.LoadStory(6);
         }
     }
       
@@ -59,16 +58,16 @@ void DialogFinish()
                 enemy.PlayerController.tutorialStage = TutorialStage.Step2;
 
                 //新しい会話(会話3:初めてオノマトペを見た)
-                TalkManager.Instance.LoadNextStory();
-                TalkManager.Instance.ShowNextPrefab();
+                // TalkManager.Instance.LoadNextStory();
+                // TalkManager.Instance.ShowNextPrefab();
+                TalkManager.Instance.LoadStory(2);
 
                 break;
             case TutorialStage.Step2:
                 Debug.Log("チュートリアル第2段階");
 
                 //新しい会話(会話4:ペコペコ)
-                TalkManager.Instance.LoadNextStory();
-                TalkManager.Instance.ShowNextPrefab();
+                TalkManager.Instance.LoadStory(3);
 
                 enemy.PlayerController.tutorialStage = TutorialStage.Step3;
 
@@ -86,8 +85,7 @@ void DialogFinish()
                 Debug.Log("敵攻撃時の会話5→チュートリアル第4段階");
 
                 //新しい会話(会話6:)
-                TalkManager.Instance.LoadNextStory();
-                TalkManager.Instance.ShowNextPrefab();
+                TalkManager.Instance.LoadStory(5);
 
                 enemy.PlayerController.tutorialStage = TutorialStage.Step5;
                 break;
@@ -119,7 +117,7 @@ void DialogFinish()
         switch (enemy.PlayerController.tutorialStage)
         {
             case TutorialStage.None:
-                Debug.Log("チュートリアル第1段階");
+                Debug.Log("チュートリアル第0段階");
                 if (distanceToPlayer <= 5)
                 {
                     tutorialTimer += Time.unscaledDeltaTime;
@@ -130,10 +128,12 @@ void DialogFinish()
                         Debug.Log("チュートリアル第1段階" + enemy.PlayerController.tutorialStage);
                         enemy.PlayerController.tutorialStage = TutorialStage.Step1;
                         //Step初期化
-                        TalkManager.Instance.LoadNextStory();
-                        TalkManager.Instance.ShowNextPrefab();
+                        //TalkManager.Instance.LoadNextStory();
+                       // TalkManager.Instance.ShowNextPrefab();
+                        TalkManager.Instance.LoadStory(1);
 
-                        Time.timeScale = 0;
+
+                      Time.timeScale = 0;
                         //UI操作
                         InputController.Instance.SetInputContext(InputController.InputContext.UI);
 
@@ -151,10 +151,9 @@ void DialogFinish()
                     //UI操作
                     InputController.Instance.SetInputContext(InputController.InputContext.UI);
 
-             
+
                     //新しい会話(会話8:変身)
-                    TalkManager.Instance.LoadNextStory();
-                    TalkManager.Instance.ShowNextPrefab();
+                    TalkManager.Instance.LoadStory(7);
 
                 }
                 break;

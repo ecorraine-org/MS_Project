@@ -65,9 +65,7 @@ public class PlayerSkillManager : MonoBehaviour
     GameObject effectInstance;
 
     //エフェクトデータを格納する変数
-    EffectParam curEffectParam;
-
-
+    PlayerEffectParam curEffectParam;
 
     // 辞書<キー：スキル種類、値：クールタイム>
     private Dictionary<PlayerSkill, float> coolTimers = new Dictionary<PlayerSkill, float>();
@@ -125,15 +123,19 @@ public class PlayerSkillManager : MonoBehaviour
         {
             // Debug.Log($"{_skillType}発動");//test
 
-            // スキル発動
-            ExecuteSkill(_skillType);
+            // スキル初期化
+            InitializeSkill(_skillType);
 
             // クールタイム処理
             StartCoroutine(SkillCooldown(_skillType));
         }
     }
 
-    public void ExecuteSkill(PlayerSkill _skillType)
+    /// <summary>
+    /// スキル初期化
+    /// </summary>
+    /// <note>クールタイムが必要だったら、UseSkillを呼び出す</note>
+    public void InitializeSkill(PlayerSkill _skillType)
     {
         switch (_skillType)
         {
@@ -166,7 +168,10 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
-    public void ExecuteSkillCharge(PlayerSkill _skillType)
+    /// <summary>
+    /// フレームごとの処理
+    /// </summary>
+    public void ExecuteSkillChargeFrameBased(PlayerSkill _skillType)
     {
         dicIsCharge[_skillType] = true;
 
@@ -305,10 +310,15 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void ExecuteHammerSkillCharge()
     {
-        //playerController.SpriteAnim.Play("HammerSkill");
 
-        //dash.Speed = skillData.dicSkill[PlayerSkill.Hammer].dashSpeed;
-        //dash.Duration = skillData.dicSkill[PlayerSkill.Hammer].dashDuration;
+        //今後秒ごとに変化する
+        playerController.StatusManager.TakeDamage(0.05f);
+
+        playerController.AttackColliderV2.HitCollidersList.transform.localScale *= 1.01f;
+
+        curEffectParam.startSize *= 1.01f;
+
+    
     }
 
     public void ExecuteHammerSkillChargeFinished()
@@ -482,7 +492,7 @@ public class PlayerSkillManager : MonoBehaviour
     /// プレイヤーの左/右向きによってエフェクトの向きを変える
     /// </summary>
     /// <param name="_effect">参照を渡す</param>
-    private void FlipEffect(ref EffectParam _effect)
+    private void FlipEffect(ref PlayerEffectParam _effect)
     {
         if (playerController.SpriteRenderer.flipX)
         {
