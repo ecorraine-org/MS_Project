@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dc0296d4a0259249be7c496d9fbfcbb, type: 3}
   m_Name: Virus_Walk
   m_EditorClassIdentifier: 
-  wordToUse: "\u30D6\u30E8\u30D6\u30E8"
-  onomatoSprite: {fileID: 0}
+  wordToUse: "\u3077\u3088\u3077\u3088"
+  onomatoSprite: {fileID: 21300000, guid: e5f58bc717d4c78479c9b52536ef63e2, type: 3}
   spriteSize: 0.1
   spriteAnimSpeed: 1
   onomatoACont: {fileID: 22100000, guid: f3431b8aa03aa1441a6cb4aff5482e76, type: 2}
@@ -21,7 +21,7 @@ MonoBehaviour:
   fontColor:
     serializedVersion: 2
     rgba: 4278239487
-  type: 3
+  type: 5
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
