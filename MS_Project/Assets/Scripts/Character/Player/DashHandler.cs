@@ -153,6 +153,27 @@ public class DashHandler : MonoBehaviour
             if (blockDetector != null) blockDetector.IsEnabled = false;
 
             //一定距離を移動
+            // owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * slowFactor * Time.fixedDeltaTime);
+
+
+          
+            Vector3 rayOrigin = owner.RigidBody.position + Vector3.up * 0.5f;
+            RaycastHit hit;
+            if (Physics.Raycast(rayOrigin, dashDirec, out hit, speed * Time.fixedDeltaTime))
+            {
+                Debug.DrawRay(rayOrigin, dashDirec * speed * Time.fixedDeltaTime, Color.red, 10f);
+
+                Debug.Log($"Raycast hit object: {hit.collider.gameObject.name}, " +
+                    $"Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}, Position: {hit.point}");
+
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Terrain")
+                    || hit.collider.gameObject.layer == LayerMask.NameToLayer("Default")
+                     || hit.collider.gameObject.layer == LayerMask.NameToLayer("AttackableObject"))
+                {
+                    return;
+                }
+            }
+
             owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * slowFactor * Time.fixedDeltaTime);
 
         }

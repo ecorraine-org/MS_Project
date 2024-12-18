@@ -172,8 +172,7 @@ public abstract class EnemyAction : MonoBehaviour
             enemy.PlayerController.tutorialStage = TutorialStage.Step4;
 
             //新しい会話(会話5)
-            TalkManager.Instance.LoadNextStory();
-            TalkManager.Instance.ShowNextPrefab();
+            TalkManager.Instance.LoadStory(4);
 
         }
 

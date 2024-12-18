@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct EffectParam
+public struct PlayerEffectParam
 {
     public PlayerEffect effectName;
     public GameObject effectL;//左向き用
@@ -21,14 +21,14 @@ public struct EffectParam
 public class PlayerEffectData : ScriptableObject
 {
     [Header("スキルリスト")]
-    public EffectParam[] effects;
+    public PlayerEffectParam[] effects;
 
     //辞書<キー：スキル種類、値：ステータス>
-    public Dictionary<PlayerEffect, EffectParam> dicEffect;
+    public Dictionary<PlayerEffect, PlayerEffectParam> dicEffect;
 
     private void OnEnable()
     {
-        dicEffect = new Dictionary<PlayerEffect, EffectParam>();
+        dicEffect = new Dictionary<PlayerEffect, PlayerEffectParam>();
 
         //要素追加
         foreach (var effect in effects)
@@ -42,7 +42,7 @@ public class PlayerEffectData : ScriptableObject
     /// </summary>
     private void OnValidate()
     {
-        dicEffect = new Dictionary<PlayerEffect, EffectParam>();
+        dicEffect = new Dictionary<PlayerEffect, PlayerEffectParam>();
 
         foreach (var effect in effects)
         {

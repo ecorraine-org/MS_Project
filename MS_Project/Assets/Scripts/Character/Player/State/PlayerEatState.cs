@@ -37,7 +37,7 @@ public class PlayerEatState : PlayerState
         //暴走時、クールタイムを無視する
         if (playerController.StatusManager.IsFrenzy)
         {
-            playerController.SkillManager.ExecuteSkill(PlayerSkill.Eat);
+            playerController.SkillManager.InitializeSkill(PlayerSkill.Eat);
         }
         else
         {

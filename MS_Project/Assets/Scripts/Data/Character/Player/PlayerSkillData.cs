@@ -8,13 +8,16 @@ public struct SkillStatus
     public PlayerSkill skillName;
     public float coolTime;
     public float dashSpeed;//突進速度
-    public float dashDuration;//突進持続時間(-1:自動で停止しない)
+  //  [Header("突進持続時間 (-1: 時間制限なし)")]
+    public float dashDuration;//突進持続時間(-1:時間制限なし)
     public float hpCost;//hp消費量
     public float damage;//攻撃力
     public float slowSpeed;//ヒットストップによる減速
     public float stopDuration;//ヒットストップ持続時間
     public bool canCharge;//長押し(チャージ)可能かどうか
+    public float SizeRate;
     public bool canCancel;//回避でキャンセル可能かどうか
+
 }
 
 [CreateAssetMenu(fileName = "PlayerSkillData", menuName = "ScriptableObjects/Player/SkillData", order = 0)]
