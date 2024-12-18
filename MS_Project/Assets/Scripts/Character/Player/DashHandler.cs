@@ -135,11 +135,12 @@ public class DashHandler : MonoBehaviour
     {
         if (isDashing)
         {
-            //貫通しないパターンで、当たったら終了
-            //if (!canThrough && hitCollider != null && hitCollider.CollidersList.Count > 0)
-            //{
-            //    End();
-            //}
+           //////// //貫通しないパターンで、
+            //壁とオブジェクトに当たったら終了
+            if (/*!canThrough &&*/ hitCollider != null && hitCollider.CollidersList.Count > 0)
+            {
+                End();
+            }
 
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
@@ -342,6 +343,17 @@ public class DashHandler : MonoBehaviour
     {
         if (isSpecialDash) return;
 
+        if (hitCollider != null && hitCollider.CollidersList.Count > 0) return;
+
+        //近すぎると突進しない
+        //if (lockOnCollider.ClosestCollider != null)
+        //{
+        //    Vector3 ToLock = lockOnCollider.ClosestCollider.transform.position - owner.transform.position;
+        //    ToLock.y = 0;
+        //    //   Debug.Log("ToLock.magnitude " + ToLock.magnitude);
+        //    if (ToLock.magnitude < minDashDistance) return;
+        //}
+
         canThrough = _canThrough;
 
         dashDirec = _direc;
@@ -353,6 +365,7 @@ public class DashHandler : MonoBehaviour
             dashCoroutine = StartCoroutine(DashCoroutine());
 
         isDashing = true;
+
     }
 
     //canThrough設定なしのバージョン
