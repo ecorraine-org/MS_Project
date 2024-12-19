@@ -31,7 +31,7 @@ public class OnomatopoeiaData : ScriptableObject
     [Header("オノマトペ種類")]
     public OnomatoType type = OnomatoType.None;
 
-    [Header("ステータス加算：")]
+    [Header("ステータス乗算する倍率：")]
     [Header("ダメージ")]
     public float damageBuff = 0.0f;
 
@@ -40,6 +40,9 @@ public class OnomatopoeiaData : ScriptableObject
 
     [Header("回復")]
     public float healBuff = 0.0f;
+
+    [Header("バフ持続時間(秒)")]
+    public float buffDuration = 10.0f;
 
     [Header("SE")]
     public AudioClip onomatoSE;

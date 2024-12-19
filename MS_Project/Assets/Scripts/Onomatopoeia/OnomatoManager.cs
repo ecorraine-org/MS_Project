@@ -12,6 +12,10 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
     public delegate void OnomatoEventHandler(PlayerMode mode,string onomatoName);
     public static event OnomatoEventHandler OnModeChangeEvent;
 
+    //  食べたオノマトペのデータを渡すイベント
+    public delegate void OnEatOmatoEvtHandler(OnomatopoeiaData _data);
+    public static event OnEatOmatoEvtHandler OnEatOnomatoEvt;
+
     // 暴走ゲージを溜めるイベント
     public delegate void FrenzyEventHandler(float amount);
     public static event FrenzyEventHandler OnIncreaseFrenzyEvent;
@@ -81,6 +85,9 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
 
         //暴走ゲージを溜めるイベント送信
         OnIncreaseFrenzyEvent?.Invoke(5.0f);
+
+        //オノマトペのデータを渡すイベント送信
+        OnEatOnomatoEvt?.Invoke(controller.Data);
     }
 
     public static void ChangeMode(OnomatoType _datatype,string name)

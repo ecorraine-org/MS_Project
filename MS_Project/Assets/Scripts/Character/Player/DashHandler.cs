@@ -164,8 +164,8 @@ public class DashHandler : MonoBehaviour
             {
                 Debug.DrawRay(rayOrigin, dashDirec * speed * Time.fixedDeltaTime, Color.red, 10f);
 
-                Debug.Log($"Raycast hit object: {hit.collider.gameObject.name}, " +
-                    $"Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}, Position: {hit.point}");
+             //   Debug.Log($"Raycast hit object: {hit.collider.gameObject.name}, " +
+                 //   $"Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}, Position: {hit.point}");
 
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Terrain")
                     || hit.collider.gameObject.layer == LayerMask.NameToLayer("Building")

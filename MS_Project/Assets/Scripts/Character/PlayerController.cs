@@ -42,6 +42,9 @@ public class PlayerController : WorldObject
     [SerializeField, Header("オーディオマネージャー")]
     AudioManager audioManager;
 
+    [SerializeField, Header("バフマネージャー")]
+    PlayerBuffManager buffManager;
+
     private Collider playerCollider;
 
     [SerializeField, Header("アタックコライダーマネージャー")]
@@ -116,6 +119,7 @@ public class PlayerController : WorldObject
         statusManager.Init(this);
         inputManager.Init(this);
         detectEnemy.Init(this);
+        buffManager.Init(this);
     }
 
     void Start()
@@ -543,6 +547,11 @@ public class PlayerController : WorldObject
     public PlayerStatusManager StatusManager
     {
         get => this.statusManager;
+    }
+
+    public PlayerBuffManager BuffManager
+    {
+        get => this.buffManager;
     }
 
     public override Rigidbody RigidBody
