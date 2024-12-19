@@ -40,10 +40,21 @@ public static class TimerUtility
         return monoBehaviour.StartCoroutine( FrameBasedTimerCoroutine(time, onTick, onComplete));
     }
 
+   
+
     public static Coroutine FrameBasedTimerFixed(MonoBehaviour monoBehaviour, float time, Action onTick, Action onComplete)
     {
         return monoBehaviour.StartCoroutine(FrameBasedTimerCoroutineFixed(time, onTick, onComplete));
     }
+
+
+    /// <summary>
+    /// 終了条件判定追加
+    /// </summary>
+    //public static Coroutine FrameBasedTimer(MonoBehaviour monoBehaviour, float time, Func<bool> stopCondition, Action onInit = null, Action onTick = null, Action onComplete = null )
+    //{
+    //    return monoBehaviour.StartCoroutine(FrameBasedTimerCoroutine(time,stopCondition, onInit, onTick, onComplete));
+    //}
 
     /// <summary>
     /// 動的に時間を変更できるタイマーのコルーチンを呼び出す
@@ -128,7 +139,33 @@ public static class TimerUtility
 
 
 
- 
+   
+
+    private static IEnumerator FrameBasedTimerCoroutine( float time, Func<bool> stopCondition, Action onInit, Action onTick, Action onComplete)
+    {
+        float elapsedTime = 0f;
+
+        //初期化
+        onInit?.Invoke();
+
+        while (elapsedTime < time)
+        {
+            onTick?.Invoke();
+
+            elapsedTime += Time.deltaTime;
+
+            //条件満たしたら終了
+            if (stopCondition != null && stopCondition.Invoke())
+            {
+                break;
+            }
+
+            yield return null;
+        }
+
+        onComplete?.Invoke();
+    }
+
 
     /// <summary>
     /// 動的タイマーのコルーチン部分
