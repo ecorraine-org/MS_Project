@@ -168,8 +168,18 @@ public class EnemySpawner : MonoBehaviour
             //}
 
 
-            if (missionType == MissionType.KillAll) mission.EnemyMissionItem.SetActive(true);
-            if (missionType == MissionType.KillBoss) mission.BossMissionItem.SetActive(true);
+            if (missionType == MissionType.KillAll)
+            {
+                mission.EnemyMissionItem.SetActive(true);
+                mission.EnemyTitleItem.SetActive(true);
+            }
+
+            if (missionType == MissionType.KillBoss)
+            {
+                mission.BossMissionItem.SetActive(true);
+                mission.BossTitleItem.SetActive(true);
+            }
+               
 
 
             isStartMission = true;
@@ -199,8 +209,8 @@ public class EnemySpawner : MonoBehaviour
         // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
         string count = killCount + "/" + mobCount.ToString();
         UnityEngine.Debug.Log("count " + count);
-        missionDetail = count;
-        missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+       // missionDetail = count;
+       // missionDetail = mission.GetMissionDetails(missionType, missionDetail);
 
         //表示する
         if (missionType == MissionType.KillAll) mission.EnemyTxt.text = count;
@@ -219,9 +229,9 @@ public class EnemySpawner : MonoBehaviour
         // if (isStartMission&& !hasCleared && mission.MissionPanel.activeInHierarchy)
         if (isStartMission && !hasCleared)
         {
-            string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
-            missionDetail = count;
-            missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+           // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
+          //  missionDetail = count;
+           // missionDetail = mission.GetMissionDetails(missionType, missionDetail);
 
             if (killCount >= mobCount)
             {
