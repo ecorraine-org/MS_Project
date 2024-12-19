@@ -80,6 +80,9 @@ namespace Stage.Utility
 
         void Start()
         {
+            // ステージ用のカメラを消す
+            Destroy(GameObject.Find("CameraPivot(Clone)"));
+
             // リストが空の場合のみ初期化
             if (this.stageListCache.Count == 0)
             {
