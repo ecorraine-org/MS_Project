@@ -55,7 +55,7 @@ public class PlayerWalkState : PlayerState
     public override void FixedTick()
     {
         //移動速度取得
-        float moveSpeed = statusManager.StatusData.velocity;
+        float moveSpeed = statusManager.StatusData.velocity * buffManager.BuffEffect.speedUpRate;
 
         rb.velocity = new UnityEngine.Vector3(inputDirec.x * moveSpeed, rb.velocity.y, inputDirec.y * moveSpeed);
     }

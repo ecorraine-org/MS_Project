@@ -49,7 +49,7 @@ public class PlayerAttackState : PlayerState
                 break;
             case PlayerMode.Hammer:
                 playerSkillManager.HammerAttackInit();
-       
+
                 break;
             case PlayerMode.Spear:
                 playerSkillManager.SpearAttackInit();
@@ -57,7 +57,7 @@ public class PlayerAttackState : PlayerState
             case PlayerMode.Gauntlet:
                 playerSkillManager.GauntletAttackInit();
 
-          
+
                 break;
             default:
                 break;
@@ -77,7 +77,7 @@ public class PlayerAttackState : PlayerState
 
             //キャンセルフレームに達したら、コンボする
             willNextStage = true;
-        } 
+        }
 
         //自身へ遷移
         if (willNextStage && playerSkillManager.CanComboCancel)
@@ -128,7 +128,7 @@ public class PlayerAttackState : PlayerState
         //仮処理
         float damage = 0;
         if (statusManager.IsFrenzy) damage = FrenzyAttackDamage;
-        else damage = playerSkillManager.AttackDamage;
+        else damage = playerSkillManager.AttackDamage * buffManager.BuffEffect.damageUpRate;
         //コライダーの検出
         playerController.AttackColliderV2.DetectColliders(damage, false);
 

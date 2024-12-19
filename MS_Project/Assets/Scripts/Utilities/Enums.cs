@@ -134,6 +134,10 @@ public enum PlayerEffect
     [InspectorName("剣攻撃2")] SwordAttack2,
     [InspectorName("スピア攻撃")] SpearAttack,
     [InspectorName("ハンマー攻撃")] HammerAttack,
+    [InspectorName("攻撃力バフ")] DamageBuff,
+    [InspectorName("回復バフ")] HealBuff,
+    [InspectorName("移動速度バフ")] SpeedBuff,
+    //  [InspectorName("暴走バフ")] RageBuff,
 }
 
 /// <summary>
