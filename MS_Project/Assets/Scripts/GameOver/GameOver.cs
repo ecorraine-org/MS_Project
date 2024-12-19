@@ -34,16 +34,18 @@ public class GameOver : MonoBehaviour
         // �ｿｽﾛ托ｿｽ�ｿｽ�ｿｽ�ｿｽ黷ｽ�ｿｽX�ｿｽe�ｿｽ[�ｿｽW�ｿｽ�ｿｽ�ｿｽ�ｿｽ�ｿｽ謫ｾ
         LoadStage = PlayerPrefs.GetString(LastStageKey, "DefaultStageName");
         Debug.Log("Last played stage: " + LoadStage);
+
+        Continue = true;
     }
 
     void Update()
     {
-        if (UIInputManager.Instance.GetLeftTrigger())
+        if (UIInputManager.Instance.GetDownTrigger())
         {
             Continue = false;
             Title = true;
         }
-        if (UIInputManager.Instance.GetRightTrigger())
+        if (UIInputManager.Instance.GetUPTrigger())
         {
             Title = false;
             Continue = true;
