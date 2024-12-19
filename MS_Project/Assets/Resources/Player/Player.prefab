@@ -523,6 +523,8 @@ MonoBehaviour:
   buffEffect:
     damageUpRate: 0
     speedUpRate: 0
+    healValue: 0
+    maxHealValue: 0
   testSpeedBuffTimer: 0
 --- !u!1 &4357687658572958790
 GameObject:
@@ -1395,7 +1397,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836845501146020627}
   serializedVersion: 4
-  m_Mass: 100
+  m_Mass: 1000
   m_Drag: 10
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}

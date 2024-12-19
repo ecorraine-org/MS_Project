@@ -27,7 +27,10 @@ public class StatusManager : MonoBehaviour, ILife
         if (isInvincible) return;
 
         currentHealth -= _damage;
-       //Debug.Log("Damage:" + _damage);    // test
+
+        //回復チェック
+        if (currentHealth > statusData.maxHealth)
+            currentHealth = statusData.maxHealth;
 
         if (currentHealth <= 0)
         {

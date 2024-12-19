@@ -38,7 +38,7 @@ public class OnomatopoeiaData : ScriptableObject
     [Header("速度")]
     public float speedBuff = 0.0f;
 
-    [Header("回復")]
+    [Header("回復量(加算)")]
     public float healBuff = 0.0f;
 
     [Header("バフ持続時間(秒)")]
