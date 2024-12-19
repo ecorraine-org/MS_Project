@@ -26,6 +26,37 @@ public class ParticleManager : MonoBehaviour
         //  Destroy(this.gameObject);
     }
 
+    public void SetLoop(bool isLooping)
+    {
+        // 現在のオブジェクトのParticleSystemコンポーネントを取得
+        ParticleSystem particleSystem = GetComponent<ParticleSystem>();
+
+        // ParticleSystemが存在する場合、ループ設定を変更
+        if (particleSystem != null)
+        {
+            var mainModule = particleSystem.main;
+            mainModule.loop = isLooping;
+        }
+        else
+        {
+            // ParticleSystemが存在しない場合のエラーログ（必要に応じて有効化）
+            // Debug.LogError("ParticleSystemコンポーネントが見つかりません。");
+        }
+
+        // 子オブジェクトの全てのParticleSystemコンポーネントを取得してループ設定を変更
+        ParticleSystem[] childParticleSystems = GetComponentsInChildren<ParticleSystem>(true);
+        foreach (var childParticleSystem in childParticleSystems)
+        {
+            // 現在のオブジェクトのParticleSystemはスキップ
+            if (childParticleSystem != particleSystem)
+            {
+                var mainModule = childParticleSystem.main;
+                mainModule.loop = isLooping;
+            }
+        }
+    }
+
+
     public void SetStartSize(Vector2 size)
     {
         if (startSizeComps.Length == 0) return;
@@ -88,46 +119,37 @@ public class ParticleManager : MonoBehaviour
 
     public void ChangePlaybackSpeed(float speedFactor)
     {
-        // 粒子システムコンポーネントを取得
+        // 現在のオブジェクトのParticleSystemコンポーネントを取得
         ParticleSystem particleSystem = GetComponent<ParticleSystem>();
 
-        // 粒子システムが存在するか確認
+        // ParticleSystemが存在する場合、再生速度を変更
         if (particleSystem != null)
         {
-            // メインモジュールを取得
             var mainModule = particleSystem.main;
-            mainModule.simulationSpeed *= speedFactor;  // 速度を変更
+            mainModule.simulationSpeed *= speedFactor;
         }
         else
         {
-            //Debug.LogError("ParticleSystemコンポーネントが見つかりません。");
+            // ParticleSystemが存在しない場合のエラーログ（必要に応じて有効化）
+            // Debug.LogError("ParticleSystemコンポーネントが見つかりません。");
         }
 
-        // 子オブジェクトの粒子システムの再生速度も変更
-        ChangeAllChildrenPlaybackSpeed(transform, speedFactor);
-    }
-
-    /// <summary>
-    /// 子オブジェクトの粒子システムの再生速度を変更する（再帰的に処理）
-    /// </summary>
-    private void ChangeAllChildrenPlaybackSpeed(Transform parentTransform, float speedFactor)
-    {
-        foreach (Transform childTransform in parentTransform)
+        // 子オブジェクトの全てのParticleSystemコンポーネントを取得して再生速度を変更
+        ParticleSystem[] childParticleSystems = GetComponentsInChildren<ParticleSystem>(true);
+        foreach (var childParticleSystem in childParticleSystems)
         {
-            // 子オブジェクトの粒子システムを取得
-            ParticleSystem childParticleSystem = childTransform.GetComponent<ParticleSystem>();
-
-            // 子オブジェクトに粒子システムが存在する場合
-            if (childParticleSystem != null)
+            // 現在のオブジェクトのParticleSystemはスキップ
+            if (childParticleSystem != particleSystem)
             {
                 var mainModule = childParticleSystem.main;
-                mainModule.simulationSpeed *= speedFactor;  // 速度を変更
+                mainModule.simulationSpeed *= speedFactor;
             }
-
-            // 子オブジェクトがさらに子オブジェクトを持っている場合、再帰的に処理
-            ChangeAllChildrenPlaybackSpeed(childTransform, speedFactor);
         }
     }
+
+
+
+
 
     public ParticleCompStartSize[] StartSizeComps
     {
@@ -135,6 +157,49 @@ public class ParticleManager : MonoBehaviour
     }
 
 }
+
+//public void ChangePlaybackSpeed(float speedFactor)
+//{
+//    // 粒子システムコンポーネントを取得
+//    ParticleSystem particleSystem = GetComponent<ParticleSystem>();
+
+//    // 粒子システムが存在するか確認
+//    if (particleSystem != null)
+//    {
+//        // メインモジュールを取得
+//        var mainModule = particleSystem.main;
+//        mainModule.simulationSpeed *= speedFactor;  // 速度を変更
+//    }
+//    else
+//    {
+//        //Debug.LogError("ParticleSystemコンポーネントが見つかりません。");
+//    }
+
+//    // 子オブジェクトの粒子システムの再生速度も変更
+//    ChangeAllChildrenPlaybackSpeed(transform, speedFactor);
+//}
+
+///// <summary>
+///// 子オブジェクトの粒子システムの再生速度を変更する（再帰的に処理）
+///// </summary>
+//private void ChangeAllChildrenPlaybackSpeed(Transform parentTransform, float speedFactor)
+//{
+//    foreach (Transform childTransform in parentTransform)
+//    {
+//        // 子オブジェクトの粒子システムを取得
+//        ParticleSystem childParticleSystem = childTransform.GetComponent<ParticleSystem>();
+
+//        // 子オブジェクトに粒子システムが存在する場合
+//        if (childParticleSystem != null)
+//        {
+//            var mainModule = childParticleSystem.main;
+//            mainModule.simulationSpeed *= speedFactor;  // 速度を変更
+//        }
+
+//        // 子オブジェクトがさらに子オブジェクトを持っている場合、再帰的に処理
+//        ChangeAllChildrenPlaybackSpeed(childTransform, speedFactor);
+//    }
+//}
 
 
 // ParticleSystemRenderer particleRenderer = particle.GetComponent<ParticleSystemRenderer>();

@@ -45,6 +45,19 @@ public static class TimerUtility
         return monoBehaviour.StartCoroutine(FrameBasedTimerCoroutineFixed(time, onTick, onComplete));
     }
 
+    /// <summary>
+    /// 動的に時間を変更できるタイマーのコルーチンを呼び出す
+    /// </summary>
+    /// <param name="monoBehaviour">基本this</param>
+    /// <param name="getTime">現在のターゲット時間を返す関数 eg:() => targetTime targetTimeはfloat型変数</param>
+    /// <param name="onTick">毎フレーム呼び出される処理</param>
+    /// <param name="onComplete">指定時間経過後に呼び出される処理</param>
+    /// <returns></returns>
+    //public static Coroutine DynamicFrameBasedTimer(MonoBehaviour monoBehaviour, Func<float> getTime, Action onTick = null, Action onComplete = null)
+    //{
+    //    return monoBehaviour.StartCoroutine(DynamicFrameBasedTimerCoroutine(getTime, onTick, onComplete));
+    //}
+
     // コルーチン実装部分
     #region Coroutine Methods
 
@@ -77,6 +90,7 @@ public static class TimerUtility
     /// </summary>
     private static IEnumerator FrameBasedTimerCoroutine(float time, Action beforeComplete, Action onComplete)
     {
+        //一回だけ実行する
         float elapsedTime = 0f;
 
         // 時間が経過するまでフレーム毎に繰り返す
@@ -108,6 +122,31 @@ public static class TimerUtility
         }
 
         // 時間経過後に呼ばれるコールバック
+        onComplete?.Invoke();
+    }
+
+
+
+
+ 
+
+    /// <summary>
+    /// 動的タイマーのコルーチン部分
+    /// </summary>
+    private static IEnumerator DynamicFrameBasedTimerCoroutine(Func<float> getTime, Action onTick, Action onComplete)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < getTime())
+        {
+            // 毎フレーム呼び出される処理
+            onTick?.Invoke();
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 時間経過後に呼び出される処理
         onComplete?.Invoke();
     }
     #endregion

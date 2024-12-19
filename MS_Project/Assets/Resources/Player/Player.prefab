@@ -431,6 +431,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1ce176587ea7541a9f63489aab6433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3977347565141996916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7781283595468338896}
+  - component: {fileID: 1125118562519657562}
+  m_Layer: 8
+  m_Name: Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7781283595468338896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977347565141996916}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8143523743651954739}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1125118562519657562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977347565141996916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92918d9ea202ee438130a48b8b82ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buffEffectData: {fileID: 11400000, guid: e52f0e45875c91a4ba90770835f816f9, type: 2}
 --- !u!1 &4302393335240149537
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +520,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 481d78d51f97225449b6a3491a5da5af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buffEffect:
+    damageUpRate: 0
+    speedUpRate: 0
+  testSpeedBuffTimer: 0
 --- !u!1 &4357687658572958790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,6 +1361,7 @@ Transform:
   - {fileID: 6295818455795562528}
   - {fileID: 7333390568166771791}
   - {fileID: 957297510041177598}
+  - {fileID: 7781283595468338896}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3489175230929265989
@@ -1415,6 +1465,7 @@ MonoBehaviour:
   modeManager: {fileID: 8698715986294293726}
   audioManager: {fileID: 4817491755478540609}
   buffManager: {fileID: 5464561755663099142}
+  effectManager: {fileID: 1125118562519657562}
   attackColliderV2: {fileID: 9210122227401630925}
   detectEnemy: {fileID: 2449983563296160655}
   terrainLayer:

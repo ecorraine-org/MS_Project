@@ -45,6 +45,9 @@ public class PlayerController : WorldObject
     [SerializeField, Header("バフマネージャー")]
     PlayerBuffManager buffManager;
 
+    [SerializeField, Header("エフェクトマネージャー")]
+    PlayerEffectManager effectManager;
+
     private Collider playerCollider;
 
     [SerializeField, Header("アタックコライダーマネージャー")]
@@ -120,6 +123,7 @@ public class PlayerController : WorldObject
         inputManager.Init(this);
         detectEnemy.Init(this);
         buffManager.Init(this);
+        effectManager.Init(this);
     }
 
     void Start()
@@ -552,6 +556,11 @@ public class PlayerController : WorldObject
     public PlayerBuffManager BuffManager
     {
         get => this.buffManager;
+    }
+
+    public PlayerEffectManager EffectManager
+    {
+        get => this.effectManager;
     }
 
     public override Rigidbody RigidBody
