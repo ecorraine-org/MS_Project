@@ -12,6 +12,12 @@ public class UIMissionController : MonoBehaviour
     [SerializeField]
     private GameObject missionPanel;
 
+    [SerializeField, Header("エネミーミッションタイトル")]
+    private GameObject enemyTitleItem;
+
+    [SerializeField, Header("ボスミッションタイトル")]
+    private GameObject bossTitleItem;
+
     [SerializeField, Header("エネミーミッション")]
     private GameObject enemyMissionItem;
 
@@ -82,48 +88,48 @@ public class UIMissionController : MonoBehaviour
         }
     }
 
-    public string GetMissionDetails(MissionType _missiontype, string _string)
-    {
-        string missionText = "";
+    //public string GetMissionDetails(MissionType _missiontype, string _string)
+    //{
+    //    string missionText = "";
 
-        switch (_missiontype)
-        {
-            case MissionType.KillAll:
-                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>敵殲滅</b>";
-                missionText = "　　敵を倒せ　" + _string;
-                break;
-            case MissionType.KillBoss:
-                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>ボス撃破</b>";
-                missionText = "　　ボス　" + _string;
-                break;
-            case MissionType.OpenRoute:
-                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>？？？</b>";
-                missionText = "？？？";
-                break;
-            case MissionType.Protect:
-                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>？？？</b>";
-                missionText = "？？？";
-                break;
+    //    switch (_missiontype)
+    //    {
+    //        case MissionType.KillAll:
+    //            missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>敵殲滅</b>";
+    //            missionText = "　　敵を倒せ　" + _string;
+    //            break;
+    //        case MissionType.KillBoss:
+    //            missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>ボス撃破</b>";
+    //            missionText = "　　ボス　" + _string;
+    //            break;
+    //        case MissionType.OpenRoute:
+    //            missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>？？？</b>";
+    //            missionText = "？？？";
+    //            break;
+    //        case MissionType.Protect:
+    //            missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>？？？</b>";
+    //            missionText = "？？？";
+    //            break;
 
-            case MissionType.Tutorial:
-                missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>チュートリアル</b>";
-                missionText = " ";
-                break;
-            default:
-                missionText = " ";
-                break;
+    //        case MissionType.Tutorial:
+    //            missionTitle.GetComponentInChildren<TextMeshProUGUI>().text = "<b>チュートリアル</b>";
+    //            missionText = " ";
+    //            break;
+    //        default:
+    //            missionText = " ";
+    //            break;
                 
-        }
+    //    }
 
-        missionTitle.GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0, 0, 0, 255);
-        missionTitle.GetComponentInChildren<TextMeshProUGUI>().outlineWidth = 0.2f;
-        missionTitle.GetComponentInChildren<TextMeshProUGUI>().outlineColor = new Color32(255, 255, 255, 255);
+    //    missionTitle.GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0, 0, 0, 255);
+    //    missionTitle.GetComponentInChildren<TextMeshProUGUI>().outlineWidth = 0.2f;
+    //    missionTitle.GetComponentInChildren<TextMeshProUGUI>().outlineColor = new Color32(255, 255, 255, 255);
 
 
-        // return tmpMission.text = missionText;
-        if (tmpMission) tmpMission.text = missionText;
-        return missionText;
-    }
+    //    // return tmpMission.text = missionText;
+    //    if (tmpMission) tmpMission.text = missionText;
+    //    return missionText;
+    //}
 
     #region　Getter and Setter
     public GameObject MissionTitle
@@ -134,6 +140,16 @@ public class UIMissionController : MonoBehaviour
     public GameObject MissionPanel
     {
         get => missionPanel;
+    }
+
+    public GameObject EnemyTitleItem
+    {
+        get => enemyTitleItem;
+    }
+
+    public GameObject BossTitleItem
+    {
+        get => bossTitleItem;
     }
 
     public GameObject EnemyMissionItem
