@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Hunter_Attack
   m_EditorClassIdentifier: 
   wordToUse: "\u30C9\u30F3"
+  onomatoSprite: {fileID: 21300000, guid: 41322f0540aa8e14bbabc9eb41678699, type: 3}
+  spriteSize: 1
+  spriteAnimSpeed: 1
+  onomatoACont: {fileID: 22100000, guid: 06a1decb2391d9b4c87932349085a7e3, type: 2}
   fontAsset: {fileID: 11400000, guid: ad584379139b1df46b9777099a13e04e, type: 2}
   fontColor:
     serializedVersion: 2
@@ -21,3 +25,4 @@ MonoBehaviour:
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  onomatoSE: {fileID: 0}
