@@ -74,7 +74,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return)|| UIInputManager.Instance.GetEnterTrigger())
         {
             ShowNextPrefab();
 
