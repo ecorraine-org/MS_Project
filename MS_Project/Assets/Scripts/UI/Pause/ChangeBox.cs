@@ -7,95 +7,95 @@ using UnityEngine.UIElements;
 
 public class ChangeBox : MonoBehaviour
 {
-    [SerializeField, Header("’Ê’mBOX")]
-    public RectTransform box; // ‘€ì‚·‚éPanel‚ÌRectTransform
-    [SerializeField, Header("ŠJn’n“_")]
-    public Vector2 offScreenPosition; // Panel‚ª‰æ–ÊŠO‚É‚ ‚é‚Æ‚«‚ÌÀ•W
-    [SerializeField, Header("I—¹’n“_")]
-    public Vector2 onScreenPosition;  // Panel‚ª‰æ–Ê“à‚É‚ ‚é‚Æ‚«‚ÌÀ•W
-    [SerializeField, Header("ƒXƒ‰ƒCƒhŠÔ")]
-    public float slideDuration; // ƒXƒ‰ƒCƒhƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŠ—vŠÔi•bj
+    [SerializeField, Header("é€šçŸ¥BOX")]
+    public RectTransform box; // æ“ä½œã™ã‚‹Panelã®RectTransform
+    [SerializeField, Header("é–‹å§‹åœ°ç‚¹")]
+    public Vector2 offScreenPosition; // PanelãŒç”»é¢å¤–ã«ã‚ã‚‹ã¨ãã®åº§æ¨™
+    [SerializeField, Header("çµ‚äº†åœ°ç‚¹")]
+    public Vector2 onScreenPosition;  // PanelãŒç”»é¢å†…ã«ã‚ã‚‹ã¨ãã®åº§æ¨™
+    [SerializeField, Header("ã‚¹ãƒ©ã‚¤ãƒ‰æ™‚é–“")]
+    public float slideDuration; // ã‚¹ãƒ©ã‚¤ãƒ‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ‰€è¦æ™‚é–“ï¼ˆç§’ï¼‰
 
-    [SerializeField, Header("Œ•‚Ì‘fŞ")]
+    [SerializeField, Header("å‰£ã®ç´ æ")]
     public GameObject swordbox;
-    [SerializeField, Header("ƒnƒ“ƒ}[‚Ì‘fŞ")]
+    [SerializeField, Header("ãƒãƒ³ãƒãƒ¼ã®ç´ æ")]
     public GameObject hammerbox;
-    [SerializeField, Header("‘„‚Ì‘fŞ")]
+    [SerializeField, Header("æ§ã®ç´ æ")]
     public GameObject spearbox;
 
-    private bool isVisible = false; // box‚ª•\¦’†‚©‚Ç‚¤‚©
-    private bool isSliding = false; // ƒXƒ‰ƒCƒh’†‚©‚Ç‚¤‚©
+    private bool isVisible = false; // boxãŒè¡¨ç¤ºä¸­ã‹ã©ã†ã‹
+    private bool isSliding = false; // ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã‹ã©ã†ã‹
 
     float cunt;
-    PlayerMode playermode; //ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğ•Û‘¶(•Ší)
+    PlayerMode playermode; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã‚’ä¿å­˜(æ­¦å™¨)
     private void OnEnable()
     {
-        //ƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh‚·‚é
+        //ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹
         OnomatoManager.OnModeChangeEvent += ModeChange;
     }
 
     private void OnDisable()
     {
-        //ƒoƒCƒ“ƒh‚ğ‰ğœ‚·‚é
+        //ãƒã‚¤ãƒ³ãƒ‰ã‚’è§£é™¤ã™ã‚‹
         OnomatoManager.OnModeChangeEvent -= ModeChange;
     }
-    //ƒ‚[ƒh‚ª•Ï‚í‚Á‚½‚ÉƒeƒLƒXƒgƒ{ƒbƒNƒX‚ğ•\¦‚·‚é
+    //ãƒ¢ãƒ¼ãƒ‰ãŒå¤‰ã‚ã£ãŸæ™‚ã«ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã‚’è¡¨ç¤ºã™ã‚‹
     private void ModeChange(PlayerMode _mode, string _name)
     {
-        playermode = _mode; //ƒ‚[ƒhİ’è
-        Debug.Log("ƒ‚[ƒhƒ`ƒFƒ“ƒW‚µ‚½‚æ" + playermode);
-        Debug.Log("ƒIƒmƒ}ƒgƒy‚ğH‚×‚½‚æ" + _name);
-        playermode = BattleManager.Instance.CurPlayerMode; //Œ»İ‚Ìó‘Ô‚ğ•Û‘¶
-        OnOff(); //’Ê’mBOX‚ğ•\¦
-        SlideIn(); //’Ê’mbox‚ğƒXƒ‰ƒCƒh
+        playermode = _mode; //ãƒ¢ãƒ¼ãƒ‰è¨­å®š
+        Debug.Log("ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸ã—ãŸã‚ˆ" + playermode);
+        Debug.Log("ã‚ªãƒãƒãƒˆãƒšã‚’é£Ÿã¹ãŸã‚ˆ" + _name);
+        playermode = BattleManager.Instance.CurPlayerMode; //ç¾åœ¨ã®çŠ¶æ…‹ã‚’ä¿å­˜
+        OnOff(); //é€šçŸ¥BOXã‚’è¡¨ç¤º
+        SlideIn(); //é€šçŸ¥boxã‚’ã‚¹ãƒ©ã‚¤ãƒ‰
     }
-    //--------------------------------ƒXƒ‰ƒCƒhˆ—--------------------------------
+    //--------------------------------ã‚¹ãƒ©ã‚¤ãƒ‰å‡¦ç†--------------------------------
     public void SlideIn()
     {
-        if (isSliding) return; //ƒXƒ‰ƒCƒh’†‚Í‘€ì‚µ‚È‚¢
+        if (isSliding) return; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã¯æ“ä½œã—ãªã„
 
-        isSliding = true; //ƒXƒ‰ƒCƒh’†‚©‚Ç‚¤‚©
+        isSliding = true; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã‹ã©ã†ã‹
 
-        //offScreenPosition ‚©‚ç onScreenPosition ‚Ü‚ÅƒXƒ‰ƒCƒh
+        //offScreenPosition ã‹ã‚‰ onScreenPosition ã¾ã§ã‚¹ãƒ©ã‚¤ãƒ‰
         Vector2 targetPosition = onScreenPosition;
         StartCoroutine(SlidePanel(targetPosition));
 
     }
     public void SlideOut()
     {
-        if (isSliding) return; //ƒXƒ‰ƒCƒh’†‚Í‘€ì‚µ‚È‚¢
+        if (isSliding) return; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã¯æ“ä½œã—ãªã„
 
-        isSliding = true; //ƒXƒ‰ƒCƒh’†‚©‚Ç‚¤‚©
+        isSliding = true; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã‹ã©ã†ã‹
 
-        //onScreenPosition ‚©‚ç offScreenPosition ‚Ü‚ÅƒXƒ‰ƒCƒh
+        //onScreenPosition ã‹ã‚‰ offScreenPosition ã¾ã§ã‚¹ãƒ©ã‚¤ãƒ‰
         Vector2 targetPosition = offScreenPosition;
         StartCoroutine(SlidePanel(targetPosition));
 
     }
-    //ƒXƒ‰ƒCƒh‚·‚éˆ—
+    //ã‚¹ãƒ©ã‚¤ãƒ‰ã™ã‚‹å‡¦ç†
     private IEnumerator SlidePanel(Vector2 targetPosition)
     {
-        float elapsedTime = 0f; //ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŒo‰ßŠÔ‚ğ’ÇÕ‚·‚é‚½‚ß‚Ì•Ï”
-        Vector2 startPosition = box.anchoredPosition; //ƒXƒ‰ƒCƒhŠJn‚Ìƒpƒlƒ‹‚ÌŒ»İˆÊ’u‚ğ•Û
+        float elapsedTime = 0f; //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çµŒéæ™‚é–“ã‚’è¿½è·¡ã™ã‚‹ãŸã‚ã®å¤‰æ•°
+        Vector2 startPosition = box.anchoredPosition; //ã‚¹ãƒ©ã‚¤ãƒ‰é–‹å§‹æ™‚ã®ãƒ‘ãƒãƒ«ã®ç¾åœ¨ä½ç½®ã‚’ä¿æŒ
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹ŠÔ‚Ü‚Åƒ‹[ƒv‚·‚é‚æ
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†æ™‚é–“ã¾ã§ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‚ˆ
         while (elapsedTime < slideDuration)
         {
-            elapsedTime += Time.deltaTime; //‘OƒtƒŒ[ƒ€‚©‚çŠÔŒo‰ß‚ğ‰ÁZ
+            elapsedTime += Time.deltaTime; //å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰æ™‚é–“çµŒéã‚’åŠ ç®—
             float t = elapsedTime / slideDuration;
            box.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, t);
             yield return null;
         }
-        box.anchoredPosition = targetPosition; //ÅŒã‚É–Ú•WˆÊ’u‚Éƒsƒbƒ^ƒŠ‡‚í‚¹‚é
-        isSliding = false; //ƒXƒ‰ƒCƒhƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰Šú‰»
+        box.anchoredPosition = targetPosition; //æœ€å¾Œã«ç›®æ¨™ä½ç½®ã«ãƒ”ãƒƒã‚¿ãƒªåˆã‚ã›ã‚‹
+        isSliding = false; //ã‚¹ãƒ©ã‚¤ãƒ‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–
     }
 
-    //----------------------------------•\¦ˆ—----------------------------------
+    //----------------------------------è¡¨ç¤ºå‡¦ç†----------------------------------
     void Start()
     {
         AllOff();
     }
-    //4•bŒã‚ÉÁ‚¦‚éˆ—
+    //4ç§’å¾Œã«æ¶ˆãˆã‚‹å‡¦ç†
     void Update()
     {
         if(isVisible == true)
@@ -112,7 +112,7 @@ public class ChangeBox : MonoBehaviour
     {
         AllOff();
 
-        // Œ•Aƒnƒ“ƒ}[A‘„‚ÌØ‚è‘Ö‚¦—p
+        // å‰£ã€ãƒãƒ³ãƒãƒ¼ã€æ§ã®åˆ‡ã‚Šæ›¿ãˆç”¨
         if (playermode == PlayerMode.Sword)
         {
             SetWeapon("Sword");
@@ -137,25 +137,25 @@ public class ChangeBox : MonoBehaviour
     }
     private void SetWeapon(string weaponType)
     {
-        //Šm”F—p
+        //ç¢ºèªç”¨
         switch (weaponType)
         {
             case "Sword":
-                Debug.Log("Œ•‚ğ‘I‘ğ‚µ‚Ü‚µ‚½");
+                Debug.Log("å‰£ã‚’é¸æŠã—ã¾ã—ãŸ");
                 break;
             case "Hammer":
-                Debug.Log("ƒnƒ“ƒ}[‚ğ‘I‘ğ‚µ‚Ü‚µ‚½");
+                Debug.Log("ãƒãƒ³ãƒãƒ¼ã‚’é¸æŠã—ã¾ã—ãŸ");
                 break;
             case "Spear":
-                Debug.Log("‘„‚ğ‘I‘ğ‚µ‚Ü‚µ‚½");
+                Debug.Log("æ§ã‚’é¸æŠã—ã¾ã—ãŸ");
                 break;
             default:
-                Debug.LogWarning("–³Œø‚È•Šíƒ^ƒCƒv‚ªw’è‚³‚ê‚Ü‚µ‚½: " + weaponType);
+                Debug.LogWarning("ç„¡åŠ¹ãªæ­¦å™¨ã‚¿ã‚¤ãƒ—ãŒæŒ‡å®šã•ã‚Œã¾ã—ãŸ: " + weaponType);
                 break;
         }
     }
 
-    // ‚·‚×‚Ä‚Ì•Ší‘fŞ‚ğ”ñ•\¦
+    // ã™ã¹ã¦ã®æ­¦å™¨ç´ æã‚’éè¡¨ç¤º
     private void AllOff()
     {
         swordbox.SetActive(false);

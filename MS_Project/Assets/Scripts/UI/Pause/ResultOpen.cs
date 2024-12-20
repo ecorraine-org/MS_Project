@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class ResultOpen : MonoBehaviour
 {
-    public GameObject prefab; // ƒCƒ“ƒXƒyƒNƒ^[‚Åİ’è‚·‚éƒvƒŒƒnƒu
-    private GameObject instantiatedPrefab; // ¶¬‚³‚ê‚½ƒvƒŒƒnƒu‚ğŠÇ—
+    public GameObject prefab; // ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã§è¨­å®šã™ã‚‹ãƒ—ãƒ¬ãƒãƒ–
+    private GameObject instantiatedPrefab; // ç”Ÿæˆã•ã‚ŒãŸãƒ—ãƒ¬ãƒãƒ–ã‚’ç®¡ç†
 
     void Start()
     {
-        // ‰Šúó‘Ô‚ÅƒvƒŒƒnƒu‚ğ”ñƒAƒNƒeƒBƒu‚É‚µ‚Ä‚¨‚­i•K—v‚É‰‚¶‚Äj
+        // åˆæœŸçŠ¶æ…‹ã§ãƒ—ãƒ¬ãƒãƒ–ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã—ã¦ãŠãï¼ˆå¿…è¦ã«å¿œã˜ã¦ï¼‰
         if (prefab != null)
         {
             prefab.SetActive(false);
@@ -16,10 +16,10 @@ public class ResultOpen : MonoBehaviour
 
     void Update()
     {
-        // 1ƒL[‚Æ3ƒL[‚ª“¯‰Ÿ‚µ‚³‚ê‚½ê‡‚ÉƒvƒŒƒnƒu‚ğ•\¦
+        // 1ã‚­ãƒ¼ã¨3ã‚­ãƒ¼ãŒåŒæ™‚æŠ¼ã—ã•ã‚ŒãŸå ´åˆã«ãƒ—ãƒ¬ãƒãƒ–ã‚’è¡¨ç¤º
         if (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha3))
         {
-            // ‚Ü‚¾ƒvƒŒƒnƒu‚ª•\¦‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Ì‚İˆ—
+            // ã¾ã ãƒ—ãƒ¬ãƒãƒ–ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ãªã„å ´åˆã®ã¿å‡¦ç†
             if (instantiatedPrefab == null)
             {
                 OpenPrefab();
@@ -29,16 +29,16 @@ public class ResultOpen : MonoBehaviour
 
     void OpenPrefab()
     {
-        // prefab‚ªƒCƒ“ƒXƒyƒNƒ^[‚Åİ’è‚³‚ê‚Ä‚¢‚é‚©Šm”F
+        // prefabãŒã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã§è¨­å®šã•ã‚Œã¦ã„ã‚‹ã‹ç¢ºèª
         if (prefab == null)
         {
             Debug.LogError("Prefab is not assigned in the inspector!");
             return;
         }
 
-        // ƒvƒŒƒnƒu‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µ‚Ä•\¦
-        instantiatedPrefab = Instantiate(prefab, transform.position, Quaternion.identity); // ƒvƒŒƒnƒu‚ğƒV[ƒ““à‚É•\¦
-        instantiatedPrefab.SetActive(true); // ƒCƒ“ƒXƒ^ƒ“ƒX‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+        // ãƒ—ãƒ¬ãƒãƒ–ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã—ã¦è¡¨ç¤º
+        instantiatedPrefab = Instantiate(prefab, transform.position, Quaternion.identity); // ãƒ—ãƒ¬ãƒãƒ–ã‚’ã‚·ãƒ¼ãƒ³å†…ã«è¡¨ç¤º
+        instantiatedPrefab.SetActive(true); // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
         Debug.Log("Prefab opened!");
     }
 }

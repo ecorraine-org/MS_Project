@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TransformationNotication : MonoBehaviour
 {
-    [SerializeField,Header("’Ê’mBOX")]
+    [SerializeField,Header("é€šçŸ¥BOX")]
     GameObject transformationnotication;
 
     float cunt;
 
     private void Start()
     {
-        //ƒtƒŒ[ƒ€‚ğ60‚ÉŒÅ’è
+        //ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’60ã«å›ºå®š
         //Application.targetFrameRate = 60;
     }
     private void Update()
@@ -20,15 +20,15 @@ public class TransformationNotication : MonoBehaviour
         //{
             cunt += Time.deltaTime;
 
-            //ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg”ñ•\¦¨•\¦
+            //ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆéè¡¨ç¤ºâ†’è¡¨ç¤º
             //transformationnotication.SetActive(true);
 
             Debug.Log(cunt);
 
-            //4•bŒã‚ÉÁ‚·ˆ—
+            //4ç§’å¾Œã«æ¶ˆã™å‡¦ç†
             if (cunt >= 4)
             {
-                //ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg•\¦¨”ñ•\¦
+                //ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆè¡¨ç¤ºâ†’éè¡¨ç¤º
                 transformationnotication.SetActive(false);
             }
         //}

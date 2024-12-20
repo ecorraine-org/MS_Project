@@ -5,90 +5,90 @@ using UnityEngine.UI;
 
 public class ResultButton : MonoBehaviour
 {
-    // ƒ{ƒ^ƒ“‚ÌQÆ
-    [SerializeField, Header("Ÿ‚ÌƒXƒe[ƒW‚Ös‚­ƒ{ƒ^ƒ“")]
+    // ãƒœã‚¿ãƒ³ã®å‚ç…§
+    [SerializeField, Header("æ¬¡ã®ã‚¹ãƒ†ãƒ¼ã‚¸ã¸è¡Œããƒœã‚¿ãƒ³")]
     public Button NextStageButton;
-    [SerializeField, Header("ƒZƒŒƒNƒgƒXƒe[ƒW‚Ös‚­ƒ{ƒ^ƒ“")]
+    [SerializeField, Header("ã‚»ãƒ¬ã‚¯ãƒˆã‚¹ãƒ†ãƒ¼ã‚¸ã¸è¡Œããƒœã‚¿ãƒ³")]
     public Button GoToSelectButton;
 
-    // ƒ{ƒ^ƒ“ƒŠƒXƒg
+    // ãƒœã‚¿ãƒ³ãƒªã‚¹ãƒˆ
     private List<Button> buttons;
-    private int selectedIndex = 0; // Œ»İ‘I‘ğ‚³‚ê‚Ä‚¢‚éƒ{ƒ^ƒ“‚ÌƒCƒ“ƒfƒbƒNƒX
+    private int selectedIndex = 0; // ç¾åœ¨é¸æŠã•ã‚Œã¦ã„ã‚‹ãƒœã‚¿ãƒ³ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 
     void Start()
     {
-        // ƒ{ƒ^ƒ“‚ğƒŠƒXƒg‚É’Ç‰Á
+        // ãƒœã‚¿ãƒ³ã‚’ãƒªã‚¹ãƒˆã«è¿½åŠ 
         buttons = new List<Button> { NextStageButton, GoToSelectButton };
 
-        // Å‰‚Éƒ{ƒ^ƒ“‚ğ‘I‘ğ
+        // æœ€åˆã«ãƒœã‚¿ãƒ³ã‚’é¸æŠ
         UpdateButtonSelection();
 
         Time.timeScale = 0;
     }
     void Update()
     {
-        // WƒL[‚ÅŸ‚Ìƒ{ƒ^ƒ“‚ÖˆÚ“®
+        // Wã‚­ãƒ¼ã§æ¬¡ã®ãƒœã‚¿ãƒ³ã¸ç§»å‹•
         if (Input.GetKeyDown(KeyCode.W))
         {
-            MoveSelection(-1); // ‘O‚Ìƒ{ƒ^ƒ“‚ÉˆÚ“®
+            MoveSelection(-1); // å‰ã®ãƒœã‚¿ãƒ³ã«ç§»å‹•
         }
 
-        // SƒL[‚Å‘O‚Ìƒ{ƒ^ƒ“‚ÖˆÚ“®
+        // Sã‚­ãƒ¼ã§å‰ã®ãƒœã‚¿ãƒ³ã¸ç§»å‹•
         if (Input.GetKeyDown(KeyCode.S))
         {
-            MoveSelection(1); // Ÿ‚Ìƒ{ƒ^ƒ“‚ÉˆÚ“®
+            MoveSelection(1); // æ¬¡ã®ãƒœã‚¿ãƒ³ã«ç§»å‹•
         }
 
-        // EnterƒL[‚Å‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚ğÀs
-        if (Input.GetKeyDown(KeyCode.Return)) // EnterƒL[‚Åƒ{ƒ^ƒ“‚ğ‘I‘ğ
+        // Enterã‚­ãƒ¼ã§é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’å®Ÿè¡Œ
+        if (Input.GetKeyDown(KeyCode.Return)) // Enterã‚­ãƒ¼ã§ãƒœã‚¿ãƒ³ã‚’é¸æŠ
         {
             ExecuteSelectedButton();
         }
 
-        // ‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚É‹Šo“I‚È•ÏX‚ğ“K—p
+        // é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã«è¦–è¦šçš„ãªå¤‰æ›´ã‚’é©ç”¨
         UpdateButtonSelection();
     }
 
-    // ƒ{ƒ^ƒ“‘I‘ğ‚ÌƒCƒ“ƒfƒbƒNƒX‚ğ•ÏX
+    // ãƒœã‚¿ãƒ³é¸æŠã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å¤‰æ›´
     void MoveSelection(int direction)
     {
         selectedIndex += direction;
 
-        // ”ÍˆÍ‚ğ’´‚¦‚È‚¢‚æ‚¤‚É’²®
+        // ç¯„å›²ã‚’è¶…ãˆãªã„ã‚ˆã†ã«èª¿æ•´
         if (selectedIndex < 0)
         {
-            selectedIndex = buttons.Count - 1; // ÅŒã‚Ìƒ{ƒ^ƒ“‚ÉˆÚ“®
+            selectedIndex = buttons.Count - 1; // æœ€å¾Œã®ãƒœã‚¿ãƒ³ã«ç§»å‹•
         }
         else if (selectedIndex >= buttons.Count)
         {
-            selectedIndex = 0; // Å‰‚Ìƒ{ƒ^ƒ“‚ÉˆÚ“®
+            selectedIndex = 0; // æœ€åˆã®ãƒœã‚¿ãƒ³ã«ç§»å‹•
         }
 
-        // ‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚ÌXV
+        // é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã®æ›´æ–°
         UpdateButtonSelection();
     }
 
-    // ‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚ÌƒXƒ^ƒCƒ‹‚ğXV
+    // é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã®ã‚¹ã‚¿ã‚¤ãƒ«ã‚’æ›´æ–°
     void UpdateButtonSelection()
     {
         for (int i = 0; i < buttons.Count; i++)
         {
             if (i == selectedIndex)
             {
-                // Œ»İ‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚ÉƒnƒCƒ‰ƒCƒgiF‚ğ•Ï‚¦‚é‚È‚Ç‚Ìˆ—j
-                buttons[i].Select(); // ƒ{ƒ^ƒ“‚ğ‘I‘ğó‘Ô‚É
+                // ç¾åœ¨é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã«ãƒã‚¤ãƒ©ã‚¤ãƒˆï¼ˆè‰²ã‚’å¤‰ãˆã‚‹ãªã©ã®å‡¦ç†ï¼‰
+                buttons[i].Select(); // ãƒœã‚¿ãƒ³ã‚’é¸æŠçŠ¶æ…‹ã«
             }
             else
             {
-                // ”ñ‘I‘ğó‘Ô‚Ìˆ—i•K—v‚È‚çF‚ğ–ß‚·“™j
+                // éé¸æŠçŠ¶æ…‹ã®å‡¦ç†ï¼ˆå¿…è¦ãªã‚‰è‰²ã‚’æˆ»ã™ç­‰ï¼‰
             }
         }
     }
 
-    // ‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚ğÀs‚·‚é
+    // é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’å®Ÿè¡Œã™ã‚‹
     void ExecuteSelectedButton()
     {
-        // ‘I‘ğ‚³‚ê‚½ƒ{ƒ^ƒ“‚ğÀs
+        // é¸æŠã•ã‚ŒãŸãƒœã‚¿ãƒ³ã‚’å®Ÿè¡Œ
         buttons[selectedIndex].onClick.Invoke();
         Time.timeScale = 1;
     }

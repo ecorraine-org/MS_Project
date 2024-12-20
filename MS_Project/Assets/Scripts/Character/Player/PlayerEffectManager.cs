@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[ƒGƒtƒFƒNƒgŠÇ—
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç®¡ç†
 /// </summary>
 public class PlayerEffectManager : MonoBehaviour
 {
-    [SerializeField, Header("ƒoƒtƒGƒtƒFƒNƒgƒf[ƒ^")]
+    [SerializeField, Header("ãƒãƒ•ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ‡ãƒ¼ã‚¿")]
     PlayerEffectData buffEffectData;
 
-    //ƒGƒtƒFƒNƒg‚ğŠi”[‚·‚é
+    //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ ¼ç´ã™ã‚‹
     GameObject speedBuffinstance;
     GameObject damageBuffinstance;
     GameObject healBuffinstance;
 
-    //PlayerController‚ÌQÆ
+    //PlayerControllerã®å‚ç…§
     PlayerController playerController;
 
-    //ƒGƒtƒFƒNƒgƒf[ƒ^‚ğŠi”[‚·‚é•Ï”
+    //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°
     // List<PlayerEffectParam> buffEffects = new List<PlayerEffectParam>();
 
     public void Init(PlayerController _playerController)
@@ -28,13 +28,13 @@ public class PlayerEffectManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒoƒtƒGƒtƒFƒNƒg¶¬
+    /// ãƒãƒ•ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ
     /// </summary>
     public void GenerateDamageBuffEffect()
     {
         PlayerEffectParam curParam = buffEffectData.dicEffect[PlayerEffect.DamageBuff];
 
-        // ƒtƒFƒNƒg‚ğ¶¬
+        // ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
         damageBuffinstance = Instantiate(curParam.effectL, transform.TransformPoint(curParam.position), transform.rotation * Quaternion.Euler(curParam.rotation), curParam.isFollow ? transform : null);
 
         ParticleManager particle = damageBuffinstance.GetComponent<ParticleManager>();
@@ -51,10 +51,10 @@ public class PlayerEffectManager : MonoBehaviour
     {
         PlayerEffectParam curParam = buffEffectData.dicEffect[PlayerEffect.SpeedBuff];
 
-        // ƒtƒFƒNƒg‚ğ¶¬
+        // ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
         speedBuffinstance = Instantiate(curParam.effectL, transform.TransformPoint(curParam.position)  , transform.rotation * Quaternion.Euler(curParam.rotation), curParam.isFollow ? transform : null);
 
-        Debug.Log("ƒGƒtƒFƒNƒg¶¬");
+        Debug.Log("ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ");
 
         ParticleManager particle = speedBuffinstance.GetComponent<ParticleManager>();
         if (particle != null)
@@ -71,7 +71,7 @@ public class PlayerEffectManager : MonoBehaviour
     {
         PlayerEffectParam curParam = buffEffectData.dicEffect[PlayerEffect.HealBuff];
 
-        // ƒtƒFƒNƒg‚ğ¶¬
+        // ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
         healBuffinstance = Instantiate(curParam.effectL, transform.TransformPoint(curParam.position), transform.rotation * Quaternion.Euler(curParam.rotation), curParam.isFollow ? transform : null);
 
         ParticleManager particle = healBuffinstance.GetComponent<ParticleManager>();
@@ -118,13 +118,13 @@ public class PlayerEffectManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒoƒtƒGƒtƒFƒNƒg¶¬
+    /// ãƒãƒ•ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ
     /// </summary>
-    ///     //d—l‚É‚æ‚Á‚Ä•Ï‚í‚é
+    ///     //ä»•æ§˜ã«ã‚ˆã£ã¦å¤‰ã‚ã‚‹
     //public void GenerateBuffEffect(int _index)
     //{
     //    GameObject effectInstance;
-    //    // ƒtƒFƒNƒg‚ğ¶¬
+    //    // ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
     //    effectInstance = Instantiate(buffEffects[_index].effectL, transform.TransformPoint(buffEffects[_index].position), transform.rotation * Quaternion.Euler(buffEffects[_index].rotation), buffEffects[_index].isFollow ? transform : null);
 
     //    ParticleManager particle = effectInstance.GetComponent<ParticleManager>();
@@ -139,14 +139,14 @@ public class PlayerEffectManager : MonoBehaviour
 
     //}
 
-    //d—l‚É‚æ‚Á‚Ä•Ï‚í‚é
-    //Ä‚Ñ“¯‚¶ƒoƒt‚à‚ç‚Á‚½‚çAŒp‘±ŠÔ‚¾‚¯ƒŠƒZƒbƒg‚·‚é‚©AŒø‰Ê‚ğ—İÏ‚·‚é‚©
+    //ä»•æ§˜ã«ã‚ˆã£ã¦å¤‰ã‚ã‚‹
+    //å†ã³åŒã˜ãƒãƒ•ã‚‚ã‚‰ã£ãŸã‚‰ã€ç¶™ç¶šæ™‚é–“ã ã‘ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‹ã€åŠ¹æœã‚’ç´¯ç©ã™ã‚‹ã‹
     //public void SetbuffEffects(int _index, PlayerEffect _effectType)
     //{
 
     //    while (buffEffects.Count <= _index)
     //    {
-    //        //—v‘f’Ç‰Á
+    //        //è¦ç´ è¿½åŠ 
     //        buffEffects.Add(new PlayerEffectParam());
     //    }
 

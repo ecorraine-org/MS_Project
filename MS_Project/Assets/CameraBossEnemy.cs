@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class CameraBossEnemy : MonoBehaviour
 {
-    public Camera targetCamera;         // ‘ÎÛ‚ÌƒJƒƒ‰
-    public string targetLayerName = ""; // Ê‚µ‚½‚¢ƒŒƒCƒ„[–¼
+    public Camera targetCamera;         // å¯¾è±¡ã®ã‚«ãƒ¡ãƒ©
+    public string targetLayerName = ""; // å†™ã—ãŸã„ãƒ¬ã‚¤ãƒ¤ãƒ¼å
 
     void Start()
     {
         
-        // ƒŒƒCƒ„[ƒ}ƒXƒN‚ğæ“¾
+        // ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒã‚¹ã‚¯ã‚’å–å¾—
         int layerMask = LayerMask.GetMask(targetLayerName);
 
         if (layerMask == 0)
@@ -17,7 +17,7 @@ public class CameraBossEnemy : MonoBehaviour
             return;
         }
 
-        // ƒJƒƒ‰‚ÌCulling Mask‚ğİ’è
+        // ã‚«ãƒ¡ãƒ©ã®Culling Maskã‚’è¨­å®š
         targetCamera.cullingMask = layerMask;
     }
 }
