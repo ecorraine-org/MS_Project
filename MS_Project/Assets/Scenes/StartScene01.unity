@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8936000464048026713, guid: e56a5df6879b4044ab91e0e1613e92ec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 8936000464048026713, guid: e56a5df6879b4044ab91e0e1613e92ec, type: 3}
       propertyPath: m_LocalPosition.y
@@ -414,11 +414,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953215252}
   m_CullTransparentMesh: 1
---- !u!1 &1009151083 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8364719237472215462, guid: b0b668f41cd0f074089f2e6a3029f393, type: 3}
-  m_PrefabInstance: {fileID: 1372746122}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1080647460
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -484,11 +479,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06d6b285007a0f54caddf37cdabdf700, type: 3}
---- !u!1 &1238818598 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8121128038044495928, guid: b0b668f41cd0f074089f2e6a3029f393, type: 3}
-  m_PrefabInstance: {fileID: 1372746122}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1370698692 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8143523743651954739, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
@@ -661,11 +651,11 @@ PrefabInstance:
     - target: {fileID: 5473579597002778431, guid: b0b668f41cd0f074089f2e6a3029f393, type: 3}
       propertyPath: spearbox
       value: 
-      objectReference: {fileID: 1009151083}
+      objectReference: {fileID: 0}
     - target: {fileID: 5473579597002778431, guid: b0b668f41cd0f074089f2e6a3029f393, type: 3}
       propertyPath: swordbox
       value: 
-      objectReference: {fileID: 1238818598}
+      objectReference: {fileID: 0}
     - target: {fileID: 5473579597002778431, guid: b0b668f41cd0f074089f2e6a3029f393, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -788,7 +778,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8143523743651954739, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 8143523743651954739, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
       propertyPath: m_LocalPosition.y

@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &636043107
+--- !u!1001 &1250665937
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -127,73 +127,57 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 284805993079400132, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
-      propertyPath: nextSceneName
-      value: Area004
-      objectReference: {fileID: 0}
-    - target: {fileID: 3463698582271026047, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 2879012746818588456, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_Name
       value: Area003
       objectReference: {fileID: 0}
-    - target: {fileID: 5015830220079701099, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
-      propertyPath: nextSceneName
-      value: Area002
-      objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 196
+      value: 400
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 120
+      value: -48
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5087699607662975680, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+    - target: {fileID: 5872388812065027735, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8542188808015983589, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
-      propertyPath: 'sceneNames.Array.data[0]'
-      value: Area002
-      objectReference: {fileID: 0}
-    - target: {fileID: 8542188808015983589, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
-      propertyPath: 'sceneNames.Array.data[1]'
-      value: Area004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6c2d3704ba74aeb4e82b9df9cebb3f67, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: c7b1e428e3bbb434da5f9c9e7a1bc0ca, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 636043107}
+  - {fileID: 1250665937}
