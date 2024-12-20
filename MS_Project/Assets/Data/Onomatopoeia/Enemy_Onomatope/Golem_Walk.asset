@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wordToUse: 
   onomatoSprite: {fileID: 0}
-  spriteSize: 1
+  spriteSize: 0.3
+  spriteAnimSpeed: 1
   onomatoACont: {fileID: 0}
   fontAsset: {fileID: 0}
   fontColor:
@@ -24,4 +25,5 @@ MonoBehaviour:
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  buffDuration: 10
   onomatoSE: {fileID: 0}
