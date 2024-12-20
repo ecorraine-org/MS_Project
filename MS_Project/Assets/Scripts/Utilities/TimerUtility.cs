@@ -26,6 +26,16 @@ public static class TimerUtility
         return monoBehaviour.StartCoroutine(TimeBasedTimerCoroutine(time, onStart, onComplete));
     }
 
+    /// <summary>
+    /// 時間停止の影響を受けない
+    /// </summary>
+    public static Coroutine UnscaledTimeBasedTimer(MonoBehaviour monoBehaviour, float time, Action onStart=null, Action onComplete=null)
+    {
+        return monoBehaviour.StartCoroutine(UnscaledTimeBasedTimerCoroutine(time, onStart, onComplete));
+    }
+
+ 
+
 
     /// <summary>
     /// コルーチンを呼び出す( フレーム毎に事前処理を呼び出す)
@@ -93,6 +103,21 @@ public static class TimerUtility
         yield return new WaitForSeconds(time);
 
         // 時間経過後に呼ばれるコールバック
+        onComplete?.Invoke();
+    }
+
+    //時間停止の影響を受けない
+    //初期化処理なくてもいい
+    private static IEnumerator UnscaledTimeBasedTimerCoroutine(float time, Action beforeComplete, Action onComplete)
+    {
+        beforeComplete?.Invoke();
+
+        float startTime = Time.unscaledTime;
+        while (Time.unscaledTime < startTime + time)
+        {
+            yield return null;
+        }
+
         onComplete?.Invoke();
     }
 

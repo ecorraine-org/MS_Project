@@ -68,7 +68,8 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     void Start()
     {
-        LoadStory(7);
+        LoadStory(0);
+
     }
 
     void Update()
@@ -79,6 +80,11 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
         }
 
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            SkipDialog();
+
+        }
     }
 
     public void LoadStory(int storyIndex)
@@ -283,8 +289,8 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
         Destroy(dialogInstance);
 
-        //終了イベント発信
-        OnDialogFinish?.Invoke();
+        ////終了イベント発信
+        //OnDialogFinish?.Invoke();
     }
 
     IEnumerator FadeOutAllDialogs()
@@ -303,7 +309,26 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         // 背景も非表示にする
         ShowBackgroundOverlay(false);
 
-      
+        //終了イベント発信
+        TimerUtility.UnscaledTimeBasedTimer(this,1.0f,null,() =>
+        {
+            Debug.Log("終了発信!!!");
+         
+           OnDialogFinish?.Invoke();
+
+            //チュートリアル終了
+            if (currentStoryIndex == 7)
+            {
+                Debug.Log("美味しかったって会話8→チュートリアル終了 ");
+                InputController.Instance.SetInputContext(InputController.InputContext.Player);
+                Time.timeScale = 1;
+            }
+
+        });
+     
+     
+
+     
     }
 
     void CreateBackgroundOverlay()

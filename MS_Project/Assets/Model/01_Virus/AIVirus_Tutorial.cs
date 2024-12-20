@@ -49,6 +49,7 @@ public class AIVirus_Tutorial : EnemyAction
 
 void DialogFinish()
     {
+        Debug.Log("受信時段階: "+ enemy.PlayerController.tutorialStage);
         switch (enemy.PlayerController.tutorialStage)
         {
             case TutorialStage.Step1:
@@ -103,11 +104,11 @@ void DialogFinish()
                 Debug.Log("変身の会話7→チュートリアル第6段階 ");
                 break;
             //死亡、会話8終了
-            case TutorialStage.Step7:
-                Debug.Log("美味しかったって会話8→チュートリアル第7段階 ");
-                InputController.Instance.SetInputContext(InputController.InputContext.Player);
-                Time.timeScale = 1;
-                break;
+            //case TutorialStage.Step7:
+            //    Debug.Log("美味しかったって会話8→チュートリアル第7段階 ");
+            //    InputController.Instance.SetInputContext(InputController.InputContext.Player);
+            //    Time.timeScale = 1;
+            //    break;
         }
     }
 
@@ -117,7 +118,7 @@ void DialogFinish()
         switch (enemy.PlayerController.tutorialStage)
         {
             case TutorialStage.None:
-                Debug.Log("チュートリアル第0段階");
+                //Debug.Log("チュートリアル第0段階");
                 if (distanceToPlayer <= 5)
                 {
                     tutorialTimer += Time.unscaledDeltaTime;
@@ -125,11 +126,10 @@ void DialogFinish()
                     {
                         tutorialTimer = 0;
 
-                        Debug.Log("チュートリアル第1段階" + enemy.PlayerController.tutorialStage);
+                        Debug.Log("チュートリアル第0段階距離内" + enemy.PlayerController.tutorialStage);
                         enemy.PlayerController.tutorialStage = TutorialStage.Step1;
                         //Step初期化
-                        //TalkManager.Instance.LoadNextStory();
-                       // TalkManager.Instance.ShowNextPrefab();
+                        //会話2
                         TalkManager.Instance.LoadStory(1);
 
 
@@ -141,6 +141,10 @@ void DialogFinish()
                 }
 
                 break;
+            case TutorialStage.Step2:
+            case TutorialStage.Step3:
+            case TutorialStage.Step4:
+            case TutorialStage.Step5:
             case TutorialStage.Step6:
 
                 if (enemy.Status.CurrentHealth <= 0)
@@ -152,7 +156,7 @@ void DialogFinish()
                     InputController.Instance.SetInputContext(InputController.InputContext.UI);
 
 
-                    //新しい会話(会話8:変身)
+                    //新しい会話(会話8:美味しかった?)
                     TalkManager.Instance.LoadStory(7);
 
                 }
