@@ -24,7 +24,7 @@ public class DashHandler : MonoBehaviour
     BlockDetector blockDetector;
 
     [SerializeField, Header("プレイヤー周りの障害物検出コライダー")]
-    HitCollider hitCollider;
+    HitCollider blockCollider;
 
     [SerializeField, Header("攻撃補正用ロックオンコライダー")]
     HitColliderSelected lockOnCollider;
@@ -129,18 +129,46 @@ public class DashHandler : MonoBehaviour
 
     }
 
+    private bool  RaycastWall()
+    {
+        Vector3 rayOrigin = owner.RigidBody.position + Vector3.up * 0.5f;
+        RaycastHit hit;
+        if (Physics.Raycast(rayOrigin, dashDirec, out hit, speed * Time.fixedDeltaTime))
+        {
+            Debug.DrawRay(rayOrigin, dashDirec * speed * Time.fixedDeltaTime, Color.red, 10f);
 
+            //   Debug.Log($"Raycast hit object: {hit.collider.gameObject.name}, " +
+            //   $"Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}, Position: {hit.point}");
+
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Terrain")
+                || hit.collider.gameObject.layer == LayerMask.NameToLayer("Building")
+                 || hit.collider.gameObject.layer == LayerMask.NameToLayer("Default")
+                 || hit.collider.gameObject.layer == LayerMask.NameToLayer("AttackableObject"))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     private void FixedUpdate()
     {
         if (isDashing)
         {
-           //////// //貫通しないパターンで、
+           // Debug.Log("突進"+ blockCollider + blockCollider.CollidersList.Count);
+
+            //////// //貫通しないパターンで、
             //壁とオブジェクトに当たったら終了
-            if (/*!canThrough &&*/ hitCollider != null && hitCollider.CollidersList.Count > 0)
+            if (/*!canThrough &&*/ blockCollider != null && blockCollider.CollidersList.Count > 0)
             {
+                Debug.Log("壁に当たって終了");
                 End();
+                return;
             }
+
+            //レイで壁判定する
+            if (RaycastWall()) return;
 
             //敵と重ならないため
             //移動先に敵がいなければ、敵との当たり判定を無視する
@@ -149,33 +177,11 @@ public class DashHandler : MonoBehaviour
                 if (blockDetector != null && !blockDetector.IsColliding) Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
 
             }
-
+          
             //移動中目的地を固定するため、更新停止
             if (blockDetector != null) blockDetector.IsEnabled = false;
 
             //一定距離を移動
-            // owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * slowFactor * Time.fixedDeltaTime);
-
-
-          
-            Vector3 rayOrigin = owner.RigidBody.position + Vector3.up * 0.5f;
-            RaycastHit hit;
-            if (Physics.Raycast(rayOrigin, dashDirec, out hit, speed * Time.fixedDeltaTime))
-            {
-                Debug.DrawRay(rayOrigin, dashDirec * speed * Time.fixedDeltaTime, Color.red, 10f);
-
-             //   Debug.Log($"Raycast hit object: {hit.collider.gameObject.name}, " +
-                 //   $"Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}, Position: {hit.point}");
-
-                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Terrain")
-                    || hit.collider.gameObject.layer == LayerMask.NameToLayer("Building")
-                     || hit.collider.gameObject.layer == LayerMask.NameToLayer("Default")
-                     || hit.collider.gameObject.layer == LayerMask.NameToLayer("AttackableObject"))
-                {
-                    return;
-                }
-            }
-
             owner.RigidBody.MovePosition(owner.RigidBody.position + dashDirec.normalized * speed * slowFactor * Time.fixedDeltaTime);
 
         }
@@ -294,7 +300,7 @@ public class DashHandler : MonoBehaviour
             //}
 
             //壁とオブジェクトに当たったら終了
-            if (/*!canThrough &&*/ hitCollider != null && hitCollider.CollidersList.Count > 0)
+            if (/*!canThrough &&*/ blockCollider != null && blockCollider.CollidersList.Count > 0)
             {
                 EndCorrectDash();
             }
@@ -351,7 +357,7 @@ public class DashHandler : MonoBehaviour
     {
         if (isSpecialDash) return;
 
-        if (hitCollider != null && hitCollider.CollidersList.Count > 0) return;
+        if (blockCollider != null && blockCollider.CollidersList.Count > 0) return;
 
         //近すぎると突進しない
         //if (lockOnCollider.ClosestCollider != null)
@@ -397,11 +403,12 @@ public class DashHandler : MonoBehaviour
     {
         if (isSpecialDash) return;
 
-        //近すぎると突進しない
-        if (lockOnCollider.ClosestCollider != null)
+        //ターゲット敵に近すぎると突進しない
+        if (!canThrough && lockOnCollider.ClosestCollider != null)
         {
             Vector3 ToLock = lockOnCollider.ClosestCollider.transform.position - owner.transform.position;
             ToLock.y = 0;
+            Debug.Log("近すぎる");
             //   Debug.Log("ToLock.magnitude " + ToLock.magnitude);
             if (ToLock.magnitude < minDashDistance) return;
         }
