@@ -440,10 +440,16 @@ public class PlayerSkillManager : MonoBehaviour
 
     public void SpearAttackInit()
     {
+        // 突進初期化
+        dash.Speed = hitData.dicHitReac[playerController.ModeManager.Mode].moveSpeed;
+        dash.Duration = -1;
+
         HandleAttackerParams();
         attackDamage = hitData.dicHitReac[playerController.ModeManager.Mode].damage;
 
         maxAttackStage = 4;
+
+        
 
         curEffectParam = effectData.dicEffect[PlayerEffect.SpearAttack];
 
