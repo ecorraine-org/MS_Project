@@ -28,7 +28,7 @@ namespace PixelCrushers.SceneStreamer
 
         public void OnEnable()
         {
-            Debug.Log("Found root: " + gameObject.transform.root.name);
+            //Debug.Log("Found root: " + gameObject.transform.root.name);
             currentSceneRoot = gameObject.transform.root.gameObject;
         }
 

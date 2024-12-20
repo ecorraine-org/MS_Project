@@ -205,6 +205,427 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1501116566085475393, guid: b0b668f41cd0f074089f2e6a3029f393, type: 3}
   m_PrefabInstance: {fileID: 1372746122}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &400119579
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 971
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624452744206227767, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: parentTransform
+      value: 
+      objectReference: {fileID: 347269942}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: npcVerticalOffset
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: playerVerticalOffset
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[0].npcDialogPrefabs.Array.data[0].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[0].npcDialogPrefabs.Array.data[0].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[0].npcDialogPrefabs.Array.data[0].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[0].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[0].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[0].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.data[0].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.data[0].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.data[0].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].dialogColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].dialogColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].dialogColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[0].playerDialogPrefabs.Array.data[0].dialogColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[0].playerDialogPrefabs.Array.data[0].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[0].playerDialogPrefabs.Array.data[0].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[0].playerDialogPrefabs.Array.data[0].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[0].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[0].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[0].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[1].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[1].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[1].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[2].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[2].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[2].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.data[0].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.data[0].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.data[0].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].dialogColor.b
+      value: 0.32941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].dialogColor.g
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].dialogColor.r
+      value: 0.16862746
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580284556881764240, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_Name
+      value: TalkManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
 --- !u!1001 &637883101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1213,1175 +1634,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84cb3c7102aa5564db9340d98d6fb3af, type: 3}
---- !u!1001 &8284452309851388552
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 404232923292414073, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_Name
-      value: TalkManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 971
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 531288933084328289, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: parentTransform
-      value: 
-      objectReference: {fileID: 347269942}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[2].storyName
-      value: "\u4F1A\u8A713"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].storyName
-      value: "\u4F1A\u8A714"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].storyName
-      value: "\u4F1A\u8A715"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].storyName
-      value: "\u4F1A\u8A716"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].storyName
-      value: "\u4F1A\u8A717"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].storyName
-      value: "\u4F1A\u8A718"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].storyName
-      value: "\u4F1A\u8A719"
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].npcDialogPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 781577dcbf008b44998b9a1825005a67, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 28ec95dba3544b842bb438e53f019d0d, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: a49c5540ca7465b4fb02b72460cb4404, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 5da8f43f314871c419f07153dd935443, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 7281ea2bec8673640a6fe365d590ee0d, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: e35abb72bd6b3034fb5c23e796d27025, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: a49c5540ca7465b4fb02b72460cb4404, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 5da8f43f314871c419f07153dd935443, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 7281ea2bec8673640a6fe365d590ee0d, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: e35abb72bd6b3034fb5c23e796d27025, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: e35abb72bd6b3034fb5c23e796d27025, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 31e3766ee8c19e84bba1af2830ff0aee, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: d46278de69db76941ab577f3eac015a4, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 14b9f52400634234f8af06924612f11f, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 973a95078d33d464c959ef63c521eed3, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].npcDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: d46278de69db76941ab577f3eac015a4, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[0].npcDialogPrefabs.Array.data[0].priority
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].priority
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].priority
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].priority
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].priority
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].priority
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[1].priority
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[2].priority
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[3].priority
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].priority
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].priority
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].priority
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].priority
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 5da8f43f314871c419f07153dd935443, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: a49c5540ca7465b4fb02b72460cb4404, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 5da8f43f314871c419f07153dd935443, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 7281ea2bec8673640a6fe365d590ee0d, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: e35abb72bd6b3034fb5c23e796d27025, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 14b9f52400634234f8af06924612f11f, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: e35abb72bd6b3034fb5c23e796d27025, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: 31e3766ee8c19e84bba1af2830ff0aee, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 1411227765845071814, guid: d46278de69db76941ab577f3eac015a4, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: b6ffb9f1dd79359439f6fe93018ba271, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: 5ce0850027f789d4ea8969890069cfd7, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: cc3b3007465017b4b87d7d9d3006fee2, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: cd944892795b3384991ef47725cca547, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: 5b0e07c0482f8544b88473a0bf500a77, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: ad1661bc299de5542b290f30b412115f, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: cc3b3007465017b4b87d7d9d3006fee2, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: cd944892795b3384991ef47725cca547, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: b6dd01d959c1314408a306a6ebc098d1, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: ad1661bc299de5542b290f30b412115f, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: 5ce0850027f789d4ea8969890069cfd7, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: cc3b3007465017b4b87d7d9d3006fee2, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[4].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: cd944892795b3384991ef47725cca547, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[0].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: b6dd01d959c1314408a306a6ebc098d1, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[1].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: 5ce0850027f789d4ea8969890069cfd7, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[2].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: cc3b3007465017b4b87d7d9d3006fee2, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[3].prefab
-      value: 
-      objectReference: {fileID: 3003526254258647158, guid: cd944892795b3384991ef47725cca547, type: 3}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[0].playerDialogPrefabs.Array.data[0].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[0].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[1].priority
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].playerDialogPrefabs.Array.data[2].priority
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].priority
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].priority
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].priority
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[1].priority
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[2].priority
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[3].priority
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[1].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[2].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[3].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].priority
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[2].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[3].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].priority
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].priority
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[4].priority
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[0].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[1].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[2].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[3].priority
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[1].npcDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].npcDialogPrefabs.Array.data[3].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[3].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[3].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[3].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].npcDialogPrefabs.Array.data[3].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].npcDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].npcDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].npcDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].npcDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].npcDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].npcDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].npcDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[0].playerDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[0].playerDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[0].playerDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[2].playerDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[3].playerDialogPrefabs.Array.data[3].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[3].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[3].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[3].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[4].playerDialogPrefabs.Array.data[3].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[3].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[3].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[3].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[5].playerDialogPrefabs.Array.data[3].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[3].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[3].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[3].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[6].playerDialogPrefabs.Array.data[3].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[3].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[4].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[4].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[4].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[7].playerDialogPrefabs.Array.data[4].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[0].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[0].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[0].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[0].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[1].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[1].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[1].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[1].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[2].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[2].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[2].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[2].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[3].dialogColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[3].dialogColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[3].dialogColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2635343998677368052, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
-      propertyPath: stories.Array.data[8].playerDialogPrefabs.Array.data[3].dialogColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7bbc170bba62fa249a9911471095a10c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2396,4 +1648,4 @@ SceneRoots:
   - {fileID: 748980596}
   - {fileID: 378548758012888916}
   - {fileID: 1506849118}
-  - {fileID: 8284452309851388552}
+  - {fileID: 400119579}

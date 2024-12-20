@@ -101,8 +101,8 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         displayedNpcInstances.Clear();
 
         Debug.Log($"ストーリー '{stories[storyIndex].storyName}' をロードしました。");
-        ShowNextPrefab();
         CreateBackgroundOverlay();
+        ShowNextPrefab();
 
     }
 
