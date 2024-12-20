@@ -150,9 +150,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2771289115722578379}
     m_Modifications:
+    - target: {fileID: 403062151387412360, guid: 9d0662b78d8a6a64db790eb3a198aa98, type: 3}
+      propertyPath: m_Size.z
+      value: 96.5
+      objectReference: {fileID: 0}
     - target: {fileID: 920104948005520822, guid: 9d0662b78d8a6a64db790eb3a198aa98, type: 3}
       propertyPath: m_Name
       value: StageEdge
+      objectReference: {fileID: 0}
+    - target: {fileID: 1132458119557717857, guid: 9d0662b78d8a6a64db790eb3a198aa98, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322168226074419719, guid: 9d0662b78d8a6a64db790eb3a198aa98, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592099826705222497, guid: 9d0662b78d8a6a64db790eb3a198aa98, type: 3}
+      propertyPath: m_Size.z
+      value: 96.5
       objectReference: {fileID: 0}
     - target: {fileID: 7925542753387507710, guid: 9d0662b78d8a6a64db790eb3a198aa98, type: 3}
       propertyPath: m_LocalPosition.x
@@ -164,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7925542753387507710, guid: 9d0662b78d8a6a64db790eb3a198aa98, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 64
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 7925542753387507710, guid: 9d0662b78d8a6a64db790eb3a198aa98, type: 3}
       propertyPath: m_LocalRotation.w
