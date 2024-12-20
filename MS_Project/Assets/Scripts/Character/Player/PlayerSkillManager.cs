@@ -341,12 +341,10 @@ public class PlayerSkillManager : MonoBehaviour
         //エフェクト設定
         curEffectParam = effectData.dicEffect[PlayerEffect.SpearAttack];
 
-        //ランダムプレイ
+
         curEffectParam.rotation.x = 0.0f;
 
 
-
-        //ランダムプレイ
         playerController.SpriteAnim.Play("SpearAttackA", 0, 0f);
 
         //ヒットストップ
@@ -561,7 +559,7 @@ public class PlayerSkillManager : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log($"{_skillType} スキルクールダウン完了");
+      //  Debug.Log($"{_skillType} スキルクールダウン完了");
     }
 
     public IReadOnlyDictionary<PlayerSkill, float> CoolTimers
