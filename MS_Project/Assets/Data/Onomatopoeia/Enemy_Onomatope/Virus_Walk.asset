@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wordToUse: "\u3077\u3088\u3077\u3088"
   onomatoSprite: {fileID: 21300000, guid: e5f58bc717d4c78479c9b52536ef63e2, type: 3}
-  spriteSize: 0.1
+  spriteSize: 0.3
   spriteAnimSpeed: 1
   onomatoACont: {fileID: 22100000, guid: f3431b8aa03aa1441a6cb4aff5482e76, type: 2}
   fontAsset: {fileID: 11400000, guid: 40ebecea6a7fb6b4e9bfeb174c259461, type: 2}
@@ -25,4 +25,5 @@ MonoBehaviour:
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  buffDuration: 0
   onomatoSE: {fileID: 0}
