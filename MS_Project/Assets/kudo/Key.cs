@@ -2,29 +2,29 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    // ƒfƒoƒbƒN—pƒL[“ü—Í•Ï‰»
+    // ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚­ãƒ¼å…¥åŠ›å¤‰åŒ–
 
-    // ƒAƒNƒeƒBƒu‚É‚µ‚½‚¢ƒIƒuƒWƒFƒNƒg‚ğInspector‚©‚çİ’è
+    // ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã—ãŸã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’Inspectorã‹ã‚‰è¨­å®š
     public GameObject targetObject;
 
-    // g—p‚·‚éƒL[‚ğpublic‚É‚µ‚ÄInspector‚Å•ÏX‚Å‚«‚é‚æ‚¤‚É‚·‚éBƒm[ƒ}ƒ‹‚ÍMƒL[
+    // ä½¿ç”¨ã™ã‚‹ã‚­ãƒ¼ã‚’publicã«ã—ã¦Inspectorã§å¤‰æ›´ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚ãƒãƒ¼ãƒãƒ«ã¯Mã‚­ãƒ¼
     public KeyCode activationKey = KeyCode.M;
 
     void Update()
     {
-        // w’è‚³‚ê‚½ƒL[‚ª‰Ÿ‚³‚ê‚½‚Æ‚«
+        // æŒ‡å®šã•ã‚ŒãŸã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã¨ã
         if (Input.GetKeyDown(activationKey))
         {
-            // w’è‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+            // æŒ‡å®šã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
             if (targetObject != null)
             {
                 targetObject.SetActive(true);
                 //
-                Debug.Log($"{activationKey}ƒL[‚ª‰Ÿ‚³‚êA{targetObject.name}‚ªƒAƒNƒeƒBƒu‰»");
+                Debug.Log($"{activationKey}ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã€{targetObject.name}ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–");
             }
             else
             {
-                Debug.LogWarning("targetObject‚ª‘¶İ‚µ‚È‚¢A‚à‚µ‚­‚Íİ’è‚µ‚Ä‚¢‚È‚¢");
+                Debug.LogWarning("targetObjectãŒå­˜åœ¨ã—ãªã„ã€ã‚‚ã—ãã¯è¨­å®šã—ã¦ã„ãªã„");
             }
         }
     }
