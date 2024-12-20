@@ -71,68 +71,60 @@ public class OnomatopoeiaController : MonoBehaviour
 
             GetComponentInChildren<TextMeshPro>().text = "<rotate=90>" + onomatopoeiaName;
         }
-            //-------------------------------
-            // AudioSouceデバック
-            Debug.Log($"OnomatopoeiaData: {data}");
-            Debug.Log($"SE Clip: {data.onomatoSE}");
+        //-------------------------------
+        // AudioSouceデバック
+        //    Debug.Log($"OnomatopoeiaData: {data}");
+        //  Debug.Log($"SE Clip: {data.onomatoSE}");
 
-            // AudioSouceを追加して音をアタッチ
-            AudioSource audioSource = GetComponent<AudioSource>();
-            if (audioSource == null)
-            {
-                audioSource = gameObject.AddComponent<AudioSource>();
-            }
+        // AudioSouceを追加して音をアタッチ
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
 
-            // シーン内のAudioSourceをすべて取得して重複チェック
-            AudioSource[] allAudioSources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
-            bool isClipAlreadyAssigned = false;
+        // シーン内のAudioSourceをすべて取得して重複チェック
+        AudioSource[] allAudioSources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        bool isClipAlreadyAssigned = false;
 
-            foreach (AudioSource existingAudioSource in allAudioSources)
+        foreach (AudioSource existingAudioSource in allAudioSources)
+        {
+            if (existingAudioSource.clip == data.onomatoSE)
             {
-                if (existingAudioSource.clip == data.onomatoSE)
-                {
-                    isClipAlreadyAssigned = true;
-                    break;
-                }
+                isClipAlreadyAssigned = true;
+                break;
             }
+        }
 
-            if (!isClipAlreadyAssigned)
-            {
-                // クリップを設定して再生
-                audioSource.clip = data.onomatoSE;
-                audioSource.playOnAwake = false;
-                audioSource.Play();
-            }
-            else
-            {
-                //Debug.Log("同じSEがすでに存在");
-            }
-            //---------------------------------
+        if (!isClipAlreadyAssigned)
+        {
+            // クリップを設定して再生
+            audioSource.clip = data.onomatoSE;
+            audioSource.playOnAwake = false;
+            audioSource.Play();
+        }
+        else
+        {
+            //Debug.Log("同じSEがすでに存在");
+        }
+        //---------------------------------
 
         objOnomatopoeia.transform.position = RandomizePosition(objOnomatopoeia.transform.position);
     }
 
+ 
+
     void Update()
     {
-        // CustomLogger.Log(OwningObject.name);
-        if (!isAlive)
-        {
-            switch(OwningObject.GetComponent<WorldObjectController>().Type)
-            {
-                case WorldObjectType.Enemy:
-                    OwningObject.GetComponent<WorldObject>().ParentSpawner.GetComponent<EnemySpawner>().enemyOnomatoPool.Remove(objOnomatopoeia);
-                    break;
-                case WorldObjectType.StaticObject:
-                    OwningObject.GetComponent<WorldObject>().onomatoPool.Remove(objOnomatopoeia);
-                    break;
-            }
-            collector.DestroyOtherObjectFromPool(objOnomatopoeia);
-        }
-        else
-        {
-            UpdateParticle();
-        }
-        
+
+        //親が生きている場合
+        if (!isAlive && OwningObject != null) DestroyWithParent();
+
+        //親が死んでいる場合
+        if (!isAlive && OwningObject == null) DestroyWithoutParent();
+
+        //更新
+        if (isAlive) UpdateParticle();
     }
 
     void UpdateParticle()
@@ -167,6 +159,24 @@ public class OnomatopoeiaController : MonoBehaviour
         }
     }
 
+    private void DestroyWithParent()
+    {
+        switch (OwningObject.GetComponent<WorldObjectController>().Type)
+        {
+            case WorldObjectType.Enemy:
+                OwningObject.GetComponent<WorldObject>().ParentSpawner.GetComponent<EnemySpawner>().enemyOnomatoPool.Remove(objOnomatopoeia);
+                break;
+            case WorldObjectType.StaticObject:
+                OwningObject.GetComponent<WorldObject>().onomatoPool.Remove(objOnomatopoeia);
+                break;
+        }
+        collector.DestroyOtherObjectFromPool(objOnomatopoeia);
+    }
+
+    private void DestroyWithoutParent()
+    {
+        Destroy(gameObject);
+    }
     Vector3 RandomizePosition(Vector3 basePosition)
     {
         // 位置に乱数
