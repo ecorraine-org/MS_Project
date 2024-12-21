@@ -22,6 +22,12 @@ public class ChangeBox : MonoBehaviour
     public GameObject hammerbox;
     [SerializeField, Header("槍の素材")]
     public GameObject spearbox;
+    [SerializeField, Header("スピードアップ素材")]
+    public GameObject SpeedUpbox;
+    [SerializeField, Header("攻撃力アップ素材")]
+    public GameObject PowerUpbox;
+    [SerializeField, Header("暴走ゲージ増加素材")]
+    public GameObject Bresakbox;
 
     private bool isVisible = false; // boxが表示中かどうか
     private bool isSliding = false; // スライド中かどうか
@@ -173,5 +179,8 @@ public class ChangeBox : MonoBehaviour
         swordbox.SetActive(false);
         hammerbox.SetActive(false);
         spearbox.SetActive(false);
+        SpeedUpbox.SetActive(false);
+        PowerUpbox.SetActive(false);
+        Bresakbox.SetActive(false);
     }
 }
