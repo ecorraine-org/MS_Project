@@ -33,8 +33,10 @@ public class AIVirus_Tutorial : EnemyAction
     }
     void ReceiveModeCHange(PlayerMode _mode)
     {
+        Debug.Log("食べたイベント");
         if (enemy.PlayerController.tutorialStage == TutorialStage.Step5)
         {
+            Debug.Log("食べたイベント 段階5");
             Time.timeScale = 0;
             //UI操作
             InputController.Instance.SetInputContext(InputController.InputContext.UI);
@@ -42,7 +44,7 @@ public class AIVirus_Tutorial : EnemyAction
             enemy. PlayerController.tutorialStage = TutorialStage.Step6;
 
             //新しい会話(会話7:変身)
-            TalkManager.Instance.LoadStory(6);
+            TalkManager.Instance.LoadStory(3);
         }
     }
       
@@ -55,30 +57,37 @@ void DialogFinish()
             case TutorialStage.Step1:
                 Debug.Log("チュートリアル第1段階");
 
+                InputController.Instance.SetInputContext(InputController.InputContext.Player);
+                Time.timeScale = 1;
+                Debug.Log("チュートリアル第3段階　HP70以下にしてください");
+
                 //遷移
-                enemy.PlayerController.tutorialStage = TutorialStage.Step2;
+                enemy.PlayerController.tutorialStage = TutorialStage.Step3;
+
+                //=======
+
+                //遷移
+                //enemy.PlayerController.tutorialStage = TutorialStage.Step2;
 
                 //新しい会話(会話3:初めてオノマトペを見た)
-                // TalkManager.Instance.LoadNextStory();
-                // TalkManager.Instance.ShowNextPrefab();
-                TalkManager.Instance.LoadStory(2);
+                // TalkManager.Instance.LoadStory(2);
 
                 break;
             case TutorialStage.Step2:
-                Debug.Log("チュートリアル第2段階");
+               // Debug.Log("チュートリアル第2段階");
 
                 //新しい会話(会話4:ペコペコ)
-                TalkManager.Instance.LoadStory(3);
+               // TalkManager.Instance.LoadStory(3);
 
-                enemy.PlayerController.tutorialStage = TutorialStage.Step3;
+             //   enemy.PlayerController.tutorialStage = TutorialStage.Step3;
 
 
                 break;
 
             case TutorialStage.Step3:
-                InputController.Instance.SetInputContext(InputController.InputContext.Player);
-                Time.timeScale = 1;
-                Debug.Log("チュートリアル第3段階　HP70以下にしてください");
+                //InputController.Instance.SetInputContext(InputController.InputContext.Player);
+                //Time.timeScale = 1;
+                //Debug.Log("チュートリアル第3段階　HP70以下にしてください");
 
                 break;
 
@@ -86,23 +95,32 @@ void DialogFinish()
                 Debug.Log("敵攻撃時の会話5→チュートリアル第4段階");
 
                 //新しい会話(会話6:)
-                TalkManager.Instance.LoadStory(5);
+                //TalkManager.Instance.LoadStory(5);
+
+               // enemy.PlayerController.tutorialStage = TutorialStage.Step5;
+
+                //==============
 
                 enemy.PlayerController.tutorialStage = TutorialStage.Step5;
-                break;
-            case TutorialStage.Step5:   
+
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
                 Time.timeScale = 1;
-                Debug.Log("チュートリアル第5段階　食べてください");
+                Debug.Log("変身の会話7→チュートリアル第6段階→食べる準備 ");
+                break;
+            case TutorialStage.Step5:   
+                //InputController.Instance.SetInputContext(InputController.InputContext.Player);
+                //Time.timeScale = 1;
+                //Debug.Log("チュートリアル第5段階　食べてください");
                 break;
 
             //変身、会話7終了
             case TutorialStage.Step6:
-             //   Debug.Log("変身の会話7→チュートリアル第6段階");
+                Debug.Log("変身の会話7→チュートリアル第6段階");
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
                 Time.timeScale = 1;
-                Debug.Log("変身の会話7→チュートリアル第6段階 ");
+       
                 break;
+
             //死亡、会話8終了
             //case TutorialStage.Step7:
             //    Debug.Log("美味しかったって会話8→チュートリアル第7段階 ");
@@ -122,12 +140,12 @@ void DialogFinish()
                 if (distanceToPlayer <= 5)
                 {
                     tutorialTimer += Time.unscaledDeltaTime;
-                    if (tutorialTimer >= 0.7)
+                    if (tutorialTimer >= 0.5)
                     {
                         tutorialTimer = 0;
 
                         Debug.Log("チュートリアル第0段階距離内" + enemy.PlayerController.tutorialStage);
-                        enemy.PlayerController.tutorialStage = TutorialStage.Step1;
+                        enemy.PlayerController.tutorialStage = TutorialStage.Step1;//MeetEnemy
                         //Step初期化
                         //会話2
                         TalkManager.Instance.LoadStory(1);
@@ -157,7 +175,7 @@ void DialogFinish()
 
 
                     //新しい会話(会話8:美味しかった?)
-                    TalkManager.Instance.LoadStory(7);
+                    TalkManager.Instance.LoadStory(4);
 
                 }
                 break;

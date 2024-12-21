@@ -592,35 +592,3 @@ public class PlayerController : WorldObject
     }
 }
 
-
-//private void TutorialUpdate()
-//{
-//    //仮でチュートリアル
-//    switch (tutorialStage)
-//    {
-//        //case TutorialStage.Step1:
-//        //    Debug.Log("チュートリアル第1段階");
-
-
-//        //    break;
-
-//        //時間速度を戻す
-//        case TutorialStage.Step2:
-//            Debug.Log("チュートリアル第2段階");
-
-//            InputController.Instance.SetInputContext(InputController.InputContext.Player);
-//            Time.timeScale = 1;
-
-//            break;
-//        case TutorialStage.Step3:
-//            if (Input.GetKey(KeyCode.Return))
-//            {
-//                InputController.Instance.SetInputContext(InputController.InputContext.Player);
-//                Time.timeScale = 1;
-//            }
-
-//            break;
-//        case TutorialStage.None:
-//            break;
-//    }
-//}

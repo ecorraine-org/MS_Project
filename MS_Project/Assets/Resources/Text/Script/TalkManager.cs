@@ -39,6 +39,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
     public bool movePlayerDialogsUp = true;
     public bool moveNpcDialogsUp = true;
     public int maxDialogCount = 5;
+    public float storyEndFadeOutDuration = 0.5f;//会話終わった後のフェイドアウト時間
     public AnimationCurve movementCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
     [Header("Background Settings")]
@@ -68,8 +69,10 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     void Start()
     {
-        LoadStory(4);
+        LoadStory(0);
 
+        //UI操作
+        InputController.Instance.SetInputContext(InputController.InputContext.UI);
     }
 
     void Update()
@@ -77,13 +80,17 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         // 現在の時間を取得
         float currentTime = Time.unscaledTime;
 
-        if (Input.GetKeyDown(KeyCode.Return) && currentTime - lastEnterPressTime >= enterCooldown)
+        if (
+            (Input.GetKeyDown(KeyCode.Return)|| UIInputManager.Instance.GetEnterTrigger())
+            && currentTime - lastEnterPressTime >= enterCooldown)
         {
             lastEnterPressTime = currentTime; // 最後のエンター押下時間を更新
             ShowNextPrefab();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && currentTime - lastEnterPressTime >= enterCooldown)
+        if (
+            Input.GetKeyDown(KeyCode.LeftArrow)
+            && currentTime - lastEnterPressTime >= enterCooldown)
         {
             lastEnterPressTime = currentTime; // 最後のキー押下時間を更新
             SkipDialog();
@@ -282,7 +289,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     IEnumerator FadeOutAndRemoveDialog(GameObject dialogInstance)
     {
-        float fadeDuration = 1f;
+       // float fadeDuration = 1f;
         float elapsedTime = 0f;
 
         var canvasGroup = dialogInstance.GetComponent<CanvasGroup>();
@@ -291,9 +298,9 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
             canvasGroup = dialogInstance.AddComponent<CanvasGroup>();
         }
 
-        while (elapsedTime < fadeDuration)
+        while (elapsedTime < storyEndFadeOutDuration)
         {
-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / storyEndFadeOutDuration);
             elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
@@ -306,8 +313,8 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     IEnumerator FadeOutAllDialogs()
     {
-        float fadeDuration = 1f;
-        float elapsedTime = 0f;
+       // float fadeDuration = 1f;
+       // float elapsedTime = 0f;
 
         List<GameObject> allDialogs = new List<GameObject>(displayedPlayerInstances);
         allDialogs.AddRange(displayedNpcInstances);
@@ -321,14 +328,22 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         ShowBackgroundOverlay(false);
 
         //終了イベント発信
-        TimerUtility.UnscaledTimeBasedTimer(this,1.0f,null,() =>
+        TimerUtility.UnscaledTimeBasedTimer(this,storyEndFadeOutDuration,null,() =>
         {
-            Debug.Log("終了発信!!!");
+            Debug.Log("終了発信!!!"+ currentStoryIndex);
          
            OnDialogFinish?.Invoke();
 
+            //仮処理
+            if (currentStoryIndex == 0)
+            {
+                Debug.Log("最初の会話の終わり ");
+                InputController.Instance.SetInputContext(InputController.InputContext.Player);
+                Time.timeScale = 1;
+            }
+
             //チュートリアル終了
-            if (currentStoryIndex == 7)
+            if (currentStoryIndex == 4)
             {
                 Debug.Log("美味しかったって会話8→チュートリアル終了 ");
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
@@ -411,7 +426,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
             canvasGroup = background.AddComponent<CanvasGroup>();
         }
 
-        float duration = 1f; // フェード時間
+        float duration = storyEndFadeOutDuration; // フェード時間
         float elapsedTime = 0f;
 
         canvasGroup.alpha = startAlpha;
@@ -429,7 +444,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     IEnumerator FadeBackgroundOverlay(float startAlpha, float endAlpha, System.Action onComplete = null)
     {
-        float duration = 1f; // フェード時間
+        float duration = storyEndFadeOutDuration; // フェード時間
         float elapsedTime = 0f;
 
         backgroundOverlay.canvasRenderer.SetAlpha(startAlpha);
