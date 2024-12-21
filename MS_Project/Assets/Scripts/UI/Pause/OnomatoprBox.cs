@@ -4,111 +4,111 @@ using UnityEngine;
 
 public class OnomatoprBox : MonoBehaviour
 {
-    [SerializeField, Header("’Ê’mBOX")]
-    public RectTransform box; // ‘€ì‚·‚éPanel‚ÌRectTransform
-    [SerializeField, Header("ŠJn’n“_")]
-    public Vector2 offScreenPosition; // Panel‚ª‰æ–ÊŠO‚É‚ ‚é‚Æ‚«‚ÌÀ•W
-    [SerializeField, Header("I—¹’n“_")]
-    public Vector2 onScreenPosition;  // Panel‚ª‰æ–Ê“à‚É‚ ‚é‚Æ‚«‚ÌÀ•W
-    [SerializeField, Header("ƒXƒ‰ƒCƒhŠÔ")]
-    public float slideDuration; // ƒXƒ‰ƒCƒhƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŠ—vŠÔi•bj
+    [SerializeField, Header("é€šçŸ¥BOX")]
+    public RectTransform box; // æ“ä½œã™ã‚‹Panelã®RectTransform
+    [SerializeField, Header("é–‹å§‹åœ°ç‚¹")]
+    public Vector2 offScreenPosition; // PanelãŒç”»é¢å¤–ã«ã‚ã‚‹ã¨ãã®åº§æ¨™
+    [SerializeField, Header("çµ‚äº†åœ°ç‚¹")]
+    public Vector2 onScreenPosition;  // PanelãŒç”»é¢å†…ã«ã‚ã‚‹ã¨ãã®åº§æ¨™
+    [SerializeField, Header("ã‚¹ãƒ©ã‚¤ãƒ‰æ™‚é–“")]
+    public float slideDuration; // ã‚¹ãƒ©ã‚¤ãƒ‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®æ‰€è¦æ™‚é–“ï¼ˆç§’ï¼‰
 
-    [SerializeField, Header("‚Õ‚æ‚Õ‚æ")]
+    [SerializeField, Header("ã·ã‚ˆã·ã‚ˆ")]
     public GameObject puyobox;
-    [SerializeField, Header("ƒVƒ…ƒb")]
+    [SerializeField, Header("ã‚·ãƒ¥ãƒƒ")]
     public GameObject syubox;
-    [SerializeField, Header("ƒtƒƒtƒ")]
+    [SerializeField, Header("ãƒ•ãƒ¯ãƒ•ãƒ¯")]
     public GameObject huwahuwabox;
-    [SerializeField, Header("ƒuƒDƒEƒ“")]
+    [SerializeField, Header("ãƒ–ã‚¥ã‚¦ãƒ³")]
     public GameObject buunbox;
-    [SerializeField, Header("ƒKƒVƒƒ")]
+    [SerializeField, Header("ã‚¬ã‚·ãƒ£")]
     public GameObject gasyabox;
-    [SerializeField, Header("ƒVƒ…ƒb")]
+    [SerializeField, Header("ã‚·ãƒ¥ãƒƒ")]
     public GameObject kisi_syubox;
-    [SerializeField, Header("ƒYƒVƒYƒV")]
+    [SerializeField, Header("ã‚ºã‚·ã‚ºã‚·")]
     public GameObject zusizusibox;
-    [SerializeField, Header("ƒhƒ“")]
+    [SerializeField, Header("ãƒ‰ãƒ³")]
     public GameObject donbox;
-    [SerializeField, Header("ƒyƒ^ƒyƒ^")]
+    [SerializeField, Header("ãƒšã‚¿ãƒšã‚¿")]
     public GameObject petapetabox;
-    [SerializeField, Header("ƒ|ƒCƒb")]
+    [SerializeField, Header("ãƒã‚¤ãƒƒ")]
     public GameObject poibox;
 
-    private bool isVisible = false; // box‚ª•\¦’†‚©‚Ç‚¤‚©
-    private bool isSliding = false; // ƒXƒ‰ƒCƒh’†‚©‚Ç‚¤‚©
+    private bool isVisible = false; // boxãŒè¡¨ç¤ºä¸­ã‹ã©ã†ã‹
+    private bool isSliding = false; // ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã‹ã©ã†ã‹
 
     float cunt;
-    PlayerMode playermode; //ƒvƒŒƒCƒ„[‚Ìó‘Ô‚ğ•Û‘¶(•Ší)
+    PlayerMode playermode; //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®çŠ¶æ…‹ã‚’ä¿å­˜(æ­¦å™¨)
     string Onomatope;
     private void OnEnable()
     {
-        //ƒCƒxƒ“ƒg‚ğƒoƒCƒ“ƒh‚·‚é
+        //ã‚¤ãƒ™ãƒ³ãƒˆã‚’ãƒã‚¤ãƒ³ãƒ‰ã™ã‚‹
         OnomatoManager.OnModeChangeEvent += ModeChange;
     }
 
     private void OnDisable()
     {
-        //ƒoƒCƒ“ƒh‚ğ‰ğœ‚·‚é
+        //ãƒã‚¤ãƒ³ãƒ‰ã‚’è§£é™¤ã™ã‚‹
         OnomatoManager.OnModeChangeEvent -= ModeChange;
     }
-    //ƒ‚[ƒh‚ª•Ï‚í‚Á‚½‚ÉƒeƒLƒXƒgƒ{ƒbƒNƒX‚ğ•\¦‚·‚é
-    private void ModeChange(PlayerMode _mode, string _name)
+    //ãƒ¢ãƒ¼ãƒ‰ãŒå¤‰ã‚ã£ãŸæ™‚ã«ãƒ†ã‚­ã‚¹ãƒˆãƒœãƒƒã‚¯ã‚¹ã‚’è¡¨ç¤ºã™ã‚‹
+    private void ModeChange(PlayerMode _mode, OnomatopoeiaData _data)
     {
-        playermode = _mode; //ƒ‚[ƒhİ’è
-        Onomatope = _name; //ƒIƒmƒ}ƒgƒy‚ğİ’è
-        Debug.Log("ƒ‚[ƒhƒ`ƒFƒ“ƒW‚µ‚½‚æ" + playermode);
-        Debug.Log("ƒIƒmƒ}ƒgƒy‚ğH‚×‚½‚æ" + _name);
-        playermode = BattleManager.Instance.CurPlayerMode; //Œ»İ‚Ìó‘Ô‚ğ•Û‘¶
-        OnOff(); //’Ê’mBOX‚ğ•\¦
-        SlideIn(); //’Ê’mbox‚ğƒXƒ‰ƒCƒh
+        playermode = _mode; //ãƒ¢ãƒ¼ãƒ‰è¨­å®š
+        Onomatope = _data.wordToUse; //ã‚ªãƒãƒãƒˆãƒšã‚’è¨­å®š
+        Debug.Log("ãƒ¢ãƒ¼ãƒ‰ãƒã‚§ãƒ³ã‚¸ã—ãŸã‚ˆ" + playermode);
+        Debug.Log("ã‚ªãƒãƒãƒˆãƒšã‚’é£Ÿã¹ãŸã‚ˆ" + _data.wordToUse);
+        playermode = BattleManager.Instance.CurPlayerMode; //ç¾åœ¨ã®çŠ¶æ…‹ã‚’ä¿å­˜
+        OnOff(); //é€šçŸ¥BOXã‚’è¡¨ç¤º
+        SlideIn(); //é€šçŸ¥boxã‚’ã‚¹ãƒ©ã‚¤ãƒ‰
     }
-    //--------------------------------ƒXƒ‰ƒCƒhˆ—--------------------------------
+    //--------------------------------ã‚¹ãƒ©ã‚¤ãƒ‰å‡¦ç†--------------------------------
     public void SlideIn()
     {
-        if (isSliding) return; //ƒXƒ‰ƒCƒh’†‚Í‘€ì‚µ‚È‚¢
+        if (isSliding) return; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã¯æ“ä½œã—ãªã„
 
-        isSliding = true; //ƒXƒ‰ƒCƒh’†‚©‚Ç‚¤‚©
+        isSliding = true; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã‹ã©ã†ã‹
 
-        //offScreenPosition ‚©‚ç onScreenPosition ‚Ü‚ÅƒXƒ‰ƒCƒh
+        //offScreenPosition ã‹ã‚‰ onScreenPosition ã¾ã§ã‚¹ãƒ©ã‚¤ãƒ‰
         Vector2 targetPosition = onScreenPosition;
         StartCoroutine(SlidePanel(targetPosition));
 
     }
     public void SlideOut()
     {
-        if (isSliding) return; //ƒXƒ‰ƒCƒh’†‚Í‘€ì‚µ‚È‚¢
+        if (isSliding) return; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã¯æ“ä½œã—ãªã„
 
-        isSliding = true; //ƒXƒ‰ƒCƒh’†‚©‚Ç‚¤‚©
+        isSliding = true; //ã‚¹ãƒ©ã‚¤ãƒ‰ä¸­ã‹ã©ã†ã‹
 
-        //onScreenPosition ‚©‚ç offScreenPosition ‚Ü‚ÅƒXƒ‰ƒCƒh
+        //onScreenPosition ã‹ã‚‰ offScreenPosition ã¾ã§ã‚¹ãƒ©ã‚¤ãƒ‰
         Vector2 targetPosition = offScreenPosition;
         StartCoroutine(SlidePanel(targetPosition));
 
     }
-    //ƒXƒ‰ƒCƒh‚·‚éˆ—
+    //ã‚¹ãƒ©ã‚¤ãƒ‰ã™ã‚‹å‡¦ç†
     private IEnumerator SlidePanel(Vector2 targetPosition)
     {
-        float elapsedTime = 0f; //ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌŒo‰ßŠÔ‚ğ’ÇÕ‚·‚é‚½‚ß‚Ì•Ï”
-        Vector2 startPosition = box.anchoredPosition; //ƒXƒ‰ƒCƒhŠJn‚Ìƒpƒlƒ‹‚ÌŒ»İˆÊ’u‚ğ•Û
+        float elapsedTime = 0f; //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çµŒéæ™‚é–“ã‚’è¿½è·¡ã™ã‚‹ãŸã‚ã®å¤‰æ•°
+        Vector2 startPosition = box.anchoredPosition; //ã‚¹ãƒ©ã‚¤ãƒ‰é–‹å§‹æ™‚ã®ãƒ‘ãƒãƒ«ã®ç¾åœ¨ä½ç½®ã‚’ä¿æŒ
 
-        //ƒAƒjƒ[ƒVƒ‡ƒ“‚ªI—¹ŠÔ‚Ü‚Åƒ‹[ƒv‚·‚é‚æ
+        //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒçµ‚äº†æ™‚é–“ã¾ã§ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‚ˆ
         while (elapsedTime < slideDuration)
         {
-            elapsedTime += Time.deltaTime; //‘OƒtƒŒ[ƒ€‚©‚çŠÔŒo‰ß‚ğ‰ÁZ
+            elapsedTime += Time.deltaTime; //å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰æ™‚é–“çµŒéã‚’åŠ ç®—
             float t = elapsedTime / slideDuration;
             box.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, t);
             yield return null;
         }
-        box.anchoredPosition = targetPosition; //ÅŒã‚É–Ú•WˆÊ’u‚Éƒsƒbƒ^ƒŠ‡‚í‚¹‚é
-        isSliding = false; //ƒXƒ‰ƒCƒhƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰Šú‰»
+        box.anchoredPosition = targetPosition; //æœ€å¾Œã«ç›®æ¨™ä½ç½®ã«ãƒ”ãƒƒã‚¿ãƒªåˆã‚ã›ã‚‹
+        isSliding = false; //ã‚¹ãƒ©ã‚¤ãƒ‰ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–
     }
 
-    //----------------------------------•\¦ˆ—----------------------------------
+    //----------------------------------è¡¨ç¤ºå‡¦ç†----------------------------------
     void Start()
     {
         AllOff();
     }
-    //4•bŒã‚ÉÁ‚¦‚éˆ—
+    //4ç§’å¾Œã«æ¶ˆãˆã‚‹å‡¦ç†
     void Update()
     {
         if (isVisible == true)
@@ -125,73 +125,73 @@ public class OnomatoprBox : MonoBehaviour
     {
         AllOff();
 
-        // Œ•Aƒnƒ“ƒ}[A‘„‚ÌØ‚è‘Ö‚¦—p
-        if (Onomatope == "‚Õ‚æ‚Õ‚æ")
+        // å‰£ã€ãƒãƒ³ãƒãƒ¼ã€æ§ã®åˆ‡ã‚Šæ›¿ãˆç”¨
+        if (Onomatope == "ã·ã‚ˆã·ã‚ˆ")
         {
-            SetWeapon("‚Õ‚æ‚Õ‚æ");
+            SetWeapon("ã·ã‚ˆã·ã‚ˆ");
             puyobox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒVƒ…ƒb")
+        else if (Onomatope == "ã‚·ãƒ¥ãƒƒ")
         {
-            SetWeapon("ƒVƒ…ƒb");
+            SetWeapon("ã‚·ãƒ¥ãƒƒ");
             syubox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒtƒƒtƒ")
+        else if (Onomatope == "ãƒ•ãƒ¯ãƒ•ãƒ¯")
         {
-            SetWeapon("ƒtƒƒtƒ");
+            SetWeapon("ãƒ•ãƒ¯ãƒ•ãƒ¯");
             huwahuwabox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒuƒDƒEƒ“")
+        else if (Onomatope == "ãƒ–ã‚¥ã‚¦ãƒ³")
         {
-            SetWeapon("ƒuƒDƒEƒ“");
+            SetWeapon("ãƒ–ã‚¥ã‚¦ãƒ³");
             buunbox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒKƒVƒƒ")
+        else if (Onomatope == "ã‚¬ã‚·ãƒ£")
         {
-            SetWeapon("ƒKƒVƒƒ");
+            SetWeapon("ã‚¬ã‚·ãƒ£");
             gasyabox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒVƒ…ƒb")
+        else if (Onomatope == "ã‚·ãƒ¥ãƒƒ")
         {
-            SetWeapon("ƒVƒ…ƒb");
+            SetWeapon("ã‚·ãƒ¥ãƒƒ");
             kisi_syubox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒYƒVƒYƒV")
+        else if (Onomatope == "ã‚ºã‚·ã‚ºã‚·")
         {
-            SetWeapon("ƒYƒVƒYƒV");
+            SetWeapon("ã‚ºã‚·ã‚ºã‚·");
             zusizusibox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒhƒ“")
+        else if (Onomatope == "ãƒ‰ãƒ³")
         {
-            SetWeapon("ƒhƒ“");
+            SetWeapon("ãƒ‰ãƒ³");
             donbox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒyƒ^ƒyƒ^")
+        else if (Onomatope == "ãƒšã‚¿ãƒšã‚¿")
         {
-            SetWeapon("ƒyƒ^ƒyƒ^");
+            SetWeapon("ãƒšã‚¿ãƒšã‚¿");
             petapetabox.SetActive(true);
             isVisible = true;
             cunt = 0;
         }
-        else if (Onomatope == "ƒ|ƒCƒb")
+        else if (Onomatope == "ãƒã‚¤ãƒƒ")
         {
-            SetWeapon("ƒ|ƒCƒb");
+            SetWeapon("ãƒã‚¤ãƒƒ");
             poibox.SetActive(true);
             isVisible = true;
             cunt = 0;
@@ -200,43 +200,43 @@ public class OnomatoprBox : MonoBehaviour
     }
     private void SetWeapon(string weaponType)
     {
-        //Šm”F—p
+        //ç¢ºèªç”¨
         switch (weaponType)
         {
-            case "‚Õ‚æ‚Õ‚æ":
-                Debug.Log("‚Õ‚æ‚Õ‚æ‚ğH‚×‚Ü‚µ‚½");
+            case "ã·ã‚ˆã·ã‚ˆ":
+                Debug.Log("ã·ã‚ˆã·ã‚ˆã‚’é£Ÿã¹ã¾ã—ãŸ");
                 break;
-            case "ƒVƒ…ƒb":
-                Debug.Log("ƒVƒ…ƒb‚ğH‚×‚Ü‚µ‚½");
+            case "ã‚·ãƒ¥ãƒƒ":
+                Debug.Log("ã‚·ãƒ¥ãƒƒã‚’é£Ÿã¹ã¾ã—ãŸ");
                 break;
-            case "ƒtƒƒtƒ":
-                Debug.Log("ƒtƒƒtƒ");
+            case "ãƒ•ãƒ¯ãƒ•ãƒ¯":
+                Debug.Log("ãƒ•ãƒ¯ãƒ•ãƒ¯");
                 break;
-            case "ƒuƒDƒEƒ“":
-                Debug.Log("ƒuƒDƒEƒ“");
+            case "ãƒ–ã‚¥ã‚¦ãƒ³":
+                Debug.Log("ãƒ–ã‚¥ã‚¦ãƒ³");
                 break;
-            case "ƒKƒVƒƒ":
-                Debug.Log("ƒKƒVƒƒ");
+            case "ã‚¬ã‚·ãƒ£":
+                Debug.Log("ã‚¬ã‚·ãƒ£");
                 break;
-            case "ƒYƒVƒYƒV":
-                Debug.Log("ƒYƒVƒYƒV");
+            case "ã‚ºã‚·ã‚ºã‚·":
+                Debug.Log("ã‚ºã‚·ã‚ºã‚·");
                 break;
-            case "ƒhƒ“":
-                Debug.Log("ƒhƒ“");
+            case "ãƒ‰ãƒ³":
+                Debug.Log("ãƒ‰ãƒ³");
                 break;
-            case "ƒyƒ^ƒyƒ^":
-                Debug.Log("ƒyƒ^ƒyƒ^");
+            case "ãƒšã‚¿ãƒšã‚¿":
+                Debug.Log("ãƒšã‚¿ãƒšã‚¿");
                 break;
-            case "ƒ|ƒCƒb":
-                Debug.Log("ƒ|ƒCƒb");
+            case "ãƒã‚¤ãƒƒ":
+                Debug.Log("ãƒã‚¤ãƒƒ");
                 break;
             default:
-                Debug.LogWarning("–³Œø‚È•Šíƒ^ƒCƒv‚ªw’è‚³‚ê‚Ü‚µ‚½: " + weaponType);
+                Debug.LogWarning("ç„¡åŠ¹ãªæ­¦å™¨ã‚¿ã‚¤ãƒ—ãŒæŒ‡å®šã•ã‚Œã¾ã—ãŸ: " + weaponType);
                 break;
         }
     }
 
-    // ‚·‚×‚Ä‚Ì•Ší‘fŞ‚ğ”ñ•\¦
+    // ã™ã¹ã¦ã®æ­¦å™¨ç´ æã‚’éè¡¨ç¤º
     private void AllOff()
     {
         puyobox.SetActive(false);

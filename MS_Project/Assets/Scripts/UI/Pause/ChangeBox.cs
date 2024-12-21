@@ -28,6 +28,8 @@ public class ChangeBox : MonoBehaviour
 
     float cunt;
     PlayerMode playermode; //プレイヤーの状態を保存(武器)
+    OnomatopoeiaData curData;
+
     private void OnEnable()
     {
         //イベントをバインドする
@@ -40,11 +42,11 @@ public class ChangeBox : MonoBehaviour
         OnomatoManager.OnModeChangeEvent -= ModeChange;
     }
     //モードが変わった時にテキストボックスを表示する
-    private void ModeChange(PlayerMode _mode, string _name)
+    private void ModeChange(PlayerMode _mode, OnomatopoeiaData _data)
     {
         playermode = _mode; //モード設定
         Debug.Log("モードチェンジしたよ" + playermode);
-        Debug.Log("オノマトペを食べたよ" + _name);
+        Debug.Log("オノマトペを食べたよ" + _data.name);
         //playermode = BattleManager.Instance.CurPlayerMode; //現在の状態を保存
         OnOff(); //通知BOXを表示
         SlideIn(); //通知boxをスライド
@@ -134,6 +136,16 @@ public class ChangeBox : MonoBehaviour
             isVisible = true;
             cunt = 0;
         }
+
+        //if (playermode == PlayerMode.None)
+        //{
+        //    if (curData.rageBuff > 0)
+        //    {
+        //        ragebox.SetActive(true);
+        //        isVisible = true;
+        //        cunt = 0;
+        //    }
+        //}
     }
     private void SetWeapon(string weaponType)
     {
