@@ -148,7 +148,7 @@ public class PlayerController : WorldObject
         GenerateDustEffect();
 
         //仮設定
-        BattleManager.Instance.CurPlayerMode =modeManager.Mode;
+        //BattleManager.Instance.CurPlayerMode =modeManager.Mode;
 
 
         //デバグ用即死
@@ -159,6 +159,9 @@ public class PlayerController : WorldObject
 
         if(statusManager.CurrentHealth <= 0)
         {
+            //操作不能にする
+            InputController.Instance.SetInputContext(InputController.InputContext.UI);
+
             StartCoroutine(FadeOutAndLoadScene());
         }
 

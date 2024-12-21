@@ -45,7 +45,7 @@ public class ChangeBox : MonoBehaviour
         playermode = _mode; //モード設定
         Debug.Log("モードチェンジしたよ" + playermode);
         Debug.Log("オノマトペを食べたよ" + _name);
-        playermode = BattleManager.Instance.CurPlayerMode; //現在の状態を保存
+        //playermode = BattleManager.Instance.CurPlayerMode; //現在の状態を保存
         OnOff(); //通知BOXを表示
         SlideIn(); //通知boxをスライド
     }
