@@ -52,13 +52,15 @@ public class OnomatopoeiaController : MonoBehaviour
     {
         //CustomLogger.Log(data.wordToUse);
 
-        if (data.onomatoSprite && data.onomatoACont)
+        if (data.onomatoSprite)
         {
             if (this.transform.GetChild(1).gameObject.activeInHierarchy)
                 this.transform.GetChild(1).gameObject.SetActive(false);
 
             GetComponentInChildren<SpriteRenderer>().sprite = data.onomatoSprite;
-            GetComponentInChildren<Animator>().runtimeAnimatorController = data.onomatoACont;
+            if(data.onomatoACont)
+                GetComponentInChildren<Animator>().runtimeAnimatorController = data.onomatoACont;
+
             this.transform.GetChild(0).gameObject.transform.localScale = new Vector3(data.spriteSize, data.spriteSize, 1.0f);
 
         }
