@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 3464716522362733419}
   - component: {fileID: 2378862208587145035}
   - component: {fileID: 2509799050704669507}
+  - component: {fileID: 6451458533659136893}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -631,6 +632,15 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!45 &6451458533659136893
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300513127597454074}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 3afd1c7f9b00d254a9880e3445eee85c, type: 2}
 --- !u!1 &8532704635465040804
 GameObject:
   m_ObjectHideFlags: 0

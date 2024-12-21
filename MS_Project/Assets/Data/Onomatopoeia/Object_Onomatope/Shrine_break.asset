@@ -15,8 +15,9 @@ MonoBehaviour:
   wordToUse: 
   onomatoSprite: {fileID: 0}
   spriteSize: 1
+  spriteAnimSpeed: 1
   onomatoACont: {fileID: 0}
-  fontAsset: {fileID: 0}
+  fontAsset: {fileID: 11400000, guid: ad584379139b1df46b9777099a13e04e, type: 2}
   fontColor:
     serializedVersion: 2
     rgba: 4278190080
@@ -24,4 +25,6 @@ MonoBehaviour:
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  rageBuff: 0
+  buffDuration: 10
   onomatoSE: {fileID: 0}
