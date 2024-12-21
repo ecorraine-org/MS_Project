@@ -117,16 +117,16 @@ public class EnemyStatusHandler : StatusManager
 
         base.TakeDamage(_damage);
 
-        //一定hp以下になると、殺せる状態になる
-        if (currentHealth <= enemyStatusData.maxHealth * enemyStatusData.killableHealthRate)
-        {
-            isKillable = true;
+        //一定hp以下になると、殺せる状態になる 一旦封印
+        //if (currentHealth <= enemyStatusData.maxHealth * enemyStatusData.killableHealthRate)
+        //{
+        //    isKillable = true;
 
-            //UIを見えるように
-            enemy.UIManager.FinishIcon.SetActive(true);
+        //    //UIを見えるように
+        //    enemy.UIManager.FinishIcon.SetActive(true);
 
        
-        }
+        //}
    
     }
 
