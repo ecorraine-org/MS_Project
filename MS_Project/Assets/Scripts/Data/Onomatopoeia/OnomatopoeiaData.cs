@@ -41,6 +41,9 @@ public class OnomatopoeiaData : ScriptableObject
     [Header("回復量(加算)")]
     public float healBuff = 0.0f;
 
+    [Header("暴走ゲージ量(加算)")]
+    public float rageBuff = 0.0f;
+
     [Header("バフ持続時間(秒)")]
     public float buffDuration = 10.0f;
 
