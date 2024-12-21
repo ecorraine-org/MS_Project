@@ -41,6 +41,31 @@ namespace PixelCrushers.SceneStreamer
             }
         }
 
+        private void Update()
+        {
+            //StartScene01という名のシーンが2つロードされている場合、片方をアンロードする
+            RemoveInactiveDuplicateScenes("StartScene01");
+        }
+
+        private void RemoveInactiveDuplicateScenes(string sceneName)
+        {
+            // 現在ロードされているすべてのシーンを取得
+            int sceneCount = SceneManager.sceneCount;
+            Scene activeScene = SceneManager.GetActiveScene();
+
+            for (int i = 0; i < sceneCount; i++)
+            {
+                Scene scene = SceneManager.GetSceneAt(i);
+
+                // 名前が一致し、アクティブではないシーンを確認
+                if (scene.name == sceneName && scene != activeScene)
+                {
+                    Debug.Log($"非アクティブなシーン {sceneName} をアンロードします: {scene.path}");
+                    // シーンを非同期でアンロード
+                    SceneManager.UnloadSceneAsync(scene);
+                }
+            }
+        }
         /// <summary>
         /// シーンの切り替えを行う
         /// </summary>
@@ -89,15 +114,19 @@ namespace PixelCrushers.SceneStreamer
             // メインゲームシーンを読み込む
             yield return StartCoroutine(LoadSingleScene(mainSceneName));
             SceneStreamer.SetCurrentScene(mainSceneName);
+            Debug.Log("Main game scene loaded");
         }
 
         private IEnumerator LoadSingleScene(string sceneName)
         {
+            // シーンを読み込む
             AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneName);
             while (!loadOperation.isDone)
             {
                 yield return null;
             }
+
+
         }
 
         /// <summary>
