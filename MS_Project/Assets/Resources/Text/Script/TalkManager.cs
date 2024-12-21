@@ -26,7 +26,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
     //会話終了イベント定義
     public delegate void DialogFinishEvtHandler();
     public static event DialogFinishEvtHandler OnDialogFinish;
-
+    private bool isProcessingDialog = false; // 会話処理中のフラグ
 
     [Header("Story Settings")]
     [Tooltip("全ストーリーのリスト")]
@@ -74,19 +74,21 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return)|| UIInputManager.Instance.GetEnterTrigger())
-        {
-            ShowNextPrefab();
+        // 現在の時間を取得
+        float currentTime = Time.unscaledTime;
 
+        if (Input.GetKeyDown(KeyCode.Return) && currentTime - lastEnterPressTime >= enterCooldown)
+        {
+            lastEnterPressTime = currentTime; // 最後のエンター押下時間を更新
+            ShowNextPrefab();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && currentTime - lastEnterPressTime >= enterCooldown)
         {
+            lastEnterPressTime = currentTime; // 最後のキー押下時間を更新
             SkipDialog();
-
         }
     }
-
     public void LoadStory(int storyIndex)
     {
         if (storyIndex < 0 || storyIndex >= stories.Count)
@@ -132,7 +134,15 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     public void ShowNextPrefab()
     {
-        if (currentStoryIndex >= stories.Count) return;
+        if (isProcessingDialog) return; // 処理中の場合はスキップ
+
+        isProcessingDialog = true; // 処理を開始
+
+        if (currentStoryIndex >= stories.Count)
+        {
+            isProcessingDialog = false; // 処理終了
+            return;
+        }
 
         var currentStory = stories[currentStoryIndex];
         List<DialogPrefab> allDialogs = new List<DialogPrefab>();
@@ -182,8 +192,9 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
             Debug.Log($"ストーリー '{stories[currentStoryIndex].storyName}' の会話が終了しました。");
             StartCoroutine(FadeOutAllDialogs());
         }
-    }
 
+        isProcessingDialog = false; // 処理終了
+    }
     void MoveDialogInstancesUp(List<GameObject> dialogInstances, float verticalOffset, Color dialogColor)
     {
         for (int i = 0; i < dialogInstances.Count - 1; i++)
