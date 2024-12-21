@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using PixelCrushers.SceneStreamer;
 
 public class FadeSceneChange : MonoBehaviour
 {
@@ -57,6 +58,41 @@ public class FadeSceneChange : MonoBehaviour
         }
 
         fadePanel.color = endColor;                                // フェードが完了したら最終色に設定
-        SceneManager.LoadScene(sceneToLoad);                    // シーンをロードしてメニューシーンに遷移
+        //SceneManager.LoadScene(sceneToLoad);                    // シーンをロードしてメニューシーンに遷移
+
+        // Set the current Scene to be able to unload it later
+        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+
+        // The Application loads the Scene in the background at the same time as the current Scene.
+        if (!SceneManager.GetSceneByName("StartScene01").isLoaded)
+        {
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("StartScene01", LoadSceneMode.Additive);
+
+            // Wait until the last operation fully loads to return anything
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+            GameObject stageInstance = Instantiate(Resources.Load("Others/StageInstance") as GameObject, new Vector3(-80f, 0.5f, 0f), Quaternion.identity);
+            stageInstance.GetComponent<SetStartScene>().startSceneName = "Area000";
+            GameObject player = Instantiate(Resources.Load("Player/Player") as GameObject, new Vector3(-80f, 0.5f, 0f), Quaternion.identity);
+            RigidbodyConstraints originalConstraints = player.GetComponent<Rigidbody>().constraints;
+
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+
+            // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
+            SceneManager.MoveGameObjectToScene(stageInstance, SceneManager.GetSceneByName("StartScene01"));
+            SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName("StartScene01"));
+
+            if (SceneManager.GetSceneByName("Area000").isLoaded)
+            {
+                player.GetComponent<Rigidbody>().constraints = originalConstraints;
+            }
+        }
+
+        // Unload the previous Scene
+        SceneManager.UnloadSceneAsync(currentScene);
     }
+
 }
