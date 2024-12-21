@@ -41,7 +41,7 @@ public class PlayerModeManager : MonoBehaviour
     /// <summary>
     /// モードチェンジ
     /// </summary>
-    private void ModeChange(PlayerMode _mode,string onomatoName)
+    private void ModeChange(PlayerMode _mode, OnomatopoeiaData _data)
     {
         if (_mode == PlayerMode.None) return;
         //モード設定

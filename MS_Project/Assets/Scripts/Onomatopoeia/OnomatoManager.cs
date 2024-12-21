@@ -9,7 +9,7 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
     private OnomatopoeiaController controller;
 
     //  モードチェンジのイベント
-    public delegate void OnomatoEventHandler(PlayerMode mode,string onomatoName);
+    public delegate void OnomatoEventHandler(PlayerMode mode, OnomatopoeiaData data);
     public static event OnomatoEventHandler OnModeChangeEvent;
 
     //  食べたオノマトペのデータを渡すイベント
@@ -81,7 +81,7 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
 
         Debug.Log("OnomatoManager:イベントを受信、モードチェンジ" + transform.position);
         //モードチェンジのイベント送信
-        ChangeMode(nextDataType, controller.Data.wordToUse);
+        ChangeMode(nextDataType, controller.Data);
 
         //暴走ゲージを溜めるイベント送信
     //    OnIncreaseFrenzyEvent?.Invoke(5.0f);
@@ -90,7 +90,7 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
         OnEatOnomatoEvt?.Invoke(controller.Data);
     }
 
-    public static void ChangeMode(OnomatoType _datatype,string name)
+    public static void ChangeMode(OnomatoType _datatype, OnomatopoeiaData _data)
     {
         string nextMode = "";
         switch (_datatype)
@@ -99,22 +99,22 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
                 break;
             case OnomatoType.SlashType:
                 nextMode = PlayerMode.Sword.ToString();
-                OnModeChangeEvent?.Invoke(PlayerMode.Sword, name);
+                OnModeChangeEvent?.Invoke(PlayerMode.Sword, _data);
                 break;
             case OnomatoType.SmashType:
                 nextMode = PlayerMode.Hammer.ToString();
-                OnModeChangeEvent?.Invoke(PlayerMode.Hammer, name);
+                OnModeChangeEvent?.Invoke(PlayerMode.Hammer, _data);
                 break;
             case OnomatoType.PierceType:
                 nextMode = PlayerMode.Spear.ToString();
-                OnModeChangeEvent?.Invoke(PlayerMode.Spear, name);
+                OnModeChangeEvent?.Invoke(PlayerMode.Spear, _data);
                 break;
             case OnomatoType.PunchType:
                 nextMode = PlayerMode.Gauntlet.ToString();
-                OnModeChangeEvent?.Invoke(PlayerMode.Gauntlet, name);
+                OnModeChangeEvent?.Invoke(PlayerMode.Gauntlet, _data);
                 break;
             case OnomatoType.OtherType:
-                OnModeChangeEvent?.Invoke(PlayerMode.None, name);
+                OnModeChangeEvent?.Invoke(PlayerMode.None, _data);
                 break;
             default:
                 break;
