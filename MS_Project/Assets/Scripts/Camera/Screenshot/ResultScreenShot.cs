@@ -80,7 +80,7 @@ public class ResultScreenShot : MonoBehaviour
         Debug.Log("Starting screenshot capture process...");
 
         // シーンが完全に描画されるまで待機
-        yield return new WaitForSeconds(_captureDelay);
+        yield return new WaitForSecondsRealtime(_captureDelay);
 
         _screenshotSavePath = GenerateScreenshotPath();
         Debug.Log($"Screenshot will be saved to: {_screenshotSavePath}");
@@ -98,7 +98,7 @@ public class ResultScreenShot : MonoBehaviour
 
         if (captureSuccess)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSecondsRealtime(0.1f);
             if (DisplaySavedScreenshot())
             {
                 Debug.Log("Screenshot displayed successfully");
