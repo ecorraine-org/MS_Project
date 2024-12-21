@@ -51,8 +51,6 @@ public class PlayerEatState : PlayerState
         Attack();
 
 
-        
-
         //ボタンを押している間、オノマトペを選択
         if (playerController.InputManager.GetEatPressed() && playerController.SkillManager.CanCharge)
         {
@@ -145,7 +143,7 @@ public class PlayerEatState : PlayerState
         
 
         //敵との当たり判定
-        playerController.AttackColliderV2.DetectColliders(1.0f, enemyLayer,false);
+      //  playerController.AttackColliderV2.DetectColliders(1.0f, enemyLayer,false);
     }
 
     // Gizmosを使用してベクトルを描画
