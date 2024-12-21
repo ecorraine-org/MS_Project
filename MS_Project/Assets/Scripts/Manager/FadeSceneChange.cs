@@ -59,38 +59,7 @@ public class FadeSceneChange : MonoBehaviour
 
         fadePanel.color = endColor;                                // Set the final color after the fade is complete
 
-        // Scene loading and instance creation process
-        UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
-
-        if (!SceneManager.GetSceneByName("StartScene01").isLoaded)
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("StartScene01", LoadSceneMode.Additive);
-
-            while (!asyncLoad.isDone)
-            {
-                yield return null;
-            }
-
-            GameObject stageInstance = Instantiate(Resources.Load("Others/StageInstance") as GameObject, new Vector3(-80f, 0.5f, 0f), Quaternion.identity);
-            stageInstance.GetComponent<SetStartScene>().startSceneName = "Area000";
-            GameObject player = Instantiate(Resources.Load("Player/Player") as GameObject, new Vector3(-80f, 0.5f, 0f), Quaternion.identity);
-            RigidbodyConstraints originalConstraints = player.GetComponent<Rigidbody>().constraints;
-
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
-
-            // Wait for 1 second
-            yield return new WaitForSeconds(1.0f);
-
-            // Release the constraint after 1 second
-            player.GetComponent<Rigidbody>().constraints = originalConstraints;
-
-            // Move the GameObject (attached in the Inspector) to the newly loaded Scene
-            SceneManager.MoveGameObjectToScene(stageInstance, SceneManager.GetSceneByName("StartScene01"));
-            SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName("StartScene01"));
-        }
-
-        // Unload the previous scene
-        SceneManager.UnloadSceneAsync(currentScene);
+        SceneStreamerManager.TransitionScene(sceneToLoad, false);    // Transition to the specified scene
     }
 
 }
