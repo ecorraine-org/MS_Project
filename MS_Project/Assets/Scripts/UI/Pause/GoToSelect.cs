@@ -25,7 +25,7 @@ public class GoToSelect : MonoBehaviour
             Time.timeScale = 1;
             Destroy(GameObject.Find("CameraPivot(Clone)"));
             InputController.Instance.SetInputContext(InputContext.UI);
-            SceneManager.LoadScene("StageSelect");
+            SceneManager.LoadScene("Title");
             //SceneStreamerManager.TransitionScene("StageSelect", true);
 
         }
