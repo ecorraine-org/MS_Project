@@ -43,6 +43,7 @@ public class PlayerModeManager : MonoBehaviour
     /// </summary>
     private void ModeChange(PlayerMode _mode,string onomatoName)
     {
+        if (_mode == PlayerMode.None) return;
         //モード設定
         mode = _mode;
         playerController.BattleManager.CurPlayerMode = mode;
