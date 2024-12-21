@@ -23,7 +23,7 @@ public class ResultButton : MonoBehaviour
         // 最初にボタンを選択
         UpdateButtonSelection();
 
-        Time.timeScale = 0;
+        Time.timeScale = 1;
     }
     void Update()
     {
@@ -91,5 +91,12 @@ public class ResultButton : MonoBehaviour
         // 選択されたボタンを実行
         buttons[selectedIndex].onClick.Invoke();
         Time.timeScale = 1;
+
+        //カメラを破棄
+        var cameraPivot = GameObject.Find("CameraPivot(Clone)");
+        if (cameraPivot != null)
+        {
+            Destroy(cameraPivot);
+        }
     }
 }
