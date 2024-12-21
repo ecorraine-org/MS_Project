@@ -251,7 +251,7 @@ PrefabInstance:
     - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
       propertyPath: parentTransform
       value: 
-      objectReference: {fileID: 347269942}
+      objectReference: {fileID: 1435107423}
     - target: {fileID: 6847774273236899717, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
       propertyPath: stories.Array.size
       value: 5
@@ -844,16 +844,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: TalkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7580284556881764240, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bcfc92a36608d642a25c3eae761a69a, type: 3}
---- !u!224 &347269942 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1501116566085475393, guid: b0b668f41cd0f074089f2e6a3029f393, type: 3}
-  m_PrefabInstance: {fileID: 1372746122}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &637883101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1344,6 +1343,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cb951378e05e2549a0ff852c8c3a2bc, type: 3}
+--- !u!224 &1435107423 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5306326375782992254, guid: 589f194154da3eb4c94831a9dc08888c, type: 3}
+  m_PrefabInstance: {fileID: 378548758012888916}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1479603102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,6 +1565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 4949234477844954448, guid: 8e8ac3a3df615f042aa13ea5c58695fc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1657,6 +1665,10 @@ PrefabInstance:
     - target: {fileID: 6929329640538489475, guid: 589f194154da3eb4c94831a9dc08888c, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929329640538489475, guid: 589f194154da3eb4c94831a9dc08888c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1845,6 +1857,10 @@ PrefabInstance:
     - target: {fileID: 133841209069856870, guid: b23a2a94e2c30f84d867f7b26d0242ac, type: 3}
       propertyPath: m_Name
       value: Image
+      objectReference: {fileID: 0}
+    - target: {fileID: 133841209069856870, guid: b23a2a94e2c30f84d867f7b26d0242ac, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9146314271604139871, guid: b23a2a94e2c30f84d867f7b26d0242ac, type: 3}
       propertyPath: m_Pivot.x

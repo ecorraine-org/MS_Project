@@ -37,7 +37,7 @@ public class ObjectStatusHandler : StatusManager
     {
         if (!StatusData)
         {
-            CustomLogger.Log("No status data found. Instantiating from new.");
+           // CustomLogger.Log("No status data found. Instantiating from new.");
             StatusData = (ObjectStatusData)base.StatusData;
         }
         else
