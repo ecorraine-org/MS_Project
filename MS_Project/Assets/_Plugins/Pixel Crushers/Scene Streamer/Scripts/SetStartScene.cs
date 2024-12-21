@@ -14,7 +14,7 @@ namespace PixelCrushers.SceneStreamer
         /// The name of the scene to load at Start.
         /// </summary>
         [Tooltip("Load this scene at start")]
-        public string startSceneName = "Scene 1";
+        public string startSceneName = "Area000";
 
         public void Start()
         {

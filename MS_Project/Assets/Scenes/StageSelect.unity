@@ -1610,7 +1610,7 @@ GameObject:
   - component: {fileID: 821855989}
   - component: {fileID: 821855991}
   m_Layer: 5
-  m_Name: Stage2
+  m_Name: Area002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2340,11 +2340,14 @@ MonoBehaviour:
   ZoomScaleX: 2
   ZoomScaleY: 2
   ZoomScaleZ: 2
-  frontStage: {fileID: 0}
+  frontStage: {fileID: 1501654060}
   unmask: {fileID: 1382392022}
-  sceneToLoad1: StartScene01
-  sceneToLoad2: 
-  sceneToLoad3: 
+  sceneToLoad1: Area001
+  area001Pos: {x: -10, y: 0.5, z: 0}
+  sceneToLoad2: Area002
+  area002Pos: {x: 228, y: -5, z: 0}
+  sceneToLoad3: Area003
+  area003Pos: {x: 400, y: -0.5, z: 0}
   sceneToLoad4: 
   sceneToLoad5: 
   sceneToLoad6: 
@@ -2439,7 +2442,7 @@ GameObject:
   - component: {fileID: 1164447873}
   - component: {fileID: 1164447875}
   m_Layer: 5
-  m_Name: Stage3
+  m_Name: Area003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3000,7 +3003,7 @@ GameObject:
   - component: {fileID: 1501654058}
   - component: {fileID: 1501654060}
   m_Layer: 5
-  m_Name: StartScene01
+  m_Name: Area001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4033,7 +4036,7 @@ GameObject:
   - component: {fileID: 2104012158}
   - component: {fileID: 2104012160}
   m_Layer: 5
-  m_Name: Stage4
+  m_Name: Area004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

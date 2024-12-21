@@ -34,14 +34,14 @@ namespace PixelCrushers.SceneStreamer
         /// The max number of neighbors to load out from the current scene.
         /// </summary>
         [Tooltip("Max number of neighbors to load out from the current scene.")]
-        public int maxNeighborDistance = 1;
+        public int maxNeighborDistance = 2;
 
         /// <summary>
         /// A failsafe in case loading hangs. After this many seconds, the SceneStreamer
         /// will stop waiting for the scene to load.
         /// </summary>
         [Tooltip("(Failsafe) If scene doesn't load after this many seconds, stop waiting.")]
-        public float maxLoadWaitTime = 10f;
+        public float maxLoadWaitTime = 30f;
 
         [System.Serializable]
         public class StringEvent : UnityEvent<string> { }

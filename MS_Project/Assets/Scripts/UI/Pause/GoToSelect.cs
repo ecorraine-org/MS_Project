@@ -21,12 +21,12 @@ public class GoToSelect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
 
-            //SceneManager.LoadScene("StageSelect");
             //時間経過速度
             Time.timeScale = 1;
             Destroy(GameObject.Find("CameraPivot(Clone)"));
             InputController.Instance.SetInputContext(InputContext.UI);
-            SceneStreamerManager.TransitionScene("StageSelect", true);
+            SceneManager.LoadScene("StageSelect");
+            //SceneStreamerManager.TransitionScene("StageSelect", true);
 
         }
     }
