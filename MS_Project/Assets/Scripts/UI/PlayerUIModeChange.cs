@@ -7,94 +7,88 @@ public class PlayerUIModeChange : MonoBehaviour
 {
     private PlayerController player;
 
-    [SerializeField, Header("プレイヤー武器アイコン"), Tooltip("プレイヤー武器アイコン")]
-    Sprite[] weaponIcons;
+    [SerializeField, Header("プレイヤー武器アイコンまたはプレハブ"), Tooltip("武器モードに対応するスプライトまたはプレハブ")]
+    private Object[] weaponIconsOrPrefabs; // SpriteまたはGameObjectを受け付ける
 
-    [SerializeField, Header("プレイヤー暴走中武器アイコン"), Tooltip("プレイヤー暴走中武器アイコン")]
-    Sprite[] onRageIcons;
+    [SerializeField, Header("プレイヤー暴走中武器アイコンまたはプレハブ"), Tooltip("暴走モードに対応するスプライトまたはプレハブ")]
+    private Object[] onRageIconsOrPrefabs; // SpriteまたはGameObjectを受け付ける
+
+    private GameObject currentUIElement; // 現在のUIオブジェクト（Spriteまたはプレハブ）
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
-    void Update()
+    private void Update()
     {
-        // PlayerRageのRageが最大になった時のみImageを切り替える
         if (player.StatusManager.FrenzyTimer > 0 && player.StatusManager.IsFrenzy)
         {
-            SwitchRageWeaponIcon();
-            this.gameObject.GetComponent<Image>().sprite = weaponIcons[0];
+            SwitchRageWeaponIconOrPrefab();
         }
         else
         {
-            SwitchWeaponIcon();
-            this.gameObject.GetComponent<Image>().sprite = weaponIcons[0];
+            SwitchWeaponIconOrPrefab();
         }
     }
 
     /// <summary>
-    /// 武器アイコンを切替
+    /// 武器アイコンまたはプレハブを切替
     /// </summary>
-    private void SwitchWeaponIcon()
+    private void SwitchWeaponIconOrPrefab()
     {
-        Sprite newIcon = null;
-        UnityEngine.Color newColor = new UnityEngine.Color(1,1,1,1);
-
-        switch (player.ModeManager.Mode)
-        {
-            case PlayerMode.Sword:
-                //newIcon = onRageIcons[((int)PlayerMode.Sword)];
-                newColor = new UnityEngine.Color(0,1,0,1);
-                break;
-            case PlayerMode.Hammer:
-                //newIcon = onRageIcons[((int)PlayerMode.Hammer)];
-                newColor = new UnityEngine.Color(0,0,1,1);
-                break;
-            case PlayerMode.Spear:
-                //newIcon = onRageIcons[((int)PlayerMode.Spear)];
-                newColor = new UnityEngine.Color(1,0,0,1);
-                break;
-            case PlayerMode.Gauntlet:
-                //newIcon = onRageIcons[((int)PlayerMode.Gauntlet)];
-                newColor = new UnityEngine.Color(1,1,0,1);
-                break;
-        }
-
-        //this.gameObject.GetComponent<Image>().sprite = newIcon;
-        this.gameObject.GetComponent<Image>().color = newColor;
+        UpdateUI(weaponIconsOrPrefabs);
     }
 
     /// <summary>
-    /// 暴走中武器アイコンを切替
+    /// 暴走中の武器アイコンまたはプレハブを切替
     /// </summary>
-    private void SwitchRageWeaponIcon()
+    private void SwitchRageWeaponIconOrPrefab()
     {
-        Sprite newIcon = null;
-        UnityEngine.Color newColor = new UnityEngine.Color(1,1,1,1);
-
-        switch (player.ModeManager.Mode)
-        {
-            case PlayerMode.Sword:
-                //newIcon = weaponIcons[((int)PlayerMode.Sword)];
-                newColor = new UnityEngine.Color(0,1,0,1);
-                break;
-            case PlayerMode.Hammer:
-                //newIcon = weaponIcons[((int)PlayerMode.Hammer)];
-                newColor = new UnityEngine.Color(0,0,1,1);
-                break;
-            case PlayerMode.Spear:
-                //newIcon = weaponIcons[((int)PlayerMode.Spear)];
-                newColor = new UnityEngine.Color(1,0,0,1);
-                break;
-            case PlayerMode.Gauntlet:
-                //newIcon = weaponIcons[((int)PlayerMode.Gauntlet)];
-                newColor = new UnityEngine.Color(1,1,0,1);
-                break;
-        }
-
-        //this.gameObject.GetComponent<Image>().sprite = newIcon;
-        this.gameObject.GetComponent<Image>().color = newColor;
+        UpdateUI(onRageIconsOrPrefabs);
     }
 
+    /// <summary>
+    /// UI要素を更新する（スプライトまたはプレハブに対応）
+    /// </summary>
+    /// <param name="iconsOrPrefabs">スプライトまたはプレハブの配列</param>
+    private void UpdateUI(Object[] iconsOrPrefabs)
+    {
+        int modeIndex = (int)player.ModeManager.Mode;
+
+        if (iconsOrPrefabs != null && iconsOrPrefabs.Length > modeIndex)
+        {
+            // 既存のUI要素を削除
+            if (currentUIElement != null)
+            {
+                Destroy(currentUIElement);
+            }
+
+            // 新しい要素をスプライトまたはプレハブから生成
+            Object iconOrPrefab = iconsOrPrefabs[modeIndex];
+            if (iconOrPrefab is Sprite sprite)
+            {
+                // スプライトの場合はImageコンポーネントを更新
+                Image imageComponent = this.gameObject.GetComponent<Image>();
+                if (imageComponent != null)
+                {
+                    imageComponent.sprite = sprite;
+                    imageComponent.enabled = true;
+                }
+            }
+            else if (iconOrPrefab is GameObject prefab)
+            {
+                // プレハブの場合はインスタンス化
+                GameObject newElement = Instantiate(prefab, this.transform);
+                currentUIElement = newElement;
+
+                // Imageコンポーネントを非表示（プレハブ表示を優先）
+                Image imageComponent = this.gameObject.GetComponent<Image>();
+                if (imageComponent != null)
+                {
+                    imageComponent.enabled = false;
+                }
+            }
+        }
+    }
 }
