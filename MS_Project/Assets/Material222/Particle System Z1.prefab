@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1025630961634771780}
   - component: {fileID: 1399625644549763278}
   - component: {fileID: 7038800461552685288}
-  m_Layer: 0
-  m_Name: Particle System Z
+  m_Layer: 5
+  m_Name: Particle System Z1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4775,6 +4775,8 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4842,7 +4844,7 @@ GameObject:
   - component: {fileID: 496090881052511075}
   - component: {fileID: 1641617987686952013}
   - component: {fileID: 2400304894626211532}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Particle System Z (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9605,6 +9607,8 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

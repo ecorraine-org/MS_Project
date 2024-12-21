@@ -68,7 +68,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     void Start()
     {
-        LoadStory(0);
+        LoadStory(4);
 
     }
 
