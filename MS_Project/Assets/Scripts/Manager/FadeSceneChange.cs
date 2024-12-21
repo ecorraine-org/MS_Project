@@ -40,35 +40,32 @@ public class FadeSceneChange : MonoBehaviour
 
     public IEnumerator FadeOutAndLoadScene()
     {
-        fadePanel.enabled = true;   // フェードパネルを有効化
+        fadePanel.enabled = true;   // Enable the fade panel
 
-        isFading = true;                                 // フェード中のフラグを立てる
+        isFading = true;                                 // Set the flag indicating fading is in progress
 
-        float elapsedTime = 0.0f;                        // 経過時間を初期化
-        Color startColor = fadePanel.color;              // フェードパネルの開始色を取得
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // フェードパネルの最終色を設定
+        float elapsedTime = 0.0f;                        // Initialize the elapsed time
+        Color startColor = fadePanel.color;              // Get the starting color of the fade panel
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // Set the final color of the fade panel
 
-        // フェードアウトアニメーションを実行
+        // Perform the fade-out animation
         while (elapsedTime < fadeDuration)
         {
-            elapsedTime += Time.deltaTime;                        // 経過時間を増やす
-            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // フェードの進行度を計算
-            fadePanel.color = Color.Lerp(startColor, endColor, t); // パネルの色を変更してフェードアウト
-            yield return null;                                     // 1フレーム待機
+            elapsedTime += Time.deltaTime;                        // Increase the elapsed time
+            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // Calculate the progress of the fade
+            fadePanel.color = Color.Lerp(startColor, endColor, t); // Change the panel color to create the fade effect
+            yield return null;                                     // Wait for the next frame
         }
 
-        fadePanel.color = endColor;                                // フェードが完了したら最終色に設定
-        //SceneManager.LoadScene(sceneToLoad);                    // シーンをロードしてメニューシーンに遷移
+        fadePanel.color = endColor;                                // Set the final color after the fade is complete
 
-        // Set the current Scene to be able to unload it later
+        // Scene loading and instance creation process
         UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
 
-        // The Application loads the Scene in the background at the same time as the current Scene.
         if (!SceneManager.GetSceneByName("StartScene01").isLoaded)
         {
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("StartScene01", LoadSceneMode.Additive);
 
-            // Wait until the last operation fully loads to return anything
             while (!asyncLoad.isDone)
             {
                 yield return null;
@@ -81,17 +78,18 @@ public class FadeSceneChange : MonoBehaviour
 
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
 
-            // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
+            // Wait for 1 second
+            yield return new WaitForSeconds(1.0f);
+
+            // Release the constraint after 1 second
+            player.GetComponent<Rigidbody>().constraints = originalConstraints;
+
+            // Move the GameObject (attached in the Inspector) to the newly loaded Scene
             SceneManager.MoveGameObjectToScene(stageInstance, SceneManager.GetSceneByName("StartScene01"));
             SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName("StartScene01"));
-
-            if (SceneManager.GetSceneByName("StartScene01").isLoaded)
-            {
-                player.GetComponent<Rigidbody>().constraints = originalConstraints;
-            }
         }
 
-        // Unload the previous Scene
+        // Unload the previous scene
         SceneManager.UnloadSceneAsync(currentScene);
     }
 
