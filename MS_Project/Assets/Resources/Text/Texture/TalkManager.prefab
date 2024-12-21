@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd9052955b7047438650347f62bd4e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameUI: {fileID: 0}
   stories:
   - storyName: "\u4F1A\u8A710"
     playerDialogPrefabs:
@@ -162,7 +163,7 @@ MonoBehaviour:
   movePlayerDialogsUp: 1
   moveNpcDialogsUp: 0
   maxDialogCount: 2
-  storyEndFadeOutDuration: 0.5
+  dialogEndFadeOutDuration: 0.5
   movementCurve:
     serializedVersion: 2
     m_Curve:

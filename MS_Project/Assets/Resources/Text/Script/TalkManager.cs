@@ -28,6 +28,9 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
     public static event DialogFinishEvtHandler OnDialogFinish;
     private bool isProcessingDialog = false; // 会話処理中のフラグ
 
+
+    //[SerializeField, Header("ゲームUIプレハブ")]
+    GameObject gameUI;
     [Header("Story Settings")]
     [Tooltip("全ストーリーのリスト")]
     public List<Story> stories; // 複数のストーリーを格納
@@ -39,7 +42,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
     public bool movePlayerDialogsUp = true;
     public bool moveNpcDialogsUp = true;
     public int maxDialogCount = 5;
-    public float storyEndFadeOutDuration = 0.5f;//会話終わった後のフェイドアウト時間
+    public float dialogEndFadeOutDuration = 0.5f;//会話終わった後のフェイドアウト時間
     public AnimationCurve movementCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
     [Header("Background Settings")]
@@ -53,7 +56,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     private float lastEnterPressTime = 0f; // 最後にエンターキーが押された時間
 
-    [SerializeField,NonEditable,Header("現在のストーリー番号")]
+    [SerializeField, NonEditable, Header("現在のストーリー番号")]
     private int currentStoryIndex = 0; // 現在のストーリー番号
     [SerializeField, NonEditable, Header("現在のダイアログ番号")]
     private int currentDialogIndex = 0; // 現在のダイアログ番号
@@ -64,7 +67,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     protected override void AwakeProcess()
     {
-       // throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 
     void Start()
@@ -73,7 +76,19 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
         //UI操作
         InputController.Instance.SetInputContext(InputController.InputContext.UI);
+
+         gameUI = GameObject.Find("InGameUI");
+       // playerUI = gameUI.transform.Find("Canvas").gameObject;
+
+        // Transform scoreTextTransform = playerUI.transform.Find("ScoreText");
+
+        SetUIActive (false);
+
+
+
     }
+
+ 
 
     void Update()
     {
@@ -221,14 +236,22 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         {
             float t = elapsedTime / duration;
             float curveValue = movementCurve.Evaluate(t);
-            prefabInstance.transform.position = Vector3.Lerp(initialPosition, initialPosition + new Vector3(0, offset, 0), curveValue);
-            ChangeDialogColor(prefabInstance, dialogColor);
+
+            if (prefabInstance)
+            {
+                prefabInstance.transform.position = Vector3.Lerp(initialPosition, initialPosition + new Vector3(0, offset, 0), curveValue);
+                ChangeDialogColor(prefabInstance, dialogColor);
+            }
+         
             elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
 
-        prefabInstance.transform.position = initialPosition + new Vector3(0, offset, 0);
-        SetTransparency(prefabInstance, dialogTransparency);
+        if (prefabInstance)
+        {
+            prefabInstance.transform.position = initialPosition + new Vector3(0, offset, 0);
+            SetTransparency(prefabInstance, dialogTransparency);
+        }
     }
 
     void ChangeDialogColor(GameObject dialogInstance, Color color)
@@ -289,7 +312,10 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     IEnumerator FadeOutAndRemoveDialog(GameObject dialogInstance)
     {
-       // float fadeDuration = 1f;
+        //なかったら終了
+        if (dialogInstance == null) yield break;
+
+        // float fadeDuration = 1f;
         float elapsedTime = 0f;
 
         var canvasGroup = dialogInstance.GetComponent<CanvasGroup>();
@@ -298,9 +324,9 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
             canvasGroup = dialogInstance.AddComponent<CanvasGroup>();
         }
 
-        while (elapsedTime < storyEndFadeOutDuration)
+        while (elapsedTime < dialogEndFadeOutDuration)
         {
-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / storyEndFadeOutDuration);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / dialogEndFadeOutDuration);
             elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
@@ -328,7 +354,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         ShowBackgroundOverlay(false);
 
         //終了イベント発信
-        TimerUtility.UnscaledTimeBasedTimer(this,storyEndFadeOutDuration,null,() =>
+        TimerUtility.UnscaledTimeBasedTimer(this,dialogEndFadeOutDuration,null,() =>
         {
             Debug.Log("終了発信!!!"+ currentStoryIndex);
          
@@ -340,6 +366,8 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
                 Debug.Log("最初の会話の終わり ");
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
                 Time.timeScale = 1;
+                //ui表示
+                SetUIActive(true);
             }
 
             //チュートリアル終了
@@ -348,6 +376,8 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
                 Debug.Log("美味しかったって会話8→チュートリアル終了 ");
                 InputController.Instance.SetInputContext(InputController.InputContext.Player);
                 Time.timeScale = 1;
+                //ui表示
+                SetUIActive(true);
             }
 
         });
@@ -426,7 +456,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
             canvasGroup = background.AddComponent<CanvasGroup>();
         }
 
-        float duration = storyEndFadeOutDuration; // フェード時間
+        float duration = dialogEndFadeOutDuration; // フェード時間
         float elapsedTime = 0f;
 
         canvasGroup.alpha = startAlpha;
@@ -444,7 +474,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     IEnumerator FadeBackgroundOverlay(float startAlpha, float endAlpha, System.Action onComplete = null)
     {
-        float duration = storyEndFadeOutDuration; // フェード時間
+        float duration = dialogEndFadeOutDuration; // フェード時間
         float elapsedTime = 0f;
 
         backgroundOverlay.canvasRenderer.SetAlpha(startAlpha);
@@ -461,5 +491,17 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         onComplete?.Invoke();
     }
 
-
+    private void SetUIActive(bool _isActive)
+    {
+        GameObject playerUI = gameUI.transform.Find("Canvas/Panel/PlayerUI").gameObject;
+        playerUI.SetActive(_isActive);
+      //  GameObject missionUI = gameUI.transform.Find("Canvas/Panel/MissionUI").gameObject;
+        //missionUI.SetActive(_isActive);
+        GameObject hpSlider = gameUI.transform.Find("Canvas/Panel/HPSlider").gameObject;
+        hpSlider.SetActive(_isActive);
+        GameObject operationDisplay = gameUI.transform.Find("Canvas/Panel/OperationDisplay").gameObject;
+        operationDisplay.SetActive(_isActive);
+        GameObject notificationbox = gameUI.transform.Find("Canvas/Panel/Notification box").gameObject;
+        notificationbox.SetActive(_isActive);
+    }
 }
