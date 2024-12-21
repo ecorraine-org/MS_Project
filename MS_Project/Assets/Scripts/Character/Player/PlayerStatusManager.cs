@@ -64,7 +64,7 @@ public class PlayerStatusManager : StatusManager
         if (frenzyValue >= playerStatusData.maxFrenzyGauge)
         {
             frenzyValue = 0;
-            playerController.transform.localScale = 2 * defaultSize;
+            playerController.transform.localScale = 1.5f * defaultSize;
 
             frenzyTimer = playerStatusData.frenzyTime;
             isFrenzy = true;
@@ -93,7 +93,7 @@ public class PlayerStatusManager : StatusManager
     /// <summary>
     /// 暴走ゲージを溜める
     /// </summary>
-    private void IncreaseFrenzy(float _amount)
+    public void IncreaseFrenzy(float _amount)
     {
         if(!isFrenzy)frenzyValue += _amount;
     }

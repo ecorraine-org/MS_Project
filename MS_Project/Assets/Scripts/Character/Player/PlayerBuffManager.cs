@@ -9,6 +9,7 @@ public struct BuffEffectInfo
     public float damageUpRate;
     public float speedUpRate;
     public float healValue;
+    public float rageValue;
 }
 
 public class PlayerBuffManager : MonoBehaviour
@@ -25,11 +26,17 @@ public class PlayerBuffManager : MonoBehaviour
     //回復バフコルーチン
     private Coroutine healCoroutine;
 
+    //暴走バフコルーチン
+    private Coroutine rageCoroutine;
+
     //速度バフ時間経過表示用コルーチン
     private Coroutine testSpeedCoroutine;
 
     [SerializeField, NonEditable, Header("一回回復持続時間")]
     float healDuration = 0.3f;
+
+    [SerializeField, NonEditable, Header("一回暴走ゲージ増加持続時間")]
+    float rageDuration = 0.3f;
 
     //消えるまで(食べた後を継続を含めて)の持続時間
     public float testSpeedBuffTimer;
@@ -100,10 +107,39 @@ public class PlayerBuffManager : MonoBehaviour
             if (damageCoroutine == null)
             {
                 //エフェクト生成
-                playerController.EffectManager.GenerateDamageBuffEffect();
+              //  playerController.EffectManager.GenerateDamageBuffEffect();
             }
 
             StartBuffTimer(ref damageCoroutine, _data.buffDuration, () => EndDamageBuff());
+        }
+    }
+
+    void ApplyRageBuff(OnomatopoeiaData _data)
+    {
+
+        if (_data.rageBuff != 0)
+        {
+
+            buffEffect.rageValue = _data.rageBuff;
+
+
+            //バフない状態でバフを付ける
+            if (rageCoroutine == null)
+            {
+                //エフェクト生成
+                //  playerController.EffectManager.GenerateRageBuffEffect();
+
+            }
+
+
+            // あれば停止させて、0から計算する
+            if (rageCoroutine != null)
+            {
+                StopCoroutine(rageCoroutine);
+            }
+
+            rageCoroutine = TimerUtility.FrameBasedTimer(this, rageDuration, () => UpdateRage(), () => EndRageBuff());
+
         }
     }
 
@@ -121,7 +157,7 @@ public class PlayerBuffManager : MonoBehaviour
             {
 
                 //エフェクト生成
-                playerController.EffectManager.GenerateSpeedBuffEffect();
+             //   playerController.EffectManager.GenerateSpeedBuffEffect();
 
                 //リセット
                 testSpeedBuffTimer = 0;
@@ -148,7 +184,7 @@ public class PlayerBuffManager : MonoBehaviour
             if (healCoroutine == null)
             {
                 //エフェクト生成
-                playerController.EffectManager.GenerateHealBuffEffect();
+              //  playerController.EffectManager.GenerateHealBuffEffect();
 
             }
 
@@ -175,9 +211,19 @@ public class PlayerBuffManager : MonoBehaviour
         playerController.StatusManager.TakeDamage(-healValue);
     }
 
+    private void UpdateRage()
+    {
+        //フレームごとの回復量
+        float rageValue = (buffEffect.rageValue / rageDuration) * Time.deltaTime;
+
+        playerController.StatusManager.IncreaseFrenzy(rageValue);
+    }
+
     private void ApplyBuff(OnomatopoeiaData _data)
     {
         ApplyDamageBuff(_data);
+
+        ApplyRageBuff(_data);
 
         ApplyHealBuff(_data);
 
@@ -202,6 +248,16 @@ public class PlayerBuffManager : MonoBehaviour
 
         //バフエフェクトを消す
         playerController.EffectManager.DestroyHealBuffEffect();
+    }
+
+    void EndRageBuff()
+    {
+        //バフ効果を無くす
+        buffEffect.rageValue = 0;
+        rageCoroutine = null;
+
+        //バフエフェクトを消す
+        //playerController.EffectManager.DestroyRageBuffEffect();
     }
 
     void EndSpeedBuff()

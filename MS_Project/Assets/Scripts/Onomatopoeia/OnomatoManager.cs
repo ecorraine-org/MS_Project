@@ -84,7 +84,7 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
         ChangeMode(nextDataType, controller.Data.wordToUse);
 
         //暴走ゲージを溜めるイベント送信
-        OnIncreaseFrenzyEvent?.Invoke(5.0f);
+    //    OnIncreaseFrenzyEvent?.Invoke(5.0f);
 
         //オノマトペのデータを渡すイベント送信
         OnEatOnomatoEvt?.Invoke(controller.Data);
