@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: StreetLight_break
   m_EditorClassIdentifier: 
   wordToUse: "\u30B4\u30F3\u30C3"
+  onomatoSprite: {fileID: 0}
+  spriteSize: 1
+  spriteAnimSpeed: 1
+  onomatoACont: {fileID: 0}
   fontAsset: {fileID: 11400000, guid: ad584379139b1df46b9777099a13e04e, type: 2}
   fontColor:
     serializedVersion: 2
@@ -21,3 +25,6 @@ MonoBehaviour:
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  rageBuff: 0
+  buffDuration: 10
+  onomatoSE: {fileID: 0}
