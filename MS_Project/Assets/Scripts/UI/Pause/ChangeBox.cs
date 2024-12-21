@@ -28,6 +28,8 @@ public class ChangeBox : MonoBehaviour
     public GameObject PowerUpbox;
     [SerializeField, Header("暴走ゲージ増加素材")]
     public GameObject Bresakbox;
+    [SerializeField, Header("回復")]
+    public GameObject Healbox;
 
     private bool isVisible = false; // boxが表示中かどうか
     private bool isSliding = false; // スライド中かどうか
@@ -51,6 +53,7 @@ public class ChangeBox : MonoBehaviour
     private void ModeChange(PlayerMode _mode, OnomatopoeiaData _data)
     {
         playermode = _mode; //モード設定
+        curData = _data;
         Debug.Log("モードチェンジしたよ" + playermode);
         Debug.Log("オノマトペを食べたよ" + _data.name);
         //playermode = BattleManager.Instance.CurPlayerMode; //現在の状態を保存
@@ -91,7 +94,7 @@ public class ChangeBox : MonoBehaviour
         {
             elapsedTime += Time.deltaTime; //前フレームから時間経過を加算
             float t = elapsedTime / slideDuration;
-           box.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, t);
+            box.anchoredPosition = Vector2.Lerp(startPosition, targetPosition, t);
             yield return null;
         }
         box.anchoredPosition = targetPosition; //最後に目標位置にピッタリ合わせる
@@ -106,7 +109,7 @@ public class ChangeBox : MonoBehaviour
     //4秒後に消える処理
     void Update()
     {
-        if(isVisible == true)
+        if (isVisible == true)
         {
             cunt += Time.deltaTime;
 
@@ -143,16 +146,40 @@ public class ChangeBox : MonoBehaviour
             cunt = 0;
         }
 
-        //if (playermode == PlayerMode.None)
-        //{
-        //    if (curData.rageBuff > 0)
-        //    {
-        //        ragebox.SetActive(true);
-        //        isVisible = true;
-        //        cunt = 0;
-        //    }
-        //}
+        if (playermode == PlayerMode.None)
+        {
+            Debug.Log("curData.rageBuff" + curData.rageBuff);
+            Debug.Log("curData.healBuff" + curData.healBuff);
+            Debug.Log("curData.speedBuff" + curData.speedBuff);
+            if (curData.rageBuff > 0)
+            {
+                Bresakbox.SetActive(true);
+                isVisible = true;
+                cunt = 0;
+            }
+
+            if (curData.healBuff > 0)
+            {
+                Healbox.SetActive(true);
+                isVisible = true;
+                cunt = 0;
+            }
+            if (curData.speedBuff > 0)
+            {
+                SpeedUpbox.SetActive(true);
+                isVisible = true;
+                cunt = 0;
+            }
+            if (curData.damageBuff > 0)
+            {
+                PowerUpbox.SetActive(true);
+                isVisible = true;
+                cunt = 0;
+            }
+        }
     }
+
+
     private void SetWeapon(string weaponType)
     {
         //確認用
@@ -182,5 +209,6 @@ public class ChangeBox : MonoBehaviour
         SpeedUpbox.SetActive(false);
         PowerUpbox.SetActive(false);
         Bresakbox.SetActive(false);
+        Healbox.SetActive(false);
     }
 }
