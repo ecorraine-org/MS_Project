@@ -20,6 +20,51 @@ Shader "Custom/HalftoneToonLambert"
 
         Pass
         {
+            Name "Outline"
+            Tags { "Queue" = "Overlay" }
+            ZWrite On
+            Cull Front
+            ColorMask RGB
+            Blend SrcAlpha OneMinusSrcAlpha
+
+            CGPROGRAM
+            #pragma vertex vertOutline
+            #pragma fragment fragOutline
+            #include "UnityCG.cginc"
+
+            struct appdata_t
+            {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct v2f
+            {
+                float4 vertex : SV_POSITION;
+            };
+
+
+            v2f vertOutline(appdata_t v)
+            {
+                v2f o;
+                float _OutlineWidth = 0.05f;
+                // Expand by scaling along the normals
+                o.vertex = UnityObjectToClipPos(v.vertex + v.normal * _OutlineWidth);
+                return o;
+            }
+
+            fixed4 fragOutline(v2f i) : SV_Target
+            {
+                fixed4 _OutlineColor = fixed4(0, 0, 0, 1);
+                return _OutlineColor;
+            }
+            ENDCG
+        }
+
+        Pass
+        {
+            Name "MainPass"
             Blend SrcAlpha OneMinusSrcAlpha
             ZWrite On
             Cull Back
