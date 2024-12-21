@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Golem_SpinningAttack
   m_EditorClassIdentifier: 
   wordToUse: 
-  onomatoSprite: {fileID: 0}
+  onomatoSprite: {fileID: 21300000, guid: b641d8655f5a5f64a88bf61c238d39dc, type: 3}
   spriteSize: 0.3
   spriteAnimSpeed: 1
   onomatoACont: {fileID: 0}
@@ -25,5 +25,6 @@ MonoBehaviour:
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  rageBuff: 20
   buffDuration: 10
   onomatoSE: {fileID: 0}
