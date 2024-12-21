@@ -72,17 +72,17 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
 
     void Start()
     {
-        LoadStory(0);
+      //  LoadStory(0);
 
         //UI操作
-        InputController.Instance.SetInputContext(InputController.InputContext.UI);
+      //  InputController.Instance.SetInputContext(InputController.InputContext.UI);
 
          gameUI = GameObject.Find("InGameUI");
        // playerUI = gameUI.transform.Find("Canvas").gameObject;
 
         // Transform scoreTextTransform = playerUI.transform.Find("ScoreText");
 
-        SetUIActive (false);
+    //    SetUIActive (false);
 
 
 
