@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
     private bool isTransitioning = false;
     ResultScreenShot _resultScreenShot;
 
-    [SerializeField, Header("ミッションエリアプレハブ")]
+    [SerializeField, Header("ミッションエリアビヘイビア（任意）")]
     PlayerBoundary missionArea;
 
     //生成されたミッションエリアを格納する
@@ -179,14 +179,18 @@ public class EnemySpawner : MonoBehaviour
                 mission.BossMissionItem.SetActive(true);
                 mission.BossTitleItem.SetActive(true);
             }
-               
+
 
 
             isStartMission = true;
 
             //ミッションエリア生成
-            missionAreaInstance = Instantiate(missionArea.gameObject, transform.position, Quaternion.identity);
-            missionAreaComp = missionAreaInstance.GetComponent<PlayerBoundary>();
+            if (missionArea)
+            {
+                missionAreaInstance = Instantiate(missionArea.gameObject, transform.position, Quaternion.identity);
+                missionAreaComp = missionAreaInstance.GetComponent<PlayerBoundary>();
+            }
+   
             //元のサイズを記録
             // missionArea.DefaultScale = missionAreaInstance.transform.localScale;
 
@@ -209,8 +213,8 @@ public class EnemySpawner : MonoBehaviour
         // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
         string count = killCount + "/" + mobCount.ToString();
         UnityEngine.Debug.Log("count " + count);
-       // missionDetail = count;
-       // missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+        // missionDetail = count;
+        // missionDetail = mission.GetMissionDetails(missionType, missionDetail);
 
         //表示する
         if (missionType == MissionType.KillAll) mission.EnemyTxt.text = count;
@@ -229,35 +233,58 @@ public class EnemySpawner : MonoBehaviour
         // if (isStartMission&& !hasCleared && mission.MissionPanel.activeInHierarchy)
         if (isStartMission && !hasCleared)
         {
-           // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
-          //  missionDetail = count;
-           // missionDetail = mission.GetMissionDetails(missionType, missionDetail);
+            // string count = "<color=#00ff00>" + killCount + "/" + mobCount.ToString() + "</color>";
+            //  missionDetail = count;
+            // missionDetail = mission.GetMissionDetails(missionType, missionDetail);
 
-            if (killCount >= mobCount)
-            {
-                hasCleared = true;
-                isStartMission = false;
-                // mission.MissionPanel.SetActive(false);
-                mission.MissionTitle.SetActive(false);
+            //雑魚ミッションクリア処理
+            if (missionType == MissionType.KillAll)
+                ClearEnemyMission();
 
-                if (missionType == MissionType.KillAll)
-                {
-                    mission.EnemyMissionItem.SetActive(false);
-                }
+            //ボスミッションクリア処理
+            if (missionType == MissionType.KillBoss)
+                ClearBossMission();
 
-                //ボスを倒したら、リザルト画面を出す
-                if (missionType == MissionType.KillBoss)
-                {
-                    mission.BossMissionItem.SetActive(false);
-                    HandleBossDefeated();
-                }
-
-                //エリアを無効にする
-                missionAreaInstance.SetActive(false);
-
-            }
         }
     }
+    void ClearEnemyMission()
+    {
+        if (killCount >= mobCount)
+        {
+            hasCleared = true;
+            isStartMission = false;
+            // mission.MissionPanel.SetActive(false);
+            mission.MissionTitle.SetActive(false);
+
+            mission.EnemyMissionItem.SetActive(false);
+
+            //エリアを無効にする
+            missionAreaInstance?.SetActive(false);
+
+        }
+    }
+
+    void ClearBossMission()
+    {
+        if (killCount >= eliteCount)
+        {
+            hasCleared = true;
+            isStartMission = false;
+            // mission.MissionPanel.SetActive(false);
+            mission.MissionTitle.SetActive(false);
+
+            mission.BossMissionItem.SetActive(false);
+
+            //ボスを倒したら、リザルト画面を出す
+            HandleBossDefeated();
+
+
+            //エリアを無効にする
+            missionAreaInstance?.SetActive(false);
+
+        }
+    }
+
 
     public void SpawnEnemy(EnemyStatusData _enemydata, Vector3 _position)
     {
