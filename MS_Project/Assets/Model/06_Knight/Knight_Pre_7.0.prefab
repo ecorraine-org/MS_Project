@@ -48,10 +48,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7601500717119044232, guid: 716e6a2d0be2ad64c87b4366ce9146f2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7601500717119044232, guid: 716e6a2d0be2ad64c87b4366ce9146f2, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ec20d8ba10ca3441a7a39b77376c402, type: 2}
+    - target: {fileID: -3001147733535208632, guid: 716e6a2d0be2ad64c87b4366ce9146f2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3001147733535208632, guid: 716e6a2d0be2ad64c87b4366ce9146f2, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ec20d8ba10ca3441a7a39b77376c402, type: 2}
     - target: {fileID: 919132149155446097, guid: 716e6a2d0be2ad64c87b4366ce9146f2, type: 3}
       propertyPath: m_Name
-      value: Knight_Anim_7.0
+      value: Knight_Pre_7.0
       objectReference: {fileID: 0}
+    - target: {fileID: 6051666494409957981, guid: 716e6a2d0be2ad64c87b4366ce9146f2, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6051666494409957981, guid: 716e6a2d0be2ad64c87b4366ce9146f2, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8ec20d8ba10ca3441a7a39b77376c402, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
