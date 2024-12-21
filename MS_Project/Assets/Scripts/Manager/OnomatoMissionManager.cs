@@ -28,7 +28,7 @@ public class OnomatoMissionManager : SingletonBaseBehavior<OnomatoMissionManager
 
     protected override void AwakeProcess()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
+        string currentSceneName = SceneManager.GetSceneByName("StartScene01").name;
 
         if (currentSceneName == "StartScene01")
         {

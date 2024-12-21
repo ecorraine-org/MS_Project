@@ -85,7 +85,7 @@ public class FadeSceneChange : MonoBehaviour
             SceneManager.MoveGameObjectToScene(stageInstance, SceneManager.GetSceneByName("StartScene01"));
             SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName("StartScene01"));
 
-            if (SceneManager.GetSceneByName("Area000").isLoaded)
+            if (SceneManager.GetSceneByName("StartScene01").isLoaded)
             {
                 player.GetComponent<Rigidbody>().constraints = originalConstraints;
             }
