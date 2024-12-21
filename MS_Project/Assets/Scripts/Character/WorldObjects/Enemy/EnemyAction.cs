@@ -161,20 +161,20 @@ public abstract class EnemyAction : MonoBehaviour
 
 
     //仮りで作った
-    public void TutorialStopTime()
+    public virtual void  TutorialStopTime()
     {
-        if (enemy.PlayerController.tutorialStage == TutorialStage.Step3)
-        {
-            Time.timeScale = 0;
-            //UI操作
-            InputController.Instance.SetInputContext(InputController.InputContext.UI);
+        //if (enemy.PlayerController.tutorialStage == TutorialStage.Step3)
+        //{
+        //    Time.timeScale = 0;
+        //    //UI操作
+        //    InputController.Instance.SetInputContext(InputController.InputContext.UI);
 
-            enemy.PlayerController.tutorialStage = TutorialStage.Step4;
+        //    enemy.PlayerController.tutorialStage = TutorialStage.Step4;
 
-            //新しい会話(会話5)
-            TalkManager.Instance.LoadStory(2);
+        //    //新しい会話(会話5)
+        //    TalkManager.Instance.LoadStory(2);
 
-        }
+        //}
 
 
     }

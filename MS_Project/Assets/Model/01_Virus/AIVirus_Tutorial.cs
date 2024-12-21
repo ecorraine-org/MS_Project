@@ -47,9 +47,27 @@ public class AIVirus_Tutorial : EnemyAction
             TalkManager.Instance.LoadStory(3);
         }
     }
-      
 
-void DialogFinish()
+    public override void TutorialStopTime()
+    {
+        if (enemy.PlayerController.tutorialStage == TutorialStage.Step3)
+        {
+            Time.timeScale = 0;
+            //UI操作
+            InputController.Instance.SetInputContext(InputController.InputContext.UI);
+
+            enemy.PlayerController.tutorialStage = TutorialStage.Step4;
+
+            //新しい会話(会話5)
+            TalkManager.Instance.LoadStory(2);
+
+        }
+
+
+    }
+
+
+    void DialogFinish()
     {
         Debug.Log("受信時段階: "+ enemy.PlayerController.tutorialStage);
         switch (enemy.PlayerController.tutorialStage)
