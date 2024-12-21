@@ -100,10 +100,19 @@ public class GameOver : MonoBehaviour
 
         // シーン遷移前のクリーンアップ
         //yield return StartCoroutine(PerformCompleteCleanup());
-        SceneManager.LoadScene(LoadStage);
+
+        //SceneLoaderを破棄
+        //Destroy(GameObject.Find("SceneLoader"));
+        //SceneStreamerManagerを破棄
+        //Destroy(GameObject.Find("SceneStreamerManager"));
+
+        //シーンの切替
+        SceneStreamerManager.TransitionScene("StartScene01", true);
+
+        //StartCoroutine(LoadNextSceneAsync());
+
 
         // シーンの切り替え
-        //SceneStreamerManager.TransitionScene(LoadStage, true);
     }
 
     // �ｿｽ^�ｿｽC�ｿｽg�ｿｽ�ｿｽ�ｿｽﾖのフ�ｿｽF�ｿｽ[�ｿｽh
@@ -167,6 +176,19 @@ public class GameOver : MonoBehaviour
         }
 
         fadePanel.color = endColor;
+    }
+    IEnumerator LoadNextSceneAsync()
+    {
+        // 前のロードシーンをアンロード
+        SceneManager.UnloadSceneAsync("GameOver");
+
+        // 次のシーンを非同期で読み込み
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("StartScene01");
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 
     private IEnumerator PerformCompleteCleanup()
