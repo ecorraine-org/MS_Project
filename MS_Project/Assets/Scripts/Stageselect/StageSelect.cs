@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using PixelCrushers.SceneStreamer;
+using UnityEditor.SearchService;
 
 namespace Stage.Utility
 {
@@ -13,33 +15,38 @@ namespace Stage.Utility
         [SerializeField] private List<RingStage> stageList = new List<RingStage>();
 
         [Header("リングの横、縦、移動時間、後ろの縮小率、縮小時の横幅")]
-        // リングの横幅
-        [SerializeField] private float ringWidth = 600;
-        // リングの縦幅
-        [SerializeField] private float ringHeight = 100;
-        // 移動のインターバル
-        [SerializeField] private float magnetSpeed = 0.18f;
-        // 要素が一番後ろに移動したときの縮小率(0.5 = 半分の大きさ)
-        [SerializeField] private float backZoomScale = 0.5f;
+        //リングの横幅
+        [SerializeField, Tooltip("リングの横幅")] private float ringWidth = 600.0f;
+        //リングの縦幅
+       [SerializeField, Tooltip("リングの縦幅")] private float ringHeight = 100.0f;
+        //移動のインターバル
+       [SerializeField, Tooltip("移動のインターバル")] private float magnetSpeed = 0.18f;
+        //要素が一番後ろに移動したときの縮小率(0.5 = 半分の大きさ)
+        [SerializeField, Tooltip("縮小率")] private float backZoomScale = 0.5f;
 
         [SerializeField] private float originWidth = 600;
 
         [Header("拡大後の横、アニメーション時間")]
-        [SerializeField] private float expandedRingWidth = 3000; // 広げた後の横幅
-        [SerializeField] private float expandDuration = 0.1f; // 広げるアニメーションの時間
+        //広げた後の横幅
+        [SerializeField, Tooltip("広げた後の横幅")] private float expandedRingWidth = 3000.0f;
+        //広げるアニメーションの時間
+       [SerializeField, Tooltip("広げるアニメーションの時間")] private float expandDuration = 0.1f;
 
         [Header("エンターキー入力後の拡大率")]
         [SerializeField] private float ZoomScaleX;
         [SerializeField] private float ZoomScaleY;
         [SerializeField] private float ZoomScaleZ;
 
-        // 左右の回転量
+        //左右の回転量
+        [Tooltip("左右の回転量")]
         private float stepAmount;
-        // 要素の間隔・角度
+        //要素の間隔・角度
+        [Tooltip("要素の間隔・角度")]
         private float oneAngle;
-        // 目標位置 -> 回転させた回数(右+1, 左-1)
+        //目標位置 → 回転させた回数(右+1, 左-1)
         private int count;
-        // リングの前後関係整列用のバッファー
+        //リングの前後関係整列用のバッファー
+       [Tooltip("リングの前後関係整列用のバッファー")]
         private List<RingStage> stageListCache = new List<RingStage>();
 
         // アニメーション関係
@@ -49,20 +56,23 @@ namespace Stage.Utility
         // 最前面の要素
         public RingStage frontStage;
 
-        bool fIris = false; // アイリスアウトのアニメーションフラグ
-        bool fZoomIn = false;    // 拡大フラグ
-        bool fZoomOut = false;   // 縮小フラグ
-        bool flag = false;  // シーン遷移用のフラグ 
+        bool fIris = false;     // アイリスアウトのアニメーションフラグ
+        bool fZoomIn = false;   // 拡大フラグ
+        bool fZoomOut = false;  // 縮小フラグ
+        bool flag = false;      // シーン遷移用のフラグ 
 
         [SerializeField] RectTransform unmask;
         //readonly Vector2 IRIS_IN_SCALE = new Vector2(50, 50);
         readonly float SCALE_DURATION = 2;
         [Header("ステージ１の名前")]
         [SerializeField] string sceneToLoad1;
+        [SerializeField] Vector3 area001Pos = new Vector3(-10f, 0.5f, 0f);
         [Header("ステージ２の名前")]
         [SerializeField] string sceneToLoad2;
+        [SerializeField] Vector3 area002Pos = new Vector3(228f, -5.0f, 0f);
         [Header("ステージ３の名前")]
         [SerializeField] string sceneToLoad3;
+        [SerializeField] Vector3 area003Pos = new Vector3(400f, -0.5f, 0f);
         [Header("ステージ４の名前")]
         [SerializeField] string sceneToLoad4;
         [Header("ステージ５の名前")]
@@ -174,6 +184,7 @@ namespace Stage.Utility
             if (fIris == true)
             {
                 LoadStage(frontStage);
+                fIris = false;
             }
 
       
@@ -299,43 +310,83 @@ namespace Stage.Utility
 
             switch (stage.name)
             {
-                case "StartScene01":
-                    Debug.Log("StartScene01に遷移");
-                    SceneManager.LoadScene(sceneToLoad1);
+                case "Area001":
+                    Debug.Log("Area001に遷移");
+                    StartCoroutine(LoadAsyncScene("Area001", area001Pos));
+                    //SceneManager.LoadScene(sceneToLoad1);
                     break;
-                case "Stage2":
-                    Debug.Log("Stage2に遷移");
-                    SceneManager.LoadScene(sceneToLoad2);
+                case "Area002":
+                    Debug.Log("Area002に遷移");
+                    StartCoroutine(LoadAsyncScene("Area002", area002Pos));
+                    //SceneManager.LoadScene(sceneToLoad2);
                     break;
-                case "Stage3":
-                    Debug.Log("Stage3に遷移");
-                    SceneManager.LoadScene(sceneToLoad3);
+                case "Area003":
+                    Debug.Log("Area003に遷移");
+                    StartCoroutine(LoadAsyncScene("Area003", area003Pos));
+                    //SceneManager.LoadScene(sceneToLoad3);
                     break;
-                case "Stage4":
-                    Debug.Log("Stage4に遷移");
-                    SceneManager.LoadScene(sceneToLoad4);
+                case "Area004":
+                    Debug.Log("Area004に遷移");
+                    //SceneManager.LoadScene(sceneToLoad4);
                     break;
-                case "Stage5":
-                    Debug.Log("Stage5に遷移");
-                    SceneManager.LoadScene(sceneToLoad5);
+                case "Area005":
+                    Debug.Log("Area005に遷移");
+                    //SceneManager.LoadScene(sceneToLoad5);
                     break;
-                case "Stage6":
-                    Debug.Log("Stage6に遷移");
-                    SceneManager.LoadScene(sceneToLoad6);
+                case "Area006":
+                    Debug.Log("Area006に遷移");
+                    //SceneManager.LoadScene(sceneToLoad6);
                     break;
-                case "Stage7":
-                    Debug.Log("Stage7に遷移");
-                    SceneManager.LoadScene(sceneToLoad7);
+                case "Area007":
+                    Debug.Log("Area007に遷移");
+                    //SceneManager.LoadScene(sceneToLoad7);
                     break;
-                case "Stage8":
-                    Debug.Log("Stage8に遷移");
-                    SceneManager.LoadScene(sceneToLoad8);
+                case "Area008":
+                    Debug.Log("Area008に遷移");
+                    //SceneManager.LoadScene(sceneToLoad8);
                     break;
-                case "Stage9":
-                    Debug.Log("Stage9に遷移");
-                    SceneManager.LoadScene(sceneToLoad9);
+                case "Area009":
+                    Debug.Log("Area009に遷移");
+                    //SceneManager.LoadScene(sceneToLoad9);
                     break;
             }
+        }
+
+        IEnumerator LoadAsyncScene(string _stagename, Vector3 _newposition)
+        {
+            // Set the current Scene to be able to unload it later
+            UnityEngine.SceneManagement.Scene currentScene = SceneManager.GetActiveScene();
+
+            // The Application loads the Scene in the background at the same time as the current Scene.
+            if (!SceneManager.GetSceneByName("StartScene01").isLoaded)
+            {
+                AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("StartScene01", LoadSceneMode.Additive);
+
+                // Wait until the last operation fully loads to return anything
+                while (!asyncLoad.isDone)
+                {
+                    yield return null;
+                }
+
+                GameObject stageInstance = Instantiate(Resources.Load("Others/StageInstance") as GameObject, _newposition, Quaternion.identity);
+                stageInstance.GetComponent<SetStartScene>().startSceneName = _stagename;
+                GameObject player = Instantiate(Resources.Load("Player/Player") as GameObject, _newposition, Quaternion.identity);
+                RigidbodyConstraints originalConstraints = player.GetComponent<Rigidbody>().constraints;
+
+                player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+
+                // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
+                SceneManager.MoveGameObjectToScene(stageInstance, SceneManager.GetSceneByName("StartScene01"));
+                SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName("StartScene01"));
+
+                if (SceneManager.GetSceneByName(_stagename).isLoaded)
+                {
+                    player.GetComponent<Rigidbody>().constraints = originalConstraints;
+                }
+            }
+
+            // Unload the previous Scene
+            SceneManager.UnloadSceneAsync(currentScene);
         }
 
         void OnDestroy()

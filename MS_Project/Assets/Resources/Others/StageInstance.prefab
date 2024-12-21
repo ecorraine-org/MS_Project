@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189bec9125ddd624b98be176e7618c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxNeighborDistance: 5
-  maxLoadWaitTime: 10
+  maxNeighborDistance: 2
+  maxLoadWaitTime: 30
   onLoading:
     m_PersistentCalls:
       m_Calls: []
@@ -66,4 +66,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce400e3f5366e14ca366352cbe534d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSceneName: Area00
+  startSceneName: Area000
