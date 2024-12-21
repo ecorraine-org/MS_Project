@@ -114,6 +114,7 @@ public class OnomatoManager : MonoBehaviour, IHit,ISelected
                 OnModeChangeEvent?.Invoke(PlayerMode.Gauntlet, name);
                 break;
             case OnomatoType.OtherType:
+                OnModeChangeEvent?.Invoke(PlayerMode.None, name);
                 break;
             default:
                 break;
