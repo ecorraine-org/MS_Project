@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Golem_RockThrowiing
   m_EditorClassIdentifier: 
   wordToUse: 
-  onomatoSprite: {fileID: 0}
+  onomatoSprite: {fileID: 21300000, guid: 6341e99ae61558645a97ce88415cc176, type: 3}
   spriteSize: 0.3
   spriteAnimSpeed: 1
   onomatoACont: {fileID: 0}
@@ -25,5 +25,6 @@ MonoBehaviour:
   damageBuff: 0
   speedBuff: 0
   healBuff: 0
+  rageBuff: 10
   buffDuration: 10
   onomatoSE: {fileID: 0}
