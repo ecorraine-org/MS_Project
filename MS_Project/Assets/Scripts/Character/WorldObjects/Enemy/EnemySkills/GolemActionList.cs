@@ -7,6 +7,9 @@ public class GolemActionList : EnemyAction
     [SerializeField, Header("ターゲットレイヤー")]
     LayerMask targetLayer;
 
+    //やってまいりました
+    bool isEntry = false;
+
     //時間計測
     float frameTime = 0.0f;
 
@@ -20,7 +23,15 @@ public class GolemActionList : EnemyAction
     {
         listTimer = 0;
 
-        enemy.Anim.Play("Idle");
+        //戦場にエントリー
+        if (isEntry)
+        {
+            enemy.Anim.Play("Idle");
+        }
+        else
+        {
+            enemy.Anim.Play("Entry");
+        }
     }
     public void IdleTick()
     {
@@ -33,6 +44,22 @@ public class GolemActionList : EnemyAction
 
         //ダメージチェック
         //if (stateHandler.CheckHit()) return;
+
+        //開幕挑発
+        if (!isEntry)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            if (stateInfo.normalizedTime >= 1.0f)
+            {
+                isEntry = true;
+                return;
+            }
+            else if (stateInfo.normalizedTime <= 0.01f)
+                Looking();
+
+            return;
+        }
 
         //移動へ遷移
         float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);

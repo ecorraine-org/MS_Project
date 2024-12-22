@@ -1366,6 +1366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a2760d03debe74bafb78d206dbcc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackColliderV2: {fileID: 0}
 --- !u!114 &2867892465453181793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1546,7 +1547,7 @@ GameObject:
   - component: {fileID: 3212746833898246400}
   - component: {fileID: 4121104965741438151}
   - component: {fileID: 4488566475805547957}
-  - component: {fileID: 1496376109727336359}
+  - component: {fileID: 6085409385083920389}
   m_Layer: 0
   m_Name: HunterV2LIST
   m_TagString: Untagged
@@ -1611,7 +1612,8 @@ MonoBehaviour:
   hitCollider: {fileID: 1474736771252635155}
   closestCollider: {fileID: 0}
   hasCollided: 0
---- !u!114 &1496376109727336359
+  canHit: 0
+--- !u!114 &6085409385083920389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1623,8 +1625,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3baa073fbe86f4e81cd0e361e11bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffect: {fileID: 6226865062110874252, guid: ec4739d2304e43c4290c7dff46829895, type: 3}
-  hitEffectPoint: {fileID: 5975461286565474148}
+  spriteHitEffect: {fileID: 6226865062110874252, guid: ec4739d2304e43c4290c7dff46829895, type: 3}
+  toleranceHitEffect: {fileID: 2495543976131361238, guid: c1849727eea8c6343ae864a4cdeb8914, type: 3}
+  weakHitEffect: {fileID: 983767980220012205, guid: 83f5406e6e1a8b84a9559d86ba70d876, type: 3}
+  normalHitEffect: {fileID: 4697408730827824223, guid: 42af19bf70ca08942a8d9e112fb34aa5, type: 3}
+  hitEffectPoint: {fileID: 3579175402143289751}
+  effectData: {fileID: 11400000, guid: 23dabe79590a3ab4caed9d0afdf1128a, type: 2}
 --- !u!1 &3755412725171991283
 GameObject:
   m_ObjectHideFlags: 0
