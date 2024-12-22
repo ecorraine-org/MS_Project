@@ -1738,7 +1738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4490561516784460171, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 4490561516784460171, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1758,11 +1758,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4490561516784460171, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 46.78686
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4490561516784460171, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1116.2994
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4490561516784460171, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1779,6 +1779,18 @@ PrefabInstance:
     - target: {fileID: 6401551462201459120, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
       propertyPath: m_Name
       value: Image
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695306149565676160, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695306149565676160, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.12564039
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695306149565676160, guid: 0ac5ac719d120e94ebddf940384f561e, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
