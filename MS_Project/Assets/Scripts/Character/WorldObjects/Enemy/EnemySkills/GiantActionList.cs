@@ -103,9 +103,9 @@ public class GiantActionList : EnemyAction
     );
 
 
-        if (frameTime >= 5.0f &&
-              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 3.0f ||
-              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 5.0f)
+        if (frameTime >= 4.0f &&
+              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 2.5f ||
+              distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 7.0f)
         {
             //移動状態(走り)へ遷移
             moveStage = 1;
