@@ -336,12 +336,12 @@ public class GiantActionList : EnemyAction
   
 
     #region オノマトペ生成情報
-    private void HunterWalkData()
+    private void GiantWalkData()
     {
         GenerateWalkOnomatopoeia();
     }
 
-    private void HunterAttackData()
+    private void GiantAttackData()
     {
         GenerateAttackOnomatopoeia();
     }
