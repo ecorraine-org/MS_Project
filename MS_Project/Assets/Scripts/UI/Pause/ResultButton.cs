@@ -24,23 +24,26 @@ public class ResultButton : MonoBehaviour
         UpdateButtonSelection();
 
         Time.timeScale = 1;
+
+        //入力設定
+        InputController.Instance.SetInputContext(InputController.InputContext.UI);
     }
     void Update()
     {
         // Wキーで次のボタンへ移動
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W)||UIInputManager.Instance.GetUPTrigger())
         {
             MoveSelection(-1); // 前のボタンに移動
         }
 
         // Sキーで前のボタンへ移動
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S)|| UIInputManager.Instance.GetDownTrigger())
         {
             MoveSelection(1); // 次のボタンに移動
         }
 
         // Enterキーで選択されたボタンを実行
-        if (Input.GetKeyDown(KeyCode.Return)) // Enterキーでボタンを選択
+        if (Input.GetKeyDown(KeyCode.Return)||UIInputManager.Instance.GetEnterTrigger()) // Enterキーでボタンを選択
         {
             ExecuteSelectedButton();
         }
