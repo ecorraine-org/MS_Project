@@ -29,10 +29,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1283397374688087215, guid: b22159cf8496003409761992f1729c05, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1283397374688087215, guid: b22159cf8496003409761992f1729c05, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -53,16 +49,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1283397374688087215, guid: b22159cf8496003409761992f1729c05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1283397374688087215, guid: b22159cf8496003409761992f1729c05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1910752954814797333, guid: b22159cf8496003409761992f1729c05, type: 3}
-      propertyPath: m_Name
-      value: UFO
       objectReference: {fileID: 0}
     - target: {fileID: 5307868554609484570, guid: b22159cf8496003409761992f1729c05, type: 3}
       propertyPath: floatPos
@@ -79,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 8991570815048411793, guid: b22159cf8496003409761992f1729c05, type: 3}
       propertyPath: audioSource
       value: 
-      objectReference: {fileID: 807797495216377945}
+      objectReference: {fileID: 0}
     - target: {fileID: 8991570815048411793, guid: b22159cf8496003409761992f1729c05, type: 3}
       propertyPath: soundEffects.Array.size
       value: 1
@@ -93,22 +81,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b22159cf8496003409761992f1729c05, type: 3}
---- !u!114 &706199591952721200 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 752296642232184788, guid: b22159cf8496003409761992f1729c05, type: 3}
-  m_PrefabInstance: {fileID: 269192361964849892}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cd368a3627bba24792a98a80a0ae60b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!82 &807797495216377945 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 615166362590599869, guid: b22159cf8496003409761992f1729c05, type: 3}
-  m_PrefabInstance: {fileID: 269192361964849892}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1329641722847299147 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1283397374688087215, guid: b22159cf8496003409761992f1729c05, type: 3}
@@ -122,10 +94,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -4298313089435234479, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
-      propertyPath: hitCollider
-      value: 
-      objectReference: {fileID: 706199591952721200}
     - target: {fileID: 410899465779312302, guid: 356d29e3e72caca4b96e341d6d36b308, type: 3}
       propertyPath: m_Name
       value: UFOV2

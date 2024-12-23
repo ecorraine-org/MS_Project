@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 2698568975020192414}
     - target: {fileID: -1733712913277658140, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
       propertyPath: soundEffects.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -1733712913277658140, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
       propertyPath: 'soundEffects.Array.data[0]'
@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: 'soundEffects.Array.data[1]'
       value: 
       objectReference: {fileID: 8300000, guid: 0b32c5c98ee64a248ba49f77eef77beb, type: 3}
+    - target: {fileID: -1733712913277658140, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
+      propertyPath: 'soundEffects.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 770d3f62f8599ac4d86c43bdf941a1e0, type: 3}
     - target: {fileID: 1230446234430820359, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
       propertyPath: m_Name
       value: Virus
@@ -104,8 +108,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionPatternList: []
-  attackStopTime: 2.8
   chargeSpeed: 60
+  tutorialTimer: 0
 --- !u!4 &6823399675196482210 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1898475016891599549, guid: 668d8d31b969a094c8a904a7ebb37276, type: 3}
