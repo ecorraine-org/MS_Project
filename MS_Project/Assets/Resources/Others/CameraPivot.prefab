@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 2605113317222616239}
   - component: {fileID: 3164710179358450436}
   - component: {fileID: 8181168337627181}
+  - component: {fileID: 1278005702213790503}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -249,6 +250,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetCamera: {fileID: 0}
+--- !u!45 &1278005702213790503
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749575683824981667}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 3afd1c7f9b00d254a9880e3445eee85c, type: 2}
 --- !u!1 &4834237586702546523
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +460,6 @@ GameObject:
   - component: {fileID: 3464716522362733419}
   - component: {fileID: 2378862208587145035}
   - component: {fileID: 2509799050704669507}
-  - component: {fileID: 6451458533659136893}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -632,15 +641,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!45 &6451458533659136893
-Skybox:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8300513127597454074}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 3afd1c7f9b00d254a9880e3445eee85c, type: 2}
 --- !u!1 &8532704635465040804
 GameObject:
   m_ObjectHideFlags: 0
