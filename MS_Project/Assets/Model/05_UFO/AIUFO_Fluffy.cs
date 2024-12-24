@@ -24,6 +24,11 @@ public class AIUFO_Fluffy : EnemyAction
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
+        if (stateInfo.IsName("Died"))
+        {
+            return;
+        }
+
         if (stateInfo.IsName("PostSkill"))
         {
         enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);

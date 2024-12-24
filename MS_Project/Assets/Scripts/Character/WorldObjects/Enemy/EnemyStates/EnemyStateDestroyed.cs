@@ -54,7 +54,10 @@ public class EnemyStateDestroyed : EnemyState
 
     private void HandleNormalEnemyDeath()
     {
-        enemy.EnemySpawner.DespawnEnemyFromPool(enemy.gameObject);
+        if (enemy.AnimManager != null && enemy.AnimManager.IsAnimEnd)
+        {
+            enemy.EnemySpawner.DespawnEnemyFromPool(enemy.gameObject);
+        }
     }
 
     private IEnumerator ProcessBossDeath()
