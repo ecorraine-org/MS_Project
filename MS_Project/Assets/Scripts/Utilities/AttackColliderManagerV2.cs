@@ -28,6 +28,13 @@ public class AttackColliderManagerV2 : MonoBehaviour
     [SerializeField, NonEditable,Header(" 当たり判定可能かどうか")]
     bool canHit = false;
 
+    //---------------
+    [SerializeField, Header("ヒット時のSE")]
+    private AudioClip hitSound; // ヒット時に再生する音
+
+    private AudioSource audioSource;
+    //----------------
+
     private void Awake()
     {
         //コンポーネントの取得
@@ -37,6 +44,16 @@ public class AttackColliderManagerV2 : MonoBehaviour
 
         //Logで_cameraBasedHitCorrectionがnullかどうかを確認
         // Debug.Log("CameraBasedHitCorrection:" + _cameraBasedHitCorrection);
+
+        //----------------------
+        // AudioSourceの取得
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            // AudioSourceがない場合は動的に追加
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        //----------------------
     }
 
     /// <summary>
@@ -189,6 +206,19 @@ public class AttackColliderManagerV2 : MonoBehaviour
 
         //最初の衝突が発生した
         hasCollided = true;
+
+        // ヒット時のSEを再生
+        PlayHitSound();
+    }
+
+    // PlayHitSound()と共存
+    private void PlayHitSound()
+    {
+        if (hitSound != null && audioSource != null)
+        {
+            // SEの再生
+            audioSource.PlayOneShot(hitSound);
+        }
     }
 
     /// <summary>
