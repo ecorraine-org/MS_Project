@@ -15,6 +15,15 @@ public class UltimateActionList : EnemyAction
 
     private Vector3 direction;
 
+    public GameObject slashPrefab; // 投げるプレハブ
+    public Transform spawnPoint; // プレハブの生成位置
+    public float throwForce = 10f; // 投げる力
+
+    public GameObject slashPrefabUL; // 投げるプレハブ
+    public Transform spawnPointUL; // プレハブの生成位置
+    public float throwForceUL = 193f; // 投げる力
+
+
     #region Died
     public void DiedInit()
     {
@@ -27,7 +36,7 @@ public class UltimateActionList : EnemyAction
         //後ろへ
         if (stateInfo.normalizedTime < 1.0f)
         {
-            Vector3 forceDirection = -enemy.transform.forward * 0.6f; // 後ろ方向の力
+            Vector3 forceDirection = -enemy.transform.forward * 0.1f; // 後ろ方向の力
             enemy.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.VelocityChange);
         }
 
@@ -201,6 +210,9 @@ public class UltimateActionList : EnemyAction
         enemy.Anim.Play("Dash");
 
         currentUpdateAction = DashTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack3);
     }
 
     public void DashTick()
@@ -265,6 +277,9 @@ public class UltimateActionList : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = Back_StepTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack4);
     }
 
     public void Back_StepTick()
@@ -302,7 +317,7 @@ public class UltimateActionList : EnemyAction
         }
 
         //フィニッシュ攻撃
-        if (stateInfo.IsName("Back_Step") && stateInfo.normalizedTime >= 1.0f)
+        if (stateInfo.IsName("Back_Step") && stateInfo.normalizedTime >= 0.8f)
         {
             animator.Play("Slash");
             enemy.OnMovementInput?.Invoke(direction.normalized * 0.1f);
@@ -373,6 +388,11 @@ public class UltimateActionList : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = Slash_DualTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack3);
+        enemy.EffectHandler.SetCurEffectParam(1, EnemyEffect.Attack4);
+
     }
 
     public void Slash_DualTick()
@@ -432,6 +452,10 @@ public class UltimateActionList : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = Slash_TripleTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack3);
+        enemy.EffectHandler.SetCurEffectParam(1, EnemyEffect.Attack4);
     }
 
     public void Slash_TripleTick()
@@ -635,6 +659,9 @@ public class UltimateActionList : EnemyAction
         frameTime = 0.0f;
 
         currentUpdateAction = SpinTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack4);
     }
 
     public void SpinTick()
@@ -719,6 +746,9 @@ public class UltimateActionList : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = Charge_SlashTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack4);
     }
 
     public void Charge_SlashTick()
@@ -760,6 +790,37 @@ public class UltimateActionList : EnemyAction
         }
     }
     #endregion
+
+    // 飛び道具
+    public void SlashShot()
+    {
+        if (slashPrefab != null && spawnPoint != null)
+        {
+            // プレハブのインスタンスを生成
+            GameObject throwSlash = Instantiate(slashPrefab, spawnPoint.position, spawnPoint.rotation);
+            // 投げる方向に力を加える
+            Rigidbody rbSlash = throwSlash.GetComponent<Rigidbody>();
+            if (rbSlash != null)
+            {
+                rbSlash.AddForce(spawnPoint.forward * throwForce, ForceMode.Impulse);
+            }
+        }
+    }
+    public void UltimateSlash()
+    {
+        if (slashPrefabUL != null && spawnPointUL != null)
+        {
+            // プレハブのインスタンスを生成
+            GameObject throwSlashUL = Instantiate(slashPrefabUL, spawnPointUL.position, spawnPointUL.rotation);
+            // 投げる方向に力を加える
+            Rigidbody rbSlashUL = throwSlashUL.GetComponent<Rigidbody>();
+            if (rbSlashUL != null)
+            {
+                rbSlashUL.AddForce(spawnPoint.forward * throwForceUL, ForceMode.Impulse);
+            }
+        }
+    }
+
 
     #region ActionList
 
