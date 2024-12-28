@@ -166,15 +166,6 @@ namespace Stage.Utility
             {
                 DOTween.To(() => this.ringWidth, value => this.ringWidth = value, expandedRingWidth, expandDuration).SetEase(Ease.OutCubic);
 
-                //// 最前面のステージを拡大し、その拡大状態を永続にする
-                //frontStage.Rect.DOScale(new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ), expandDuration).OnComplete(() =>
-                //{
-                //    // アニメーションが完了した後に拡大したスケールを永続的に適用
-                //    frontStage.Rect.localScale = new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ);
-
-                //    flag = true;
-                //});
-
                 transform.DOScale(new Vector3(ZoomScaleX, ZoomScaleY, ZoomScaleZ), expandDuration).OnComplete(() =>
                 {
                     flag = true;
@@ -233,6 +224,9 @@ namespace Stage.Utility
             RingStage tempFrontStage = null;
             float closestDegree = 360f;
 
+            // ズームイン時の水平オフセット
+            float horizontalOffset = fZoomIn ? -150.0f : 0.0f; // fZoomInがtrueの時だけ左に寄せる
+
             foreach (RingStage item in this.stageList)
             {
                 if (item == null)
@@ -253,7 +247,8 @@ namespace Stage.Utility
                 item.Rect.SetLocalScaleXY(Mathf.Lerp(this.backZoomScale, 1.0f, 1.0f - Mathf.InverseLerp(0, 180.0f, _z)));
 
                 var (x, y) = MathfUtil.GetPosDeg(deg);
-                item.Rect.SetAnchoredPos(x * this.ringWidth, y * this.ringHeight);
+                // 水平オフセットを追加（ズームイン時のみ）
+                item.Rect.SetAnchoredPos((x * this.ringWidth) + horizontalOffset, y * this.ringHeight);
 
                 // 最前面の要素を判定
                 if (_z < closestDegree)
@@ -272,6 +267,7 @@ namespace Stage.Utility
 
             frontStage = tempFrontStage;
         }
+
 
         // 要素を整列するときに渡すラムダ用の処理
         private int sort(RingStage a, RingStage b)
