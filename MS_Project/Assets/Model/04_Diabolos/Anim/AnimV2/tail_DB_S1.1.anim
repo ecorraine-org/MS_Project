@@ -87251,11 +87251,18 @@ AnimationClip:
     intParameter: 8
     messageOptions: 0
   - time: 0.375
-    functionName: EnableHit
+    functionName: EnableHitArrayEvt
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 4
+    messageOptions: 0
+  - time: 0.375
+    functionName: EnableHitArrayEvt
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 3
     messageOptions: 0
   - time: 0.41666666
     functionName: PlaySound
@@ -87264,10 +87271,17 @@ AnimationClip:
     floatParameter: 0
     intParameter: 6
     messageOptions: 0
-  - time: 0.8333333
-    functionName: DisableHit
+  - time: 0.75
+    functionName: DisableHitArrayEvt
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 4
+    messageOptions: 0
+  - time: 0.75
+    functionName: DisableHitArrayEvt
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 3
     messageOptions: 0
