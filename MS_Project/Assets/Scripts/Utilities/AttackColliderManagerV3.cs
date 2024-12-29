@@ -4,8 +4,15 @@ using UnityEngine;
 
 
 ///</note>
-///初期処理:canHitを有効する必要がある
-///リセット処理する必要がある
+///初期処理:
+///canHit設定(弾:true,敵:false)
+///攻撃力設定
+/// 
+/// 使用時
+/// アニメーションイベントでcanHitを有効にする
+/// 
+///リセット処理:
+///アニメーションイベントでcanHitを無効
 ///</note>
 public class AttackColliderManagerV3 : MonoBehaviour
 {
