@@ -28,12 +28,43 @@ public class EnemyAnimManager : AnimManager
     }
 
     /// <summary>
+    /// V3攻撃可能設定
+    /// </summary>
+    public void EnableHitArrayEvt(int _index)
+    {
+        List<AttackColliderManagerV3> attackColliderV3Array = enemy.EnemyAction.AttackColliderV3Array;
+        attackColliderV3Array[_index].StartHit();
+
+    }
+
+    /// <summary>
     /// 攻撃不可設定
     /// </summary>
     public override void DisableHit()
     {
         attackColliderV2 = enemy.AttackCollider;
         attackColliderV2.EndHit();
+    }
+
+    /// <summary>
+    /// V3全部不可にする
+    /// </summary>
+    public void DisableHitArrayAllEvt()
+    {
+        List<AttackColliderManagerV3> attackColliderV3Array = enemy.EnemyAction.AttackColliderV3Array;
+        foreach (AttackColliderManagerV3 colliderV3 in  attackColliderV3Array)
+        {
+            colliderV3.EndHit();
+        }
+    }
+
+    /// <summary>
+    /// V3攻撃不可設定
+    /// </summary>
+    public void DisableHitArrayEvt(int _index)
+    {
+        List<AttackColliderManagerV3> attackColliderV3Array = enemy.EnemyAction.AttackColliderV3Array;
+        attackColliderV3Array[_index].EndHit();
     }
 
     /// <summary>

@@ -22,6 +22,9 @@ public abstract class EnemyAction : MonoBehaviour
     [SerializeField, Header("行動パターンビヘイビア")]
     protected ActionPatternList[] actionPatternList;
 
+    [SerializeField, Header("攻撃コライダーV3配列")]
+    protected List<AttackColliderManagerV3> attackColliderV3Array = new List<AttackColliderManagerV3>();
+
     //*******************
     //List処理
 
@@ -49,6 +52,17 @@ public abstract class EnemyAction : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         collector = GameObject.FindGameObjectWithTag("GarbageCollector").gameObject;
+
+
+
+        //攻撃コライダー初期化
+        foreach (AttackColliderManagerV3 collider in attackColliderV3Array)
+        {
+
+            //初期化
+            collider.CanHit = false;
+      
+        }
     }
 
     protected virtual void Start()
@@ -147,6 +161,16 @@ public abstract class EnemyAction : MonoBehaviour
 
     }
 
+    public void Reset()
+    {
+        //攻撃コライダーリセット
+        foreach (AttackColliderManagerV3 collider in attackColliderV3Array)
+        {
+            collider.Reset();
+        }
+        
+    }
+
     public EnemyController Enemy
     {
         get { return enemy; }
@@ -159,6 +183,11 @@ public abstract class EnemyAction : MonoBehaviour
         set { enemyStatus = value; }
     }
 
+    public List<AttackColliderManagerV3> AttackColliderV3Array
+    {
+        get => attackColliderV3Array;
+        // set { attackColliderV3Array = value; }
+    }
 
     //仮りで作った
     public virtual void  TutorialStopTime()

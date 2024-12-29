@@ -86,6 +86,8 @@ public class EnemyStateHandler : WorldObjectStateHandler
         enemy.AnimManager.Reset();
 
         enemy.SkillManager.Reset();
+
+        enemy.EnemyAction.Reset();
     }
 
     #region Getter & Setter
