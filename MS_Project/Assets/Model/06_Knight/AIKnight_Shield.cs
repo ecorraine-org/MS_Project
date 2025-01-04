@@ -95,8 +95,12 @@ public class AIKnight_Shield : EnemyAction
         //攻撃へ遷移
         if (distanceToPlayer <= enemyStatus.StatusData.attackDistance && enemy.AllowAttack)
         {
+            if (!enemy.AllowAttack) return;
+
             //クールダウン
             enemy.StartAttackCoroutine();
+
+            enemy.Anim.Play("Idle");
 
             stateHandler.TransitionState(ObjectStateType.Attack);
             return;
