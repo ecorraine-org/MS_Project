@@ -252,6 +252,9 @@ public class GolemActionList : EnemyAction
         frameTime = 0.0f;
 
         currentUpdateAction = SpinTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[1].Damage = 5.0f;
     }
 
     public void SpinTick()
@@ -263,7 +266,7 @@ public class GolemActionList : EnemyAction
         enemy.Move();
 
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(5.0f, false);
+        //enemy.AttackCollider.DetectColliders(5.0f, false);
 
 
         //ちょっとずつ見る
@@ -313,6 +316,10 @@ public class GolemActionList : EnemyAction
         frameTime = 0.0f;
 
         currentUpdateAction = AttackTwoTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[0].Damage = 10.0f;
+        attackColliderV3Array[1].Damage = 10.0f;
     }
 
     public void AttackTwoTick()
@@ -321,7 +328,7 @@ public class GolemActionList : EnemyAction
         frameTime += Time.deltaTime;
 
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(20.0f, false);
+        //enemy.AttackCollider.DetectColliders(20.0f, false);
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
@@ -380,6 +387,9 @@ public class GolemActionList : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = AttackTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[1].Damage = enemy.Status.StatusData.damage;
     }
 
     public void AttackTick()
@@ -388,7 +398,7 @@ public class GolemActionList : EnemyAction
         frameTime += Time.deltaTime;
 
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        //enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
 
         //アニメーションイベントで設定する必要ある(EnableHit DisableHit)

@@ -128147,18 +128147,18 @@ AnimationClip:
     intParameter: 6
     messageOptions: 0
   - time: 0.45833334
-    functionName: EnableHit
+    functionName: EnableHitArrayEvt
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
-  - time: 0.5833334
-    functionName: DisableHit
+  - time: 0.5833333
+    functionName: DisableHitArrayEvt
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 1
     messageOptions: 0
   - time: 0.9166667
     functionName: PlaySound
@@ -128168,14 +128168,14 @@ AnimationClip:
     intParameter: 6
     messageOptions: 0
   - time: 0.9583333
-    functionName: EnableHit
+    functionName: EnableHitArrayEvt
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.0833333
-    functionName: DisableHit
+  - time: 1.0833334
+    functionName: DisableHitArrayEvt
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

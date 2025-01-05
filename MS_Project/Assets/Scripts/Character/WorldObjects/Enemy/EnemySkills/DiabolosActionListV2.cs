@@ -313,12 +313,16 @@ public class DiabolosActionListV2 : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = AttackTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[0].Damage = 12.0f;
+        attackColliderV3Array[1].Damage = 12.0f;
     }
 
     public void AttackTick()
     {
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(12.0f, false);
+        //enemy.AttackCollider.DetectColliders(12.0f, false);
 
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
@@ -378,12 +382,15 @@ public class DiabolosActionListV2 : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = BiteTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[2].Damage = enemy.Status.StatusData.damage;
     }
 
     public void BiteTick()
     {
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        //enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
         //死んでいるかと時間計測
         if (stateHandler.CheckDeath()) return;
@@ -437,12 +444,16 @@ public class DiabolosActionListV2 : EnemyAction
         frameTime = 0.0f;
 
         currentUpdateAction = TailTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[3].Damage = 18.0f;
+        attackColliderV3Array[4].Damage = 18.0f;
     }
 
     public void TailTick()
     {
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(18.0f, false);
+        //enemy.AttackCollider.DetectColliders(18.0f, false);
 
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
@@ -493,12 +504,15 @@ public class DiabolosActionListV2 : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = AxeTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[5].Damage = 20.0f;
     }
 
     public void AxeTick()
     {
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        //enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
         if (stateHandler.CheckDeath()) return;
         frameTime += Time.deltaTime;
@@ -571,12 +585,15 @@ public class DiabolosActionListV2 : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = SlapTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[1].Damage = enemy.Status.StatusData.damage;
     }
 
     public void SlapTick()
     {
         //攻撃判定
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+        //enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
         //死んでいるかと時間計測
         if (stateHandler.CheckDeath()) return;

@@ -1,4 +1,7 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
 
 public class AIChicken_ThrowEgg : EnemyAction
 {
@@ -56,42 +59,57 @@ public class AIChicken_ThrowEgg : EnemyAction
 
         enemy.Move();
 
-        //じわりとみる
+        //じわりとみる準備
         direction = player.position - enemy.transform.position;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
         targetRotation.x = 0f;
+        targetRotation.z = 0f;
 
-        enemy.transform.rotation = Quaternion.Slerp(
+        if (distanceToPlayer < minDistance)
+            {//逃げよう
+
+            //ジワリと見る
+            enemy.transform.rotation = Quaternion.Slerp(
         enemy.transform.rotation,
         targetRotation,
         0.1f // 補間率（1.0fで即時、0.0fで変化なし）
     );
-
-
-        if (distanceToPlayer < minDistance)
-            {//逃げよう
-            //Quaternion backwardRotation = Quaternion.LookRotation(-direction.normalized);
-            //backwardRotation.x = 0f;
-            //transform.rotation = backwardRotation;
-            //Debug.Log("back");
+            Debug.Log("back");
             enemy.Anim.Play("Escape");
             enemy.OnMovementInput?.Invoke(-direction.normalized / 2);
             }
             else if (distanceToPlayer <= maxDistance && distanceToPlayer > minDistance)
             {//攻撃しましょう
-                //クールダウン
-                enemy.StartAttackCoroutine();
+            Debug.Log("attack");
+
+            enemy.Anim.Play("Idle");
+            enemy.OnMovementInput?.Invoke(Vector3.zero);
+
+            if (!enemy.AllowAttack) return;
+
+            //クールダウン
+            enemy.StartAttackCoroutine();
 
                 stateHandler.TransitionState(ObjectStateType.Attack);
                 return;
             }
             else if (distanceToPlayer > maxDistance)
             {//追跡しよう
-                enemy.Anim.Play("Walk");
 
-                // 自分を基準にした前進
-                Vector3 forwardDirection = enemy.transform.forward;
+            Debug.Log("walk");
+
+            enemy.Anim.Play("Walk");
+
+            //ジワリと見る
+            enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.2f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+
+            // 自分を基準にした前進
+            Vector3 forwardDirection = enemy.transform.forward;
                 forwardDirection.y = 0f;// 地面に沿った移動
                 // 追跡
                 enemy.OnMovementInput?.Invoke(forwardDirection.normalized);
@@ -105,6 +123,43 @@ public class AIChicken_ThrowEgg : EnemyAction
         }
     }
 
+    public void AttackInit()
+    {
+        enemy.Anim.SetTrigger("IsAttack");
+    }
+
+    public void AttackTick()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        stateHandler = enemy.State;
+        if (stateHandler.CheckDeath()) return;
+
+        //ダメージチェック
+        if (stateHandler.CheckHit()) return;
+
+        //じわりとみる
+        direction = player.position - enemy.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+        targetRotation.z = 0f;
+
+        enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+        //アイドルへ遷移
+        /*
+        if (objController.MovementInput.magnitude <= 0f && !objController.IsAttacking)
+            enemyStateHandler.TransitionState(ObjectStateType.Idle);
+        */
+        if (stateInfo.IsName("PostSkill") && stateInfo.normalizedTime >= 3.0f)
+        {
+            enemy.State.TransitionState(ObjectStateType.Idle);
+        }
+    }
+
     // アニメーションイベントから呼び出すメソッド
     public void BeginThrowSequence()
     {
@@ -113,6 +168,18 @@ public class AIChicken_ThrowEgg : EnemyAction
             //currentThrow = 0;
             isThrowing = true;
             ThrowEgg();
+            //InvokeRepeating(nameof(ThrowEgg), 0f, throwInterval);
+        }
+    }
+
+    // アニメーションイベントから呼び出すメソッド
+    public void BeginCutterSequence()
+    {
+        if (!isThrowing)
+        {
+            //currentThrow = 0;
+            isThrowing = true;
+            ThrowCutter();
             //InvokeRepeating(nameof(ThrowEgg), 0f, throwInterval);
         }
     }
@@ -196,6 +263,71 @@ public class AIChicken_ThrowEgg : EnemyAction
                 }
                 Destroy(gameObject);
             }
+        }
+    }
+
+    // 斜方投射
+    private void ThrowCutter()
+    {
+        // プレハブのインスタンスを生成
+        GameObject thrownCutter = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation, collector.transform);
+        Rigidbody rbEgg = thrownCutter.GetComponent<Rigidbody>();
+        rbEgg.useGravity = false; // 円運動中は重力を無効化
+
+        collector.GetComponent<ObjectCollector>().otherObjectPool.Add(thrownCutter);
+
+        // 円運動の設定
+        float radius = 8.0f; // 円の半径
+        float speed = 2.0f;  // 回転速度
+
+        // 初期位置を計算
+        float angle = 0.0f; // 初期角度
+        Vector3 circularDirection = new Vector3(
+            Mathf.Cos(angle) * radius, // X座標 (円のX方向)
+            0.0f,                      // 高さ（水平）
+            Mathf.Sin(angle) * radius  // Z座標 (円のZ方向)
+        );
+
+        // 円運動を計算する力
+        Vector3 force = speed * circularDirection.normalized;
+        rbEgg.AddForce(force, ForceMode.Impulse);
+
+        // 衝突時に削除するコンポーネントを追加
+        thrownCutter.AddComponent<DestroyOnCollision>();
+
+        // 指定時間後に削除
+        Destroy(thrownCutter, 2.0f);
+
+        // 円運動の開始
+        StartCoroutine(CircularMotion(thrownCutter, rbEgg, 12.0f, 1.0f));
+        isThrowing = false;
+    }
+
+    // 円運動を作るコルーチン
+    private IEnumerator CircularMotion(GameObject cutter, Rigidbody rb, float speed, float moveTime)
+    {
+        float elapsedTime = 0f; // 経過時間を計測
+        Vector3 direction = cutter.transform.forward; // 初期は前進
+
+        while (true)
+        {
+            // Y軸を中心に高速回転
+            cutter.transform.Rotate(0, 1200.0f * Time.deltaTime, 0, Space.Self);
+
+            // 移動
+            rb.MovePosition(rb.position + direction * speed * Time.deltaTime);
+
+            // 経過時間を更新
+            elapsedTime += Time.deltaTime;
+
+            // moveTimeを超えたら進行方向を反転
+            if (elapsedTime >= moveTime)
+            {
+                elapsedTime = 0f; // 経過時間をリセット
+                direction = -direction; // 進行方向を反転
+            }
+
+            yield return null; // 次のフレームまで待機
         }
     }
 
