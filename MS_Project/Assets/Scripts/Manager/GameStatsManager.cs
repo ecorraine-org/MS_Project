@@ -9,7 +9,7 @@ public class GameStatsManager : SingletonBaseBehavior<GameStatsManager>
 {
 
     [SerializeField, Header("ゲーム時間")]
-    float gameTime;
+    public float gameTime;
 
 
     protected override void AwakeProcess()
