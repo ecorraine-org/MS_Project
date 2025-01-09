@@ -2,34 +2,33 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using PixelCrushers.SceneStreamer;
 
 public class FadeSceneChange : MonoBehaviour
 {
-    public Image fadePanel;             // フェード用のUIパネル（Image）
-    public float fadeDuration = 1.0f;   // フェードの完了にかかる時間
-    private bool isFading = false;      // フェード中かどうかを判定
-    public GameObject buttonObject;     // ボタンのGameObjectを参照する変数
-    private Button button;              // Buttonコンポーネントの参照
+    public Image fadePanel;
+    public float fadeDuration = 1.0f;
+    private bool isFading = false;
+    public Canvas loadingCanvas;
+    [SerializeField] string sceneToLoad;
 
-    [SerializeField] string sceneToLoad; // 切り替えるシーン名を指定
+    // AnimatedSlider の参照を追加
+    public AnimatedSlider animatedSlider;
 
     private void Start()
     {
-        fadePanel.enabled = false;       // フェードパネルを無効化
-        fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0.0f); // 初期状態では透明
+        fadePanel.enabled = false;
+        fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0.0f);
+        loadingCanvas.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        // A,B,X,Yキーが押されたらフェードアウトを開始
         if (UIInputManager.Instance.GetAnyKeyTrigger() && !isFading)
         {
             StartCoroutine(FadeOutAndLoadScene());
         }
     }
 
-    // ボタン用のメソッド
     public void OnButtonClick()
     {
         if (!isFading)
@@ -40,26 +39,56 @@ public class FadeSceneChange : MonoBehaviour
 
     public IEnumerator FadeOutAndLoadScene()
     {
-        fadePanel.enabled = true;   // Enable the fade panel
+        fadePanel.enabled = true;
+        isFading = true;
 
-        isFading = true;                                 // Set the flag indicating fading is in progress
+        float elapsedTime = 0.0f;
+        Color startColor = fadePanel.color;
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f);
 
-        float elapsedTime = 0.0f;                        // Initialize the elapsed time
-        Color startColor = fadePanel.color;              // Get the starting color of the fade panel
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // Set the final color of the fade panel
-
-        // Perform the fade-out animation
         while (elapsedTime < fadeDuration)
         {
-            elapsedTime += Time.deltaTime;                        // Increase the elapsed time
-            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // Calculate the progress of the fade
-            fadePanel.color = Color.Lerp(startColor, endColor, t); // Change the panel color to create the fade effect
-            yield return null;                                     // Wait for the next frame
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / fadeDuration);
+            fadePanel.color = Color.Lerp(startColor, endColor, t);
+            yield return null;
         }
 
-        fadePanel.color = endColor;                                // Set the final color after the fade is complete
+        fadePanel.color = endColor;
+        loadingCanvas.gameObject.SetActive(true);
 
-        SceneStreamerManager.TransitionScene(sceneToLoad, false);    // Transition to the specified scene
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
+        asyncLoad.allowSceneActivation = false;
+
+        while (!asyncLoad.isDone)
+        {
+            // ローディング進捗に応じてスライダーを更新
+            if (animatedSlider != null)
+            {
+                animatedSlider.UpdateSlider(asyncLoad.progress);
+            }
+
+            // 進捗が 0.9 以上になったら遷移を許可
+            if (asyncLoad.progress >= 0.9f)
+            {
+                // 進捗がほぼ完了したら、進捗バーを100%にして遷移
+                if (animatedSlider != null)
+                {
+                    animatedSlider.UpdateSlider(1f); // スライダーを100%に設定
+                }
+
+                // シーンをアクティブ化
+                asyncLoad.allowSceneActivation = true;
+            }
+
+            yield return null;
+        }
+
+        if (loadingCanvas != null)
+        {
+            loadingCanvas.gameObject.SetActive(false);
+        }
     }
+
 
 }
