@@ -67,6 +67,25 @@ namespace PixelCrushers.SceneStreamer
             }
         }
         /// <summary>
+        /// シーンを非同期で読み込む
+        /// </summary>
+        private IEnumerator LoadSceneAsync(string sceneName)
+        {
+            AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneName);
+            loadOperation.allowSceneActivation = false;
+
+            while (!loadOperation.isDone)
+            {
+                // ロードが完了したらシーンをアクティブ化
+                if (loadOperation.progress >= 0.9f)
+                {
+                    loadOperation.allowSceneActivation = true;
+                }
+
+                yield return null;
+            }
+        }
+        /// <summary>
         /// シーンの切り替えを行う
         /// </summary>
         public IEnumerator TransitionToScene(string targetSceneName, bool isMainGameScene = false)
@@ -78,7 +97,6 @@ namespace PixelCrushers.SceneStreamer
 
             isTransitioning = true;
 
-
             yield return StartCoroutine(CleanupCurrentSceneStreams());
 
             // シーンを切り替える
@@ -88,13 +106,12 @@ namespace PixelCrushers.SceneStreamer
             }
             else
             {
-                yield return StartCoroutine(LoadSingleScene(targetSceneName));
+                yield return StartCoroutine(LoadSceneAsync(targetSceneName));
             }
 
             previousSceneName = targetSceneName;
             isTransitioning = false;
         }
-
         private IEnumerator CleanupCurrentSceneStreams()
         {
 

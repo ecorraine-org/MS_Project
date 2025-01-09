@@ -11,10 +11,9 @@ public class AnimatedSlider : MonoBehaviour
     [SerializeField]
     Image sliderImg;
 
-    Slider slider;
+    public Slider slider;
     float index;
 
-    // Start is called before the first frame update
     void Start()
     {
         sliderImg.GetComponent<Image>().sprite = spriteArray[0];
@@ -22,7 +21,6 @@ public class AnimatedSlider : MonoBehaviour
         slider.value = 0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
         index += slider.value * Time.deltaTime * 10f;
@@ -32,5 +30,14 @@ public class AnimatedSlider : MonoBehaviour
             index = 0;
         }
         sliderImg.GetComponent<Image>().sprite = spriteArray[(int)index];
+    }
+
+    // スライダー値を更新するメソッド
+    public void UpdateSlider(float progress)
+    {
+        if (slider != null)
+        {
+            slider.value = progress;
+        }
     }
 }
