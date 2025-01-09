@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_UFOMelon
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 70
+  maxHealth: 50
   mass: 1000
   enemyID: 0
   gameObjPrefab: Enemy/UFOMelon
@@ -29,7 +29,7 @@ MonoBehaviour:
   SelfType: 0
   onomatoAttack: {fileID: 11400000, guid: 97b0e324e4ef70b46ad0641aa8470f75, type: 2}
   onomatoWalk: {fileID: 11400000, guid: 54420362a08d5844d824122acb61fd21, type: 2}
-  tolerances: 02000000
-  weaknesses: 01000000
+  tolerances: 03000000
+  weaknesses: 02000000
   sfxClip: 
   vfxClip: 
