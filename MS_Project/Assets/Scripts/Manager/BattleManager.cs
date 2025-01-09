@@ -7,6 +7,10 @@ using UnityEngine;
 /// </summary>
 public class BattleManager : SingletonBaseBehavior<BattleManager>
 {
+    public delegate void HitStopEventHandler(bool isHitStop);
+    public static event HitStopEventHandler OnHitStopEvent;
+
+
     [SerializeField, Header("ヒットリアクションデータ")]
     PlayerHitData playerHitData;
 
@@ -48,11 +52,18 @@ public class BattleManager : SingletonBaseBehavior<BattleManager>
         _animator.speed = _slowSpeed;
         isHitStop = true;
 
+        //Debug.Log("Bind ヒットストップ開始イベント回数テスト");
+        //ヒットストップ開始イベント
+        OnHitStopEvent?.Invoke(true);
+
         yield return new WaitForSeconds(_duration);
 
         //流す速度を戻す
         if (_animator != null) _animator.speed = 1f;
         isHitStop = false;
+
+        //ヒットストップ終了イベント
+        OnHitStopEvent?.Invoke(false);
     }
 
     #region TimeSlow

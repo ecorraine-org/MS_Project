@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Enemy_KnightTest
   m_EditorClassIdentifier: 
   isInvincible: 0
-  maxHealth: 100
+  maxHealth: 1e+10
   mass: 4000
   enemyID: 0
-  gameObjPrefab: Enemy/KnightV2
+  gameObjPrefab: Enemy/KnightV3
   enemyRank: 1
   timeTillNextAction: 1
   damage: 4

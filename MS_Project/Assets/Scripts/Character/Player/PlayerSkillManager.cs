@@ -538,7 +538,7 @@ public class PlayerSkillManager : MonoBehaviour
                 particle.ChangeScale(curEffectParam.scale);
                 particle.ChangePlaybackSpeed(curEffectParam.speed);
                 particle.SetStartSize(curEffectParam.startSize);
-
+                particle.BindHitStopEvent();
             }
 
         }
