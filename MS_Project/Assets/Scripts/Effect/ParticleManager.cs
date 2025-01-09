@@ -8,8 +8,14 @@ using UnityEngine;
 public class ParticleManager : MonoBehaviour
 {
     ParticleSystem particle;
-   
+
     ParticleCompStartSize[] startSizeComps;
+
+    //シングルトン
+    BattleManager battleManager;
+
+    [SerializeField, Header("設定した速度を記録")]
+    float basePlaySpeed=1;
 
 
     private void Awake()
@@ -18,12 +24,54 @@ public class ParticleManager : MonoBehaviour
 
         startSizeComps = GetComponentsInChildren<ParticleCompStartSize>();
 
+        battleManager = BattleManager.Instance;
+
+    }
+
+    private void OnDisable()
+    {
+        UnbindEvents();
     }
 
     private void Update()
     {
         //  if (this.particle.isPlaying) return;
         //  Destroy(this.gameObject);
+    }
+
+    public void BindHitStopEvent()
+    {
+        //複数のバインドを避けるため
+        BattleManager.OnHitStopEvent -= HandleHitStop;
+        //イベントをバインドする
+        BattleManager.OnHitStopEvent += HandleHitStop;
+
+    }
+
+    public void UnbindEvents()
+    {
+        //バインドを解除する
+        BattleManager.OnHitStopEvent -= HandleHitStop;
+
+    }
+
+    public void HandleHitStop(bool _isHitStop)
+    {
+        if (_isHitStop)
+        {
+            //Debug.Log("Bind HitstopEvent" + _isHitStop);
+
+            HitReaction hitReaction = battleManager.GetPlayerHitReaction();
+            ChangePlaybackSpeed(hitReaction.slowSpeed, false);
+        } 
+        else
+        {        
+            //バインドを解除する
+            BattleManager.OnHitStopEvent -= HandleHitStop;
+            //速度を元に戻す
+            //Debug.Log("Bind HitstopEvent" + _isHitStop+ " basePlaySpeed "+ basePlaySpeed);
+            ResetPlaybackSpeed();
+        }
     }
 
     public void SetLoop(bool isLooping)
@@ -117,7 +165,12 @@ public class ParticleManager : MonoBehaviour
         }
     }
 
-    public void ChangePlaybackSpeed(float speedFactor)
+    /// <summary>
+    /// 再生速度を設定
+    /// </summary>
+    /// <param name="speedFactor">設定したい速度倍率</param>
+    /// <param name="isSetBaseSpeed">trueの場合、変更した速度をデフォルトの速度として使う</param>
+    public void ChangePlaybackSpeed(float speedFactor, bool isSetBaseSpeed = true)
     {
         // 現在のオブジェクトのParticleSystemコンポーネントを取得
         ParticleSystem particleSystem = GetComponent<ParticleSystem>();
@@ -127,12 +180,9 @@ public class ParticleManager : MonoBehaviour
         {
             var mainModule = particleSystem.main;
             mainModule.simulationSpeed *= speedFactor;
+           if(isSetBaseSpeed) basePlaySpeed = mainModule.simulationSpeed;
         }
-        else
-        {
-            // ParticleSystemが存在しない場合のエラーログ（必要に応じて有効化）
-            // Debug.LogError("ParticleSystemコンポーネントが見つかりません。");
-        }
+
 
         // 子オブジェクトの全てのParticleSystemコンポーネントを取得して再生速度を変更
         ParticleSystem[] childParticleSystems = GetComponentsInChildren<ParticleSystem>(true);
@@ -147,7 +197,30 @@ public class ParticleManager : MonoBehaviour
         }
     }
 
+    public void ResetPlaybackSpeed()
+    {
+        // 現在のオブジェクトのParticleSystemコンポーネントを取得
+        ParticleSystem particleSystem = GetComponent<ParticleSystem>();
 
+        // ParticleSystemが存在する場合、再生速度を変更
+        if (particleSystem != null)
+        {
+            var mainModule = particleSystem.main;
+            mainModule.simulationSpeed = basePlaySpeed;
+        }
+
+        // 子オブジェクトの全てのParticleSystemコンポーネントを取得して再生速度を変更
+        ParticleSystem[] childParticleSystems = GetComponentsInChildren<ParticleSystem>(true);
+        foreach (var childParticleSystem in childParticleSystems)
+        {
+            // 現在のオブジェクトのParticleSystemはスキップ
+            if (childParticleSystem != particleSystem)
+            {
+                var mainModule = childParticleSystem.main;
+                mainModule.simulationSpeed = basePlaySpeed;
+            }
+        }
+    }
 
 
 
