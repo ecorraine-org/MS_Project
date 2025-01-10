@@ -7,6 +7,9 @@ public class PlayerUIModeChange : MonoBehaviour
 {
     private PlayerController player;
 
+    [SerializeField]
+    private Image iconHolder;
+
     [SerializeField, Header("プレイヤー武器アイコンまたはプレハブ"), Tooltip("武器モードに対応するスプライトまたはプレハブ")]
     private Object[] weaponIconsOrPrefabs; // SpriteまたはGameObjectを受け付ける
 
@@ -17,7 +20,11 @@ public class PlayerUIModeChange : MonoBehaviour
 
     private void Start()
     {
+        iconHolder = this.GetComponent<Image>();
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        SwitchWeaponIconOrPrefab();
     }
 
     private void Update()
@@ -66,14 +73,13 @@ public class PlayerUIModeChange : MonoBehaviour
 
             // 新しい要素をスプライトまたはプレハブから生成
             Object iconOrPrefab = iconsOrPrefabs[modeIndex];
-            if (iconOrPrefab is Sprite sprite)
+            if (iconOrPrefab is Sprite)
             {
                 // スプライトの場合はImageコンポーネントを更新
-                Image imageComponent = this.gameObject.GetComponent<Image>();
-                if (imageComponent != null)
+                if (iconHolder != null)
                 {
-                    imageComponent.sprite = sprite;
-                    imageComponent.enabled = true;
+                    iconHolder.sprite = iconOrPrefab as Sprite;
+                    iconHolder.enabled = true;
                 }
             }
             else if (iconOrPrefab is GameObject prefab)
