@@ -6,11 +6,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 
 public class PlayerController : WorldObject
 {
-    public TutorialStage tutorialStage= TutorialStage.None;
+    public TutorialPhase tutorialStage = TutorialPhase.None;
 
     [SerializeField, Header("足元のエフェクト")]
     GameObject dustEffect;
@@ -74,7 +75,7 @@ public class PlayerController : WorldObject
 
     //現在の向き
     Direction currentDirec = Direction.Left;
-    Direction preDirec= Direction.None;
+    Direction preDirec = Direction.None;
 
     //現在の向き(ベクトル)
     UnityEngine.Vector3 curDirecVector = new UnityEngine.Vector3(-1, 0, 0);
@@ -128,8 +129,6 @@ public class PlayerController : WorldObject
 
     void Start()
     {
-
-
         groundCheck = gameObject.transform.GetChild(1).gameObject.transform;
         if (Debug.isDebugBuild)
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
@@ -137,11 +136,8 @@ public class PlayerController : WorldObject
         fadePanel.enabled = false;       // フェードパネルを無効化
         fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0.0f); // 初期状態では透明
 
-
         //dustEffectInstance = Instantiate(dustEffect, transform.position, UnityEngine.Quaternion.LookRotation(-transform.forward) * UnityEngine.Quaternion.Euler(60, 0, 0), transform);
     }
-
-
 
     private void Update()
     {
@@ -150,14 +146,13 @@ public class PlayerController : WorldObject
         //仮設定
         //BattleManager.Instance.CurPlayerMode =modeManager.Mode;
 
-
         //デバグ用即死
         if (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2))
         {
             statusManager.CurrentHealth = 0;
         }
 
-        if(statusManager.CurrentHealth <= 0)
+        if (statusManager.CurrentHealth <= 0)
         {
             //操作不能にする
             InputController.Instance.SetInputContext(InputController.InputContext.UI);
@@ -165,8 +160,8 @@ public class PlayerController : WorldObject
             StartCoroutine(FadeOutAndLoadScene());
         }
 
-            //前方向で向き設定
-            UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.LookRotation(GetForward());
+        //前方向で向き設定
+        UnityEngine.Quaternion targetRotation = UnityEngine.Quaternion.LookRotation(GetForward());
         transform.rotation = UnityEngine.Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
 
         //スプライトをカメラに向く
@@ -178,8 +173,8 @@ public class PlayerController : WorldObject
         UnityEngine.Vector3 gravity = Physics.gravity * (RigidBody.mass * RigidBody.mass);
         RigidBody.AddForce(gravity * Time.deltaTime);
 
-        //sprite.transform.rotation = Camera.main.transform.rotation;
         /*
+        sprite.transform.rotation = Camera.main.transform.rotation;
         Debug.Log("CurDirec "+curDirecVector);
 
         thisRigidbody.velocity = new UnityEngine.Vector3(moveInput.x * moveSpeed, thisRigidbody.velocity.y, moveInput.y * moveSpeed);
@@ -197,8 +192,8 @@ public class PlayerController : WorldObject
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            //canJump = true;
-            //thisRigidbody.AddForce(UnityEngine.Vector3.up * jumpForce, ForceMode.Impulse);
+            canJump = true;
+            thisRigidbody.AddForce(UnityEngine.Vector3.up * jumpForce, ForceMode.Impulse);
             thisRigidbody.velocity += new UnityEngine.Vector3(0f, jumpForce, 0f);
         }
          */
@@ -239,7 +234,7 @@ public class PlayerController : WorldObject
         {
             spriteRenderer.flipX = true;
             currentDirec = Direction.Right;
-           
+
         }
 
         if (angle >= angleThreshold && angle < angleThreshold * 3)
@@ -290,67 +285,50 @@ public class PlayerController : WorldObject
     {
         // spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
 
-       
-
         switch (currentDirec)
         {
-            //case Direction.Up:
-            //       spriteAnim.Play("WalkUp");
-            //        break;
-            //case Direction.UpRight:
-            //    spriteAnim.Play("WalkUpRight");
-            //    break;
-            //case Direction.UpLeft:
+            /*
+            case Direction.UpRight:
+                spriteAnim.Play("WalkUpRight");
+                break;
+            case Direction.Up:
+                spriteAnim.Play("WalkUp");
+                break;
+            case Direction.UpLeft:
+                spriteAnim.Play("WalkUpRight");
+                break;
 
-            //    spriteAnim.Play("WalkUpRight");
-            //    break;
+            case Direction.Right:
+                spriteAnim.Play("WalkRight");
+                break;
+
+            case Direction.Left:
+                spriteAnim.Play("WalkRight");
+                break;
+
+            case Direction.DownLeft:
+                spriteAnim.Play("WalkDownRight");
+                break;
+
+            case Direction.Down:
+                spriteAnim.Play("WalkDown");
+                break;
+
+            case Direction.DownRight:
+                spriteAnim.Play("WalkDownRight");
+                break;
+            */
             default:
                 spriteAnim.Play("WalkRight");
                 break;
         }
-
-        //switch (currentDirec)
-        //{
-        //    case Direction.Right:
-        //        spriteAnim.Play("WalkRight");
-        //        break;
-
-        //    case Direction.UpRight:
-        //        spriteAnim.Play("WalkUpRight");
-        //        break;
-
-        //    case Direction.Up:
-        //        spriteAnim.Play("WalkUp");
-        //        break;
-
-        //    case Direction.UpLeft:
-
-        //        spriteAnim.Play("WalkUpRight");
-        //        break;
-
-        //    case Direction.Left:
-        //        spriteAnim.Play("WalkRight");
-        //        break;
-
-        //    case Direction.DownLeft:
-        //        spriteAnim.Play("WalkDownRight");
-        //        break;
-
-        //    case Direction.Down:
-        //        spriteAnim.Play("WalkDown");
-        //        break;
-
-        //    case Direction.DownRight:
-        //        spriteAnim.Play("WalkDownRight");
-        //        break;
-        //}
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
 
-      //  Gizmos.DrawLine(transform.position, transform.position + GetForward());
+        //  Gizmos.DrawLine(transform.position, transform.position + GetForward());
 
         Gizmos.DrawLine(transform.position, transform.position + transform.forward);
     }
@@ -364,7 +342,7 @@ public class PlayerController : WorldObject
 
     public override void Attack(Collider _hitCollider)
     {
-    
+
         if (_hitCollider.gameObject.layer == LayerMask.NameToLayer("Enemy")
             || _hitCollider.gameObject.layer == LayerMask.NameToLayer("Onomatopoeia"))
         {
@@ -373,14 +351,12 @@ public class PlayerController : WorldObject
         }
     }
 
-
-
     public override void Miss()
     {
         base.Miss();
 
-       // Debug.Log("空振り処理");
-      //  GenerateOnomatopoeia(statusManager.StatusData.onomato???);
+        //Debug.Log("空振り処理");
+        //GenerateOnomatopoeia(statusManager.StatusData.onomato ???);
     }
 
     public override void GenerateOnomatopoeia(GameObject _owner, OnomatopoeiaData _onomatopoeiaData) { }
@@ -426,10 +402,6 @@ public class PlayerController : WorldObject
                 }
             }
         }
-
-
-
-
     }
 
     #region Getter&Setter 
@@ -448,8 +420,6 @@ public class PlayerController : WorldObject
         {
             return base.GetNextDirec();
         }
-
-      
     }
 
     /// <summary>
@@ -457,7 +427,7 @@ public class PlayerController : WorldObject
     /// </summary>
     public override UnityEngine.Vector3 GetForward()
     {
-        
+
         if (stateManager.CurrentStateType == StateType.Walk
             || stateManager.CurrentStateType == StateType.Idle
              || stateManager.CurrentStateType == StateType.Dodge)
@@ -573,7 +543,7 @@ public class PlayerController : WorldObject
 
     #endregion
 
-     public IEnumerator FadeOutAndLoadScene()
+    public IEnumerator FadeOutAndLoadScene()
     {
         fadePanel.enabled = true;   // フェードパネルを有効化
 

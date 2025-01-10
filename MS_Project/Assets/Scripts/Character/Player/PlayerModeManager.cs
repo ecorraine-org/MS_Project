@@ -9,7 +9,7 @@ public class PlayerModeManager : MonoBehaviour
 {
     //モードチェンジイベント定義
     public delegate void ModelCHangeEvtHandler(PlayerMode _mode);
-    public static event ModelCHangeEvtHandler OnModelCHange;
+    public static event ModelCHangeEvtHandler OnModeChange;
 
     //PlayerControllerの参照
     PlayerController playerController;
@@ -57,7 +57,7 @@ public class PlayerModeManager : MonoBehaviour
         TimerUtility.TimeBasedTimer(this, 0.5f, () =>
         {
             //モードチェンジイベント発信
-            OnModelCHange?.Invoke(_mode);
+            OnModeChange?.Invoke(_mode);
         });
 
 

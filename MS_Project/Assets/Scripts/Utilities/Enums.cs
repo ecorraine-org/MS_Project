@@ -171,15 +171,15 @@ public enum HitEffect
 /// <summary>
 /// チュートリアル段階
 /// </summary>
-public enum TutorialStage
+public enum TutorialPhase
 {
     None,
-    Step1,
-    Step2,
-    Step3,
-    Step4,
-    Step5,
-    Step6,
-    Step7,
-    Step8
+    [InspectorName("不思議なところ"), Tooltip("不思議なところ")] Phase1,
+    [InspectorName("敵と出会った"), Tooltip("敵と出会った")] Phase2,
+    [InspectorName("敵を弱める"), Tooltip("敵を弱める")] Phase3,
+    [InspectorName("オノマトペ案内"), Tooltip("オノマトペ案内")] Phase4,
+    [InspectorName("捕食による変身"), Tooltip("捕食による変身")] Phase5,
+    [InspectorName("初めての変身"), Tooltip("初めての変身")] Phase6,
+    [InspectorName("敵死亡"), Tooltip("敵死亡")]Phase7,
+    TutorialEnd
 }
