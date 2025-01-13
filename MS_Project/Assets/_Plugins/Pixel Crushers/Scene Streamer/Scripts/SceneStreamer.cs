@@ -146,14 +146,14 @@ namespace PixelCrushers.SceneStreamer
         public void SetCurrent(string sceneName)
         {
             if (string.IsNullOrEmpty(sceneName) || string.Equals(sceneName, m_currentSceneName)) return;
-            if (logDebugInfo) Debug.Log("Scene Streamer: Setting current scene to " + sceneName + ".");
+            if (logDebugInfo) Debug.Log("<color=#00ffff>Scene Streamer: Setting current scene to " + sceneName + ".</color>");
             StartCoroutine(LoadCurrentScene(sceneName));
         }
 
         //保持中のを他クラスに渡すためのメソッド
-        public string GetCurrentScene()
+        public static string GetCurrentScene()
         {
-            return m_currentSceneName;
+            return instance.m_currentSceneName;
         }
 
         /// <summary>
@@ -172,11 +172,11 @@ namespace PixelCrushers.SceneStreamer
             {
                 yield return null;
             }
-            if (Time.realtimeSinceStartup >= failsafeTime && Debug.isDebugBuild) Debug.LogWarning("Scene Streamer: Timed out waiting to load " + sceneName + ".");
+            if (Time.realtimeSinceStartup >= failsafeTime && Debug.isDebugBuild) Debug.LogWarning("<color=#ffff00>Scene Streamer: Timed out waiting to load " + sceneName + ".</color>");
 
             // Next load neighbors up to maxNeighborDistance, keeping track
             // of them in the near list:
-            if (logDebugInfo) Debug.Log("Scene Streamer: Loading " + maxNeighborDistance + " closest neighbors of " + sceneName + ".");
+            if (logDebugInfo) Debug.Log("<color=#00ffff>Scene Streamer: Loading " + maxNeighborDistance + " closest neighbors of " + sceneName + ".</color>");
             m_near.Clear();
             LoadNeighbors(sceneName, 0);
             failsafeTime = Time.realtimeSinceStartup + maxLoadWaitTime;
@@ -184,7 +184,7 @@ namespace PixelCrushers.SceneStreamer
             {
                 yield return null;
             }
-            if (Time.realtimeSinceStartup >= failsafeTime && Debug.isDebugBuild) Debug.LogWarning("Scene Streamer: Timed out waiting to load neighbors of " + sceneName + ".");
+            if (Time.realtimeSinceStartup >= failsafeTime && Debug.isDebugBuild) Debug.LogWarning("<color=#ffff00>Scene Streamer: Timed out waiting to load neighbors of " + sceneName + ".</color>");
 
             // Finally unload any scenes not in the near list:
             UnloadFarScenes();
@@ -269,7 +269,7 @@ namespace PixelCrushers.SceneStreamer
                 return;
             }
             m_loading.Add(sceneName);
-            if (logDebugInfo && distance > 0) Debug.Log("Scene Streamer: Loading " + sceneName + ".");
+            if (logDebugInfo && distance > 0) Debug.Log("<color=#00ffff>Scene Streamer: Loading " + sceneName + ".</color>");
             StartCoroutine(LoadAdditiveAsync(sceneName, loadedHandler, distance));
         }
 
@@ -316,7 +316,7 @@ namespace PixelCrushers.SceneStreamer
         private void FinishLoad(string sceneName, InternalLoadedHandler loadedHandler, int distance)
         {
             GameObject scene = GameObject.Find(sceneName);
-            if (scene == null && Debug.isDebugBuild) Debug.LogWarning("Scene Streamer: Can't find loaded scene named '" + sceneName + "'.");
+            if (scene == null && Debug.isDebugBuild) Debug.LogWarning("<color=#ffff00>Scene Streamer: Can't find loaded scene named '" + sceneName + "'.</color>");
             m_loading.Remove(sceneName);
             m_loaded.Add(sceneName);
             onLoaded.Invoke(sceneName);
@@ -330,7 +330,7 @@ namespace PixelCrushers.SceneStreamer
         {
             HashSet<string> far = new HashSet<string>(m_loaded);
             far.ExceptWith(m_near);
-            if (logDebugInfo && far.Count > 0) Debug.Log("Scene Streamer: Unloading scenes more than " + maxNeighborDistance + " away from current scene " + m_currentSceneName + ".");
+            if (logDebugInfo && far.Count > 0) Debug.Log("<color=#00ffff>Scene Streamer: Unloading scenes more than " + maxNeighborDistance + " away from current scene " + m_currentSceneName + ".</color>");
             foreach (var sceneName in far)
             {
                 Unload(sceneName);
@@ -343,7 +343,7 @@ namespace PixelCrushers.SceneStreamer
         /// <param name="sceneName">Scene name.</param>
         public void Unload(string sceneName)
         {
-            if (logDebugInfo) Debug.Log("Scene Streamer: Unloading scene " + sceneName + ".");
+            if (logDebugInfo) Debug.Log("<color=#00ffff>Scene Streamer: Unloading scene " + sceneName + ".</color>");
             m_loaded.Remove(sceneName);
 #if USE_SAVESYSTEM
             SaveSystem.UnloadAdditiveScene(sceneName);

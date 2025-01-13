@@ -7,18 +7,26 @@ using UnityEngine;
 /// </summary>
 public class ObjectCollector : MonoBehaviour
 {
-    /*
-    [Header("敵合計数（合計２５匹まで）")]
-    public int totalEnemyCount = 0;
+    private static ObjectCollector instance;
+    public static ObjectCollector Instance => instance;
 
-    [Header("エネミープール"), Tooltip("エネミープール")]
-    public List<GameObject> enemyPool;
-    private int maxPoolSize = 25;
-    */
     private GameObject owner;
 
     [Header("オブジェクトプール"), Tooltip("オブジェクトプール")]
     public List<GameObject> otherObjectPool;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Update()
     {

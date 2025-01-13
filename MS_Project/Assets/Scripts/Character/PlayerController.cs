@@ -130,8 +130,10 @@ public class PlayerController : WorldObject
     void Start()
     {
         groundCheck = gameObject.transform.GetChild(1).gameObject.transform;
+        /*
         if (Debug.isDebugBuild)
             Debug.Log(gameObject.transform.GetChild(1).gameObject.name);
+        */
 
         fadePanel.enabled = false;       // フェードパネルを無効化
         fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0.0f); // 初期状態では透明
@@ -196,7 +198,7 @@ public class PlayerController : WorldObject
             thisRigidbody.AddForce(UnityEngine.Vector3.up * jumpForce, ForceMode.Impulse);
             thisRigidbody.velocity += new UnityEngine.Vector3(0f, jumpForce, 0f);
         }
-         */
+        */
     }
 
     /// <summary>
@@ -324,15 +326,6 @@ public class PlayerController : WorldObject
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-
-        //  Gizmos.DrawLine(transform.position, transform.position + GetForward());
-
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward);
-    }
-
     public override void Hit(bool _canOneHitKill)
     {
         if (statusManager.IsInvincible) return;
@@ -365,7 +358,6 @@ public class PlayerController : WorldObject
     {
         if (preDirec != currentDirec)
         {
-
             if (dustEffectInstance != null)
             {
                 dustEffectInstance.transform.SetParent(null);
@@ -404,7 +396,28 @@ public class PlayerController : WorldObject
         }
     }
 
-    #region Getter&Setter 
+    public IEnumerator FadeOutAndLoadScene()
+    {
+        fadePanel.enabled = true;   // フェードパネルを有効化
+
+        float elapsedTime = 0.0f;                        // 経過時間を初期化
+        Color startColor = fadePanel.color;              // フェードパネルの開始色を取得
+        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // フェードパネルの最終色を設定
+
+        // フェードアウトアニメーションを実行
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;                        // 経過時間を増やす
+            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // フェードの進行度を計算
+            fadePanel.color = Color.Lerp(startColor, endColor, t); // パネルの色を変更してフェードアウト
+            yield return null;                                     // 1フレーム待機
+        }
+
+        fadePanel.color = endColor;                                // フェードが完了したら最終色に設定
+        SceneManager.LoadScene(sceneToLoad);                    // シーンをロードしてメニューシーンに遷移
+    }
+
+    #region Getter&Setter
 
     /// <summary>
     /// 移動しようとする方向(Lスティック方向)を取得
@@ -543,25 +556,15 @@ public class PlayerController : WorldObject
 
     #endregion
 
-    public IEnumerator FadeOutAndLoadScene()
+    #region Gizmos
+    private void OnDrawGizmos()
     {
-        fadePanel.enabled = true;   // フェードパネルを有効化
+        Gizmos.color = Color.blue;
 
-        float elapsedTime = 0.0f;                        // 経過時間を初期化
-        Color startColor = fadePanel.color;              // フェードパネルの開始色を取得
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // フェードパネルの最終色を設定
+        //  Gizmos.DrawLine(transform.position, transform.position + GetForward());
 
-        // フェードアウトアニメーションを実行
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;                        // 経過時間を増やす
-            float t = Mathf.Clamp01(elapsedTime / fadeDuration);  // フェードの進行度を計算
-            fadePanel.color = Color.Lerp(startColor, endColor, t); // パネルの色を変更してフェードアウト
-            yield return null;                                     // 1フレーム待機
-        }
-
-        fadePanel.color = endColor;                                // フェードが完了したら最終色に設定
-        SceneManager.LoadScene(sceneToLoad);                    // シーンをロードしてメニューシーンに遷移
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward);
     }
+    #endregion
 }
 
