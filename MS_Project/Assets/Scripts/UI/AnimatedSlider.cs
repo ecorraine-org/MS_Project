@@ -32,7 +32,7 @@ public class AnimatedSlider : MonoBehaviour
         sliderImg.GetComponent<Image>().sprite = spriteArray[(int)index];
     }
 
-    // スライダー値を更新するメソッド
+    // 繧ｹ繝ｩ繧､繝繝ｼ蛟､繧呈峩譁ｰ縺吶ｋ繝｡繧ｽ繝�繝�
     public void UpdateSlider(float progress)
     {
         if (slider != null)

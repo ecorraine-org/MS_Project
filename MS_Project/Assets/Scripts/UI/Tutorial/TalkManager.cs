@@ -425,7 +425,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         {
             //背景プレハブをインスタンス化
             backgroundInstance = Instantiate(backgroundPrefab);
-            backgroundInstance.transform.SetParent(GameObject.Find("OuterCanvas/Panel").transform);
+            backgroundInstance.transform.SetParent(GameObject.Find("OuterCanvas/OuterCanvasPanel").transform);
             backgroundInstance.transform.localPosition = Vector3.zero;
             backgroundInstance.transform.localScale = Vector3.one;
         }
@@ -433,7 +433,7 @@ public class TalkManager : SingletonBaseBehavior<TalkManager>
         {
             //背景プレハブが設定されていない場合は、背景色を設定
             GameObject overlayObject = new GameObject("BackgroundOverlay");
-            overlayObject.transform.SetParent(GameObject.Find("OuterCanvas/Panel").transform);
+            overlayObject.transform.SetParent(GameObject.Find("OuterCanvas/OuterCanvasPanel").transform);
 
             backgroundOverlay = overlayObject.AddComponent<Image>();
             backgroundOverlay.color = Color.black;

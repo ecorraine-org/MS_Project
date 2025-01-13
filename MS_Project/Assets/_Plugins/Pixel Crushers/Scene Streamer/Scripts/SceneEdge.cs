@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace PixelCrushers.SceneStreamer
 {
@@ -62,9 +63,31 @@ namespace PixelCrushers.SceneStreamer
 
         private void SetCurrentScene()
         {
-            if (currentSceneRoot) SceneStreamer.SetCurrentScene(currentSceneRoot.name);
-        }
+            if (currentSceneRoot)
+            {
+                SceneStreamer.SetCurrentScene(currentSceneRoot.name);
 
+                if (currentSceneRoot.name != SceneManager.GetActiveScene().name)
+                {
+                    GameObject oldLight = GameObject.FindGameObjectWithTag("Light");
+                    if (oldLight)
+                    {
+                        if (oldLight.activeInHierarchy)
+                            oldLight.SetActive(false);
+                    }
+
+                    SceneManager.SetActiveScene(SceneManager.GetSceneByName(currentSceneRoot.name));
+
+                    GameObject[] objs = SceneManager.GetActiveScene().GetRootGameObjects();
+                    foreach (GameObject obj in objs)
+                    {
+                        if (obj.CompareTag("Light"))
+                            obj.SetActive(true);
+                    }
+                    Debug.Log("<color=#ffff00>Set active scene to " + currentSceneRoot.name + " </color>");
+                }
+            }
+        }
     }
 
 }

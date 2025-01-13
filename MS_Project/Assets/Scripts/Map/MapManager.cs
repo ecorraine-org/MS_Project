@@ -29,7 +29,7 @@ public class MapManager : MonoBehaviour
     //初期化時に
     private void Awake()
     {
-        _sceneStreamer = FindObjectOfType<SceneStreamer>();
+        _sceneStreamer = FindFirstObjectByType<SceneStreamer>();
         if (_sceneStreamer != null)
         {
             _sceneStreamer.onLoaded.AddListener(OnSceneLoaded);
@@ -69,7 +69,7 @@ public class MapManager : MonoBehaviour
     {
         if (_sceneStreamer == null) return;
 
-        string newRoomId = _sceneStreamer.GetCurrentScene();
+        string newRoomId = SceneStreamer.GetCurrentScene();
         if (newRoomId != _currentRoomId)
         {
             OnRoomChanged(newRoomId);

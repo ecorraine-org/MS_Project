@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CustomLogger
 {
+    public static void LogWarning(object _message)
+    {
+        if (Debug.isDebugBuild)
+            Debug.LogWarning("<color=#ffff00><b>Warning:</b> " + _message + "</color>");
+    }
+
     public static void LogWarning(object _message, object _object)
     {
         if (Debug.isDebugBuild)
@@ -13,6 +19,6 @@ public class CustomLogger
     public static void Log(object _message)
     {
         if (Debug.isDebugBuild)
-            Debug.Log("<color=#00ffff>" + _message + "</color>");
+            Debug.Log("<color=#00ff00>" + _message + "</color>");
     }
 }

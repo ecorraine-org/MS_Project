@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189bec9125ddd624b98be176e7618c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxNeighborDistance: 10
+  maxNeighborDistance: 2
   maxLoadWaitTime: 30
   onLoading:
     m_PersistentCalls:
@@ -53,7 +53,7 @@ MonoBehaviour:
   onLoaded:
     m_PersistentCalls:
       m_Calls: []
-  debug: 0
+  debug: 1
 --- !u!114 &4613133824699072568
 MonoBehaviour:
   m_ObjectHideFlags: 0
