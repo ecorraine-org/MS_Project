@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GiantActionList : EnemyAction
+public class DragonActionList : EnemyAction
 {
     [SerializeField, Header("ターゲットレイヤー")]
     LayerMask targetLayer;
@@ -39,7 +39,7 @@ public class GiantActionList : EnemyAction
             0.1f // 補間率（1.0fで即時、0.0fで変化なし）
         );
 
-            Vector3 forceDirection = -enemy.transform.forward * 0.3f; // 後ろ方向の力
+            Vector3 forceDirection = -enemy.transform.forward * 0.6f; // 後ろ方向の力
             enemy.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.VelocityChange);
         }
 
@@ -134,7 +134,7 @@ public class GiantActionList : EnemyAction
         enemy.transform.rotation = Quaternion.Slerp(
         enemy.transform.rotation,
         targetRotation,
-        0.3f // 補間率（1.0fで即時、0.0fで変化なし）
+        0.03f // 補間率（1.0fで即時、0.0fで変化なし）
     );
 
 
@@ -143,8 +143,7 @@ public class GiantActionList : EnemyAction
               distanceToPlayer >= EnemyStatus.StatusData.attackDistance * 7.0f)
         {
             //移動状態(走り)へ遷移
-            moveStage = 1;
-            stateHandler.TransitionState(ObjectStateType.Walk);
+            stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
 
             return;
         }
@@ -156,7 +155,7 @@ public class GiantActionList : EnemyAction
             return;
         }
 
-        //近すぎる
+        //近いよ
         if (distanceToPlayer < enemyStatus.StatusData.attackDistance * 0.7f)
         {
             stateHandler.TransitionState(ObjectStateType.Idle);
@@ -246,6 +245,60 @@ public class GiantActionList : EnemyAction
     }
     #endregion
 
+    #region Bite
+
+    /// <note>
+    /// 関数名は「Attack」や「Skill」にならないように
+    /// </note>
+    public void BiteInit()
+    {
+
+        animator.Play("Bite");
+
+        frameTime = 0;
+
+        //Updateで呼び出すために必須のバインド
+        //呼び出したい関数に変更する
+        currentUpdateAction = BiteTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[2].Damage = enemy.Status.StatusData.damage;
+    }
+
+    public void BiteTick()
+    {
+        //死んでいるかと時間計測
+        if (stateHandler.CheckDeath()) return;
+        frameTime += Time.deltaTime;
+
+        //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        direction = player.position - enemy.transform.position;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+        targetRotation.x = 0f;
+        targetRotation.z = 0f;
+
+        if (stateInfo.normalizedTime <= 0.15f)
+        {
+            enemy.transform.rotation = Quaternion.Slerp(
+        enemy.transform.rotation,
+        targetRotation,
+        0.03f // 補間率（1.0fで即時、0.0fで変化なし）
+    );
+        }
+
+        //アニメーション終了
+        if (stateInfo.IsName("Bite") && stateInfo.normalizedTime >= 1.0f)
+        {
+            stateHandler.TransitionState(ObjectStateType.Idle);
+        }
+    }
+    #endregion
+
     #region Attack
 
     /// <note>
@@ -262,8 +315,9 @@ public class GiantActionList : EnemyAction
         //呼び出したい関数に変更する
         currentUpdateAction = AttackTick;
 
-        //エフェクト設定
-        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Land1);
+        //攻撃判定V3
+        attackColliderV3Array[0].Damage = enemy.Status.StatusData.damage;
+        attackColliderV3Array[1].Damage = enemy.Status.StatusData.damage;
     }
 
     public void AttackTick()
@@ -292,6 +346,19 @@ public class GiantActionList : EnemyAction
             0.05f // 補間率（1.0fで即時、0.0fで変化なし）
         );
 
+        if ((stateInfo.normalizedTime > 0.25f && stateInfo.normalizedTime <= 0.35f))
+        {
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 4.0f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
+        }
+        else if ((stateInfo.normalizedTime > 0.45f && stateInfo.normalizedTime <= 0.55f))
+        {
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 4.0f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
+        }
+
         //アニメーション終了
         if (stateInfo.normalizedTime >= 1.0f)
         {
@@ -300,40 +367,55 @@ public class GiantActionList : EnemyAction
     }
     #endregion
 
-    #region Attack_Side
-    /// <summary>
-    /// 投げ初期化
-    /// </summary>
-    public void Attack_SideInit()
+    #region Slash
+    
+    public void SlashInit()
     {
-        animator.Play("Attack_Side");
 
-        frameTime = 0.0f;
+        animator.Play("Slash");
 
-        currentUpdateAction = Attack_SideTick;
+        frameTime = 0;
+
+        //Updateで呼び出すために必須のバインド
+        //呼び出したい関数に変更する
+        currentUpdateAction = SlashTick;
+
+        //攻撃判定V3
+        attackColliderV3Array[4].Damage = 20.0f;
     }
 
-    public void Attack_SideTick()
+    public void SlashTick()
     {
         if (stateHandler.CheckDeath()) return;
 
-        //ちょっとずつ見る
+        //アニメーションイベントで設定する必要ある(EnableHit DisableHit)
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, targetLayer, false);
+
+
+        //攻撃判定
+        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
         direction = player.position - enemy.transform.position;
 
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
         targetRotation.x = 0f;
         targetRotation.z = 0f;
 
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if ((stateInfo.normalizedTime > 0.32f && stateInfo.normalizedTime <= 0.38f))
+        {
+            // 前に進行
+            float chargeForce = enemy.RigidBody.mass * 8.0f;
+            enemy.RigidBody.AddForce(enemy.transform.forward * chargeForce, ForceMode.Impulse);
+        }
 
-        //攻撃判定
-        enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
 
-        if (stateInfo.normalizedTime <= 0.4f)
+        if (stateInfo.normalizedTime <= 0.32f)
             enemy.transform.rotation = Quaternion.Slerp(
             enemy.transform.rotation,
             targetRotation,
-            0.01f // 補間率（1.0fで即時、0.0fで変化なし）
+            0.05f // 補間率（1.0fで即時、0.0fで変化なし）
         );
 
         //アニメーション終了
@@ -343,6 +425,7 @@ public class GiantActionList : EnemyAction
         }
     }
     #endregion
+
 
     #region ActionList
 
@@ -380,12 +463,12 @@ public class GiantActionList : EnemyAction
   
 
     #region オノマトペ生成情報
-    private void GiantWalkData()
+    private void DragonWalkData()
     {
         GenerateWalkOnomatopoeia();
     }
 
-    private void GiantAttackData()
+    private void DragonAttackData()
     {
         GenerateAttackOnomatopoeia();
     }

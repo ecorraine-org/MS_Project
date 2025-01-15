@@ -21,7 +21,7 @@ MonoBehaviour:
     speed: 1
     isFollow: 1
   - effectName: 2
-    effect: {fileID: 7882868666210565615, guid: ba902cd53241f8e42b50627e6a1bc241, type: 3}
+    effect: {fileID: 1800760304470593153, guid: 6b90467660a693a43b298adad32a20e3, type: 3}
     rotation: {x: 0, y: 0, z: 0}
     position: {x: 0, y: 0, z: 0}
     scale: {x: 1, y: 1, z: 1}
@@ -41,10 +41,59 @@ MonoBehaviour:
     scale: {x: 1, y: 1, z: 1}
     speed: 1
     isFollow: 1
-  - effectName: 4
+  - effectName: 6
+    effect: {fileID: 8194779996236673889, guid: 63c7afa048fec004ba15dfa4a0b6cf93, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 7, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    speed: 1
+    isFollow: 1
+  - effectName: 7
+    effect: {fileID: 7757149955110915302, guid: c10ed4f653b636746b2c8609668ae2a6, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 7, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    speed: 1
+    isFollow: 1
+  - effectName: 5
     effect: {fileID: 1800760304470593153, guid: 6b90467660a693a43b298adad32a20e3, type: 3}
-    rotation: {x: 0, y: 0, z: 90}
+    rotation: {x: -40, y: 0, z: 90}
     position: {x: 0, y: 7, z: 2.5}
     scale: {x: 1, y: 1, z: 1}
+    speed: 1
+    isFollow: 1
+  - effectName: 10
+    effect: {fileID: 7882868666210565615, guid: 55ab797d8c37021459fac1c4c407e85a, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
+    scale: {x: 15, y: 15, z: 15}
+    speed: 1
+    isFollow: 0
+  - effectName: 11
+    effect: {fileID: 7882868666210565615, guid: 55ab797d8c37021459fac1c4c407e85a, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 0}
+    scale: {x: 8, y: 8, z: 8}
+    speed: 1
+    isFollow: 0
+  - effectName: 8
+    effect: {fileID: 1800760304470593153, guid: 63223bd56e6ce4a4eaecb7305972713e, type: 3}
+    rotation: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 3, z: 4}
+    scale: {x: 3, y: 3, z: 3}
+    speed: 1
+    isFollow: 1
+  - effectName: 9
+    effect: {fileID: 1800760304470593153, guid: 63223bd56e6ce4a4eaecb7305972713e, type: 3}
+    rotation: {x: 0, y: 0, z: 180}
+    position: {x: 0, y: 2, z: 5}
+    scale: {x: 2.5, y: 4, z: 2.5}
+    speed: 1
+    isFollow: 1
+  - effectName: 12
+    effect: {fileID: 1800760304470593153, guid: 63223bd56e6ce4a4eaecb7305972713e, type: 3}
+    rotation: {x: 0, y: 0, z: 90}
+    position: {x: 0, y: 3, z: 6}
+    scale: {x: 3, y: 5, z: 3}
     speed: 1
     isFollow: 1

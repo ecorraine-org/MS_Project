@@ -210,9 +210,6 @@ public class UltimateActionList : EnemyAction
         enemy.Anim.Play("Dash");
 
         currentUpdateAction = DashTick;
-
-        //エフェクト設定
-        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack3);
     }
 
     public void DashTick()
@@ -246,6 +243,10 @@ public class UltimateActionList : EnemyAction
             enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
             // 追跡
             enemy.OnMovementInput?.Invoke(direction.normalized * 0.3f);
+
+            //エフェクト設定
+            enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack3);
+            enemy.EffectHandler.SetCurEffectParam(1, EnemyEffect.Attack3);
         }
         if (!stateInfo.IsName("Dash_Attack"))
         {
@@ -528,6 +529,9 @@ public class UltimateActionList : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = Slash_JumpTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack5);
     }
 
     public void Slash_JumpTick()
@@ -596,6 +600,9 @@ public class UltimateActionList : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = StingTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack7);
     }
 
     public void StingTick()
@@ -661,7 +668,8 @@ public class UltimateActionList : EnemyAction
         currentUpdateAction = SpinTick;
 
         //エフェクト設定
-        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack4);
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack6);
+        enemy.EffectHandler.SetCurEffectParam(1, EnemyEffect.Attack4);
     }
 
     public void SpinTick()
