@@ -68,6 +68,12 @@ public class PlayerStatusManager : StatusManager
 
             frenzyTimer = playerStatusData.frenzyTime;
             isFrenzy = true;
+
+            //コライダー設定
+            if (playerController.RageCollider)
+            {
+                playerController.RageCollider.CanHit = true;
+            }
         }
 
         if (frenzyTimer > 0 && isFrenzy)
@@ -80,6 +86,14 @@ public class PlayerStatusManager : StatusManager
         {
             playerController.transform.localScale = defaultSize;
             isFrenzy = false;
+
+            //コライダーリセット
+            if (playerController.RageCollider)
+            {
+                playerController.RageCollider.Reset();
+                playerController.RageCollider.CanHit = false;
+            }
+           
         }
     }
 
