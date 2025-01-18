@@ -6,7 +6,6 @@ using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using PixelCrushers.SceneStreamer;
-using UnityEditor.SearchService;
 
 namespace Stage.Utility
 {
