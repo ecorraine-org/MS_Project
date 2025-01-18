@@ -44,6 +44,91 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc53722b16d6e154fabd8816e9fa3267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1007846996222693323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7286768686024362700}
+  - component: {fileID: 3937433963224921311}
+  - component: {fileID: 7966020407701857503}
+  - component: {fileID: 5228709216227205673}
+  m_Layer: 14
+  m_Name: RageCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7286768686024362700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007846996222693323}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.5698, y: 2.4283, z: 4.0365}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6626022530893247348}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3937433963224921311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007846996222693323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9cb2630a4dd5b54fa7c3a999f26d7d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canHit: 0
+  damage: 999
+  hitCollider: {fileID: 0}
+  closestCollider: {fileID: 0}
+  hasCollided: 0
+--- !u!65 &7966020407701857503
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007846996222693323}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5228709216227205673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007846996222693323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd368a3627bba24792a98a80a0ae60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collidersList: []
 --- !u!1 &1526752254298225677
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +419,38 @@ MonoBehaviour:
   collidersList: []
   owner: {fileID: 8836845501146020627}
   killableCollider: {fileID: 0}
+--- !u!1 &2734693391813475196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6626022530893247348}
+  m_Layer: 8
+  m_Name: Rage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6626022530893247348
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2734693391813475196}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7286768686024362700}
+  m_Father: {fileID: 8143523743651954739}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3115044779377313445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,6 +1483,7 @@ Transform:
   - {fileID: 7333390568166771791}
   - {fileID: 957297510041177598}
   - {fileID: 7781283595468338896}
+  - {fileID: 6626022530893247348}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3489175230929265989
@@ -1471,6 +1589,7 @@ MonoBehaviour:
   buffManager: {fileID: 5464561755663099142}
   effectManager: {fileID: 1125118562519657562}
   attackColliderV2: {fileID: 9210122227401630925}
+  rageCollider: {fileID: 3937433963224921311}
   detectEnemy: {fileID: 2449983563296160655}
   terrainLayer:
     serializedVersion: 2
@@ -1497,6 +1616,7 @@ MonoBehaviour:
   closestCollider: {fileID: 0}
   hasCollided: 0
   canHit: 0
+  hitSound: {fileID: 0}
 --- !u!1 &8886337804035478247
 GameObject:
   m_ObjectHideFlags: 0

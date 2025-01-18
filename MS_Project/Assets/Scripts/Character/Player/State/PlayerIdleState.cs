@@ -22,22 +22,25 @@ public class PlayerIdleState : PlayerState
 
     public override void Tick()
     {
-        //ダメージチェック
-        if (playerController.StateManager.CheckHit()) return;
+        if (!playerController.StatusManager.IsFrenzy)
+        {
+            //ダメージチェック
+            if (playerController.StateManager.CheckHit()) return;
 
-        //攻撃へ遷移
-        if (playerStateManager.CheckAttack()) return;
+            //攻撃へ遷移
+            if (playerStateManager.CheckAttack()) return;
 
-        //捕食へ遷移
-        if (playerStateManager.CheckEat()) return;
- 
-        //スキルへ遷移
-        if (playerStateManager.CheckSkill()) return;
+            //捕食へ遷移
+            if (playerStateManager.CheckEat()) return;
 
-        //回避へ遷移
-        if (playerStateManager.CheckDodge()) return;
+            //スキルへ遷移
+            if (playerStateManager.CheckSkill()) return;
 
+            //回避へ遷移
+            if (playerStateManager.CheckDodge()) return;
+        }
 
+          
         //アニメーション設定
       //  if (!playerSkillManager.IsDashing) playerController.SetWalkAnimation();
 

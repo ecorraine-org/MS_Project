@@ -54,6 +54,9 @@ public class PlayerController : WorldObject
     [SerializeField, Header("アタックコライダーマネージャー")]
     AttackColliderManagerV2 attackColliderV2;
 
+    [SerializeField, Header("暴走コライダーマネージャー")]
+    AttackColliderManagerV3 rageCollider;
+
     [SerializeField, Header("エネミーディテクター")]
     DetectEnemyArea detectEnemy;
 
@@ -148,6 +151,12 @@ public class PlayerController : WorldObject
         //仮設定
         //BattleManager.Instance.CurPlayerMode =modeManager.Mode;
 
+        //デバグ用暴走
+        if (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha4))
+        {
+            statusManager.IncreaseFrenzy(20.0f);
+        }
+
         //デバグ用即死
         if (Input.GetKey(KeyCode.Alpha1) && Input.GetKey(KeyCode.Alpha2))
         {
@@ -168,6 +177,9 @@ public class PlayerController : WorldObject
 
         //スプライトをカメラに向く
         spriteObject.transform.rotation = Camera.main.transform.rotation;
+
+        //仮暴走当たり判定
+        //リセット
     }
 
     private void FixedUpdate()
@@ -480,6 +492,11 @@ public class PlayerController : WorldObject
     public AttackColliderManagerV2 AttackColliderV2
     {
         get => this.attackColliderV2;
+    }
+
+    public AttackColliderManagerV3 RageCollider
+    {
+        get => this.rageCollider;
     }
 
     public PlayerModeManager ModeManager

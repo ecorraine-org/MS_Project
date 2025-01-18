@@ -18,20 +18,24 @@ public class PlayerWalkState : PlayerState
 
     public override void Tick()
     {
-        //ダメージチェック
-        if (playerController.StateManager.CheckHit()) return;
+        if (!playerController.StatusManager.IsFrenzy)
+        {
+            //ダメージチェック
+            if (playerController.StateManager.CheckHit()) return;
 
-        //攻撃へ遷移
-        if (playerStateManager.CheckAttack()) return;
+            //攻撃へ遷移
+            if (playerStateManager.CheckAttack()) return;
 
-        //捕食へ遷移
-        if (playerStateManager.CheckEat()) return;
+            //捕食へ遷移
+            if (playerStateManager.CheckEat()) return;
 
-        //スキルへ遷移
-        if (playerStateManager.CheckSkill()) return;
+            //スキルへ遷移
+            if (playerStateManager.CheckSkill()) return;
 
-        //回避へ遷移
-        if (playerStateManager.CheckDodge()) return;
+            //回避へ遷移
+            if (playerStateManager.CheckDodge()) return;
+        }
+     
 
         //方向設定
         playerController.SetEightDirection();
