@@ -299,6 +299,13 @@ public class PlayerController : WorldObject
     {
         // spriteAnim.SetFloat("MoveSpeed", thisRigidbody.velocity.magnitude);
 
+        //暴走処理
+        if (statusManager.IsFrenzy)
+        {
+            spriteAnim.Play("RageWalk");
+            return;
+        }
+
         switch (currentDirec)
         {
             /*

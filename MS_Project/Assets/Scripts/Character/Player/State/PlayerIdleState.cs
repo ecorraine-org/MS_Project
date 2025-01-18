@@ -13,9 +13,16 @@ public class PlayerIdleState : PlayerState
 
         base.Init(_playerController);
 
-      // Debug.Log("アイドル状態");
+        // Debug.Log("アイドル状態");
 
-        spriteAnim.Play("Idle", 0, 0f);
+        if (!statusManager.IsFrenzy)
+        {
+            spriteAnim.Play("Idle", 0, 0f);
+        }         
+        else
+        {
+            spriteAnim.Play("RageIdle", 0, 0f);
+        }
     }
 
 
