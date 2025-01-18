@@ -64,7 +64,7 @@ public class PlayerStatusManager : StatusManager
         if (frenzyValue >= playerStatusData.maxFrenzyGauge)
         {
             frenzyValue = 0;
-            playerController.transform.localScale = 1.5f * defaultSize;
+         //   playerController.transform.localScale = 1.5f * defaultSize;
 
             frenzyTimer = playerStatusData.frenzyTime;
             isFrenzy = true;
