@@ -15,6 +15,39 @@ public class GiantActionList : EnemyAction
 
     private Vector3 direction;
 
+    #region Died
+    public void DiedInit()
+    {
+        enemy.Anim.Play("Died", 0, 0.0f);
+    }
+    public void DiedTick()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        //後ろへ
+        if (stateInfo.normalizedTime < 0.5f)
+        {
+            direction = player.position - enemy.transform.position;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+            targetRotation.x = 0f;
+            targetRotation.z = 0f;
+
+            enemy.transform.rotation = Quaternion.Slerp(
+            enemy.transform.rotation,
+            targetRotation,
+            0.1f // 補間率（1.0fで即時、0.0fで変化なし）
+        );
+
+            Vector3 forceDirection = -enemy.transform.forward * 0.3f; // 後ろ方向の力
+            enemy.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.VelocityChange);
+        }
+
+
+    }
+    #endregion
+
+
     #region Idle
     public void IdleInit()
     {
@@ -34,7 +67,9 @@ public class GiantActionList : EnemyAction
 
         //移動へ遷移
         float distanceToPlayer = Vector3.Distance(player.transform.position, enemy.transform.position);
-        if (distanceToPlayer <= enemyStatus.StatusData.chaseDistance)
+
+        if (distanceToPlayer > enemyStatus.StatusData.attackDistance * 0.7f &&
+            distanceToPlayer <= enemyStatus.StatusData.chaseDistance)
         {
             enemy.State.TransitionState(ObjectStateType.Walk);
             return;
@@ -119,6 +154,12 @@ public class GiantActionList : EnemyAction
         {
             stateHandler.TransitionState(ObjectStateType.Skill);//リストへ遷移
             return;
+        }
+
+        //近すぎる
+        if (distanceToPlayer < enemyStatus.StatusData.attackDistance * 0.7f)
+        {
+            stateHandler.TransitionState(ObjectStateType.Idle);
         }
     }
     #endregion
@@ -220,6 +261,9 @@ public class GiantActionList : EnemyAction
         //Updateで呼び出すために必須のバインド
         //呼び出したい関数に変更する
         currentUpdateAction = AttackTick;
+
+        //エフェクト設定
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Land1);
     }
 
     public void AttackTick()

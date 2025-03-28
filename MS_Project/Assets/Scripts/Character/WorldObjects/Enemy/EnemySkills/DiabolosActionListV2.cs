@@ -277,6 +277,8 @@ public class DiabolosActionListV2 : EnemyAction
 
         if (distanceToPlayer <= enemyStatus.StatusData.attackDistance || frameTime >= 1.5f)
         {//ダッシュ攻撃
+            enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack9);
+
             enemy.Anim.Play("Slap");
             //攻撃判定
             enemy.AttackCollider.DetectColliders(enemy.Status.StatusData.damage, false);
@@ -448,6 +450,9 @@ public class DiabolosActionListV2 : EnemyAction
         //攻撃判定V3
         attackColliderV3Array[3].Damage = 18.0f;
         attackColliderV3Array[4].Damage = 18.0f;
+
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack8);
+
     }
 
     public void TailTick()
@@ -507,6 +512,8 @@ public class DiabolosActionListV2 : EnemyAction
 
         //攻撃判定V3
         attackColliderV3Array[5].Damage = 20.0f;
+
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack10);
     }
 
     public void AxeTick()
@@ -588,6 +595,8 @@ public class DiabolosActionListV2 : EnemyAction
 
         //攻撃判定V3
         attackColliderV3Array[1].Damage = enemy.Status.StatusData.damage;
+
+        enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Attack9);
     }
 
     public void SlapTick()
@@ -765,6 +774,9 @@ public class DiabolosActionListV2 : EnemyAction
     {
         if (stateType == 0)
         {//屈む
+         //エフェクト設定
+            enemy.EffectHandler.SetCurEffectParam(0, EnemyEffect.Land1);
+
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             enemy.Anim.Play("Crouch");
             if (stateInfo.normalizedTime >= 1.0f)

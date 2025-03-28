@@ -80,6 +80,9 @@ public class HunterActionList : EnemyAction
         //ダメージチェック
         if (stateHandler.CheckHit()) return;
 
+        if (stateHandler.CheckDeath()) return;
+
+
         if (moveStage == 0) HandleWalk();
         if (moveStage == 1) HandleDash();
 

@@ -149,10 +149,18 @@ public enum PlayerEffect
 public enum EnemyEffect
 {
     None,
-    [InspectorName("???攻撃1")] Attack1,
-    [InspectorName("???攻撃2")] Attack2,
-    [InspectorName("???攻撃3")] Attack3,
-    [InspectorName("???攻撃4")] Attack4,
+    [InspectorName("Slash攻撃1")] Attack1,
+    [InspectorName("Slash攻撃2")] Attack2,
+    [InspectorName("Slash攻撃3")] Attack3,
+    [InspectorName("Slash攻撃4")] Attack4,
+    [InspectorName("Slash攻撃5")] Attack5,
+    [InspectorName("攻撃6")] Attack6,
+    [InspectorName("攻撃7")] Attack7,
+    [InspectorName("Slash攻撃8")] Attack8,
+    [InspectorName("Slash攻撃9")] Attack9,
+    [InspectorName("着地")] Land1,
+    [InspectorName("強着地")] Land2,
+    [InspectorName("Slash攻撃10")] Attack10,
 }
 
 /// <summary>

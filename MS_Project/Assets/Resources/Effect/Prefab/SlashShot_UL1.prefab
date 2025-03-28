@@ -4847,6 +4847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73f815f0fef4f5549b63bf3653705f79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basePlaySpeed: 1
 --- !u!54 &769281033388908232
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4941,7 +4942,7 @@ PrefabInstance:
     - target: {fileID: 1525938519503282147, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 81b428e660f231f45adbbe8e643cf4b5, type: 2}
+      objectReference: {fileID: 2100000, guid: 08aa2a2520fd08c478a385ed8051ec77, type: 2}
     - target: {fileID: 1553338614063868625, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
@@ -5137,7 +5138,7 @@ PrefabInstance:
     - target: {fileID: 6810436384779280634, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 10e59f7384d4e154fb9dac28070c3753, type: 2}
+      objectReference: {fileID: 2100000, guid: 78e8d2daa5b1dc949886abd25b579d41, type: 2}
     - target: {fileID: 7301471909092339337, guid: 99ae52e92d6da484b934f10053261489, type: 3}
       propertyPath: m_IsActive
       value: 1
